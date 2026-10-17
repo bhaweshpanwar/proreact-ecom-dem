@@ -56,7 +56,7 @@ export default function FaqSection() {
               Questions &amp; Scope
             </span>
             <h2 id="faq-heading" className="text-3xl sm:text-5xl lg:text-6xl font-serif text-space-950 tracking-tight leading-tight mb-4">
-              Frequently Asked <span className="italic text-ember">Questions</span>
+              Frequently Asked <span className="italic text-blue-600">Questions</span>
             </h2>
             <p className="text-sm sm:text-base text-space-600 font-sans leading-relaxed">
               Direct answers on scope, marketplaces, tech stack, pricing models, and how we collaborate.

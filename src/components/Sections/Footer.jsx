@@ -7,7 +7,7 @@ export default function Footer() {
     <footer id="main-footer" className="relative pt-16 sm:pt-24 pb-16 bg-[#0E1218] text-slate-400 border-t border-white/10 overflow-hidden select-none">
       
       {/* Ambient Space Glow */}
-      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[340px] bg-gradient-to-b from-ember/15 via-transparent to-transparent blur-3xl rounded-full" aria-hidden="true"></div>
+      <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[340px] bg-gradient-to-b from-blue-600/10 via-transparent to-transparent blur-3xl rounded-full" aria-hidden="true"></div>
 
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
@@ -19,7 +19,7 @@ export default function Footer() {
         {/* Top Row: Editorial Prompt + Actions */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-12 border-b border-white/10 mb-14">
           <div>
-            <span className="text-xs font-mono text-ember uppercase tracking-widest block mb-2 font-bold">NEXT ORBIT</span>
+            <span className="text-xs font-mono text-blue-500 uppercase tracking-widest block mb-2 font-bold">NEXT ORBIT</span>
             <p className="text-2xl sm:text-3xl lg:text-4xl font-serif text-white tracking-tight">
               Make your next move.
             </p>

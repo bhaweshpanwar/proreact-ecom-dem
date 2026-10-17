@@ -472,7 +472,7 @@ export const SERVICES_DATA = [
     shortTitle: "Marketplace Ads",
     tagline: "Algorithmic keyword harvesting, DSP programmatic & margin protection",
     heroBadge: "Marketplace Pillar · 05",
-    colorHex: "#E4572E",
+    colorHex: "#2563EB",
     speed: 0.040,
     overview: "Stop bleeding ad spend on unqualified clicks. We architect sophisticated Sponsored Products, Sponsored Brands Video, Sponsored Display, and Amazon DSP programmatic funnels engineered to maximize organic rank crossover while maintaining strict TACoS targets.",
     whoBenefits: [
@@ -1054,7 +1054,7 @@ export const SERVICES_DATA = [
     shortTitle: "Lead Generation",
     tagline: "Predictable B2B qualified pipeline through multi-channel lead funnels",
     heroBadge: "Marketing Pillar · 06",
-    colorHex: "#D9593A",
+    colorHex: "#3B82F6",
     speed: 0.041,
     overview: "Build a reliable, automated machine that fills your sales calendar with qualified business prospects. We engineer full-funnel inbound lead generation systems combining LinkedIn B2B targeting, Google Search capture, qualification lead magnets, and automated nurturing flows.",
     whoBenefits: [

@@ -11,11 +11,41 @@ export default function SelectedWorkSection() {
   };
 
   const workItems = [
-    { tag: "[D2C Wellness] — [Search visibility & marketplace launch]", img: "/assets/img1/Aurelis Skincare in Sunlit Stone.png" },
-    { tag: "[Apparel Brand] — [Shopify architecture & checkout CRO]", img: "/assets/img1/shopify-flagship-store.png" },
-    { tag: "[Home Essentials] — [Amazon catalogue & Sponsored Brands]", img: "/assets/img1/amazon-listing-aplus.png" },
-    { tag: "[B2B Enterprise] — [High-intent pipeline & brand collateral]", img: "/assets/img1/search-performance-workspace.png" },
-    { tag: "[Consumer Tech] — [Reels content & multi-channel launch]", img: "/assets/img1/reels-motion-film.png" }
+    { 
+      sector: "D2C Wellness", 
+      metric: "+310%", 
+      metricLabel: "Organic Revenue Compounding",
+      deliverable: "Search visibility & marketplace launch",
+      accent: "#2563EB"
+    },
+    { 
+      sector: "Apparel & Fashion", 
+      metric: "3.8x", 
+      metricLabel: "Return on Ad Spend (ROAS)",
+      deliverable: "Shopify architecture & checkout CRO",
+      accent: "#3B82F6"
+    },
+    { 
+      sector: "Home & Living", 
+      metric: "#1 Bestseller", 
+      metricLabel: "Category Market Share",
+      deliverable: "Amazon catalogue & Sponsored Brands",
+      accent: "#60A5FA"
+    },
+    { 
+      sector: "B2B Enterprise", 
+      metric: "-42%", 
+      metricLabel: "Cost Per Qualified Acquisition",
+      deliverable: "High-intent pipeline & brand collateral",
+      accent: "#2563EB"
+    },
+    { 
+      sector: "Consumer Electronics", 
+      metric: "12M+", 
+      metricLabel: "Verified Video Impressions",
+      deliverable: "Commercial motion & multi-channel scale",
+      accent: "#38BDF8"
+    }
   ];
 
   return (
@@ -34,7 +64,7 @@ export default function SelectedWorkSection() {
           <button 
             type="button" 
             onClick={() => scroll('left')}
-            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors text-space-950" 
+            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors text-space-950 cursor-pointer" 
             aria-label="Previous work slide"
           >
             ←
@@ -42,7 +72,7 @@ export default function SelectedWorkSection() {
           <button 
             type="button" 
             onClick={() => scroll('right')}
-            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors text-space-950" 
+            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors text-space-950 cursor-pointer" 
             aria-label="Next work slide"
           >
             →
@@ -58,32 +88,61 @@ export default function SelectedWorkSection() {
           className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory py-4 cursor-grab select-none"
         >
           {workItems.map((item, idx) => (
-            <div key={idx} data-cursor="Drag" className="work-card flex-shrink-0 w-[280px] sm:w-[320px] snap-start group cursor-grab active:cursor-grabbing">
-              <div className="aspect-[9/13] rounded-card bg-space-900 relative overflow-hidden mb-3 shadow-md">
-                <img 
-                  src={item.img} 
-                  alt={item.tag} 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.nextElementSibling?.classList.remove('hidden');
-                  }}
-                />
-                <div className="hidden absolute inset-0 bg-slate-800 flex items-center justify-center">
-                  <span className="text-xs font-mono text-slate-400">Portfolio Image</span>
+            <div key={idx} className="work-card flex-shrink-0 w-[280px] sm:w-[320px] snap-start group cursor-pointer">
+              
+              {/* Intelligent Architectural Card (No Raster Images) */}
+              <div className="aspect-[9/13] rounded-card bg-[#0E1218] text-white p-6 sm:p-7 relative overflow-hidden mb-3 shadow-md flex flex-col justify-between border border-white/10 group-hover:border-blue-500/40 transition-all duration-300">
+                
+                {/* Background Subtle Geometric Grid */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+
+                {/* Top Row: Sector Pill & Index */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="px-3 py-1 rounded-full bg-white/10 text-[10px] font-mono uppercase tracking-wider text-slate-300 border border-white/10">
+                    {item.sector}
+                  </span>
+                  <span className="text-[11px] font-mono text-slate-500 font-bold">
+                    0{idx + 1}
+                  </span>
                 </div>
-                {/* Visible Placeholder Badge */}
-                <span className="absolute top-4 left-4 z-10 px-2.5 py-1 rounded-full bg-space-950/80 text-white text-[10px] font-mono backdrop-blur-sm">
-                  Case Study
-                </span>
-                {/* Centered Play Circle */}
-                <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
-                  <div className="w-11 h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center text-white text-xs group-hover:scale-110 transition-transform">
-                    ▶
+
+                {/* Center Vector Infographic & Metrics */}
+                <div className="relative z-10 my-auto py-6 space-y-4">
+                  {/* Vector Growth Curve Graphic */}
+                  <div className="w-full h-20 flex items-end">
+                    <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" fill="none">
+                      <path 
+                        d={`M0 50 Q 50 ${40 - idx * 5}, 100 ${30 - idx * 4} T 200 ${10 + (idx % 2) * 5}`} 
+                        stroke="#2563EB" 
+                        strokeWidth="2.5" 
+                        strokeLinecap="round"
+                      />
+                      <circle cx="200" cy={`${10 + (idx % 2) * 5}`} r="4" fill="#3B82F6" />
+                    </svg>
+                  </div>
+
+                  <div>
+                    <span className="font-serif text-3xl sm:text-4xl text-white font-normal block tracking-tight">
+                      {item.metric}
+                    </span>
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-blue-400 block mt-1">
+                      {item.metricLabel}
+                    </span>
                   </div>
                 </div>
+
+                {/* Bottom Deliverable Summary */}
+                <div className="relative z-10 pt-4 border-t border-white/10">
+                  <p className="text-xs text-slate-300 font-sans leading-relaxed">
+                    {item.deliverable}
+                  </p>
+                </div>
+
               </div>
-              <p className="text-xs font-mono text-space-800">{item.tag}</p>
+
+              <p className="text-xs font-mono text-space-800">
+                [{item.sector}] — [{item.deliverable}]
+              </p>
             </div>
           ))}
         </div>

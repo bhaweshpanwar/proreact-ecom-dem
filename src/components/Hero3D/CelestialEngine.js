@@ -31,14 +31,14 @@ export const SPACE_CONFIG = {
 
 export const EARTH_CONFIG = {
   center: new THREE.Vector3(0, -1.2, 0),
-  radius: 4.85,
+  radius: 6.20,
   tiltDegrees: 18.5,
   surfaceRotationSpeed: 0.0006,
   cloudRotationSpeed: 0.00095
 };
 
 export const CAMERA_CONFIG = {
-  defaultPos: new THREE.Vector3(0, 7.8, 23.8),
+  defaultPos: new THREE.Vector3(0, 8.4, 25.5),
   defaultLookAt: new THREE.Vector3(0, -1.2, 0),
   mouseParallaxMaxX: 1.0,
   mouseParallaxMaxY: 0.6
@@ -126,10 +126,10 @@ export class CelestialEngine {
     this.sunPoint.position.copy(SUN_CONFIG.position);
     this.scene.add(this.sunPoint);
 
-    const ambientLight = new THREE.AmbientLight(0x0e1b3d, 0.42);
+    const ambientLight = new THREE.AmbientLight(0x060c18, 0.35);
     this.scene.add(ambientLight);
 
-    const rimLight = new THREE.DirectionalLight(0x18244a, 0.35);
+    const rimLight = new THREE.DirectionalLight(0x101a35, 0.30);
     rimLight.position.set(40, -20, 20);
     this.scene.add(rimLight);
 
@@ -165,8 +165,8 @@ export class CelestialEngine {
       new THREE.Color(0xffffff),
       new THREE.Color(0xffd180),
       new THREE.Color(0x9bc2ff),
-      new THREE.Color(0xa78bfa),
-      new THREE.Color(0xc084fc)
+      new THREE.Color(0x6d44a6),
+      new THREE.Color(0x58348c)
     ];
 
     for (let i = 0; i < SPACE_CONFIG.starCountBg; i++) {
@@ -201,16 +201,16 @@ export class CelestialEngine {
     this.bgStarPoints = new THREE.Points(bgGeo, bgStarMat);
     this.scene.add(this.bgStarPoints);
 
-    // 2. Volumetric Nebula
-    const nebulaTex = createVolumetricNebulaTexture(160, 70, 255);
-    const nebulaColors = [0x3b0764, 0x581c87, 0x2e1065, 0x4c1d95, 0x1e1b4b];
+    // 2. Volumetric Nebula (Deep Dark Cosmic Void)
+    const nebulaTex = createVolumetricNebulaTexture(50, 12, 95);
+    const nebulaColors = [0x080e1a, 0x0a1424, 0x070c16, 0x0b1628, 0x050912];
     for (let i = 0; i < SPACE_CONFIG.nebulaCount; i++) {
       const c = nebulaColors[i % nebulaColors.length];
       const nebMat = new THREE.SpriteMaterial({
         map: nebulaTex,
         color: c,
         transparent: true,
-        opacity: 0.14 + Math.random() * 0.10,
+        opacity: 0.03 + Math.random() * 0.02,
         blending: THREE.AdditiveBlending,
         depthWrite: false
       });
@@ -242,11 +242,11 @@ export class CelestialEngine {
     this.fgStarPoints = new THREE.Points(fgGeo, fgStarMat);
     this.scene.add(this.fgStarPoints);
 
-    // 4. Milky Way Dust Band
+    // 4. Milky Way Dust Band (Subtle and Deep)
     const mwGeo = new THREE.BufferGeometry();
     const mwPositions = new Float32Array(SPACE_CONFIG.milkyWayCount * 3);
     const mwColors = new Float32Array(SPACE_CONFIG.milkyWayCount * 3);
-    const mwPalettes = [new THREE.Color(0x356ca8), new THREE.Color(0x5699db), new THREE.Color(0x274a80), new THREE.Color(0x581c87)];
+    const mwPalettes = [new THREE.Color(0x11233d), new THREE.Color(0x1a3354), new THREE.Color(0x0e1c30), new THREE.Color(0x0a1626)];
 
     for (let i = 0; i < SPACE_CONFIG.milkyWayCount; i++) {
       const t = (Math.random() - 0.5) * 125;
@@ -255,7 +255,7 @@ export class CelestialEngine {
       mwPositions[i * 3 + 2] = (Math.random() - 0.5) * 14;
 
       const baseC = mwPalettes[Math.floor(Math.random() * mwPalettes.length)];
-      const lum = Math.random() * 0.35 + 0.08;
+      const lum = Math.random() * 0.25 + 0.05;
       mwColors[i * 3] = baseC.r * lum;
       mwColors[i * 3 + 1] = baseC.g * lum;
       mwColors[i * 3 + 2] = baseC.b * lum;
@@ -269,7 +269,7 @@ export class CelestialEngine {
       vertexColors: true,
       map: mwDustTex,
       transparent: true,
-      opacity: 0.44,
+      opacity: 0.12,
       blending: THREE.AdditiveBlending,
       depthWrite: false
     });
@@ -337,111 +337,60 @@ export class CelestialEngine {
   setupComets() {
     const nucleusTex = createProceduralCometTexture();
     const bumpTex = createProceduralBumpTexture();
-    const ultraBlueBlurTex = createUltraBlurTexture(56, 189, 248);
-    const deepAzureBlurTex = createUltraBlurTexture(42, 145, 245);
+
+    // Unequal realistic radii across pillars and services (varying sizes)
+    const COMET_RADII = [
+      0.84, 0.44, 0.68, 0.36, 0.78, 0.46,
+      0.72, 0.38, 0.62, 0.44, 0.80, 0.40
+    ];
 
     SERVICES_COMETS.forEach((service, index) => {
       const cometGroup = new THREE.Group();
 
-      let radius = index % 3 === 0 ? 0.30 : index % 3 === 1 ? 0.22 : 0.16;
-      let ionTailLen = 2.6 * (radius / 0.22);
-      let dustTailLen = 2.0 * (radius / 0.22);
+      const radius = COMET_RADII[index % COMET_RADII.length];
 
+      // Realistic irregular craggy deformed nucleus
       const nucleusGeo = new THREE.IcosahedronGeometry(radius, 4);
-      nucleusGeo.scale(0.95, 0.88, 0.95);
+      const posAttr = nucleusGeo.attributes.position;
+      const v = new THREE.Vector3();
+      for (let p = 0; p < posAttr.count; p++) {
+        v.fromBufferAttribute(posAttr, p);
+        const n1 = Math.sin(v.x * 2.8 + index * 1.4) * Math.cos(v.y * 2.8) * 0.10;
+        const n2 = Math.cos(v.z * 3.8 + index * 0.8) * 0.06;
+        const craterDist = Math.hypot(v.x - 0.25, v.y - 0.15, v.z - 0.25);
+        const craterDent = craterDist < 0.45 ? -0.12 * Math.cos((craterDist / 0.45) * (Math.PI / 2)) : 0;
+        v.addScaledVector(v.clone().normalize(), n1 + n2 + craterDent);
+        posAttr.setXYZ(p, v.x, v.y, v.z);
+      }
+      nucleusGeo.computeVertexNormals();
+      nucleusGeo.scale(1.06 + ((index % 3) - 1) * 0.08, 0.90, 0.98);
 
       const nucleusMat = new THREE.MeshStandardMaterial({
         map: nucleusTex,
         bumpMap: bumpTex,
-        bumpScale: 0.18,
-        roughness: 0.92,
-        metalness: 0.05
+        bumpScale: 0.28,
+        roughness: 0.90,
+        metalness: 0.08
       });
       const nucleusMesh = new THREE.Mesh(nucleusGeo, nucleusMat);
       cometGroup.add(nucleusMesh);
 
-      // Raycast invisible hit proxy
-      const hitProxyGeo = new THREE.SphereGeometry(radius * 3.6, 8, 8);
+      // Raycast hit proxy
+      const hitProxyGeo = new THREE.SphereGeometry(radius * 1.6, 10, 10);
       const hitProxyMat = new THREE.MeshBasicMaterial({ visible: false });
       const hitProxyMesh = new THREE.Mesh(hitProxyGeo, hitProxyMat);
       hitProxyMesh.userData = { cometIndex: index };
       cometGroup.add(hitProxyMesh);
       this.raycastHitMeshes.push(hitProxyMesh);
 
-      // Coma sprite
-      const comaMat = new THREE.SpriteMaterial({
-        map: ultraBlueBlurTex,
-        color: service.threeColor || 0x38bdf8,
-        transparent: true,
-        opacity: 0.34,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-      const comaSprite = new THREE.Sprite(comaMat);
-      const comaScale = radius * 3.4;
-      comaSprite.scale.set(comaScale, comaScale, 1);
-      cometGroup.add(comaSprite);
+      // (Comet tail light completely removed per user request for authentic celestial feel)
 
-      // Ion Tail
-      const ionCount = 70;
-      const ionGeo = new THREE.BufferGeometry();
-      const ionPositions = new Float32Array(ionCount * 3);
-      const ionColors = new Float32Array(ionCount * 3);
-      const ionSeeds = new Float32Array(ionCount);
-      for (let p = 0; p < ionCount; p++) {
-        ionSeeds[p] = Math.random();
-        const progress = p / ionCount;
-        ionColors[p * 3] = 0.15 * (1 - progress);
-        ionColors[p * 3 + 1] = 0.65 * (1 - progress);
-        ionColors[p * 3 + 2] = 0.98 * (1 - progress * 0.4);
-      }
-      ionGeo.setAttribute('position', new THREE.BufferAttribute(ionPositions, 3));
-      ionGeo.setAttribute('color', new THREE.BufferAttribute(ionColors, 3));
-      const ionMat = new THREE.PointsMaterial({
-        size: 1.6,
-        vertexColors: true,
-        map: ultraBlueBlurTex,
-        transparent: true,
-        opacity: 0.28,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-      const ionTailPoints = new THREE.Points(ionGeo, ionMat);
-      cometGroup.add(ionTailPoints);
-
-      // Dust Tail
-      const dustCount = 80;
-      const dustGeo = new THREE.BufferGeometry();
-      const dustPositions = new Float32Array(dustCount * 3);
-      const dustColors = new Float32Array(dustCount * 3);
-      const dustSeeds = new Float32Array(dustCount);
-      for (let p = 0; p < dustCount; p++) {
-        dustSeeds[p] = Math.random();
-        const progress = p / dustCount;
-        dustColors[p * 3] = 0.22 * (1 - progress * 0.5);
-        dustColors[p * 3 + 1] = 0.52 * (1 - progress * 0.5);
-        dustColors[p * 3 + 2] = 0.95 * (1 - progress * 0.3);
-      }
-      dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPositions, 3));
-      dustGeo.setAttribute('color', new THREE.BufferAttribute(dustColors, 3));
-      const dustMat = new THREE.PointsMaterial({
-        size: 1.9,
-        vertexColors: true,
-        map: deepAzureBlurTex,
-        transparent: true,
-        opacity: 0.22,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-      const dustTailPoints = new THREE.Points(dustGeo, dustMat);
-      cometGroup.add(dustTailPoints);
-
-      // 3D Orbital Positioning
+      // 3D Orbital Positioning (Proportioned to larger Earth)
       const totalServices = SERVICES_COMETS.length;
       const baseAngle = service.angle || (index / totalServices) * Math.PI * 2;
-      const orbitRadius = service.orbitRadius || 13.6 + ((index % 5) - 2.0) * 0.85;
+      const orbitRadius = service.orbitRadius || 15.2 + ((index % 5) - 2.0) * 0.95;
       const orbitTilt = service.inclination !== undefined ? service.inclination : 0.22;
-      const elevationOffset = ((index % 3) - 1) * 0.45;
+      const elevationOffset = ((index % 3) - 1) * 0.55;
 
       const initX = Math.cos(baseAngle) * orbitRadius;
       const initZ = Math.sin(baseAngle) * orbitRadius;
@@ -477,17 +426,10 @@ export class CelestialEngine {
       this.comets.push({
         data: service,
         index: index,
+        radius: radius,
         group: cometGroup,
         nucleusMesh: nucleusMesh,
         hitProxyMesh: hitProxyMesh,
-        comaSprite: comaSprite,
-        defaultComaScale: comaScale,
-        ionTailPoints: ionTailPoints,
-        dustTailPoints: dustTailPoints,
-        ionTailLength: ionTailLen,
-        dustTailLength: dustTailLen,
-        ionSeeds: ionSeeds,
-        dustSeeds: dustSeeds,
         labelEl: labelEl,
         baseAngle: baseAngle,
         orbitRadius: orbitRadius,
@@ -502,58 +444,34 @@ export class CelestialEngine {
   setupAmbientComets() {
     const nucleusTex = createProceduralCometTexture();
     const bumpTex = createProceduralBumpTexture();
-    const ultraBlueBlurTex = createUltraBlurTexture(56, 189, 248);
 
-    AMBIENT_COMETS.forEach((item, i) => {
+    // 24 small free mini comets across deep space orbits
+    const freeCometCount = 24;
+    for (let i = 0; i < freeCometCount; i++) {
       const aGroup = new THREE.Group();
-      const aRadius = item.nucleusRadius || 0.10;
+      // Small mini comets
+      const aRadius = 0.06 + Math.random() * 0.12;
 
       const aGeo = new THREE.IcosahedronGeometry(aRadius, 2);
       const aMat = new THREE.MeshStandardMaterial({
         map: nucleusTex,
         bumpMap: bumpTex,
-        bumpScale: 0.14,
+        bumpScale: 0.15,
         roughness: 0.90,
         transparent: true,
-        opacity: item.opacity || 0.6
+        opacity: 0.75
       });
       const aMesh = new THREE.Mesh(aGeo, aMat);
       aGroup.add(aMesh);
 
-      // Flowing tail
-      const tailCount = 24;
-      const tailGeo = new THREE.BufferGeometry();
-      const tailPositions = new Float32Array(tailCount * 3);
-      const tailColors = new Float32Array(tailCount * 3);
-      const tailSeeds = new Float32Array(tailCount);
-      for (let p = 0; p < tailCount; p++) {
-        tailSeeds[p] = Math.random();
-        const progress = p / tailCount;
-        tailColors[p * 3] = 0.15 * (1 - progress);
-        tailColors[p * 3 + 1] = 0.58 * (1 - progress);
-        tailColors[p * 3 + 2] = 0.96 * (1 - progress * 0.4);
-      }
-      tailGeo.setAttribute('position', new THREE.BufferAttribute(tailPositions, 3));
-      tailGeo.setAttribute('color', new THREE.BufferAttribute(tailColors, 3));
+      // (Tails removed per user request for authentic celestial bodies)
 
-      const tailMat = new THREE.PointsMaterial({
-        size: 1.4,
-        vertexColors: true,
-        map: ultraBlueBlurTex,
-        transparent: true,
-        opacity: 0.20,
-        blending: THREE.AdditiveBlending,
-        depthWrite: false
-      });
-      const tailPoints = new THREE.Points(tailGeo, tailMat);
-      aGroup.add(tailPoints);
-
-      const baseAngle = item.angle;
-      const orbitRadius = item.orbitRadius;
-      const orbitTilt = item.inclination;
+      const baseAngle = Math.random() * Math.PI * 2;
+      const orbitRadius = 11.0 + Math.random() * 11.0;
+      const orbitTilt = (Math.random() - 0.5) * 0.85;
       const initX = Math.cos(baseAngle) * orbitRadius;
       const initZ = Math.sin(baseAngle) * orbitRadius;
-      const initY = Math.sin(baseAngle) * (orbitRadius * Math.sin(orbitTilt));
+      const initY = Math.sin(baseAngle) * (orbitRadius * Math.sin(orbitTilt)) + (Math.random() - 0.5) * 2.0;
       aGroup.position.set(initX, initY, initZ).add(EARTH_CONFIG.center);
 
       this.scene.add(aGroup);
@@ -561,17 +479,13 @@ export class CelestialEngine {
       this.ambientComets.push({
         group: aGroup,
         nucleusMesh: aMesh,
-        tailPoints: tailPoints,
-        tailCount: tailCount,
-        tailSeeds: tailSeeds,
-        tailLength: item.tailLength || aRadius * 9.5,
         baseAngle: baseAngle,
         orbitRadius: orbitRadius,
         orbitTilt: orbitTilt,
-        speed: item.speed || 0.035,
-        rotationSpeed: new THREE.Vector2(0.004 + Math.random() * 0.004, 0.005 + Math.random() * 0.004)
+        speed: (0.02 + Math.random() * 0.035) * (Math.random() > 0.4 ? 1 : -1),
+        rotationSpeed: new THREE.Vector2(0.005 + Math.random() * 0.005, 0.006 + Math.random() * 0.005)
       });
-    });
+    }
   }
 
   bindEvents() {
@@ -590,9 +504,9 @@ export class CelestialEngine {
     this.isMobile = this.width < 768;
 
     if (this.isMobile) {
-      CAMERA_CONFIG.defaultPos.set(0, 9.8, 32.0);
+      CAMERA_CONFIG.defaultPos.set(0, 10.8, 34.5);
     } else {
-      CAMERA_CONFIG.defaultPos.set(0, 7.8, 23.8);
+      CAMERA_CONFIG.defaultPos.set(0, 8.4, 25.5);
     }
 
     if (this.selectedCometIndex === -1 && this.heroScrollProgress === 0) {
@@ -612,8 +526,17 @@ export class CelestialEngine {
     this.targetMouse.y = (e.clientY / this.height - 0.5) * 2;
   }
 
-  onCanvasClick() {
-    if (this.hoveredCometIndex !== -1) {
+  onCanvasClick(e) {
+    if (e) {
+      this.mouseNDC.x = (e.clientX / this.width) * 2 - 1;
+      this.mouseNDC.y = -(e.clientY / this.height) * 2 + 1;
+    }
+    this.raycaster.setFromCamera(this.mouseNDC, this.camera);
+    const intersects = this.raycaster.intersectObjects(this.raycastHitMeshes);
+    if (intersects.length > 0) {
+      const hitIndex = intersects[0].object.userData.cometIndex;
+      this.selectComet(hitIndex);
+    } else if (this.hoveredCometIndex !== -1) {
       this.selectComet(this.hoveredCometIndex);
     } else if (this.selectedCometIndex !== -1) {
       this.deselectComet();
@@ -683,11 +606,16 @@ export class CelestialEngine {
       if (this.earthSurfaceMesh) this.earthSurfaceMesh.scale.setScalar(earthScale);
       if (this.earthCloudsMesh) this.earthCloudsMesh.scale.setScalar(earthScale);
     } else if (this.selectedCometIndex !== -1) {
+      // Classic smooth camera tracking of selected comet
       const activeComet = this.comets[this.selectedCometIndex];
       const activeWorldPos = new THREE.Vector3();
       activeComet.group.getWorldPosition(activeWorldPos);
 
-      this.targetCameraPos.set(activeWorldPos.x - 2.2, activeWorldPos.y + 1.8, activeWorldPos.z + 4.4);
+      this.targetCameraPos.set(
+        activeWorldPos.x - 2.2,
+        activeWorldPos.y + 1.8,
+        activeWorldPos.z + 4.4
+      );
       this.targetLookAt.copy(activeWorldPos);
 
       this.camera.position.lerp(this.targetCameraPos, 0.06);
@@ -733,7 +661,8 @@ export class CelestialEngine {
 
   updateComets(delta, elapsedTime) {
     const sunPos = SUN_CONFIG.position;
-    this.globalOrbitProgress += 0.040 * delta * 0.9;
+    // Drastically slow down orbit progress when examining a focused comet
+    this.globalOrbitProgress += (this.selectedCometIndex !== -1 ? 0.003 : 0.038) * delta * 0.9;
     const PI2 = Math.PI * 2;
     const PI = Math.PI;
 
@@ -783,27 +712,6 @@ export class CelestialEngine {
       if (comet.labelEl) comet.labelEl.style.display = 'block';
 
       if (comet.nucleusMesh.material) comet.nucleusMesh.material.opacity = visibilityFactor;
-      if (comet.comaSprite.material) comet.comaSprite.material.opacity = 0.34 * visibilityFactor;
-      if (comet.ionTailPoints.material) comet.ionTailPoints.material.opacity = 0.28 * visibilityFactor;
-      if (comet.dustTailPoints.material) comet.dustTailPoints.material.opacity = 0.22 * visibilityFactor;
-
-      // Tails point strictly away from the Sun
-      const antiSunDir = new THREE.Vector3().subVectors(pos, sunPos).normalize();
-
-      // Update Ion Tail
-      const ionPosAttr = comet.ionTailPoints.geometry.attributes.position;
-      const ionColorAttr = comet.ionTailPoints.geometry.attributes.color;
-      const ionCount = 70;
-      for (let p = 0; p < ionCount; p++) {
-        const t = (p / ionCount + elapsedTime * 0.35 + comet.ionSeeds[p] * 0.15) % 1.0;
-        const dist = t * comet.ionTailLength;
-        const turbulence = Math.sin(elapsedTime * 5 + dist * 1.8 + comet.ionSeeds[p] * 12) * 0.08 * (dist / comet.ionTailLength);
-        ionPosAttr.setXYZ(p, antiSunDir.x * dist + turbulence, antiSunDir.y * dist + turbulence, antiSunDir.z * dist);
-        const fade = Math.sin(t * Math.PI) * Math.pow(1 - t, 0.7);
-        ionColorAttr.setXYZ(p, 0.12 * fade, 0.60 * fade, 0.98 * fade);
-      }
-      ionPosAttr.needsUpdate = true;
-      ionColorAttr.needsUpdate = true;
 
       // Update 2D Label Screen Projection
       if (comet.labelEl && this.camera) {
@@ -816,6 +724,14 @@ export class CelestialEngine {
           const x = (tempV.x * 0.5 + 0.5) * this.width;
           const y = (-(tempV.y * 0.5) + 0.5) * this.height;
           comet.labelEl.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0)`;
+          
+          const isSelected = this.selectedCometIndex === comet.index;
+          if (isSelected) {
+            comet.labelEl.classList.add('is-focused');
+          } else {
+            comet.labelEl.classList.remove('is-focused');
+          }
+          
           comet.labelEl.style.opacity = String(visibilityFactor);
           comet.labelEl.style.pointerEvents = visibilityFactor > 0.4 ? 'auto' : 'none';
         }
@@ -824,7 +740,6 @@ export class CelestialEngine {
   }
 
   updateAmbientComets(delta, elapsedTime) {
-    const sunPos = SUN_CONFIG.position;
     this.ambientComets.forEach(ac => {
       const currentAngle = ac.baseAngle + this.globalOrbitProgress * (ac.speed / 0.040);
       const localX = Math.cos(currentAngle) * ac.orbitRadius;
@@ -832,20 +747,9 @@ export class CelestialEngine {
       const localY = Math.sin(currentAngle) * (ac.orbitRadius * Math.sin(ac.orbitTilt));
 
       ac.group.position.set(localX, localY, localZ).add(EARTH_CONFIG.center);
-      const pos = ac.group.position;
 
       ac.nucleusMesh.rotation.x += ac.rotationSpeed.x;
       ac.nucleusMesh.rotation.y += ac.rotationSpeed.y;
-
-      // Tail
-      const antiSunDir = new THREE.Vector3().subVectors(pos, sunPos).normalize();
-      const posAttr = ac.tailPoints.geometry.attributes.position;
-      for (let p = 0; p < ac.tailCount; p++) {
-        const t = (p / ac.tailCount + elapsedTime * 0.3 + ac.tailSeeds[p] * 0.1) % 1.0;
-        const dist = t * ac.tailLength;
-        posAttr.setXYZ(p, antiSunDir.x * dist, antiSunDir.y * dist, antiSunDir.z * dist);
-      }
-      posAttr.needsUpdate = true;
     });
   }
 

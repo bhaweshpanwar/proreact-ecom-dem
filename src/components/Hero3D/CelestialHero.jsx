@@ -40,6 +40,30 @@ export default function CelestialHero() {
     };
   }, []);
 
+  // Prevent website scrolling while inspecting a focused comet
+  useEffect(() => {
+    if (selectedComet) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+
+      const preventPageScroll = (e) => {
+        if (e.target.closest('#service-detail-drawer')) {
+          return;
+        }
+        e.preventDefault();
+      };
+
+      window.addEventListener('wheel', preventPageScroll, { passive: false });
+      window.addEventListener('touchmove', preventPageScroll, { passive: false });
+
+      return () => {
+        document.body.style.overflow = originalOverflow;
+        window.removeEventListener('wheel', preventPageScroll);
+        window.removeEventListener('touchmove', preventPageScroll);
+      };
+    }
+  }, [selectedComet]);
+
   return (
     <div id="hero-scroll-track" ref={containerRef} className="relative w-full h-[200vh] z-10">
       <div id="hero-sticky-container" className="sticky top-0 left-0 w-full h-screen overflow-hidden z-10">

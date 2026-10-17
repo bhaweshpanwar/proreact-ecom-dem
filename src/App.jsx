@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import AboutPage from './pages/AboutPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import ScrollToTop from './components/ScrollToTop';
+import OrbitChatbot from './components/Chatbot/OrbitChatbot';
 
 export default function App() {
   return (
@@ -24,6 +25,8 @@ export default function App() {
           <Route path="/creative-services" element={<ServiceDetailPage slugOverride="creative-services" />} />
           <Route path="/integrated-solutions" element={<ServiceDetailPage slugOverride="integrated-solutions" />} />
         </Routes>
+        {/* Floating AI Astronaut Chatbot */}
+        <OrbitChatbot />
       </div>
     </BrowserRouter>
   );

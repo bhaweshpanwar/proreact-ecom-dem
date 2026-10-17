@@ -30,66 +30,6 @@ export default function HomePage() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // 2. Custom Cursor Follower (Desktop only)
-    const cursor = document.getElementById('custom-cursor');
-    const label = document.getElementById('custom-cursor-label');
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let cursorX = mouseX;
-    let cursorY = mouseY;
-    let animId;
-
-    if (cursor && !window.matchMedia('(pointer: coarse)').matches) {
-      cursor.classList.remove('hidden');
-
-      const onMouseMove = (e) => {
-        mouseX = e.clientX;
-        mouseY = e.clientY;
-      };
-      window.addEventListener('mousemove', onMouseMove, { passive: true });
-
-      const animateCursor = () => {
-        cursorX += (mouseX - cursorX) * 0.15;
-        cursorY += (mouseY - cursorY) * 0.15;
-        cursor.style.transform = `translate(${cursorX}px, ${cursorY}px) translate(-50%, -50%)`;
-        animId = requestAnimationFrame(animateCursor);
-      };
-      animateCursor();
-
-      // Expand to pill over interactive carousel cards
-      const dragElements = document.querySelectorAll('[data-cursor="Drag"]');
-      const onMouseEnterDrag = () => {
-        cursor.style.width = '60px';
-        cursor.style.height = '28px';
-        cursor.style.backgroundColor = 'rgba(14, 18, 24, 0.9)';
-        if (label) {
-          label.textContent = 'Drag';
-          label.classList.remove('hidden');
-        }
-      };
-      const onMouseLeaveDrag = () => {
-        cursor.style.width = '12px';
-        cursor.style.height = '12px';
-        cursor.style.backgroundColor = 'rgba(14, 18, 24, 0.85)';
-        if (label) label.classList.add('hidden');
-      };
-
-      dragElements.forEach(el => {
-        el.addEventListener('mouseenter', onMouseEnterDrag);
-        el.addEventListener('mouseleave', onMouseLeaveDrag);
-      });
-
-      return () => {
-        window.removeEventListener('scroll', onScroll);
-        window.removeEventListener('mousemove', onMouseMove);
-        dragElements.forEach(el => {
-          el.removeEventListener('mouseenter', onMouseEnterDrag);
-          el.removeEventListener('mouseleave', onMouseLeaveDrag);
-        });
-        if (animId) cancelAnimationFrame(animId);
-      };
-    }
-
     return () => {
       window.removeEventListener('scroll', onScroll);
     };

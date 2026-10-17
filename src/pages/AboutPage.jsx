@@ -276,25 +276,48 @@ export default function AboutPage() {
 
             </div>
 
-            {/* Right Editorial Image Card */}
+            {/* Right Editorial Architectural Card (No Raster Images) */}
             <div className="lg:col-span-5 relative">
-              <div className="relative rounded-3xl overflow-hidden border border-slate-200/90 shadow-xl group">
-                <img 
-                  src="/assets/img1/aurelis-skincare-stone.png" 
-                  alt="E-Comet Brand Craftsmanship" 
-                  className="w-full h-auto object-cover object-center aspect-[4/5] group-hover:scale-105 transition-transform duration-700"
-                />
+              <div className="relative rounded-3xl p-8 bg-[#0E1218] text-white border border-slate-800 shadow-xl overflow-hidden flex flex-col justify-between min-h-[460px]">
                 
-                {/* Floating Micro-Badge */}
-                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-white/60 shadow-lg">
+                {/* Background Subtle Coordinate Grid */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
+
+                {/* Top Header */}
+                <div className="relative z-10 flex items-center justify-between">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">AGENCY INFRASTRUCTURE</span>
+                  <span className="text-xs font-mono text-slate-500 font-bold">EST. 2024</span>
+                </div>
+
+                {/* Center Vector Schematic & Metric */}
+                <div className="relative z-10 my-auto py-8 space-y-4">
+                  <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-blue-400">
+                    <svg className="w-8 h-8 stroke-current stroke-1.5" viewBox="0 0 24 24" fill="none">
+                      <circle cx="12" cy="12" r="9" />
+                      <path d="M12 3a9 9 0 0 1 9 9" />
+                      <circle cx="12" cy="12" r="3" fill="currentColor" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span className="font-serif text-3xl sm:text-4xl text-white font-normal block leading-tight">
+                      Full-Funnel Coordinated Execution.
+                    </span>
+                    <p className="text-xs text-slate-400 font-sans mt-2 leading-relaxed">
+                      Unified strategy uniting organic search, marketplace operations, performance paid media, and brand identity.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Bottom Status Block */}
+                <div className="relative z-10 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-space-950">
-                      Coordinated Execution
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
+                      Unified SLA Framework
                     </span>
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   </div>
-                  <p className="text-xs font-sans text-slate-600 leading-snug">
-                    Consistent brand presentation across digital touchpoints, from packaging to marketplace storefronts.
+                  <p className="text-xs font-sans text-slate-300 leading-snug">
+                    Zero fragmented vendors. Direct accountability with senior practice leads on every brand engagement.
                   </p>
                 </div>
               </div>
@@ -325,8 +348,8 @@ export default function AboutPage() {
             {/* Left: Our Mission (Paper #f5f3ed) */}
             <div className="bento-card-left rounded-3xl bg-[#f5f3ed] p-8 sm:p-12 border border-[#E9E6DF] flex flex-col justify-between hover:shadow-md transition-shadow">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center text-lg font-mono font-bold text-space-950 mb-8 shadow-2xs">
-                  🎯
+                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center font-mono font-bold text-sm text-space-950 mb-8 shadow-2xs">
+                  01
                 </div>
                 
                 <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-3">
@@ -351,8 +374,8 @@ export default function AboutPage() {
             {/* Right: Our Vision (Mist #edf0f3) */}
             <div className="bento-card-right rounded-3xl bg-[#edf0f3] p-8 sm:p-12 border border-[#E2E5E9] flex flex-col justify-between hover:shadow-md transition-shadow">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center text-lg font-mono font-bold text-space-950 mb-8 shadow-2xs">
-                  🔭
+                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center font-mono font-bold text-sm text-space-950 mb-8 shadow-2xs">
+                  02
                 </div>
 
                 <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-3">
@@ -404,15 +427,20 @@ export default function AboutPage() {
             
             {/* Gallery Item 1: Brand & Creative */}
             <div className="gallery-img-card rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-white group flex flex-col justify-between">
-              <div className="overflow-hidden aspect-[4/3] bg-slate-100">
-                <img 
-                  src="/assets/img1/creative-brand-identity.png" 
-                  alt="Brand Identity and Design Systems" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+              <div className="aspect-[4/3] bg-[#0E1218] p-6 flex flex-col justify-between text-white relative">
+                <span className="text-[10px] font-mono text-blue-400">01 / CREATIVE</span>
+                <div className="my-auto">
+                  <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-2">
+                    Aa
+                  </div>
+                  <span className="text-xs font-mono text-slate-400">Design Token System</span>
+                </div>
+                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-blue-500 w-3/4 rounded-full" />
+                </div>
               </div>
               <div className="p-5">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-purple-600 block mb-1">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600 block mb-1">
                   Pillar · Creative Services
                 </span>
                 <h4 className="font-serif text-lg font-normal text-space-950 mb-1">
@@ -426,15 +454,20 @@ export default function AboutPage() {
 
             {/* Gallery Item 2: Web Engineering */}
             <div className="gallery-img-card rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-white group flex flex-col justify-between">
-              <div className="overflow-hidden aspect-[4/3] bg-slate-100">
-                <img 
-                  src="/assets/img1/shopify-flagship-store.png" 
-                  alt="High-Performance Website Development" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+              <div className="aspect-[4/3] bg-[#0E1218] p-6 flex flex-col justify-between text-white relative">
+                <span className="text-[10px] font-mono text-sky-400">02 / ENGINEERING</span>
+                <div className="my-auto">
+                  <div className="w-10 h-10 rounded-xl bg-sky-600/20 text-sky-400 flex items-center justify-center font-mono font-bold text-sm mb-2">
+                    &lt;/&gt;
+                  </div>
+                  <span className="text-xs font-mono text-slate-400">Headless React &amp; Shopify</span>
+                </div>
+                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-sky-500 w-4/5 rounded-full" />
+                </div>
               </div>
               <div className="p-5">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-600 block mb-1">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-sky-600 block mb-1">
                   Pillar · Website Development
                 </span>
                 <h4 className="font-serif text-lg font-normal text-space-950 mb-1">
@@ -448,15 +481,20 @@ export default function AboutPage() {
 
             {/* Gallery Item 3: Marketplace Operations */}
             <div className="gallery-img-card rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-white group flex flex-col justify-between">
-              <div className="overflow-hidden aspect-[4/3] bg-slate-100">
-                <img 
-                  src="/assets/img1/amazon-listing-aplus.png" 
-                  alt="Amazon and Flipkart Marketplace Management" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+              <div className="aspect-[4/3] bg-[#0E1218] p-6 flex flex-col justify-between text-white relative">
+                <span className="text-[10px] font-mono text-amber-400">03 / MARKETPLACES</span>
+                <div className="my-auto">
+                  <div className="w-10 h-10 rounded-xl bg-amber-600/20 text-amber-400 flex items-center justify-center font-mono font-bold text-sm mb-2">
+                    ★
+                  </div>
+                  <span className="text-xs font-mono text-slate-400">Amazon &amp; Flipkart Engine</span>
+                </div>
+                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-amber-500 w-5/6 rounded-full" />
+                </div>
               </div>
               <div className="p-5">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-cyan-600 block mb-1">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-600 block mb-1">
                   Pillar · E-Commerce Management
                 </span>
                 <h4 className="font-serif text-lg font-normal text-space-950 mb-1">
@@ -470,15 +508,20 @@ export default function AboutPage() {
 
             {/* Gallery Item 4: Media & Motion */}
             <div className="gallery-img-card rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-white group flex flex-col justify-between">
-              <div className="overflow-hidden aspect-[4/3] bg-slate-100">
-                <img 
-                  src="/assets/img1/reels-motion-film.png" 
-                  alt="YouTube & Video Editing Services" 
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
+              <div className="aspect-[4/3] bg-[#0E1218] p-6 flex flex-col justify-between text-white relative">
+                <span className="text-[10px] font-mono text-blue-400">04 / VIDEO</span>
+                <div className="my-auto">
+                  <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-2">
+                    ▶
+                  </div>
+                  <span className="text-xs font-mono text-slate-400">High-Pace Reels &amp; Motion</span>
+                </div>
+                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-blue-500 w-2/3 rounded-full" />
+                </div>
               </div>
               <div className="p-5">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-600 block mb-1">
+                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600 block mb-1">
                   Pillar · YouTube &amp; Video
                 </span>
                 <h4 className="font-serif text-lg font-normal text-space-950 mb-1">
@@ -646,7 +689,7 @@ export default function AboutPage() {
             {/* Step 2 */}
             <div className="framework-step p-6 rounded-2xl bg-[#edf0f3] border border-[#E2E5E9] flex flex-col justify-between">
               <div>
-                <span className="text-xs font-mono font-bold text-orange-600 uppercase block mb-3">STAGE 02</span>
+                <span className="text-xs font-mono font-bold text-blue-600 uppercase block mb-3">STAGE 02</span>
                 <h3 className="font-serif text-xl font-normal text-space-950 mb-2">
                   Identify
                 </h3>

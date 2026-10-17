@@ -624,7 +624,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                   currency === 'INR' ? 'bg-space-950 text-white shadow-sm' : 'text-slate-600 hover:text-black'
                 }`}
               >
-                🇮🇳 India (₹ INR)
+                India (₹ INR)
               </button>
               <button
                 type="button"
@@ -633,7 +633,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                   currency === 'USD' ? 'bg-space-950 text-white shadow-sm' : 'text-slate-600 hover:text-black'
                 }`}
               >
-                🌐 International ($ USD)
+                Global ($ USD)
               </button>
             </div>
           </div>
@@ -728,7 +728,7 @@ export default function ServiceDetailPage({ slugOverride }) {
 
           {/* Mandatory Commercial Policy Disclaimer (from Brief Section 12) */}
           <div className="mt-12 p-6 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-sans leading-relaxed flex items-start gap-3.5">
-            <span className="text-base text-slate-500">ℹ️</span>
+            <span className="w-5 h-5 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-mono font-bold text-xs flex-shrink-0 mt-0.5">i</span>
             <div>
               <strong className="text-space-950 font-mono text-[11px] uppercase tracking-wider block mb-1">
                 Pricing &amp; Commercial Scope Policy:
