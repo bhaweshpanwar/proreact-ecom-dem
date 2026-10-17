@@ -1,0 +1,243 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --font-serif: "Cormorant", "Cormorant Garamond", Georgia, serif;
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --bg-deep-void: #010207;
+    --bg-midnight: #0a0418;
+    --cosmic-violet: #1d0938;
+    --nebula-purple: #3b0764;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --text-muted: #647285;
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-hover: rgba(255, 255, 255, 0.2);
+    --border-active: rgba(56, 189, 248, 0.5);
+    --ion-cyan: #38BDF8;
+    --sun-gold: #FF9526;
+    --panel-glass: rgba(8, 6, 20, 0.85);
+    --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* Editorial Light Palette */
+    --space-950: #0E1218;
+    --space-900: #151B24;
+    --space-800: #1E2633;
+    --space-600: #3A4658;
+    --paper: #F5F3EE;
+    --mist: #EDF0F3;
+    --stone: #E9E6DF;
+    --frost: #E4EAF0;
+    --ember: #E4572E;
+    --pillar-marketing: #D9593A;
+    --pillar-marketplaces: #B7A27D;
+    --pillar-websites: #5B7C99;
+    --pillar-creative: #B8737A;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    color: #F8FAFC;
+    background-color: #02040C;
+    overflow-x: hidden;
+  }
+
+  /* Headings & Display Typography in Cormorant */
+  h1, h2, h3, h4, .font-serif, .font-display {
+    font-family: "Cormorant", "Cormorant Garamond", Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Hairline border utilities */
+.hairline-b {
+  border-bottom: 1px solid rgba(14, 18, 24, 0.08);
+}
+.hairline-t {
+  border-top: 1px solid rgba(14, 18, 24, 0.08);
+}
+
+/* Rounded containers */
+.rounded-container {
+  border-radius: 28px;
+}
+.rounded-card {
+  border-radius: 24px;
+}
+
+/* No scrollbar */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Tile inner placeholder */
+.tile-inner {
+  width: 100%;
+  height: 100%;
+  background: #F1F5F9;
+  border-radius: inherit;
+  transition: transform 0.4s ease;
+}
+
+/* Cinematic Atmospheric Vignette with Corner Solar Warmth */
+.viewport-atmospheric-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: 
+    radial-gradient(circle at 0% 0%, rgba(255, 145, 45, 0.12) 0%, rgba(255, 95, 25, 0.04) 30%, transparent 60%),
+    radial-gradient(circle at 85% 85%, rgba(59, 7, 100, 0.16) 0%, transparent 60%),
+    radial-gradient(circle at center, transparent 40%, rgba(1, 2, 7, 0.65) 100%);
+}
+
+/* 3D Celestial Comet Labels Layer (Projected in Real-Time 3D Space) */
+#labels-container {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.comet-label-wrap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: auto;
+  transform: translate3d(-50%, -50%, 0);
+  cursor: pointer;
+  will-change: transform, opacity;
+  transition: opacity 0.25s ease-out;
+  user-select: none;
+}
+
+.comet-label-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px 4px 8px;
+  border-radius: 9999px;
+  background: rgba(5, 11, 26, 0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.45);
+  transition: all 0.2s var(--ease-cinematic);
+}
+
+.comet-label-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #38BDF8;
+  box-shadow: none;
+  flex-shrink: 0;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.comet-label-text {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: #F1F5F9;
+  white-space: nowrap;
+  text-transform: uppercase;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85);
+  transition: color 0.2s ease;
+}
+
+.comet-label-wrap:hover .comet-label-inner,
+.comet-label-wrap.is-focused .comet-label-inner,
+.comet-label-wrap.is-active-target .comet-label-inner {
+  background: rgba(15, 23, 42, 0.95);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: scale(1.05) translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+.comet-label-wrap:hover .comet-label-dot,
+.comet-label-wrap.is-focused .comet-label-dot,
+.comet-label-wrap.is-active-target .comet-label-dot {
+  background: #FFFFFF;
+  transform: scale(1.25);
+}
+
+.comet-label-wrap:hover .comet-label-text,
+.comet-label-wrap.is-focused .comet-label-text,
+.comet-label-wrap.is-active-target .comet-label-text {
+  color: #FFFFFF;
+}
+
+.comet-label-info-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.10);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #94A3B8;
+  font-size: 8.5px;
+  font-weight: 700;
+  font-family: monospace;
+  margin-left: 2px;
+  line-height: 1;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.comet-label-wrap:hover .comet-label-info-badge,
+.comet-label-wrap.is-focused .comet-label-info-badge,
+.comet-label-wrap.is-active-target .comet-label-info-badge {
+  background: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+  border-color: rgba(255, 255, 255, 0.55);
+  transform: scale(1.08);
+}
+
+/* Whiteout Stage Intro */
+.whiteout-intro-stage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  will-change: transform, opacity;
+}
+
+/* Keyframe animations */
+@keyframes twinklePulse {
+  0%, 100% { opacity: 0.35; transform: scale(0.85); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+@keyframes twinkleSoft {
+  0%, 100% { opacity: 0.25; }
+  50% { opacity: 0.85; }
+}
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.75); }
+}
+
+/* Process Swipe Cards */
+.process-swipe-card {
+  will-change: transform, opacity;
+  transition: transform 0.4s var(--ease-cinematic), opacity 0.3s ease;
+}
+
+/* FAQ item hover */
+.faq-item {
+  transition: all 0.2s ease;
+}
