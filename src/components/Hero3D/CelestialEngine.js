@@ -1,4 +1,5 @@
 import * as THREE from 'three';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 import { SERVICES_COMETS } from '../../data/servicesData';
 import { AMBIENT_COMETS } from '../../data/ambientCometsData';
 import {
@@ -126,9 +127,11 @@ export class CelestialEngine {
     this.sunPoint.position.copy(SUN_CONFIG.position);
     this.scene.add(this.sunPoint);
 
+    // Deep cosmic space ambient light - restores Earth's dark night side shadow
     const ambientLight = new THREE.AmbientLight(0x060c18, 0.35);
     this.scene.add(ambientLight);
 
+    // Subtle dark blue rim light from behind Earth
     const rimLight = new THREE.DirectionalLight(0x101a35, 0.30);
     rimLight.position.set(40, -20, 20);
     this.scene.add(rimLight);
@@ -335,8 +338,32 @@ export class CelestialEngine {
   }
 
   setupComets() {
-    const nucleusTex = createProceduralCometTexture();
-    const bumpTex = createProceduralBumpTexture();
+    // 2K PBR Textures for authentic Blender 3D Asteroid_1a
+    const textureLoader = new THREE.TextureLoader();
+    this.asteroidColorTex = textureLoader.load('/assets/asteroid_color_2k.jpg');
+    this.asteroidColorTex.colorSpace = THREE.SRGBColorSpace;
+
+    this.asteroidNormalTex = textureLoader.load('/assets/asteroid_normal_2k.jpg');
+    this.asteroidNormalTex.colorSpace = THREE.NoColorSpace;
+
+    this.asteroidAoTex = textureLoader.load('/assets/asteroid_ao_2k.jpg');
+    this.asteroidAoTex.colorSpace = THREE.NoColorSpace;
+
+    // 100% Matte, Non-Shiny Natural Porous Regolith Rock Material
+    // roughness: 1.0, metalness: 0.0 - zero specular glare / shine
+    // Tone reduced by ~18% per user request for balanced deep-space basalt
+    this.asteroidPbrMat = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(0xb4bcc4), // ~18% reduced brightness stone tone
+      map: this.asteroidColorTex,
+      normalMap: this.asteroidNormalTex,
+      normalScale: new THREE.Vector2(1.5, 1.5),
+      roughness: 1.0, // 100% matte dry rock - ZERO shininess
+      metalness: 0.0, // Non-metallic, non-reflective
+      aoMap: this.asteroidAoTex,
+      aoMapIntensity: 1.0,
+      transparent: true,
+      opacity: 1.0
+    });
 
     // Unequal realistic radii across pillars and services (varying sizes)
     const COMET_RADII = [
@@ -346,33 +373,12 @@ export class CelestialEngine {
 
     SERVICES_COMETS.forEach((service, index) => {
       const cometGroup = new THREE.Group();
-
       const radius = COMET_RADII[index % COMET_RADII.length];
 
-      // Realistic irregular craggy deformed nucleus
-      const nucleusGeo = new THREE.IcosahedronGeometry(radius, 4);
-      const posAttr = nucleusGeo.attributes.position;
-      const v = new THREE.Vector3();
-      for (let p = 0; p < posAttr.count; p++) {
-        v.fromBufferAttribute(posAttr, p);
-        const n1 = Math.sin(v.x * 2.8 + index * 1.4) * Math.cos(v.y * 2.8) * 0.10;
-        const n2 = Math.cos(v.z * 3.8 + index * 0.8) * 0.06;
-        const craterDist = Math.hypot(v.x - 0.25, v.y - 0.15, v.z - 0.25);
-        const craterDent = craterDist < 0.45 ? -0.12 * Math.cos((craterDist / 0.45) * (Math.PI / 2)) : 0;
-        v.addScaledVector(v.clone().normalize(), n1 + n2 + craterDent);
-        posAttr.setXYZ(p, v.x, v.y, v.z);
-      }
-      nucleusGeo.computeVertexNormals();
-      nucleusGeo.scale(1.06 + ((index % 3) - 1) * 0.08, 0.90, 0.98);
-
-      const nucleusMat = new THREE.MeshStandardMaterial({
-        map: nucleusTex,
-        bumpMap: bumpTex,
-        bumpScale: 0.28,
-        roughness: 0.90,
-        metalness: 0.08
-      });
-      const nucleusMesh = new THREE.Mesh(nucleusGeo, nucleusMat);
+      // Temporary placeholder while OBJ loads
+      const placeholderGeo = new THREE.IcosahedronGeometry(radius, 2);
+      const nucleusMat = this.asteroidPbrMat.clone();
+      const nucleusMesh = new THREE.Mesh(placeholderGeo, nucleusMat);
       cometGroup.add(nucleusMesh);
 
       // Raycast hit proxy
@@ -439,28 +445,83 @@ export class CelestialEngine {
         rotationSpeed: new THREE.Vector2(0.003 + Math.random() * 0.003, 0.004 + Math.random() * 0.003)
       });
     });
+
+    this.loadAsteroidModel();
+  }
+
+  loadAsteroidModel() {
+    const objLoader = new OBJLoader();
+    objLoader.load(
+      '/assets/asteroid_1a.obj',
+      (obj) => {
+        if (this.isDestroyed) return;
+        const rawMesh = obj.children[0];
+        if (!rawMesh) return;
+
+        const asteroidGeo = rawMesh.geometry;
+        asteroidGeo.center();
+        asteroidGeo.computeVertexNormals();
+        this.asteroidSharedGeo = asteroidGeo;
+
+        // Upgrade all main service comets to authentic Blender 3D Asteroid_1a
+        this.comets.forEach((comet, index) => {
+          const oldGeo = comet.nucleusMesh.geometry;
+          comet.nucleusMesh.geometry = asteroidGeo;
+          if (oldGeo) oldGeo.dispose();
+
+          const scale = (comet.radius / 1.05) * 0.80;
+          comet.nucleusMesh.scale.set(
+            scale * (1.0 + ((index % 3) - 1) * 0.08),
+            scale * 0.94,
+            scale * (1.0 + (((index + 1) % 3) - 1) * 0.08)
+          );
+          // Varied unique initial rotational attitudes
+          comet.nucleusMesh.rotation.set(
+            (index * 1.7) % (Math.PI * 2),
+            (index * 2.3) % (Math.PI * 2),
+            (index * 0.9) % (Math.PI * 2)
+          );
+        });
+
+        // Upgrade all ambient deep-space comets to authentic mini Asteroids
+        this.ambientComets.forEach((ac) => {
+          const oldGeo = ac.nucleusMesh.geometry;
+          ac.nucleusMesh.geometry = asteroidGeo;
+          if (oldGeo) oldGeo.dispose();
+
+          const aScale = (ac.radius / 1.05) * 0.75;
+          ac.nucleusMesh.scale.setScalar(aScale);
+          ac.nucleusMesh.rotation.set(
+            Math.random() * Math.PI * 2,
+            Math.random() * Math.PI * 2,
+            Math.random() * Math.PI * 2
+          );
+        });
+      },
+      undefined,
+      (err) => {
+        console.warn('Asteroid model loading error in CelestialEngine:', err);
+      }
+    );
   }
 
   setupAmbientComets() {
-    const nucleusTex = createProceduralCometTexture();
-    const bumpTex = createProceduralBumpTexture();
-
     // 24 small free mini comets across deep space orbits
     const freeCometCount = 24;
     for (let i = 0; i < freeCometCount; i++) {
       const aGroup = new THREE.Group();
       // Small mini comets
-      const aRadius = 0.06 + Math.random() * 0.12;
+      const aRadius = 0.08 + Math.random() * 0.14;
 
-      const aGeo = new THREE.IcosahedronGeometry(aRadius, 2);
-      const aMat = new THREE.MeshStandardMaterial({
-        map: nucleusTex,
-        bumpMap: bumpTex,
-        bumpScale: 0.15,
-        roughness: 0.90,
+      const aGeo = new THREE.IcosahedronGeometry(aRadius, 1);
+      const aMat = this.asteroidPbrMat ? this.asteroidPbrMat.clone() : new THREE.MeshStandardMaterial({
+        color: 0x94a3b8,
+        roughness: 1.0,
+        metalness: 0.0,
         transparent: true,
         opacity: 0.75
       });
+      aMat.opacity = 0.75;
       const aMesh = new THREE.Mesh(aGeo, aMat);
       aGroup.add(aMesh);
 
@@ -477,6 +538,7 @@ export class CelestialEngine {
       this.scene.add(aGroup);
 
       this.ambientComets.push({
+        radius: aRadius,
         group: aGroup,
         nucleusMesh: aMesh,
         baseAngle: baseAngle,
@@ -763,6 +825,41 @@ export class CelestialEngine {
     if (this.canvas) {
       this.canvas.removeEventListener('click', this.onCanvasClick);
     }
+
+    if (this.asteroidSharedGeo) {
+      this.asteroidSharedGeo.dispose();
+    }
+    if (this.asteroidColorTex) this.asteroidColorTex.dispose();
+    if (this.asteroidNormalTex) this.asteroidNormalTex.dispose();
+    if (this.asteroidAoTex) this.asteroidAoTex.dispose();
+    if (this.asteroidPbrMat) this.asteroidPbrMat.dispose();
+
+    this.comets.forEach(c => {
+      if (c.nucleusMesh) {
+        if (c.nucleusMesh.geometry && c.nucleusMesh.geometry !== this.asteroidSharedGeo) {
+          c.nucleusMesh.geometry.dispose();
+        }
+        if (c.nucleusMesh.material) {
+          c.nucleusMesh.material.dispose();
+        }
+      }
+      if (c.hitProxyMesh) {
+        if (c.hitProxyMesh.geometry) c.hitProxyMesh.geometry.dispose();
+        if (c.hitProxyMesh.material) c.hitProxyMesh.material.dispose();
+      }
+    });
+
+    this.ambientComets.forEach(ac => {
+      if (ac.nucleusMesh) {
+        if (ac.nucleusMesh.geometry && ac.nucleusMesh.geometry !== this.asteroidSharedGeo) {
+          ac.nucleusMesh.geometry.dispose();
+        }
+        if (ac.nucleusMesh.material) {
+          ac.nucleusMesh.material.dispose();
+        }
+      }
+    });
+
     if (this.renderer) {
       this.renderer.dispose();
     }

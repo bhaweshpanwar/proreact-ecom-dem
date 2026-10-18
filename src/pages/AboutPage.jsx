@@ -2,12 +2,161 @@ import React, { useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import CosmicGalaxyCanvas from '../components/Hero3D/CosmicGalaxyCanvas';
-import SingleCometCanvas from '../components/Hero3D/SingleCometCanvas';
 import ClosingSection from '../components/Sections/ClosingSection';
 import Footer from '../components/Sections/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
+
+// =========================================================================
+// CELESTIAL COMET & ORBIT TILE (Vector Comet & Lines matching index.html)
+// Used in place of all raster images for pure vector rendering & zero latency
+// =========================================================================
+function CelestialCometTile({ tone = 'blue', label = '', code = '01', aspect = 'aspect-[16/10]' }) {
+  const toneConfigs = {
+    blue: {
+      c1: '#00B4D8',
+      c2: '#F8FAFC',
+      stroke: '#0284C7',
+      dot: '#00B4D8',
+      rot: -18,
+      cx: 340,
+      cy: 160
+    },
+    emerald: {
+      c1: '#10B981',
+      c2: '#F8FAFC',
+      stroke: '#059669',
+      dot: '#10B981',
+      rot: 24,
+      cx: 260,
+      cy: 220
+    },
+    amber: {
+      c1: '#F59E0B',
+      c2: '#F8FAFC',
+      stroke: '#D97706',
+      dot: '#F59E0B',
+      rot: -12,
+      cx: 380,
+      cy: 180
+    },
+    rose: {
+      c1: '#F43F5E',
+      c2: '#F8FAFC',
+      stroke: '#E11D48',
+      dot: '#F43F5E',
+      rot: 30,
+      cx: 220,
+      cy: 140
+    },
+    dark: {
+      c1: '#00B4D8',
+      c2: '#0A0E1A',
+      stroke: '#38BDF8',
+      dot: '#00B4D8',
+      rot: -22,
+      cx: 320,
+      cy: 200,
+      dark: true
+    }
+  };
+
+  const cfg = toneConfigs[tone] || toneConfigs.blue;
+  const gradId = `comet-grad-${tone}-${code.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const sunId = `comet-sun-${tone}-${code.replace(/[^a-zA-Z0-9]/g, '')}`;
+
+  return (
+    <div className={`w-full ${aspect} relative overflow-hidden select-none`}>
+      <svg 
+        viewBox="0 0 600 400" 
+        preserveAspectRatio="xMidYMid slice" 
+        className="w-full h-full select-none group-hover:scale-105 transition-transform duration-700" 
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor={cfg.c1} stopOpacity={cfg.dark ? "0.22" : "0.2"} />
+            <stop offset="100%" stopColor={cfg.dark ? "#0A0E1A" : cfg.c2} stopOpacity={cfg.dark ? "0.98" : "0.96"} />
+          </linearGradient>
+          <radialGradient id={sunId} cx="70%" cy="30%" r="60%">
+            <stop offset="0%" stopColor={cfg.c1} stopOpacity={cfg.dark ? "0.35" : "0.25"} />
+            <stop offset="100%" stopColor={cfg.dark ? "#0A0E1A" : "#FFFFFF"} stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Base Gradient Fill */}
+        <rect width="100%" height="100%" fill={`url(#${gradId})`} />
+        
+        {/* Luminous Sun / Nebula Halo */}
+        <circle cx="420" cy="120" r="180" fill={`url(#${sunId})`} />
+
+        {/* Subtle Background Grid Lines */}
+        <line x1="0" y1="100" x2="600" y2="100" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
+        <line x1="0" y1="200" x2="600" y2="200" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
+        <line x1="0" y1="300" x2="600" y2="300" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
+        <line x1="200" y1="0" x2="200" y2="400" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
+        <line x1="400" y1="0" x2="400" y2="400" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
+
+        {/* Grand Orbital Ellipse 1 (Dotted) */}
+        <ellipse 
+          cx="300" 
+          cy="200" 
+          rx="260" 
+          ry="120" 
+          fill="none" 
+          stroke={cfg.stroke} 
+          strokeWidth="0.85" 
+          strokeDasharray="4 6" 
+          opacity="0.45" 
+          transform={`rotate(${cfg.rot} 300 200)`} 
+        />
+
+        {/* Inner Solid Orbital Ellipse 2 */}
+        <ellipse 
+          cx="300" 
+          cy="200" 
+          rx="170" 
+          ry="80" 
+          fill="none" 
+          stroke={cfg.stroke} 
+          strokeWidth="0.75" 
+          opacity="0.3" 
+          transform={`rotate(${cfg.rot * -0.6} 300 200)`} 
+        />
+
+        {/* Core Circular Orbital Range */}
+        <circle cx="300" cy="200" r="80" fill="none" stroke={cfg.stroke} strokeWidth="0.75" opacity="0.25" />
+
+        {/* Diagonal Comet Velocity Trajectory Vector */}
+        <line x1="50" y1="350" x2="550" y2="50" stroke={cfg.stroke} strokeWidth="0.75" opacity="0.25" />
+        
+        {/* Orbit Crosshair Center */}
+        <circle cx="300" cy="200" r="2.5" fill={cfg.stroke} opacity="0.4" />
+
+        {/* Orbiting Comet Nucleus with Outer Energy Aura */}
+        <circle cx={cfg.cx} cy={cfg.cy} r="14" fill={cfg.dot} opacity="0.15" />
+        <circle cx={cfg.cx} cy={cfg.cy} r="7" fill={cfg.dot} opacity="0.35" />
+        <circle cx={cfg.cx} cy={cfg.cy} r="3.5" fill={cfg.dark ? "#FFFFFF" : cfg.stroke} />
+        
+        {/* Secondary Micro-Orbiter */}
+        <circle cx={600 - cfg.cx * 0.85} cy={400 - cfg.cy * 0.85} r="2.5" fill={cfg.stroke} opacity="0.6" />
+      </svg>
+
+      {/* Top Left Telemetry Coordinate Pill */}
+      <div className="absolute top-3.5 left-4 z-10 flex items-center gap-2">
+        <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: cfg.dot }} />
+        <span className={`text-[9.5px] font-mono tracking-widest uppercase font-semibold ${cfg.dark ? 'text-slate-300' : 'text-slate-500'}`}>
+          {code} · {label}
+        </span>
+      </div>
+
+      {/* Bottom Right Live Orbit Metric */}
+      <div className={`absolute bottom-3 right-4 z-10 text-[9px] font-mono tracking-wider uppercase ${cfg.dark ? 'text-slate-400' : 'text-slate-400'}`}>
+        ORBIT // 360° HARMONIC
+      </div>
+    </div>
+  );
+}
 
 export default function AboutPage() {
   const containerRef = useRef(null);
@@ -17,7 +166,35 @@ export default function AboutPage() {
     ScrollTrigger.refresh();
 
     const ctx = gsap.context(() => {
-      // 1. Philosophy section reveal
+      // 1. Hero text and pill entrance
+      gsap.fromTo(
+        '.about-hero-anim',
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.85,
+          stagger: 0.12,
+          ease: 'power3.out'
+        }
+      );
+
+      // 2. Hero Floating preview tiles on the right
+      gsap.fromTo(
+        '.about-floating-card',
+        { scale: 0.92, opacity: 0, y: 25 },
+        {
+          scale: 1,
+          opacity: 1,
+          y: 0,
+          duration: 0.95,
+          stagger: 0.15,
+          ease: 'power3.out',
+          delay: 0.2
+        }
+      );
+
+      // 3. Philosophy section reveal
       gsap.fromTo(
         '.about-reveal-text',
         { y: 40, opacity: 0 },
@@ -35,7 +212,7 @@ export default function AboutPage() {
         }
       );
 
-      // 2. Mission & Vision Bento Cards
+      // 4. Mission & Vision Bento Cards
       gsap.fromTo(
         '.bento-card-left',
         { x: -50, opacity: 0 },
@@ -67,10 +244,10 @@ export default function AboutPage() {
         }
       );
 
-      // 3. Visual Gallery Stagger
+      // 5. Visual Gallery Stagger
       gsap.fromTo(
         '.gallery-img-card',
-        { y: 45, opacity: 0, scale: 0.94 },
+        { y: 45, opacity: 0, scale: 0.96 },
         {
           y: 0,
           opacity: 1,
@@ -86,7 +263,7 @@ export default function AboutPage() {
         }
       );
 
-      // 4. Values Cards Stagger
+      // 6. Values Cards Stagger
       gsap.fromTo(
         '.value-card',
         { y: 40, opacity: 0, scale: 0.96 },
@@ -105,7 +282,7 @@ export default function AboutPage() {
         }
       );
 
-      // 5. Operating Framework Steps
+      // 7. Operating Framework Steps
       gsap.fromTo(
         '.framework-step',
         { x: -40, opacity: 0 },
@@ -128,86 +305,167 @@ export default function AboutPage() {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-white select-none">
+    <div ref={containerRef} className="relative min-h-screen bg-[#FBFBFA] text-slate-900 select-none overflow-x-hidden pt-20">
       
       {/* ===================================================================== */}
-      {/* 1. HERO SECTION (Deep Pitch Black, Diamond Stars, 3D Comet)           */}
+      {/* 1. HERO SECTION (Clean Canvas Container matching All Pillar Pages)     */}
       {/* ===================================================================== */}
-      <section className="relative pt-32 pb-20 sm:pb-28 bg-[#000000] text-white overflow-hidden min-h-[580px] flex items-center">
-        
-        {/* Full-bleed Real-Time 3D Galaxy Canvas (Starfield + Zero Violet Dust) */}
-        <CosmicGalaxyCanvas accentColorHex="#00B4D8" />
-
-        {/* Ambient Vignette (Pure Black Space, Zero Violet) */}
-        <div 
-          className="absolute inset-0 pointer-events-none opacity-40 z-[1]"
-          style={{
-            background: `radial-gradient(circle at 75% 35%, rgba(0, 180, 216, 0.14) 0%, transparent 55%), radial-gradient(circle at 50% 50%, rgba(0,0,0,0.5) 0%, #000000 100%)`
-          }}
-          aria-hidden="true"
-        />
-
-        <div className="max-w-[1340px] w-full mx-auto px-4 sm:px-8 relative z-10">
+      <section className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-6 sm:pb-12">
+        <div className="relative bg-[#F4F4F1] border border-slate-200/90 rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 md:p-16 lg:p-20 overflow-hidden shadow-sm">
           
-          {/* Breadcrumb */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-slate-400 mb-8 sm:mb-10">
-            <Link to="/" className="hover:text-white transition-colors">Home</Link>
-            <span>/</span>
-            <span className="text-white font-semibold">About Us</span>
-          </nav>
+          {/* Subtle Ambient Radial Highlight */}
+          <div 
+            className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-20 blur-3xl bg-[#00B4D8]"
+            aria-hidden="true"
+          />
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
             
-            {/* Left Column: Official Eyebrow, H1 Title & Sub-copy */}
-            <div className="lg:col-span-7 space-y-6">
+            {/* Left Column: Display Heading, Sub-copy & Action Buttons */}
+            <div className="lg:col-span-7 flex flex-col items-start text-left">
               
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-mono font-medium text-slate-200">
-                <span className="w-2 h-2 rounded-full bg-[#00B4D8] animate-pulse"></span>
-                <span>E-COMET — BEYOND DIGITAL. INTO THE NEXT ORBIT.</span>
+              {/* Category Kicker Badge */}
+              <div className="about-hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-200/70 text-[11px] font-mono font-bold tracking-wider text-slate-700 shadow-2xs mb-6">
+                <span className="w-2 h-2 rounded-full bg-[#00B4D8] animate-pulse" />
+                <span>CORE AGENCY IDENTITY · ABOUT E-COMET</span>
               </div>
 
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.08] tracking-tight text-white">
+              {/* Single Prominent Display Heading */}
+              <h1 className="about-hero-anim font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-normal tracking-tight text-space-950 leading-[1.08] mb-6">
                 Helping Businesses Build a Stronger Digital Presence.
               </h1>
 
-              <p className="text-lg sm:text-xl font-sans font-medium text-cyan-300/90 leading-relaxed max-w-2xl">
+              {/* Clean Subtitle */}
+              <p className="about-hero-anim font-sans text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-xl mb-4">
                 A business-first approach to e-commerce management, digital marketing, website development, and video services.
               </p>
 
-              <p className="text-sm sm:text-base text-slate-300 font-sans leading-relaxed max-w-2xl">
-                E-Comet brings practical digital services together to help businesses present their brand professionally, connect with their audience, and create a stronger foundation for online growth.
+              {/* Rich Narrative Body Paragraph */}
+              <p className="about-hero-anim font-sans text-sm sm:text-base text-slate-500 font-normal leading-relaxed max-w-xl mb-10">
+                E-Comet brings practical digital capabilities under one coordinated governance model. We eliminate agency silos, vague retainers, and fragmented communication to help ambitious brands build long-term enterprise equity and scalable customer acquisition.
               </p>
 
-              {/* Quick Pillars Pills */}
-              <div className="pt-2 flex flex-wrap items-center gap-2 text-xs font-mono text-slate-300">
-                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Marketplace Operations</span>
-                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Web Engineering</span>
-                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Growth Marketing</span>
-                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10">Media &amp; Design</span>
-              </div>
-
-              <div className="pt-4 flex flex-wrap items-center gap-4">
-                <a 
-                  href="#closing" 
-                  className="px-6 py-3 rounded-full bg-white hover:bg-slate-100 text-space-950 font-sans text-xs font-semibold transition-all hover:scale-105 shadow-md flex items-center gap-2 cursor-pointer"
+              {/* Dual Action Buttons */}
+              <div className="about-hero-anim flex flex-wrap items-center gap-4 w-full sm:w-auto">
+                <a
+                  href="#closing"
+                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-slate-950 hover:bg-blue-600 text-white font-sans text-sm font-semibold tracking-wide transition-all hover:scale-105 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Discuss Your Project</span>
                   <span>→</span>
                 </a>
 
-                <a 
-                  href="#philosophy" 
-                  className="px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-slate-200 font-sans text-xs font-semibold transition-colors cursor-pointer"
+                <a
+                  href="#philosophy"
+                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-sans text-sm font-semibold tracking-wide transition-all shadow-2xs inline-flex items-center justify-center gap-2 cursor-pointer"
                 >
-                  Our Philosophy ↓
+                  <span>Our Philosophy</span>
+                  <span>↓</span>
                 </a>
+              </div>
+
+              {/* Verified Trust Strip */}
+              <div className="about-hero-anim mt-10 pt-6 border-t border-slate-200/70 flex flex-wrap items-center gap-6 text-[12px] font-mono text-slate-500">
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>100% In-House Senior Execution</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Direct Written SLAs</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span>Zero Junior Trainees</span>
+                </div>
               </div>
 
             </div>
 
-            {/* Right Column: 3D Celestial Comet in Pure Space */}
-            <div className="lg:col-span-5 flex items-center justify-center relative">
-              <SingleCometCanvas colorHex="#00B4D8" title="E-Comet Nucleus" />
+            {/* Right Column: Floating Visual Tiles (Maze Screenshot Style) */}
+            <div className="lg:col-span-5 relative flex items-center justify-center min-h-[340px] sm:min-h-[420px]">
+              
+              {/* Blurred Background Card (Depth-of-field effect from Maze) */}
+              <div 
+                className="about-floating-card absolute -top-4 -right-2 w-56 sm:w-64 h-48 sm:h-56 bg-white/70 border border-slate-200/70 rounded-3xl shadow-lg p-5 blur-[2.5px] opacity-75 transform rotate-6 pointer-events-none"
+                aria-hidden="true"
+              >
+                <div className="w-8 h-8 rounded-xl bg-slate-200 mb-3" />
+                <div className="h-3.5 bg-slate-200 rounded-full w-3/4 mb-2" />
+                <div className="h-2.5 bg-slate-100 rounded-full w-1/2" />
+              </div>
+
+              {/* Main Crisp Foreground Card 1 (Top Hero Tile - Services card style) */}
+              <div className="about-floating-card relative z-20 w-full max-w-[340px] sm:max-w-[380px] bg-[#FAFAFA] border border-stone-200/90 rounded-[28px] p-6 sm:p-7 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
+                
+                {/* Header Tag with Platform Dot */}
+                <div className="flex items-center justify-between pb-4 border-b border-stone-200/60 mb-4">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2.5 h-2.5 rounded-full bg-[#00B4D8]" />
+                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                      PRACTICE ARCHITECTURE
+                    </span>
+                  </div>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+                    ● ACTIVE
+                  </span>
+                </div>
+
+                {/* Card Title & Core Metrics - Serif font */}
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2">
+                  E-Comet Operating Core
+                </h3>
+                <p className="font-sans text-xs text-slate-500 line-clamp-2 mb-5">
+                  Synchronized execution spanning marketplace management, digital marketing, website development, and video services.
+                </p>
+
+                {/* 3 Live Metric Badges */}
+                <div className="grid grid-cols-3 gap-2 p-3 bg-slate-50 rounded-2xl border border-slate-100 text-center">
+                  <div className="space-y-0.5">
+                    <div className="text-[14px] font-sans font-bold text-slate-900">4 Pillars</div>
+                    <div className="text-[9.5px] font-mono text-slate-500 leading-tight">Capabilities</div>
+                  </div>
+                  <div className="space-y-0.5">
+                    <div className="text-[14px] font-sans font-bold text-slate-900">100%</div>
+                    <div className="text-[9.5px] font-mono text-slate-500 leading-tight">In-House</div>
+                  </div>
+                  <div className="space-y-0.5">
+                    <div className="text-[14px] font-sans font-bold text-slate-900">0 Bloat</div>
+                    <div className="text-[9.5px] font-mono text-slate-500 leading-tight">Governance</div>
+                  </div>
+                </div>
+
+                {/* Platform Tag Pills */}
+                <div className="flex flex-wrap gap-1.5 mt-4">
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-slate-100 text-slate-700">Amazon 1P &amp; 3P</span>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-slate-100 text-slate-700">Shopify Plus</span>
+                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-slate-100 text-slate-700">Video &amp; Motion</span>
+                </div>
+              </div>
+
+              {/* Foreground Card 2 (Bottom Offset Mini Card) */}
+              <div className="about-floating-card absolute -bottom-6 -left-2 sm:-left-6 z-30 bg-slate-950 text-white rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-800 flex items-center gap-3.5 max-w-[280px]">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold text-white shadow-sm bg-[#00B4D8]">
+                  ⚡
+                </div>
+                <div>
+                  <div className="text-[12px] font-sans font-bold text-white leading-tight">
+                    Direct Senior Lead
+                  </div>
+                  <div className="text-[10px] font-mono text-slate-400 mt-0.5">
+                    Zero Trainee Delegation
+                  </div>
+                </div>
+              </div>
+
+              {/* Bottom Right Floating Badge Pill */}
+              <div 
+                className="about-floating-card absolute bottom-2 -right-3 z-30 w-11 h-11 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center font-bold text-slate-800 hover:scale-110 transition-transform cursor-pointer"
+                title="E-Comet Certified Architecture"
+              >
+                <span className="w-3.5 h-3.5 rounded-full bg-[#00B4D8]" />
+              </div>
+
             </div>
 
           </div>
@@ -218,19 +476,19 @@ export default function AboutPage() {
       {/* ===================================================================== */}
       {/* 2. WHO WE ARE & EDITORIAL PHILOSOPHY                                  */}
       {/* ===================================================================== */}
-      <section id="philosophy" className="sec-philosophy relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section id="philosophy" className="sec-philosophy relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             {/* Left Manifesto */}
             <div className="lg:col-span-7 space-y-6">
               
-              <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block">
+              <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block">
                 01 · Brand Genesis &amp; Positioning
               </span>
 
-              <h2 className="about-reveal-text text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
+              <h2 className="about-reveal-text text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15]">
                 Digital growth starts with understanding the business — not choosing tools without purpose.
               </h2>
 
@@ -242,33 +500,46 @@ export default function AboutPage() {
                 Whether a business is starting online, improving its current presence, or bringing multiple channels together, our approach is to understand the requirement, define the scope, and recommend suitable next steps.
               </p>
 
+              <p className="about-reveal-text text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
+                Instead of selling bloated agency packages with generic retainers, we build bespoke operational pods around your product margins, inventory cycles, and audience behavior.
+              </p>
+
               {/* 3 Pillar Value Chips */}
               <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
                 
-                <div className="p-5 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF]">
-                  <span className="text-xs font-mono font-bold text-space-950 uppercase block mb-1">
-                    Clarity First
-                  </span>
+                <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-blue-600 font-semibold select-none text-xs">―</span>
+                    <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
+                      Clarity First
+                    </span>
+                  </div>
                   <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                    Straightforward scope and deliverables before work begins.
+                    Straightforward scope, written deliverable guardrails, and realistic milestones before work begins.
                   </p>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#edf0f3] border border-[#E2E5E9]">
-                  <span className="text-xs font-mono font-bold text-space-950 uppercase block mb-1">
-                    Connected
-                  </span>
+                <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-blue-600 font-semibold select-none text-xs">―</span>
+                    <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
+                      Connected
+                    </span>
+                  </div>
                   <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                    E-commerce, web, video, and marketing working together.
+                    E-commerce, web engineering, video production, and performance ads synchronised under one roof.
                   </p>
                 </div>
 
-                <div className="p-5 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF]">
-                  <span className="text-xs font-mono font-bold text-space-950 uppercase block mb-1">
-                    No Bloat
-                  </span>
+                <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-blue-600 font-semibold select-none text-xs">―</span>
+                    <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
+                      No Bloat
+                    </span>
+                  </div>
                   <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                    Pragmatic solutions shaped around real business resources.
+                    Pragmatic solutions shaped around real business resources, unit economics, and cash flow reality.
                   </p>
                 </div>
 
@@ -276,48 +547,26 @@ export default function AboutPage() {
 
             </div>
 
-            {/* Right Editorial Architectural Card (No Raster Images) */}
+            {/* Right Editorial Architectural Card with Comet & Lines (No Real Images) */}
             <div className="lg:col-span-5 relative">
-              <div className="relative rounded-3xl p-8 bg-[#0E1218] text-white border border-slate-800 shadow-xl overflow-hidden flex flex-col justify-between min-h-[460px]">
+              <div className="relative rounded-[32px] overflow-hidden border border-stone-200/90 shadow-xl group bg-[#0A0E1A]">
+                <CelestialCometTile 
+                  tone="dark" 
+                  label="PRACTICE GOVERNANCE" 
+                  code="SYS // 01" 
+                  aspect="aspect-[4/5]" 
+                />
                 
-                {/* Background Subtle Coordinate Grid */}
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
-
-                {/* Top Header */}
-                <div className="relative z-10 flex items-center justify-between">
-                  <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">AGENCY INFRASTRUCTURE</span>
-                  <span className="text-xs font-mono text-slate-500 font-bold">EST. 2024</span>
-                </div>
-
-                {/* Center Vector Schematic & Metric */}
-                <div className="relative z-10 my-auto py-8 space-y-4">
-                  <div className="w-16 h-16 rounded-2xl bg-white/10 border border-white/20 flex items-center justify-center text-blue-400">
-                    <svg className="w-8 h-8 stroke-current stroke-1.5" viewBox="0 0 24 24" fill="none">
-                      <circle cx="12" cy="12" r="9" />
-                      <path d="M12 3a9 9 0 0 1 9 9" />
-                      <circle cx="12" cy="12" r="3" fill="currentColor" />
-                    </svg>
-                  </div>
-                  <div>
-                    <span className="font-serif text-3xl sm:text-4xl text-white font-normal block leading-tight">
-                      Full-Funnel Coordinated Execution.
+                {/* Floating Micro-Badge */}
+                <div className="absolute bottom-5 left-5 right-5 p-5 rounded-2xl bg-white/95 backdrop-blur-md border border-white/60 shadow-lg">
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-space-950">
+                      Coordinated Brand Execution
                     </span>
-                    <p className="text-xs text-slate-400 font-sans mt-2 leading-relaxed">
-                      Unified strategy uniting organic search, marketplace operations, performance paid media, and brand identity.
-                    </p>
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   </div>
-                </div>
-
-                {/* Bottom Status Block */}
-                <div className="relative z-10 p-4 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-md">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-white">
-                      Unified SLA Framework
-                    </span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  </div>
-                  <p className="text-xs font-sans text-slate-300 leading-snug">
-                    Zero fragmented vendors. Direct accountability with senior practice leads on every brand engagement.
+                  <p className="text-xs font-sans text-slate-600 leading-relaxed">
+                    Consistent brand presentation across digital touchpoints, uniting packaging, storefront design, and marketplace operations.
                   </p>
                 </div>
               </div>
@@ -329,71 +578,69 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 3. MISSION & VISION (Twin Bento Panels: Paper Left, Mist Right)       */}
+      {/* 3. MISSION & VISION (Twin Bento Panels - Headers & Footers Removed)   */}
       {/* ===================================================================== */}
-      <section className="sec-mission relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section className="sec-mission relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="max-w-2xl mb-14 sm:mb-18">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
+          <div className="max-w-2xl mb-12 sm:mb-16">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
               02 · Purpose &amp; Horizon
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15]">
               Guided by purpose, measured by reliability.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             
-            {/* Left: Our Mission (Paper #f5f3ed) */}
-            <div className="bento-card-left rounded-3xl bg-[#f5f3ed] p-8 sm:p-12 border border-[#E9E6DF] flex flex-col justify-between hover:shadow-md transition-shadow">
+            {/* Left: Our Mission (Clean, Substantive Paragraphs, Header & Footer Removed) */}
+            <div className="bento-card-left group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center font-mono font-bold text-sm text-space-950 mb-8 shadow-2xs">
-                  01
-                </div>
-                
-                <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-3">
-                  Core Mandate
-                </span>
-                
-                <h3 className="font-serif text-3xl sm:text-4xl font-normal text-space-950 mb-4 leading-snug">
+                <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.5rem] font-normal text-space-950 mb-5 group-hover:text-blue-600 transition-colors leading-tight">
                   Our Mission
                 </h3>
 
-                <p className="text-base sm:text-lg text-slate-700 font-sans leading-relaxed">
-                  "To help businesses navigate the digital landscape through practical services, clear communication, and solutions aligned with their goals and resources."
+                <p className="text-base sm:text-lg text-slate-700 font-sans leading-relaxed mb-4">
+                  "To help businesses navigate the modern digital landscape through practical services, clear communication, and commercial solutions aligned directly with their goals and resources."
+                </p>
+
+                <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
+                  We eliminate arbitrary retainer waste, technical gatekeeping, and fragmented agency handoffs. Whether deploying bespoke e-commerce infrastructure, executing algorithmic paid campaigns, or engineering high-converting retail storefronts, our mandate is measurable business value and transparent operational integrity.
+                </p>
+
+                <p className="text-xs sm:text-sm text-slate-500 font-sans leading-relaxed">
+                  Every engagement is guided by senior practice leads who take direct accountability for unit economics, turnaround speed, and long-term brand equity.
                 </p>
               </div>
 
-              <div className="pt-8 mt-8 border-t border-slate-300/40 flex items-center justify-between text-xs font-mono text-slate-600">
-                <span>01 · PRACTICAL ARCHITECTURE</span>
-                <span>HONEST SCOPING</span>
+              <div className="mt-8 pt-4">
+                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
               </div>
             </div>
 
-            {/* Right: Our Vision (Mist #edf0f3) */}
-            <div className="bento-card-right rounded-3xl bg-[#edf0f3] p-8 sm:p-12 border border-[#E2E5E9] flex flex-col justify-between hover:shadow-md transition-shadow">
+            {/* Right: Our Vision (Clean, Substantive Paragraphs, Header & Footer Removed) */}
+            <div className="bento-card-right group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <div className="w-12 h-12 rounded-2xl bg-white border border-slate-200/80 flex items-center justify-center font-mono font-bold text-sm text-space-950 mb-8 shadow-2xs">
-                  02
-                </div>
-
-                <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-3">
-                  Long-Term Ambition
-                </span>
-
-                <h3 className="font-serif text-3xl sm:text-4xl font-normal text-space-950 mb-4 leading-snug">
+                <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.5rem] font-normal text-space-950 mb-5 group-hover:text-blue-600 transition-colors leading-tight">
                   Our Vision
                 </h3>
 
-                <p className="text-base sm:text-lg text-slate-700 font-sans leading-relaxed">
-                  "To build E-Comet into a recognised digital services brand known for clear strategy, reliable execution, and a business-first approach."
+                <p className="text-base sm:text-lg text-slate-700 font-sans leading-relaxed mb-4">
+                  "To build E-Comet into a globally recognised digital services brand known for unmistakable strategic clarity, reliable execution, and a business-first approach."
+                </p>
+
+                <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
+                  As the intersection of commerce, search, and algorithmic video accelerates, digital brands need infrastructure that compounds over years rather than chasing short-lived vanity metrics.
+                </p>
+
+                <p className="text-xs sm:text-sm text-slate-500 font-sans leading-relaxed">
+                  Our horizon is to be the benchmark operating partner for founders and category leaders seeking resilient, multi-channel growth without compromising brand substance or margin control.
                 </p>
               </div>
 
-              <div className="pt-8 mt-8 border-t border-slate-300/40 flex items-center justify-between text-xs font-mono text-slate-600">
-                <span>02 · COMPOUNDING VALUE</span>
-                <span>GLOBAL HORIZON</span>
+              <div className="mt-8 pt-4">
+                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
               </div>
             </div>
 
@@ -403,133 +650,149 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 4. VISUAL SHOWCASE GALLERY (Ultra-Aesthetic Work Domains)              */}
+      {/* 4. VISUAL SHOWCASE GALLERY (With Real Images & Rich Descriptive Text) */}
       {/* ===================================================================== */}
-      <section className="sec-gallery relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section className="sec-gallery relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 sm:mb-18 gap-6">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
             <div className="max-w-2xl">
-              <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
+              <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
                 03 · Capabilities in Action
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15]">
                 Crafted across 4 foundational craft disciplines.
               </h2>
             </div>
 
-            <p className="text-sm font-sans text-slate-600 max-w-sm">
-              Each discipline is engineered to operate standalone or synchronize seamlessly as an integrated growth engine.
+            <p className="text-sm sm:text-base text-slate-600 font-sans max-w-sm leading-relaxed">
+              Each discipline is engineered to operate standalone or synchronize seamlessly as an integrated multi-channel growth engine.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
             
-            {/* Gallery Item 1: Brand & Creative */}
-            <div className="gallery-img-card rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-white group flex flex-col justify-between">
-              <div className="aspect-[4/3] bg-[#0E1218] p-6 flex flex-col justify-between text-white relative">
-                <span className="text-[10px] font-mono text-blue-400">01 / CREATIVE</span>
-                <div className="my-auto">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-2">
-                    Aa
-                  </div>
-                  <span className="text-xs font-mono text-slate-400">Design Token System</span>
-                </div>
-                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 w-3/4 rounded-full" />
-                </div>
+            {/* Gallery Item 1: Brand & Creative with Comet & Lines Artwork */}
+            <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
+              <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
+                <CelestialCometTile 
+                  tone="blue" 
+                  label="CREATIVE // TOKEN SYSTEM" 
+                  code="01" 
+                  aspect="h-full w-full" 
+                />
               </div>
-              <div className="p-5">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600 block mb-1">
-                  Pillar · Creative Services
-                </span>
-                <h4 className="font-serif text-lg font-normal text-space-950 mb-1">
-                  Brand Identity &amp; Logo Systems
-                </h4>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  Typography, color palette, guidelines, and packaging concepts.
-                </p>
-              </div>
-            </div>
-
-            {/* Gallery Item 2: Web Engineering */}
-            <div className="gallery-img-card rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-white group flex flex-col justify-between">
-              <div className="aspect-[4/3] bg-[#0E1218] p-6 flex flex-col justify-between text-white relative">
-                <span className="text-[10px] font-mono text-sky-400">02 / ENGINEERING</span>
-                <div className="my-auto">
-                  <div className="w-10 h-10 rounded-xl bg-sky-600/20 text-sky-400 flex items-center justify-center font-mono font-bold text-sm mb-2">
-                    &lt;/&gt;
-                  </div>
-                  <span className="text-xs font-mono text-slate-400">Headless React &amp; Shopify</span>
+              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600 block mb-1.5">
+                    Pillar · Creative Services
+                  </span>
+                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-blue-600 transition-colors">
+                    Brand Identity &amp; Logo Systems
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                    Distinctive typography, color palettes, visual guidelines, packaging concepts, and tactile brand systems engineered to stand out on retail shelves and digital feeds.
+                  </p>
+                  <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                    Designed with consumer psychology to convert first-time shoppers into repeat brand advocates.
+                  </p>
                 </div>
-                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-sky-500 w-4/5 rounded-full" />
+                <div className="mt-5 pt-3">
+                  <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
                 </div>
-              </div>
-              <div className="p-5">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-sky-600 block mb-1">
-                  Pillar · Website Development
-                </span>
-                <h4 className="font-serif text-lg font-normal text-space-950 mb-1">
-                  Business &amp; E-Commerce Stores
-                </h4>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  Responsive corporate websites, online stores, and landing pages.
-                </p>
               </div>
             </div>
 
-            {/* Gallery Item 3: Marketplace Operations */}
-            <div className="gallery-img-card rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-white group flex flex-col justify-between">
-              <div className="aspect-[4/3] bg-[#0E1218] p-6 flex flex-col justify-between text-white relative">
-                <span className="text-[10px] font-mono text-amber-400">03 / MARKETPLACES</span>
-                <div className="my-auto">
-                  <div className="w-10 h-10 rounded-xl bg-amber-600/20 text-amber-400 flex items-center justify-center font-mono font-bold text-sm mb-2">
-                    ★
-                  </div>
-                  <span className="text-xs font-mono text-slate-400">Amazon &amp; Flipkart Engine</span>
-                </div>
-                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-amber-500 w-5/6 rounded-full" />
-                </div>
+            {/* Gallery Item 2: Web Engineering with Comet & Lines Artwork */}
+            <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
+              <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
+                <CelestialCometTile 
+                  tone="emerald" 
+                  label="WEB // HEADLESS REACT" 
+                  code="02" 
+                  aspect="h-full w-full" 
+                />
               </div>
-              <div className="p-5">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-600 block mb-1">
-                  Pillar · E-Commerce Management
-                </span>
-                <h4 className="font-serif text-lg font-normal text-space-950 mb-1">
-                  Marketplace Catalogue &amp; Operations
-                </h4>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  Amazon &amp; Flipkart seller onboarding, A+ content, and PPC ads.
-                </p>
+              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-600 block mb-1.5">
+                    Pillar · Website Development
+                  </span>
+                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-emerald-600 transition-colors">
+                    Business &amp; E-Commerce Stores
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                    High-performance Shopify Plus builds, Next.js commerce architectures, sub-second checkout funnels, and responsive corporate portals with 95+ Core Web Vitals score.
+                  </p>
+                  <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                    Engineered for zero downtime, lightning load speeds, and maximum transaction throughput.
+                  </p>
+                </div>
+                <div className="mt-5 pt-3">
+                  <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
+                </div>
               </div>
             </div>
 
-            {/* Gallery Item 4: Media & Motion */}
-            <div className="gallery-img-card rounded-2xl overflow-hidden border border-slate-200/90 shadow-sm bg-white group flex flex-col justify-between">
-              <div className="aspect-[4/3] bg-[#0E1218] p-6 flex flex-col justify-between text-white relative">
-                <span className="text-[10px] font-mono text-blue-400">04 / VIDEO</span>
-                <div className="my-auto">
-                  <div className="w-10 h-10 rounded-xl bg-blue-600/20 text-blue-400 flex items-center justify-center font-mono font-bold text-sm mb-2">
-                    ▶
-                  </div>
-                  <span className="text-xs font-mono text-slate-400">High-Pace Reels &amp; Motion</span>
+            {/* Gallery Item 3: Marketplace Operations with Comet & Lines Artwork */}
+            <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
+              <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
+                <CelestialCometTile 
+                  tone="amber" 
+                  label="MARKETPLACES // GLOBAL ASIN" 
+                  code="03" 
+                  aspect="h-full w-full" 
+                />
+              </div>
+              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-600 block mb-1.5">
+                    Pillar · E-Commerce Management
+                  </span>
+                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-amber-600 transition-colors">
+                    Marketplace Catalogue &amp; Operations
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                    End-to-end Amazon 1P/3P and Flipkart seller onboarding, conversion-optimized A+ content, PLA ads management, inventory health monitoring, and buy-box protection.
+                  </p>
+                  <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                    Maximizing organic keyword ranking while strictly maintaining profitability and target TACoS.
+                  </p>
                 </div>
-                <div className="h-1 w-full bg-white/10 rounded-full overflow-hidden">
-                  <div className="h-full bg-blue-500 w-2/3 rounded-full" />
+                <div className="mt-5 pt-3">
+                  <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
                 </div>
               </div>
-              <div className="p-5">
-                <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600 block mb-1">
-                  Pillar · YouTube &amp; Video
-                </span>
-                <h4 className="font-serif text-lg font-normal text-space-950 mb-1">
-                  Video Editing &amp; Shorts / Reels
-                </h4>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  Pacing, captions, thumbnails, channel SEO, and promotional edits.
-                </p>
+            </div>
+
+            {/* Gallery Item 4: Media & Motion with Comet & Lines Artwork */}
+            <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
+              <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
+                <CelestialCometTile 
+                  tone="rose" 
+                  label="VIDEO // MOTION & REELS" 
+                  code="04" 
+                  aspect="h-full w-full" 
+                />
+              </div>
+              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
+                <div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-600 block mb-1.5">
+                    Pillar · YouTube &amp; Video
+                  </span>
+                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-rose-600 transition-colors">
+                    Video Editing &amp; Shorts / Reels
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                    Dynamic pacing, motion graphics, high-CTR thumbnail packaging, channel SEO, and short-form video repurposing crafted to capture algorithmic watch time.
+                  </p>
+                  <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                    Turning passive viewers into engaged social audiences and high-intent inbound customers.
+                  </p>
+                </div>
+                <div className="mt-5 pt-3">
+                  <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
+                </div>
               </div>
             </div>
 
@@ -539,16 +802,16 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 5. THE 5 CORE BRAND VALUES (Official from Developer Brief)            */}
+      {/* 5. THE 5 CORE BRAND VALUES (Header Part "01//" "02//" Removed)         */}
       {/* ===================================================================== */}
-      <section className="sec-values relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section className="sec-values relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
+          <div className="max-w-3xl mb-12 sm:mb-16">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
               04 · Our Operating Principles
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
               Five values that define how we work.
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
@@ -556,95 +819,125 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
             
-            {/* Value 1: Clarity */}
-            <div className="value-card p-7 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF] flex flex-col justify-between hover:shadow-md hover:-translate-y-1 transition-all">
+            {/* Value 1: Clarity (Header "01 //" removed) */}
+            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <span className="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-xs font-mono font-bold text-space-950 mb-6 shadow-2xs">
-                  01
-                </span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
+                    NO AMBIGUITY
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#00B4D8]" />
+                </div>
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
                   Clarity
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
-                  Explain the scope, process, and expectations in straightforward language with zero technical gatekeeping.
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                  Explain the scope, process, deliverables, and performance expectations in straightforward language with zero technical gatekeeping or buzzwords.
+                </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  Every partner knows exactly who is executing what, when milestones arrive, and how progress is objectively verified.
                 </p>
               </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                NO AMBIGUITY
+              <div className="pt-4 border-t border-stone-200 mt-6">
+                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
               </div>
             </div>
 
-            {/* Value 2: Purpose */}
-            <div className="value-card p-7 rounded-2xl bg-[#edf0f3] border border-[#E2E5E9] flex flex-col justify-between hover:shadow-md hover:-translate-y-1 transition-all">
+            {/* Value 2: Purpose (Header "02 //" removed) */}
+            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <span className="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-xs font-mono font-bold text-space-950 mb-6 shadow-2xs">
-                  02
-                </span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
+                    GOAL-ALIGNED
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
+                </div>
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
                   Purpose
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
-                  Recommend services based strictly on business needs rather than unnecessary technological complexity.
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                  Recommend services and architectural choices based strictly on real commercial needs rather than unnecessary technological complexity.
+                </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  We don't push enterprise stacks when lean headless solves the problem, preserving your capital for inventory and acquisition velocity.
                 </p>
               </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                GOAL-ALIGNED
+              <div className="pt-4 border-t border-stone-200 mt-6">
+                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
               </div>
             </div>
 
-            {/* Value 3: Flexibility */}
-            <div className="value-card p-7 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF] flex flex-col justify-between hover:shadow-md hover:-translate-y-1 transition-all">
+            {/* Value 3: Flexibility (Header "03 //" removed) */}
+            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <span className="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-xs font-mono font-bold text-space-950 mb-6 shadow-2xs">
-                  03
-                </span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
+                    ADAPTIVE SCOPE
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
+                </div>
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
                   Flexibility
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
-                  Shape service scope around the project, resources, and agreed requirements instead of rigid packages.
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                  Shape service scope around the project, resources, and agreed requirements instead of forcing rigid pre-packaged retainers.
+                </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  As market dynamics pivot or seasonal demand surges, our practice pods scale dynamically to protect your margins.
                 </p>
               </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                ADAPTIVE SCOPE
+              <div className="pt-4 border-t border-stone-200 mt-6">
+                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
               </div>
             </div>
 
-            {/* Value 4: Consistency */}
-            <div className="value-card p-7 rounded-2xl bg-[#edf0f3] border border-[#E2E5E9] flex flex-col justify-between hover:shadow-md hover:-translate-y-1 transition-all">
+            {/* Value 4: Consistency (Header "04 //" removed) */}
+            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <span className="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-xs font-mono font-bold text-space-950 mb-6 shadow-2xs">
-                  04
-                </span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
+                    UNIFIED VOICE
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+                </div>
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
                   Consistency
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
-                  Support a coherent, elevated brand presentation across all relevant digital channels and marketplace nodes.
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                  Support a coherent, elevated brand presentation across all relevant digital channels, packaging touchpoints, and marketplace nodes.
+                </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  From Amazon A+ layouts to direct Shopify checkouts, your customer experiences a cohesive brand narrative that commands premium pricing.
                 </p>
               </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                UNIFIED VOICE
+              <div className="pt-4 border-t border-stone-200 mt-6">
+                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
               </div>
             </div>
 
-            {/* Value 5: Transparency */}
-            <div className="value-card p-7 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF] flex flex-col justify-between hover:shadow-md hover:-translate-y-1 transition-all">
+            {/* Value 5: Transparency (Header "05 //" removed) */}
+            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <span className="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-xs font-mono font-bold text-space-950 mb-6 shadow-2xs">
-                  05
-                </span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-3">
+                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
+                    UPFRONT HONESTY
+                  </span>
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
+                </div>
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
                   Transparency
                 </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
-                  Discuss deliverables, timelines, pricing, and third-party costs (ad spend, hosting) before work begins.
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
+                  Discuss deliverables, timelines, pricing, revision boundaries, and third-party fees (ad spend, platform hosting) before work begins.
+                </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  No hidden costs, no surprise add-ons, and no inflated promises. Honest roadmaps that build genuine, lasting commercial trust.
                 </p>
               </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                UPFRONT HONESTY
+              <div className="pt-4 border-t border-stone-200 mt-6">
+                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
               </div>
             </div>
 
@@ -656,97 +949,112 @@ export default function AboutPage() {
       {/* ===================================================================== */}
       {/* 6. OUR 5-STEP OPERATING FRAMEWORK ("Our Approach")                    */}
       {/* ===================================================================== */}
-      <section className="sec-framework relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section className="sec-framework relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="max-w-2xl mb-16 sm:mb-20">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
+          <div className="max-w-2xl mb-12 sm:mb-16">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
               05 · The Execution Roadmap
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15]">
               A structured roadmap from discovery to delivery.
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-5">
             
             {/* Step 1 */}
-            <div className="framework-step p-6 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF] flex flex-col justify-between">
+            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-xs font-mono font-bold text-cyan-600 uppercase block mb-3">STAGE 01</span>
-                <h3 className="font-serif text-xl font-normal text-space-950 mb-2">
+                <span className="text-[10px] font-mono font-bold text-cyan-600 uppercase tracking-wider block mb-3">STAGE 01</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
                   Understand
                 </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
                   Understand your business, target audience, current digital setup, and commercial goals.
                 </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  We audit catalog health, conversion leaks, and channel unit economics before proposing architecture.
+                </p>
               </div>
-              <div className="w-full h-1 bg-space-950/20 rounded-full mt-6 overflow-hidden">
-                <div className="w-1/5 h-full bg-space-950 rounded-full"></div>
+              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
+                <div className="w-1/5 h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
               </div>
             </div>
 
             {/* Step 2 */}
-            <div className="framework-step p-6 rounded-2xl bg-[#edf0f3] border border-[#E2E5E9] flex flex-col justify-between">
+            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-xs font-mono font-bold text-blue-600 uppercase block mb-3">STAGE 02</span>
-                <h3 className="font-serif text-xl font-normal text-space-950 mb-2">
+                <span className="text-[10px] font-mono font-bold text-blue-600 uppercase tracking-wider block mb-3">STAGE 02</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
                   Identify
                 </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
                   Identify the relevant digital opportunities, competitive gaps, and operational challenges.
                 </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  Benchmarking buy-box dynamics, search volume, keyword indexation, and creative performance gaps.
+                </p>
               </div>
-              <div className="w-full h-1 bg-space-950/20 rounded-full mt-6 overflow-hidden">
-                <div className="w-2/5 h-full bg-space-950 rounded-full"></div>
+              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
+                <div className="w-2/5 h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
               </div>
             </div>
 
             {/* Step 3 */}
-            <div className="framework-step p-6 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF] flex flex-col justify-between">
+            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-xs font-mono font-bold text-emerald-600 uppercase block mb-3">STAGE 03</span>
-                <h3 className="font-serif text-xl font-normal text-space-950 mb-2">
+                <span className="text-[10px] font-mono font-bold text-emerald-600 uppercase tracking-wider block mb-3">STAGE 03</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
                   Define
                 </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
                   Define specific services, deliverables, responsibilities, timelines, and proposal scope.
                 </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  Written deliverables, fixed revision guardrails, and senior lead accountability locked in upfront.
+                </p>
               </div>
-              <div className="w-full h-1 bg-space-950/20 rounded-full mt-6 overflow-hidden">
-                <div className="w-3/5 h-full bg-space-950 rounded-full"></div>
+              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
+                <div className="w-3/5 h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
               </div>
             </div>
 
             {/* Step 4 */}
-            <div className="framework-step p-6 rounded-2xl bg-[#edf0f3] border border-[#E2E5E9] flex flex-col justify-between">
+            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-xs font-mono font-bold text-rose-600 uppercase block mb-3">STAGE 04</span>
-                <h3 className="font-serif text-xl font-normal text-space-950 mb-2">
+                <span className="text-[10px] font-mono font-bold text-rose-600 uppercase tracking-wider block mb-3">STAGE 04</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
                   Execute
                 </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
                   Execute the agreed work with meticulous attention to detail, quality, and brand consistency.
                 </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  100% senior in-house squad delivery with zero telephone handoffs to junior trainees.
+                </p>
               </div>
-              <div className="w-full h-1 bg-space-950/20 rounded-full mt-6 overflow-hidden">
-                <div className="w-4/5 h-full bg-space-950 rounded-full"></div>
+              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
+                <div className="w-4/5 h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
               </div>
             </div>
 
             {/* Step 5 */}
-            <div className="framework-step p-6 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF] flex flex-col justify-between">
+            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-xs font-mono font-bold text-purple-600 uppercase block mb-3">STAGE 05</span>
-                <h3 className="font-serif text-xl font-normal text-space-950 mb-2">
+                <span className="text-[10px] font-mono font-bold text-purple-600 uppercase tracking-wider block mb-3">STAGE 05</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
                   Review
                 </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
+                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
                   Review the work against agreed metrics, discuss feedback, and plan appropriate next steps.
                 </p>
+                <p className="text-xs text-slate-500 font-sans leading-relaxed">
+                  Transparent weekly telemetry dashboards with verified attribution and zero vanity metrics.
+                </p>
               </div>
-              <div className="w-full h-1 bg-space-950/20 rounded-full mt-6 overflow-hidden">
-                <div className="w-full h-full bg-space-950 rounded-full"></div>
+              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
+                <div className="w-full h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
               </div>
             </div>
 
@@ -758,13 +1066,13 @@ export default function AboutPage() {
       {/* ===================================================================== */}
       {/* 7. BRAND INTEGRITY & COMMERCIAL TRANSPARENCY CARD                     */}
       {/* ===================================================================== */}
-      <section className="relative py-16 sm:py-20 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section className="relative py-16 sm:py-24 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="rounded-3xl bg-[#030712] text-white p-8 sm:p-14 border border-slate-800 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
+          <div className="rounded-[32px] sm:rounded-[40px] bg-[#030712] text-white p-8 sm:p-14 border border-slate-800 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
             
             <div className="max-w-2xl space-y-3">
-              <span className="px-3 py-1 rounded-full bg-white/10 text-cyan-300 font-mono text-[11px] font-semibold uppercase tracking-wider inline-block">
+              <span className="px-3.5 py-1 rounded-full bg-white/10 text-cyan-300 font-mono text-[11px] font-semibold uppercase tracking-wider inline-block">
                 Brand Integrity &amp; Transparency Guarantee
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl font-normal text-white leading-tight">
@@ -778,13 +1086,13 @@ export default function AboutPage() {
             <div className="flex-shrink-0 flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
               <a 
                 href="#closing" 
-                className="w-full sm:w-auto px-6 py-3 rounded-full bg-white text-space-950 font-sans text-xs font-semibold hover:bg-slate-100 transition-colors text-center"
+                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white text-space-950 font-sans text-xs font-semibold hover:bg-slate-100 transition-all text-center shadow-md hover:scale-105 cursor-pointer"
               >
                 Request a Custom Quote
               </a>
               <Link 
-                to="/#services" 
-                className="w-full sm:w-auto px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-slate-200 font-sans text-xs font-semibold transition-colors text-center"
+                to="/explore-pillars" 
+                className="w-full sm:w-auto px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-slate-200 font-sans text-xs font-semibold transition-colors text-center"
               >
                 View 6 Pillars
               </Link>
@@ -796,11 +1104,9 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 8. CLOSING SECTION & LEAD ENQUIRY FORM                                */}
+      {/* 8. CLOSING SECTION (Aesthetic Asteroid Video CTA) & FOOTER             */}
       {/* ===================================================================== */}
       <ClosingSection />
-
-      {/* Site Footer */}
       <Footer />
 
     </div>

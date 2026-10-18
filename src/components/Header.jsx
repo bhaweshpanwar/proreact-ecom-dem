@@ -37,7 +37,7 @@ export default function Header() {
           {/* Brand Logo */}
           <Link to="/" className="flex items-center flex-shrink-0 text-decoration-none group py-1">
             <img 
-              src="/assets/brand-logo.jpg" 
+              src="/assets/ecomet logo .png" 
               alt="E-COMET · Beyond Digital. Into the Next Orbit." 
               className="h-12 sm:h-14 w-auto object-contain mix-blend-multiply group-hover:opacity-90 transition-opacity" 
             />

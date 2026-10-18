@@ -1,9 +1,232 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { PILLARS_DATA, MEGA_MENU_DATA } from '../data/megaMenuData';
+import { PILLARS_DATA } from '../data/megaMenuData';
 
+/**
+ * MegaMenu
+ * 
+ * Fluid interactive split-deck services architecture menu.
+ * When hovering a pillar card in a row:
+ * - The hovered card dynamically expands (76% width) to unveil 3 rich sub-pillar columns (15+ capabilities).
+ * - Adjacent cards in the row smoothly shrink into sleek vertical tabs displaying only their title and indicator.
+ * - Moving to any shrunken card seamlessly swapp-expands it into full focus.
+ */
 export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLeave }) {
+  const [hoveredId, setHoveredId] = useState(null);
+
   if (!activeMenu) return null;
+
+  // Split into 2 rows of 3 pillars each
+  const row1 = PILLARS_DATA.slice(0, 3);
+  const row2 = PILLARS_DATA.slice(3, 6);
+
+  const renderPillarCard = (pillar, rowList) => {
+    const isHovered = hoveredId === pillar.id;
+    const isRowActive = rowList.some(p => p.id === hoveredId);
+    const isShrunk = isRowActive && !isHovered;
+
+    // Flex sizing on desktop
+    // Default: equal 1/3 (w-1/3, flex-1)
+    // Hovered: expansive full-focus (w-[76%], flex-[7.5])
+    // Shrunk: slim vertical anchor tab (w-[12%], flex-[1.2])
+    const flexClass = isHovered
+      ? 'lg:flex-[7.5] lg:w-[76%] border-slate-300 shadow-xl'
+      : isShrunk
+        ? 'lg:flex-[1.2] lg:w-[12%] bg-[#F8F9FA] hover:bg-slate-100/90 border-slate-200 cursor-pointer'
+        : 'lg:flex-1 lg:w-1/3 bg-[#FAFAFA] hover:bg-white border-slate-200 hover:border-slate-300 hover:shadow-md';
+
+    return (
+      <div
+        key={pillar.id}
+        onMouseEnter={() => setHoveredId(pillar.id)}
+        className={`group relative rounded-[22px] border p-5 sm:p-6 transition-[flex,width,background-color] duration-1000 lg:duration-[1400ms] ease-[cubic-bezier(0.25,1,0.35,1)] overflow-hidden flex flex-col justify-between min-w-0 ${flexClass}`}
+        style={{
+          minHeight: '380px',
+          backgroundColor: isHovered ? `${pillar.colorHex}0C` : undefined,
+        }}
+      >
+        {/* ================================================================= */}
+        {/* 1. SHRUNKEN STATE VIEW (Compact vertical deck tab)                */}
+        {/* ================================================================= */}
+        {isShrunk && (
+          <div className="hidden lg:flex flex-col items-center justify-between h-full w-full py-2 animate-fadeIn select-none">
+            {/* Top Indicator Orb + Number */}
+            <div className="flex flex-col items-center gap-1.5">
+              <span
+                className="w-3 h-3 rounded-full shadow-xs"
+                style={{ backgroundColor: pillar.colorHex }}
+              />
+              <span className="text-[10px] font-mono font-bold text-slate-400">
+                0{PILLARS_DATA.findIndex(p => p.id === pillar.id) + 1}
+              </span>
+            </div>
+
+            {/* Vertical Rotated Title */}
+            <div className="flex-1 flex items-center justify-center my-6">
+              <span className="font-serif text-[15px] font-normal text-space-950 [writing-mode:vertical-rl] rotate-180 whitespace-nowrap tracking-wide group-hover:text-blue-600 transition-colors">
+                {pillar.title}
+              </span>
+            </div>
+
+            {/* Expand Prompt Icon */}
+            <div className="w-7 h-7 rounded-full bg-slate-200/70 group-hover:bg-space-950 group-hover:text-white flex items-center justify-center text-xs font-bold text-slate-600 transition-all shadow-xs">
+              +
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================= */}
+        {/* 2. DEFAULT UNHOVERED VIEW (Balanced 1/3 card)                     */}
+        {/* ================================================================= */}
+        {!isRowActive && (
+          <div className="flex flex-col justify-between h-full w-full animate-fadeIn">
+            <div>
+              {/* Top Header */}
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <Link
+                  to={pillar.primarySlug}
+                  onClick={onClose}
+                  className="flex items-center gap-2 group-hover:text-blue-600 transition-colors"
+                >
+                  <span
+                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
+                    style={{ backgroundColor: pillar.colorHex }}
+                  />
+                  <h4 className="font-serif text-lg font-normal text-space-950 group-hover:text-blue-600 transition-colors">
+                    {pillar.title}
+                  </h4>
+                </Link>
+
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-slate-200/70 text-slate-700">
+                  {pillar.badge}
+                </span>
+              </div>
+
+              {/* Tagline */}
+              <p className="text-xs text-slate-500 font-sans mb-3.5 leading-snug line-clamp-2">
+                {pillar.tagline}
+              </p>
+
+              {/* Sub-services list (5 items) */}
+              <ul className="space-y-1.5 pt-2.5 border-t border-slate-200/60">
+                {pillar.links.slice(0, 5).map((link, lIdx) => (
+                  <li key={lIdx}>
+                    <Link
+                      to={link.href}
+                      onClick={onClose}
+                      className="text-[12.5px] font-sans text-slate-600 hover:text-space-950 hover:translate-x-1 transition-all inline-flex items-center gap-1.5"
+                    >
+                      <span className="text-[10px] text-slate-400">·</span>
+                      <span className="truncate">{link.label}</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Explore Pillar Link */}
+            <div className="pt-3.5 mt-3.5 border-t border-slate-200/60 flex items-center justify-between text-xs">
+              <Link
+                to={pillar.primarySlug}
+                onClick={onClose}
+                className="font-sans font-semibold text-space-950 group-hover:text-blue-600 group-hover:underline inline-flex items-center gap-1"
+              >
+                <span>Explore Pillar</span>
+                <span>→</span>
+              </Link>
+              <span className="text-[10px] font-mono text-slate-400">
+                Hover to expand
+              </span>
+            </div>
+          </div>
+        )}
+
+        {/* ================================================================= */}
+        {/* 3. EXPANDED HOVERED VIEW (Multi-pillar full-width stage)          */}
+        {/* ================================================================= */}
+        {isHovered && (
+          <div className="flex flex-col justify-between h-full w-full animate-fadeIn">
+            {/* Expanded Header Bar */}
+            <div className="pb-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <div className="flex items-center gap-2.5 mb-1">
+                  <span
+                    className="w-3 h-3 rounded-full flex-shrink-0 shadow-xs"
+                    style={{ backgroundColor: pillar.colorHex }}
+                  />
+                  <h4 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight">
+                    {pillar.title}
+                  </h4>
+                  <span className="ml-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-semibold uppercase tracking-wider bg-slate-900 text-white">
+                    {pillar.badge}
+                  </span>
+                </div>
+                <p className="text-xs sm:text-sm text-slate-500 font-sans max-w-2xl leading-relaxed">
+                  {pillar.tagline}
+                </p>
+              </div>
+
+              {/* Direct Full-Pillar Overview Button */}
+              <Link
+                to={pillar.primarySlug}
+                onClick={onClose}
+                className="self-start sm:self-auto px-4 py-2 rounded-full bg-space-950 hover:bg-blue-600 text-white font-sans text-xs font-semibold tracking-wide transition-all hover:scale-105 shadow-sm inline-flex items-center gap-2 whitespace-nowrap"
+              >
+                <span>Explore Full Pillar</span>
+                <span>→</span>
+              </Link>
+            </div>
+
+            {/* 3 Expanded Sub-Pillars Columns (15+ Capabilities) */}
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-5 flex-1">
+              {(pillar.subPillars || []).map((sub, sIdx) => (
+                <div key={sIdx} className="space-y-3">
+                  {/* Sub-Pillar Kicker Header */}
+                  <div className="flex items-center gap-2 pb-1.5 border-b border-slate-200/50">
+                    <span 
+                      className="w-1.5 h-1.5 rounded-full" 
+                      style={{ backgroundColor: pillar.colorHex }} 
+                    />
+                    <span className="text-[11px] font-mono uppercase tracking-widest text-slate-500 font-bold block">
+                      {sub.kicker}
+                    </span>
+                  </div>
+
+                  {/* Sub-Pillar Links */}
+                  <ul className="space-y-2">
+                    {sub.links.map((link, lIdx) => (
+                      <li key={lIdx}>
+                        <Link
+                          to={link.href}
+                          onClick={onClose}
+                          className="text-[12.5px] font-sans font-medium text-slate-700 hover:text-blue-600 hover:translate-x-1 transition-all inline-flex items-center gap-2 group/sublink"
+                        >
+                          <span className="text-slate-300 group-hover/sublink:text-blue-600 transition-colors">
+                            ›
+                          </span>
+                          <span className="leading-snug">{link.label}</span>
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+
+            {/* Bottom Meta Status */}
+            <div className="pt-3.5 mt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-400">
+              <span className="uppercase tracking-wider">
+                100% IN-HOUSE SENIOR EXECUTION · DIRECT GOVERNANCE
+              </span>
+              <span className="text-blue-600 font-sans font-semibold">
+                Click any service to view dossier →
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  };
 
   return (
     <>
@@ -20,7 +243,10 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
         role="region"
         aria-label="Services navigation menu"
         onMouseEnter={onMouseEnter}
-        onMouseLeave={onMouseLeave}
+        onMouseLeave={() => {
+          setHoveredId(null);
+          onMouseLeave();
+        }}
       >
         <div className="max-w-[1360px] mx-auto px-6 sm:px-8 py-8 relative">
           
@@ -28,7 +254,7 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
           <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
             <div>
               <span className="text-[11px] font-mono font-bold tracking-widest text-slate-400 uppercase block mb-1">
-                E-Comet Services Architecture
+                E-Comet Services Architecture · Interactive Orbit Deck
               </span>
               <h3 className="font-serif text-2xl font-normal text-space-950">
                 Core Capabilities &amp; Growth Pillars
@@ -45,74 +271,20 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
             </button>
           </div>
 
-          {/* 6 Parent Pillars Grid (3 columns on lg, 2 on md, 1 on sm) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {PILLARS_DATA.map((pillar) => (
-              <div 
-                key={pillar.id}
-                className="group p-5 rounded-2xl bg-[#fafafa] hover:bg-white border border-slate-200/80 hover:border-slate-300 hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  {/* Pillar Top Bar */}
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <Link 
-                      to={pillar.primarySlug}
-                      onClick={onClose}
-                      className="flex items-center gap-2 group-hover:text-black"
-                    >
-                      <span 
-                        className="w-2.5 h-2.5 rounded-full flex-shrink-0" 
-                        style={{ backgroundColor: pillar.colorHex }}
-                      />
-                      <h4 className="font-serif text-lg font-normal text-space-950 hover:underline">
-                        {pillar.title}
-                      </h4>
-                    </Link>
+          {/* Dynamic 2-Row Split-Deck Interactive Layout */}
+          <div 
+            className="space-y-5"
+            onMouseLeave={() => setHoveredId(null)}
+          >
+            {/* ROW 1: E-Commerce, Digital Marketing, Website Development */}
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-5 w-full items-stretch transition-[gap] duration-1000 lg:duration-[1400ms] ease-[cubic-bezier(0.25,1,0.35,1)]">
+              {row1.map((pillar) => renderPillarCard(pillar, row1))}
+            </div>
 
-                    <span className="px-2 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-slate-200/70 text-slate-700">
-                      {pillar.badge}
-                    </span>
-                  </div>
-
-                  {/* Pillar Tagline */}
-                  <p className="text-xs text-slate-500 font-sans mb-3.5 leading-snug">
-                    {pillar.tagline}
-                  </p>
-
-                  {/* Sub-services list */}
-                  <ul className="space-y-1.5 pt-2 border-t border-slate-200/60">
-                    {pillar.links.slice(0, 5).map((link, lIdx) => (
-                      <li key={lIdx}>
-                        <Link 
-                          to={link.href}
-                          onClick={onClose}
-                          className="text-[12.5px] font-sans text-slate-600 hover:text-space-950 hover:translate-x-1 transition-all inline-flex items-center gap-1.5"
-                        >
-                          <span className="text-[10px] text-slate-400">·</span>
-                          <span>{link.label}</span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                {/* Explore Pillar Link */}
-                <div className="pt-4 mt-4 border-t border-slate-200/60 flex items-center justify-between">
-                  <Link 
-                    to={pillar.primarySlug}
-                    onClick={onClose}
-                    className="text-xs font-sans font-semibold text-space-950 group-hover:underline inline-flex items-center gap-1"
-                  >
-                    <span>Explore Pillar</span>
-                    <span>→</span>
-                  </Link>
-
-                  <span className="text-[11px] font-mono text-slate-400">
-                    {pillar.links.length} services
-                  </span>
-                </div>
-              </div>
-            ))}
+            {/* ROW 2: YouTube & Video, Creative Services, Integrated Solutions */}
+            <div className="flex flex-col lg:flex-row gap-4 sm:gap-5 w-full items-stretch transition-[gap] duration-1000 lg:duration-[1400ms] ease-[cubic-bezier(0.25,1,0.35,1)]">
+              {row2.map((pillar) => renderPillarCard(pillar, row2))}
+            </div>
           </div>
 
           {/* Bottom Bar: Brand Promise & Quote Action */}
@@ -120,14 +292,14 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
             <div className="flex items-center gap-3">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-xs font-sans font-medium text-slate-700">
-                <strong>Need a tailored combination?</strong> E-Comet provides customized scopes across marketplaces, web, and marketing with clear deliverables.
+                <strong>Need a tailored multi-pillar scope?</strong> E-Comet designs custom operational scopes across marketplaces, web, and performance marketing.
               </span>
             </div>
 
             <a 
               href="#closing"
               onClick={onClose}
-              className="px-5 py-2 rounded-full bg-space-950 hover:bg-slate-800 text-white font-sans text-xs font-semibold whitespace-nowrap transition-colors"
+              className="px-5 py-2.5 rounded-full bg-space-950 hover:bg-slate-800 text-white font-sans text-xs font-semibold whitespace-nowrap transition-colors"
             >
               Get a Custom Quote →
             </a>

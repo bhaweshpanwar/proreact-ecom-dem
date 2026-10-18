@@ -1,11 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
-import {
-  createProceduralCometTexture,
-  createProceduralBumpTexture,
-  createGlowSpriteTexture
-} from '../Hero3D/ProceduralTextures';
+import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
+/**
+ * SingleCometCanvas
+ * 
+ * Clean, dark, cinematic monolithic 3D Asteroid (from Blender Asteroid_1a).
+ * Stripped of all side-clutter, companion comets, tails, and HUD badges.
+ * Features a dark, moody deep-space basaltic tone with realistic crater relief.
+ */
 export default function SingleCometCanvas({ colorHex = '#38BDF8', title = 'Service Comet' }) {
   const mountRef = useRef(null);
 
@@ -13,138 +16,163 @@ export default function SingleCometCanvas({ colorHex = '#38BDF8', title = 'Servi
     const container = mountRef.current;
     if (!container) return;
 
-    let width = container.clientWidth || 380;
-    let height = container.clientHeight || 420;
+    let width = container.clientWidth || 460;
+    let height = container.clientHeight || 480;
     let animId;
+    let disposed = false;
 
-    // 1. Three.js Scene Setup (Calibrated FOV & Distance so comet is fully visible with no clipping)
+    // 1. Scene & Camera
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(40, width / height, 0.1, 100);
-    camera.position.set(0, 0, 4.5);
+    camera.position.set(0, 0, 4.6);
     camera.lookAt(0, 0, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+    // 2. High-performance renderer with bright, crisp exposure
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      powerPreference: 'high-performance'
+    });
     renderer.setSize(width, height);
     renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
-    renderer.toneMappingExposure = 1.25;
+    renderer.toneMappingExposure = 1.25; // Bright, clear, crisp visibility
     container.appendChild(renderer.domElement);
 
-    // 2. Realistic Cinematic Lighting
-    const sunColor = new THREE.Color(colorHex);
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+    // 3. Clean neutral space lighting (Diffused, non-glare, non-shiny)
+    // Generous ambient light illuminates all craters evenly without specular hotspots
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.0);
     scene.add(ambientLight);
 
-    // Warm solar key light casting crisp relief
-    const keyLight = new THREE.DirectionalLight(0xfff8ee, 3.2);
-    keyLight.position.set(-5, 3.5, 4.5);
+    // Key directional light for soft sculptural relief
+    const keyLight = new THREE.DirectionalLight(0xffffff, 2.2);
+    keyLight.position.set(-5.5, 4.2, 4.2);
     scene.add(keyLight);
 
-    // Subtle celestial rim light
-    const rimLight = new THREE.DirectionalLight(sunColor, 1.8);
-    rimLight.position.set(4.5, -2, -3);
+    // Soft neutral rim light from behind (no orange, zero light from below)
+    const rimLight = new THREE.DirectionalLight(0xe2e8f0, 0.8);
+    rimLight.position.set(5.0, 3.0, -3.5);
     scene.add(rimLight);
 
-    // 3. Comet Group
-    const cometGroup = new THREE.Group();
-    scene.add(cometGroup);
+    // 4. Comet Root Pivot
+    const masterGroup = new THREE.Group();
+    scene.add(masterGroup);
 
-    // 4. Properly Sized Nucleus (Radius: 1.05 - perfectly contained without overflowing bounds)
-    const nucleusTex = createProceduralCometTexture();
-    const bumpTex = createProceduralBumpTexture();
-    const nucleusGeo = new THREE.IcosahedronGeometry(1.05, 5);
-    nucleusGeo.scale(1.04, 0.96, 1.0);
+    const mainCometPivot = new THREE.Group();
+    masterGroup.add(mainCometPivot);
 
-    // Smooth organic displacement (No extreme bulging)
-    const posAttr = nucleusGeo.attributes.position;
-    for (let i = 0; i < posAttr.count; i++) {
-      const v = new THREE.Vector3(posAttr.getX(i), posAttr.getY(i), posAttr.getZ(i));
-      
-      const macroDistort = 
-        Math.sin(v.x * 2.2) * Math.cos(v.y * 2.2) * 0.08 +
-        Math.sin(v.z * 1.8) * 0.05;
+    // 5. 2K PBR Textures
+    const textureLoader = new THREE.TextureLoader();
+    const colorTex = textureLoader.load('/assets/asteroid_color_2k.jpg');
+    colorTex.colorSpace = THREE.SRGBColorSpace;
 
-      const craterNoise =
-        Math.sin(v.x * 4.5 + 1.0) * Math.sin(v.y * 4.0) * 0.04;
+    const normalTex = textureLoader.load('/assets/asteroid_normal_2k.jpg');
+    normalTex.colorSpace = THREE.NoColorSpace;
 
-      const fineGrit =
-        Math.sin(v.x * 10.0) * Math.cos(v.y * 10.0) * 0.015;
-      
-      const totalDisp = macroDistort + craterNoise + fineGrit;
-      v.addScaledVector(v.clone().normalize(), totalDisp);
-      posAttr.setXYZ(i, v.x, v.y, v.z);
-    }
-    nucleusGeo.computeVertexNormals();
+    const aoTex = textureLoader.load('/assets/asteroid_ao_2k.jpg');
+    aoTex.colorSpace = THREE.NoColorSpace;
 
-    const nucleusMat = new THREE.MeshStandardMaterial({
-      map: nucleusTex,
-      bumpMap: bumpTex,
-      bumpScale: 0.16,
-      roughness: 0.85,
-      metalness: 0.08,
-      flatShading: false
+    // 100% Matte, Non-Shiny Natural Regolith Rock Material
+    // roughness = 1.0 and metalness = 0.0 eliminates all specular glare / shine
+    const pbrMaterial = new THREE.MeshStandardMaterial({
+      color: new THREE.Color(0xdce2ea), // Bright natural stone tone
+      map: colorTex,
+      normalMap: normalTex,
+      normalScale: new THREE.Vector2(1.5, 1.5),
+      roughness: 1.0, // 100% matte dry rock - ZERO shininess
+      metalness: 0.0, // Non-metallic, non-reflective
+      aoMap: aoTex,
+      aoMapIntensity: 1.0
     });
-    const nucleusMesh = new THREE.Mesh(nucleusGeo, nucleusMat);
-    cometGroup.add(nucleusMesh);
 
-    // 5. Soft Ion Coma Halo (Subtle low-opacity glow, no blown-out haze)
-    const comaTex = createGlowSpriteTexture(
-      Math.round(sunColor.r * 255),
-      Math.round(sunColor.g * 255),
-      Math.round(sunColor.b * 255)
+    // 6. Temporary dark placeholder while OBJ loads
+    const tempGeo = new THREE.IcosahedronGeometry(1.05, 4);
+    const tempMat = new THREE.MeshStandardMaterial({
+      color: 0x12161c,
+      roughness: 0.95,
+      metalness: 0.05
+    });
+    let placeholderMesh = new THREE.Mesh(tempGeo, tempMat);
+    mainCometPivot.add(placeholderMesh);
+
+    // 7. Load the Blender 3D Asteroid
+    const objLoader = new OBJLoader();
+    objLoader.load(
+      '/assets/asteroid_1a.obj',
+      (obj) => {
+        if (disposed) return;
+        const rawMesh = obj.children[0];
+        if (!rawMesh) return;
+
+        const asteroidGeo = rawMesh.geometry;
+        asteroidGeo.center();
+        asteroidGeo.computeVertexNormals();
+
+        // Remove placeholder
+        if (placeholderMesh) {
+          mainCometPivot.remove(placeholderMesh);
+          placeholderMesh.geometry.dispose();
+          placeholderMesh.material.dispose();
+          placeholderMesh = null;
+        }
+
+        // Attach dark monolithic asteroid
+        const mainAsteroidMesh = new THREE.Mesh(asteroidGeo, pbrMaterial);
+        mainAsteroidMesh.scale.setScalar(0.72);
+        mainCometPivot.add(mainAsteroidMesh);
+      },
+      undefined,
+      (err) => {
+        console.warn('Asteroid load error:', err);
+      }
     );
-    const comaMat = new THREE.SpriteMaterial({
-      map: comaTex,
-      color: sunColor,
-      transparent: true,
-      opacity: 0.15,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
-    const comaSprite = new THREE.Sprite(comaMat);
-    comaSprite.scale.set(3.2, 3.2, 1);
-    cometGroup.add(comaSprite);
 
-    // 6. Interactive Mouse Parallax
+    // 8. Subtle Mouse Parallax & Smooth Rotation
     let mouseX = 0;
     let mouseY = 0;
     let targetX = 0;
     let targetY = 0;
 
-    const handleMouseMove = (e) => {
+    const onMouseMove = (e) => {
       const rect = container.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      targetX = x * 0.6;
-      targetY = y * 0.4;
+      const nx = ((e.clientX - rect.left) / rect.width) * 2 - 1;
+      const ny = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
+      targetX = nx * 0.35;
+      targetY = ny * 0.25;
     };
 
-    container.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mousemove', onMouseMove);
 
-    // 7. Animation Loop
+    // 9. Animation Loop
     const clock = new THREE.Clock();
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
       const elapsed = clock.getElapsedTime();
 
-      // Parallax easing
-      mouseX += (targetX - mouseX) * 0.06;
-      mouseY += (targetY - mouseY) * 0.06;
+      // Subtle Parallax easing
+      mouseX += (targetX - mouseX) * 0.04;
+      mouseY += (targetY - mouseY) * 0.04;
+      masterGroup.rotation.y = mouseX;
+      masterGroup.rotation.x = mouseY;
 
-      cometGroup.rotation.y = elapsed * 0.25 + mouseX;
-      cometGroup.rotation.x = Math.sin(elapsed * 0.18) * 0.08 + mouseY;
-      nucleusMesh.rotation.z = elapsed * 0.10;
+      // Natural slow, hypnotic celestial tumbling in space
+      mainCometPivot.rotation.y = elapsed * 0.16;
+      mainCometPivot.rotation.x = Math.sin(elapsed * 0.11) * 0.12;
+      mainCometPivot.rotation.z = Math.cos(elapsed * 0.09) * 0.06;
+
+      // Gentle subtle floating drift
+      mainCometPivot.position.y = Math.sin(elapsed * 0.5) * 0.06;
 
       renderer.render(scene, camera);
     };
     animate();
 
-    // 8. Resize Handling
+    // 10. Resize Handling
     const handleResize = () => {
       if (!container) return;
-      width = container.clientWidth || 380;
-      height = container.clientHeight || 420;
+      width = container.clientWidth || 460;
+      height = container.clientHeight || 480;
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
@@ -152,10 +180,17 @@ export default function SingleCometCanvas({ colorHex = '#38BDF8', title = 'Servi
     window.addEventListener('resize', handleResize);
 
     return () => {
+      disposed = true;
       cancelAnimationFrame(animId);
       window.removeEventListener('resize', handleResize);
-      container.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mousemove', onMouseMove);
+
       renderer.dispose();
+      pbrMaterial.dispose();
+      colorTex.dispose();
+      normalTex.dispose();
+      aoTex.dispose();
+
       if (renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);
       }
@@ -163,18 +198,13 @@ export default function SingleCometCanvas({ colorHex = '#38BDF8', title = 'Servi
   }, [colorHex]);
 
   return (
-    <div className="relative w-full max-w-[480px] h-[380px] sm:h-[440px] lg:h-[480px] mx-auto flex items-center justify-center select-none group cursor-grab active:cursor-grabbing overflow-visible">
-      {/* Background Soft Celestial Radial Aura (Very low opacity) */}
+    <div className="relative w-full flex items-center justify-center select-none">
+      {/* Pure 3D Canvas - completely clean of all side clutter and HUD badges */}
       <div 
-        className="absolute inset-0 rounded-full blur-2xl opacity-10 pointer-events-none"
-        style={{
-          background: `radial-gradient(circle at center, ${colorHex} 0%, transparent 60%)`
-        }}
+        ref={mountRef} 
+        className="w-full max-w-[520px] h-[400px] sm:h-[480px] lg:h-[520px] relative flex items-center justify-center pointer-events-auto"
+        title={`${title} - 3D Celestial Core`}
       />
-      
-      {/* WebGL Canvas Container */}
-      <div ref={mountRef} className="relative w-full h-full" />
-
     </div>
   );
 }
