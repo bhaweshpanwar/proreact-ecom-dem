@@ -2,8 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import * as THREE from 'three';
 import {
   createPinpointStarTexture,
-  createVolumetricNebulaTexture,
-  createGlowSpriteTexture
+  createVolumetricNebulaTexture
 } from './ProceduralTextures';
 
 export default function CosmicGalaxyCanvas({ accentColorHex = '#38BDF8' }) {
@@ -32,15 +31,14 @@ export default function CosmicGalaxyCanvas({ accentColorHex = '#38BDF8' }) {
     container.appendChild(renderer.domElement);
 
     // 2. Ambient & Subtle Cosmic Lighting (Deep neutral space)
-    const ambientLight = new THREE.AmbientLight(0x080c16, 0.35);
+    const ambientLight = new THREE.AmbientLight(0x080c16, 0.4);
     scene.add(ambientLight);
 
-    const accentColor = new THREE.Color(accentColorHex);
-    const accentLight = new THREE.DirectionalLight(accentColor, 1.0);
-    accentLight.position.set(30, 20, 20);
-    scene.add(accentLight);
+    const neutralLight = new THREE.DirectionalLight(0xffffff, 0.4);
+    neutralLight.position.set(30, 20, 20);
+    scene.add(neutralLight);
 
-    // 3. Deep Starfield (2400 Stars - Clean white, diamond & celestial tint, zero violet)
+    // 3. Deep Starfield (2400 Stars - Clean white, diamond & neutral celestial tint)
     const starCount = 2400;
     const starGeo = new THREE.BufferGeometry();
     const starPositions = new Float32Array(starCount * 3);
@@ -51,8 +49,7 @@ export default function CosmicGalaxyCanvas({ accentColorHex = '#38BDF8' }) {
       new THREE.Color(0xf8fafc),
       new THREE.Color(0xdbeafe),
       new THREE.Color(0xffedd5),
-      new THREE.Color(0xcfd8dc),
-      accentColor
+      new THREE.Color(0xcfd8dc)
     ];
 
     for (let i = 0; i < starCount; i++) {
@@ -113,25 +110,6 @@ export default function CosmicGalaxyCanvas({ accentColorHex = '#38BDF8' }) {
       nebSprite.scale.set(s, s, 1);
       nebulaGroup.add(nebSprite);
     }
-
-    // 5. Accent Core Soft Celestial Aura (Service Color Flare)
-    const auraTex = createGlowSpriteTexture(
-      Math.round(accentColor.r * 255),
-      Math.round(accentColor.g * 255),
-      Math.round(accentColor.b * 255)
-    );
-    const auraMat = new THREE.SpriteMaterial({
-      map: auraTex,
-      color: accentColor,
-      transparent: true,
-      opacity: 0.18,
-      blending: THREE.AdditiveBlending,
-      depthWrite: false
-    });
-    const auraSprite = new THREE.Sprite(auraMat);
-    auraSprite.position.set(18, 5, -15);
-    auraSprite.scale.set(50, 50, 1);
-    scene.add(auraSprite);
 
     // 6. Animation Loop
     const clock = new THREE.Clock();

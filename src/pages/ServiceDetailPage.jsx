@@ -452,7 +452,7 @@ export default function ServiceDetailPage({ slugOverride }) {
             </nav>
 
             <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full animate-ping" style={{ backgroundColor: service.colorHex || '#38BDF8' }} />
+              <span className="w-2 h-2 rounded-full bg-white/70 animate-pulse" />
               <span className="text-[10px] font-mono tracking-widest uppercase text-slate-300">
                 PRACTICE TELEMETRY · 04 CORE PILLARS
               </span>
@@ -468,7 +468,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                 {service.title}
               </h1>
 
-              <p className="text-xl sm:text-2xl font-sans font-medium" style={{ color: service.colorHex }}>
+              <p className="text-xl sm:text-2xl font-sans font-normal text-slate-200">
                 {service.tagline}
               </p>
 

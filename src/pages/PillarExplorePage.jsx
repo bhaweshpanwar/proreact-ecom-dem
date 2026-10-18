@@ -206,8 +206,7 @@ export default function PillarExplorePage({ pillarOverride }) {
           
           {/* Subtle Ambient Radial Highlight */}
           <div 
-            className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-20 blur-3xl"
-            style={{ backgroundColor: activePillar.colorHex }}
+            className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-10 blur-3xl bg-slate-300"
             aria-hidden="true"
           />
 
@@ -218,10 +217,6 @@ export default function PillarExplorePage({ pillarOverride }) {
               
               {/* Category Kicker Badge */}
               <div className="maze-hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-200/70 text-[11px] font-mono font-bold tracking-wider text-slate-700 shadow-2xs mb-6">
-                <span 
-                  className="w-2 h-2 rounded-full animate-pulse" 
-                  style={{ backgroundColor: activePillar.colorHex }} 
-                />
                 <span>{heroContent.badge}</span>
               </div>
 
@@ -337,10 +332,7 @@ export default function PillarExplorePage({ pillarOverride }) {
 
               {/* Foreground Card 2 (Bottom Offset Mini Card) */}
               <div className="maze-floating-card absolute -bottom-6 -left-2 sm:-left-6 z-30 bg-slate-950 text-white rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-800 flex items-center gap-3.5 max-w-[280px]">
-                <div 
-                  className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold text-white shadow-sm"
-                  style={{ backgroundColor: activePillar.colorHex }}
-                >
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold text-white shadow-sm bg-[#252B36]">
                   ⚡
                 </div>
                 <div>
