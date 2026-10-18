@@ -289,7 +289,7 @@ export const PILLARS_DATA = [
           { label: "Multi-Channel Margin & Unit Economics", href: "/services/integrated-solutions" },
           { label: "Cross-Platform Attribution & Telemetry", href: "/services/integrated-solutions" },
           { label: "Inventory Forecasting & Supply Health", href: "/services/integrated-solutions" },
-          { label: "Weekly Executive Performance Dossier", href: "/services/integrated-solutions" },
+          { label: "Weekly Executive Performance Report", href: "/services/integrated-solutions" },
           { label: "Ad Spend vs Organic Revenue Modeling", href: "/services/integrated-solutions" },
         ]
       },

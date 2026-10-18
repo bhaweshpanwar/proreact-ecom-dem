@@ -22,8 +22,8 @@ export default function ServiceDetailPage({ slugOverride }) {
   const containerRef = useRef(null);
   const whyVideoRef = useRef(null);
 
-  // Strategic Fit Dossiers tailored to engagement tiers
-  const personaDossiers = [
+  // Strategic Fit Profiles tailored to engagement tiers
+  const personaProfiles = [
     {
       stageTag: "DAY-1 ONBOARDING",
       slaTarget: "Rapid Setup Sprint",
@@ -634,7 +634,7 @@ export default function ServiceDetailPage({ slugOverride }) {
               <div className="space-y-3.5 sm:space-y-4">
                 {(service.whoBenefits || []).map((item, idx) => {
                   const isActive = activePersona === idx;
-                  const dossier = personaDossiers[idx] || personaDossiers[0];
+                  const profile = personaProfiles[idx] || personaProfiles[0];
                   
                   return (
                     <div 
@@ -664,7 +664,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                             ? 'bg-space-950 text-white border-space-950 font-semibold' 
                             : 'bg-stone-100 text-slate-500 border-stone-200'
                         }`}>
-                          {dossier.stageTag}
+                          {profile.stageTag}
                         </span>
                       </div>
 
@@ -681,7 +681,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                       {/* Expanded criteria when active */}
                       {isActive && (
                         <div className="pt-3.5 mt-2 border-t border-stone-100 space-y-2">
-                          {dossier.highlights.slice(0, 2).map((hl, hIdx) => (
+                          {profile.highlights.slice(0, 2).map((hl, hIdx) => (
                             <div key={hIdx} className="flex items-start gap-2 text-xs text-slate-600 font-sans leading-relaxed">
                               <span className="text-blue-600 font-semibold select-none">―</span>
                               <span>{hl}</span>
@@ -697,7 +697,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                         <span className={`font-semibold transition-transform ${
                           isActive ? 'text-space-950 translate-x-1' : 'text-slate-400'
                         }`}>
-                          View Dossier →
+                          View Overview →
                         </span>
                       </div>
 
@@ -724,7 +724,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                 <div className="relative z-10 flex items-center justify-between pb-4 border-b border-slate-800/80">
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] font-mono tracking-widest uppercase text-slate-300">
-                      TELEMETRY DOSSIER · 0{activePersona + 1}
+                      TELEMETRY OVERVIEW · 0{activePersona + 1}
                     </span>
                   </div>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300 uppercase">
@@ -749,20 +749,20 @@ export default function ServiceDetailPage({ slugOverride }) {
                   </div>
                 </div>
 
-                {/* Bottom: Dynamic Spec Dossier */}
+                {/* Bottom: Dynamic Spec Overview */}
                 <div className="relative z-10 pt-4 border-t border-slate-800/80 space-y-3.5">
                   
                   <div className="grid grid-cols-2 gap-2.5 text-[11px] font-mono">
                     <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
                       <span className="text-slate-400 block mb-1">TARGET SLA</span>
                       <span className="text-white font-semibold">
-                        {(personaDossiers[activePersona] || personaDossiers[0]).slaTarget}
+                        {(personaProfiles[activePersona] || personaProfiles[0]).slaTarget}
                       </span>
                     </div>
                     <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
                       <span className="text-slate-400 block mb-1">GOVERNANCE</span>
                       <span className="text-white font-semibold">
-                        {(personaDossiers[activePersona] || personaDossiers[0]).governance}
+                        {(personaProfiles[activePersona] || personaProfiles[0]).governance}
                       </span>
                     </div>
                   </div>
@@ -772,7 +772,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                       CORE OPERATIONAL FOCUS
                     </span>
                     <p className="text-xs font-sans text-slate-300 leading-relaxed">
-                      {(personaDossiers[activePersona] || personaDossiers[0]).deliverableSummary}
+                      {(personaProfiles[activePersona] || personaProfiles[0]).deliverableSummary}
                     </p>
                   </div>
 

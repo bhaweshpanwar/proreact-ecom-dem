@@ -482,7 +482,7 @@ export default function PillarExplorePage({ pillarOverride }) {
                       to={targetUrl}
                       className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#080B10] hover:bg-[#252B36] group-hover:bg-[#252B36] text-white font-sans text-xs font-semibold tracking-wide transition-all shadow-xs group-hover:scale-105"
                     >
-                      <span>View Dossier</span>
+                      <span>View Overview</span>
                       <span className="group-hover:translate-x-1 transition-transform">→</span>
                     </Link>
                   </div>

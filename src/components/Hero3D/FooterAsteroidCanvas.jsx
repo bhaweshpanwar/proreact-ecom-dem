@@ -31,21 +31,21 @@ export default function FooterAsteroidCanvas() {
     renderer.toneMappingExposure = 1.25;
     container.appendChild(renderer.domElement);
 
-    // 2. Lighting Setup (Cinematic Deep Space Rim Lighting)
-    const ambientLight = new THREE.AmbientLight(0x1a202c, 1.2);
+    // 2. Lighting Setup (Cinematic Deep Space Rim Lighting - Monochromatic Neutral)
+    const ambientLight = new THREE.AmbientLight(0x1e293b, 1.2);
     scene.add(ambientLight);
 
-    // Warm Sun Key Light
-    const keyLight = new THREE.DirectionalLight(0xfff7ed, 3.8);
+    // Crisp Sun Key Light
+    const keyLight = new THREE.DirectionalLight(0xffffff, 3.6);
     keyLight.position.set(-6, 5, 4);
     scene.add(keyLight);
 
-    // E-Comet Cyan/Ember Rim Light
-    const rimLight = new THREE.DirectionalLight(0x38bdf8, 2.5);
+    // Clean Platinum/Silver Rim Light
+    const rimLight = new THREE.DirectionalLight(0xe2e8f0, 2.0);
     rimLight.position.set(6, -3, -4);
     scene.add(rimLight);
 
-    const bottomGlow = new THREE.PointLight(0xf59e0b, 1.5, 10);
+    const bottomGlow = new THREE.PointLight(0x334155, 1.0, 10);
     bottomGlow.position.set(0, -3, 2);
     scene.add(bottomGlow);
 
@@ -96,9 +96,9 @@ export default function FooterAsteroidCanvas() {
     // 5. Orbital Trajectory Ring
     const ringGeo = new THREE.RingGeometry(2.35, 2.38, 96);
     const ringMat = new THREE.MeshBasicMaterial({
-      color: 0x38bdf8,
+      color: 0xffffff,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.22,
       side: THREE.DoubleSide,
       blending: THREE.AdditiveBlending
     });
@@ -110,9 +110,9 @@ export default function FooterAsteroidCanvas() {
     // Second faint outer trajectory ring
     const ringGeo2 = new THREE.RingGeometry(2.82, 2.84, 96);
     const ringMat2 = new THREE.MeshBasicMaterial({
-      color: 0xf59e0b,
+      color: 0xffffff,
       transparent: true,
-      opacity: 0.16,
+      opacity: 0.10,
       side: THREE.DoubleSide,
       blending: THREE.AdditiveBlending
     });
@@ -128,8 +128,8 @@ export default function FooterAsteroidCanvas() {
 
     const debrisGeo = new THREE.DodecahedronGeometry(0.04, 0);
     const debrisMat = new THREE.MeshStandardMaterial({
-      color: 0x94a3b8,
-      roughness: 0.9,
+      color: 0xcfd8dc,
+      roughness: 0.85,
       metalness: 0.2
     });
 
@@ -148,12 +148,12 @@ export default function FooterAsteroidCanvas() {
     }
 
     // 7. Ambient Celestial Dust Glow
-    const glowTex = createGlowSpriteTexture(56, 189, 248);
+    const glowTex = createGlowSpriteTexture(255, 255, 255);
     const glowMat = new THREE.SpriteMaterial({
       map: glowTex,
-      color: 0x38bdf8,
+      color: 0xffffff,
       transparent: true,
-      opacity: 0.24,
+      opacity: 0.08,
       blending: THREE.AdditiveBlending,
       depthWrite: false
     });
@@ -289,7 +289,7 @@ export default function FooterAsteroidCanvas() {
       {/* Background Watermark Typography */}
       <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden">
         <span className="text-[72px] sm:text-[110px] md:text-[140px] lg:text-[170px] font-serif font-black tracking-[0.25em] text-white/[0.03] uppercase whitespace-nowrap">
-          E-COMET
+          ORBIT
         </span>
       </div>
 
@@ -318,7 +318,7 @@ export default function FooterAsteroidCanvas() {
         <div className="px-3.5 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-[10px] font-mono text-slate-400 tracking-wider flex items-center gap-2 shadow-sm">
           <span className="text-white">✦</span>
           <span>Interactive 3D Asteroid · Drag to inspect orbit</span>
-          <span className="text-cyan-400">✦</span>
+          <span className="text-white">✦</span>
         </div>
       </div>
 

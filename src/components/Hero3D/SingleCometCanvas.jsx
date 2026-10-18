@@ -9,7 +9,11 @@ import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
  * Stripped of all side-clutter, companion comets, tails, and HUD badges.
  * Features a dark, moody deep-space basaltic tone with realistic crater relief.
  */
-export default function SingleCometCanvas({ colorHex = '#38BDF8', title = 'Service Comet' }) {
+export default function SingleCometCanvas({ 
+  colorHex = '#38BDF8', 
+  title = 'Service Comet',
+  height = 'h-[400px] sm:h-[480px] lg:h-[520px]'
+}) {
   const mountRef = useRef(null);
 
   useEffect(() => {
@@ -202,7 +206,7 @@ export default function SingleCometCanvas({ colorHex = '#38BDF8', title = 'Servi
       {/* Pure 3D Canvas - completely clean of all side clutter and HUD badges */}
       <div 
         ref={mountRef} 
-        className="w-full max-w-[520px] h-[400px] sm:h-[480px] lg:h-[520px] relative flex items-center justify-center pointer-events-auto"
+        className={`w-full max-w-[520px] ${height} relative flex items-center justify-center pointer-events-auto`}
         title={`${title} - 3D Celestial Core`}
       />
     </div>
