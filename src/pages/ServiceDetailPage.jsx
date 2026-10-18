@@ -4,8 +4,10 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SERVICES_DATA } from '../data/servicesData';
 import { PACKAGES_BY_PILLAR, USE_CASES_BY_PILLAR } from '../data/packagesData';
+import { getServiceFaqs } from '../data/serviceFaqsData';
 import SingleCometCanvas from '../components/Hero3D/SingleCometCanvas';
 import CosmicGalaxyCanvas from '../components/Hero3D/CosmicGalaxyCanvas';
+import StrategicBlueprintCanvas from '../components/ServiceDetail/StrategicBlueprintCanvas';
 import ClosingSection from '../components/Sections/ClosingSection';
 import Footer from '../components/Sections/Footer';
 
@@ -14,9 +16,91 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ServiceDetailPage({ slugOverride }) {
   const { slug: routeSlug } = useParams();
   const slug = slugOverride || routeSlug;
-  const [openFaq, setOpenFaq] = useState(null);
+  const [openFaqs, setOpenFaqs] = useState([0]); // Default first FAQ open
   const [currency, setCurrency] = useState('INR'); // 'INR' or 'USD'
+  const [activePersona, setActivePersona] = useState(0);
   const containerRef = useRef(null);
+  const whyVideoRef = useRef(null);
+
+  // Strategic Fit Dossiers tailored to engagement tiers
+  const personaDossiers = [
+    {
+      stageTag: "DAY-1 ONBOARDING",
+      slaTarget: "Rapid Setup Sprint",
+      coreMetric: "Catalogue Health & Verification",
+      governance: "Senior Specialist Direct",
+      deliverableSummary: "Complete brand onboarding, taxonomy mapping, compliance audit, and initial catalogue architecture.",
+      highlights: [
+        "Structured marketplace account registration & tax compliance checks",
+        "Clean catalogue variation mapping & high-indexing keyword seeds",
+        "Day-1 launch verification with zero initial listing rejections"
+      ]
+    },
+    {
+      stageTag: "GROWTH & EXPANSION",
+      slaTarget: "Continuous Sprints",
+      coreMetric: "ROAS Efficiency & Organic Share",
+      governance: "Practice Partner Direct",
+      deliverableSummary: "Full-funnel advertising restructuring, proactive buy-box monitoring, and margin-defending bid automation.",
+      highlights: [
+        "Keyword harvest campaigns and negative targeting to halt ad spend waste",
+        "A+ Content curation, brand store enhancement, and conversion testing",
+        "Automated margin audits and daily buy-box recovery protocols"
+      ]
+    },
+    {
+      stageTag: "ENTERPRISE & WHOLESALE",
+      slaTarget: "Strategic Governance",
+      coreMetric: "Multi-Channel Margin Stability",
+      governance: "Executive Director Lead",
+      deliverableSummary: "Multi-channel inventory synchronization, high-volume catalogue management, and centralized business reporting.",
+      highlights: [
+        "Dedicated enterprise account architecture across Amazon & Flipkart",
+        "Unified stock feed governance to prevent overselling penalties",
+        "Quarterly P&L reviews and custom executive margin dashboards"
+      ]
+    }
+  ];
+
+  // 4 Core Why Differentiators (Comet Trajectory Points)
+  const whyPoints = [
+    {
+      index: "01",
+      pillar: "Commercial Focus",
+      title: "Business-First Thinking",
+      desc: "We start by understanding your margins, inventory, audience, and commercial priorities before choosing tools.",
+      tag: "P&L ALIGNED",
+      highlight: "Direct Unit Economics Audit",
+      metric: "100% Margin Protected"
+    },
+    {
+      index: "02",
+      pillar: "Multi-Pillar Sync",
+      title: "Connected Capabilities",
+      desc: "Marketplaces, web development, video, and paid acquisition work in unified lockstep under one roof.",
+      tag: "ZERO SILOS",
+      highlight: "Unified Cross-Practice Roadmap",
+      metric: "6 Pillars Synchronized"
+    },
+    {
+      index: "03",
+      pillar: "Integrity & Governance",
+      title: "Transparent Scope",
+      desc: "Deliverables, revision limits, costs, and responsibilities are discussed and agreed in writing before kickoff.",
+      tag: "WRITTEN CONTRACT",
+      highlight: "Fixed Scope Guardrails",
+      metric: "Zero Surprise Overages"
+    },
+    {
+      index: "04",
+      pillar: "Grounded Reality",
+      title: "Zero Vanity Claims",
+      desc: "No fabricated testimonials or false revenue guarantees. We evaluate performance through honest operational progress.",
+      tag: "HONEST DELIVERY",
+      highlight: "Verified Telemetry Reporting",
+      metric: "Pure Performance Telemetry"
+    }
+  ];
 
   // Find matching service by id or fallback to first
   const service = SERVICES_DATA.find(s => s.id === slug) || SERVICES_DATA[0];
@@ -25,39 +109,102 @@ export default function ServiceDetailPage({ slugOverride }) {
   const packageData = PACKAGES_BY_PILLAR[service.pillarId] || PACKAGES_BY_PILLAR['marketplaces'];
   const useCases = USE_CASES_BY_PILLAR[service.pillarId] || USE_CASES_BY_PILLAR['marketplaces'];
 
+  // Resolve 10 comprehensive FAQs tailored to service and governance (5 Left, 5 Right)
+  const serviceFaqs = getServiceFaqs(service);
+  const leftFaqs = serviceFaqs.slice(0, 5);
+  const rightFaqs = serviceFaqs.slice(5, 10);
+
   // Sibling services in the same pillar
   const relatedServices = SERVICES_DATA.filter(
     s => s.pillarId === service.pillarId && s.id !== service.id
   ).slice(0, 4);
 
+  // Guarantee 4 capabilities for this service
+  const defaultCapabilities = [
+    { 
+      title: "Continuous Technical Governance", 
+      desc: "Dedicated architect oversight, proactive health checks, and verified issue mitigation within strict turnaround SLAs."
+    },
+    { 
+      title: "Data Telemetry & Attribution Reporting", 
+      desc: "Granular attribution mapping, performance cohort analytics, and executive business dashboards for executive visibility."
+    },
+    { 
+      title: "Direct Partner Channel Alignment", 
+      desc: "Senior practice lead direct communication, bi-weekly reviews, and transparent sprint milestones with zero middleman overhead."
+    },
+    { 
+      title: "Scalable Execution Architecture", 
+      desc: "Modular, zero-defect delivery systems structured around sustainable business economics and compounding revenue margins."
+    }
+  ];
+
+  const rawFeatures = service.keyFeatures || [];
+  const fourCapabilities = [
+    ...rawFeatures.slice(0, 4),
+    ...defaultCapabilities.slice(0, Math.max(0, 4 - rawFeatures.length))
+  ].slice(0, 4);
+
+  const getCardDeliverables = (idx) => {
+    const d = service.deliverables || [];
+    if (d.length > 0) {
+      const start = (idx * 2) % d.length;
+      const d1 = d[start];
+      const d2 = d[(start + 1) % d.length];
+      return [d1, d2].filter(Boolean);
+    }
+    return [
+      "Technical quality verification & performance audit",
+      "Milestone reviews & direct practice partner alignment"
+    ];
+  };
+
   // Scroll to top on slug change
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    setOpenFaq(null);
+    setOpenFaqs([0]);
     ScrollTrigger.refresh();
   }, [slug]);
 
   // Bespoke scroll swipe-in and stagger animations for all sections
   useEffect(() => {
+    let mm;
     const ctx = gsap.context(() => {
-      // 1. Core Architecture Cards
+      // 1a. Architecture Main Heading floating from right-outside directly locked to scroll
       gsap.fromTo(
-        '.card-architecture',
-        { y: 45, opacity: 0, scale: 0.94 },
+        '.architecture-heading-float',
+        { x: '100vw' },
         {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 0.7,
-          stagger: 0.08,
-          ease: 'power3.out',
+          x: 0,
+          ease: 'none',
           scrollTrigger: {
             trigger: '.sec-architecture',
-            start: 'top 80%',
-            toggleActions: 'play none none none'
+            start: 'top bottom',
+            end: 'top 20%',
+            scrub: true,
+            invalidateOnRefresh: true,
           }
         }
       );
+
+      // 1b. The 4 Cards in 2x2 Matrix appearing as user scrolls
+      gsap.utils.toArray('.architecture-matrix-card').forEach((card) => {
+        gsap.fromTo(
+          card,
+          { y: 60, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.85,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: card,
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
 
       // 2. Who Benefits Cards
       gsap.fromTo(
@@ -78,15 +225,46 @@ export default function ServiceDetailPage({ slugOverride }) {
         }
       );
 
-      // 3. Why Choose E-Comet Cards
+      // 3. Why Section: 4 Corner Cards & Center Video Animation
       gsap.fromTo(
-        '.card-why-us',
-        { y: 40, opacity: 0 },
+        '.card-why-left',
+        { x: -50, opacity: 0 },
         {
-          y: 0,
+          x: 0,
           opacity: 1,
-          duration: 0.7,
-          stagger: 0.1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.sec-why-us',
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+      gsap.fromTo(
+        '.why-center-video-frame',
+        { scale: 0.92, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.85,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: '.sec-why-us',
+            start: 'top 80%',
+            toggleActions: 'play none none none'
+          }
+        }
+      );
+      gsap.fromTo(
+        '.card-why-right',
+        { x: 50, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.15,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '.sec-why-us',
@@ -96,52 +274,97 @@ export default function ServiceDetailPage({ slugOverride }) {
         }
       );
 
-      // 4. Roadmap Timeline Steps
-      gsap.fromTo(
-        '.card-roadmap',
-        { x: -45, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.75,
-          stagger: 0.12,
-          ease: 'power3.out',
+      // 4. Roadmap Staircase Cards: Flowing from bottom one-by-one on continuous scroll, reversing on scroll-up
+      mm = gsap.matchMedia();
+
+      // Desktop & large screens: Pin on arrival and animate cards sequentially 1-by-1 scrubbed to scroll
+      mm.add("(min-width: 1024px)", () => {
+        const cards = gsap.utils.toArray('.architecture-stair-card');
+        if (!cards.length) return;
+
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: '.sec-roadmap',
-            start: 'top 82%',
-            toggleActions: 'play none none none'
+            start: 'top top',
+            end: '+=1600',
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
           }
-        }
-      );
+        });
 
-      // 5. Use Case Split Panels
+        cards.forEach((card, idx) => {
+          tl.fromTo(
+            card,
+            { y: 260, opacity: 0 },
+            { 
+              y: 0, 
+              opacity: 1, 
+              duration: 1, 
+              ease: 'power2.out' 
+            },
+            idx * 0.95
+          );
+        });
+
+        // Settle pause so final staircase is appreciated before unpin
+        tl.to({}, { duration: 0.4 });
+      });
+
+      // Mobile & small tablet: Scrubbed scroll for each card individually
+      mm.add("(max-width: 1023px)", () => {
+        const cards = gsap.utils.toArray('.architecture-stair-card');
+        cards.forEach((card) => {
+          gsap.fromTo(
+            card,
+            { y: 100, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              ease: 'power2.out',
+              scrollTrigger: {
+                trigger: card,
+                start: 'top 90%',
+                end: 'top 60%',
+                scrub: 1,
+                invalidateOnRefresh: true,
+              }
+            }
+          );
+        });
+      });
+
+      // 5. Use Case Split Panels - Swipe in from left & right locked directly to scroll progress
       gsap.fromTo(
         '.card-usecase-left',
-        { x: -60, opacity: 0 },
+        { x: -160, opacity: 0 },
         {
           x: 0,
           opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: '.sec-usecases',
-            start: 'top 80%',
-            toggleActions: 'play none none none'
+            start: 'top 85%',
+            end: 'top 32%',
+            scrub: 1,
+            invalidateOnRefresh: true,
           }
         }
       );
       gsap.fromTo(
         '.card-usecase-right',
-        { x: 60, opacity: 0 },
+        { x: 160, opacity: 0 },
         {
           x: 0,
           opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
+          ease: 'power2.out',
           scrollTrigger: {
             trigger: '.sec-usecases',
-            start: 'top 80%',
-            toggleActions: 'play none none none'
+            start: 'top 85%',
+            end: 'top 32%',
+            scrub: 1,
+            invalidateOnRefresh: true,
           }
         }
       );
@@ -173,7 +396,7 @@ export default function ServiceDetailPage({ slugOverride }) {
           y: 0,
           opacity: 1,
           duration: 0.6,
-          stagger: 0.08,
+          stagger: 0.05,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: '.sec-faq',
@@ -184,11 +407,16 @@ export default function ServiceDetailPage({ slugOverride }) {
       );
     }, containerRef);
 
-    return () => ctx.revert();
+    return () => {
+      if (mm) mm.revert();
+      ctx.revert();
+    };
   }, [slug]);
 
   const toggleFaq = (idx) => {
-    setOpenFaq(prev => prev === idx ? null : idx);
+    setOpenFaqs(prev => 
+      prev.includes(idx) ? prev.filter(i => i !== idx) : [...prev, idx]
+    );
   };
 
   return (
@@ -197,7 +425,7 @@ export default function ServiceDetailPage({ slugOverride }) {
       {/* ===================================================================== */}
       {/* 1. HERO SECTION (Deep Black Space, Zero Violet, Refined 3D Comet)     */}
       {/* ===================================================================== */}
-      <section className="relative pt-32 pb-20 sm:pb-28 bg-[#000000] text-white overflow-hidden min-h-[580px] flex items-center">
+      <section className="relative pt-36 pb-24 sm:pt-44 sm:pb-32 bg-[#000000] text-white overflow-hidden min-h-[720px] lg:min-h-[840px] xl:min-h-[880px] flex items-center">
         
         {/* Full-bleed Real-Time 3D Galaxy Canvas (Starfield + Zero Violet Dust) */}
         <CosmicGalaxyCanvas accentColorHex={service.colorHex} />
@@ -211,10 +439,10 @@ export default function ServiceDetailPage({ slugOverride }) {
           aria-hidden="true"
         />
 
-        <div className="max-w-[1340px] w-full mx-auto px-4 sm:px-8 relative z-10">
+        <div className="max-w-[1400px] w-full mx-auto px-4 sm:px-8 relative z-10">
           
           {/* Breadcrumb Bar */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-slate-400 mb-8 sm:mb-10">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-slate-400 mb-8 sm:mb-12">
             <Link to="/" className="hover:text-white transition-colors">Orbit</Link>
             <span>/</span>
             <span className="text-slate-500 uppercase tracking-wider">{service.category}</span>
@@ -225,18 +453,13 @@ export default function ServiceDetailPage({ slugOverride }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
             
             {/* Left Content Column */}
-            <div className="lg:col-span-7 space-y-6">
+            <div className="lg:col-span-7 space-y-7">
               
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-mono font-medium text-slate-200">
-                <span className="w-2 h-2 rounded-full animate-pulse" style={{ backgroundColor: service.colorHex }}></span>
-                <span>{service.heroBadge}</span>
-              </div>
-
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-normal leading-[1.08] tracking-tight text-white">
+              <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl xl:text-[5.25rem] font-normal leading-[1.04] tracking-tight text-white">
                 {service.title}
               </h1>
 
-              <p className="text-lg sm:text-xl font-sans font-medium" style={{ color: service.colorHex }}>
+              <p className="text-xl sm:text-2xl font-sans font-medium" style={{ color: service.colorHex }}>
                 {service.tagline}
               </p>
 
@@ -247,7 +470,7 @@ export default function ServiceDetailPage({ slugOverride }) {
               <div className="pt-4 flex flex-wrap items-center gap-4">
                 <a 
                   href="#closing"
-                  className="px-6 py-3 rounded-full bg-white hover:bg-slate-100 text-space-950 font-sans text-xs font-semibold transition-all hover:scale-105 shadow-md flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-100 text-space-950 font-sans text-xs font-semibold transition-all hover:scale-105 shadow-md flex items-center gap-2 cursor-pointer"
                 >
                   <span>Get a Custom Quote</span>
                   <span>→</span>
@@ -257,14 +480,14 @@ export default function ServiceDetailPage({ slugOverride }) {
                   href="https://wa.me/91XXXXXXXXXX" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="px-5 py-3 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-sans text-xs font-semibold transition-all hover:scale-105 flex items-center gap-2 shadow-md cursor-pointer"
+                  className="px-5 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-sans text-xs font-semibold transition-all hover:scale-105 flex items-center gap-2 shadow-md cursor-pointer"
                 >
                   <span>Talk on WhatsApp</span>
                 </a>
 
                 <a 
                   href="#pricing" 
-                  className="px-5 py-3 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-slate-200 font-sans text-xs font-semibold transition-colors cursor-pointer"
+                  className="px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-slate-200 font-sans text-xs font-semibold transition-colors cursor-pointer"
                 >
                   View Packages ↓
                 </a>
@@ -273,7 +496,7 @@ export default function ServiceDetailPage({ slugOverride }) {
             </div>
 
             {/* Right Celestial Arena where 3D Comet floats directly in space within the Hero */}
-            <div className="lg:col-span-5 flex items-center justify-center relative">
+            <div className="lg:col-span-5 flex items-center justify-center relative w-full">
               <SingleCometCanvas colorHex={service.colorHex} title={service.title} />
             </div>
 
@@ -283,173 +506,372 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 2. CORE CAPABILITIES GRID (Architecture & Deep Features)              */}
+      {/* 2. CORE CAPABILITIES (2x2 Matrix Architectural Stage)                 */}
       {/* ===================================================================== */}
-      <section className="sec-architecture relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section className="sec-architecture relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-20">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
-              Architecture &amp; Features
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight mb-4">
+          {/* Main Display Heading tied 1:1 to scroll progress (decreased font size) */}
+          <div className="mb-12 sm:mb-16 overflow-hidden">
+            <h2 className="architecture-heading-float font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-space-950 tracking-tight leading-[1.15] will-change-transform">
               Engineered with zero operational bloat.
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-              Every deliverable is structured with precise technical standards, strict scope boundaries, and clear operational ownership.
+          </div>
+
+          {/* 4 Cards in 2x2 Matrix: Full container width, minimum gap */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 w-full">
+            {fourCapabilities.map((feat, idx) => {
+              const cardDeliverables = getCardDeliverables(idx);
+              return (
+                <div 
+                  key={idx}
+                  className="architecture-matrix-card group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-12 lg:p-14 min-h-[320px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden"
+                >
+                  <div className="relative z-10">
+                    {/* Card Heading */}
+                    <h3 className="font-serif text-2xl sm:text-3xl lg:text-[2.2rem] font-normal text-space-950 tracking-tight leading-[1.2] mb-3.5 group-hover:text-blue-600 transition-colors duration-300 max-w-lg">
+                      {feat.title}
+                    </h3>
+
+                    {/* Clean, articulate description */}
+                    <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed mb-6">
+                      {feat.desc}
+                    </p>
+
+                    {/* Substantive Scope & Key Deliverables */}
+                    <div className="pt-5 border-t border-stone-200/60">
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-3">
+                        Scope &amp; Deliverables
+                      </span>
+                      <ul className="space-y-2">
+                        {cardDeliverables.map((item, dIdx) => (
+                          <li key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+                            <span className="text-blue-600 font-semibold select-none flex-shrink-0">―</span>
+                            <span>{item}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+
+                  {/* Clean hairline accent line (No dot) */}
+                  <div className="relative z-10 mt-8">
+                    <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ===================================================================== */}
+      {/* 3. STRATEGIC FIT (Split-Screen Interactive 3D Blueprint Stage)        */}
+      {/* ===================================================================== */}
+      <section className="sec-benefits relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-start">
+            
+            {/* Left Column: Title & 3 Interactive Persona Cards */}
+            <div className="lg:col-span-7 flex flex-col justify-between">
+              
+              <div className="max-w-2xl mb-8 sm:mb-12">
+                <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+                  Strategic Fit · 03 Engagement Profiles
+                </span>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
+                  Who can benefit from this service?
+                </h2>
+                <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
+                  Tailored execution roadmaps designed around your current infrastructure, catalogue depth, and commercial targets.
+                </p>
+              </div>
+
+              {/* 3 Persona Cards Stack */}
+              <div className="space-y-3.5 sm:space-y-4">
+                {(service.whoBenefits || []).map((item, idx) => {
+                  const isActive = activePersona === idx;
+                  const dossier = personaDossiers[idx] || personaDossiers[0];
+                  
+                  return (
+                    <div 
+                      key={idx}
+                      onClick={() => setActivePersona(idx)}
+                      onMouseEnter={() => setActivePersona(idx)}
+                      className={`card-benefit rounded-[26px] p-6 sm:p-8 border transition-all duration-300 cursor-pointer relative overflow-hidden ${
+                        isActive 
+                          ? 'bg-white border-space-950 shadow-xl -translate-y-0.5' 
+                          : 'bg-[#FAFAFA] border-stone-200/80 hover:bg-white hover:border-stone-400'
+                      }`}
+                    >
+                      {/* Active indicator bar */}
+                      {isActive && (
+                        <div 
+                          className="absolute left-0 top-0 bottom-0 w-1.5 transition-all duration-300"
+                          style={{ backgroundColor: service.colorHex || '#2563EB' }}
+                        />
+                      )}
+
+                      <div className="flex items-center justify-between gap-4 mb-3">
+                        <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-slate-400">
+                          PROFILE · 0{idx + 1}
+                        </span>
+                        <span className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full border transition-colors ${
+                          isActive 
+                            ? 'bg-space-950 text-white border-space-950 font-semibold' 
+                            : 'bg-stone-100 text-slate-500 border-stone-200'
+                        }`}>
+                          {dossier.stageTag}
+                        </span>
+                      </div>
+
+                      <h3 className={`font-serif text-2xl sm:text-[1.75rem] font-normal tracking-tight mb-2.5 transition-colors ${
+                        isActive ? 'text-space-950' : 'text-space-900'
+                      }`}>
+                        {item.role}
+                      </h3>
+
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
+                        {item.desc}
+                      </p>
+
+                      {/* Expanded criteria when active */}
+                      {isActive && (
+                        <div className="pt-3.5 mt-2 border-t border-stone-100 space-y-2">
+                          {dossier.highlights.slice(0, 2).map((hl, hIdx) => (
+                            <div key={hIdx} className="flex items-start gap-2 text-xs text-slate-600 font-sans leading-relaxed">
+                              <span className="text-blue-600 font-semibold select-none">―</span>
+                              <span>{hl}</span>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      <div className="mt-4 pt-3 border-t border-stone-100/70 flex items-center justify-between text-[11px] font-mono">
+                        <span className="text-slate-400">
+                          {isActive ? '● Live Simulation Active' : '○ Select to inspect blueprint'}
+                        </span>
+                        <span className={`font-semibold transition-transform ${
+                          isActive ? 'text-space-950 translate-x-1' : 'text-slate-400'
+                        }`}>
+                          View Dossier →
+                        </span>
+                      </div>
+
+                    </div>
+                  );
+                })}
+              </div>
+
+            </div>
+
+            {/* Right Column: Sticky Executive 3D Astrolabe Blueprint Stage */}
+            <div className="lg:col-span-5 sticky top-28 self-start">
+              
+              <div className="rounded-[32px] bg-[#0A0E1A] border border-slate-800 shadow-2xl p-6 sm:p-8 text-white relative overflow-hidden flex flex-col justify-between min-h-[580px]">
+                
+                {/* Atmospheric grid & glow */}
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none" />
+                <div 
+                  className="absolute -top-20 -right-20 w-64 h-64 rounded-full blur-3xl opacity-20 pointer-events-none"
+                  style={{ backgroundColor: service.colorHex || '#2563EB' }}
+                />
+
+                {/* Top Meta Terminal Bar */}
+                <div className="relative z-10 flex items-center justify-between pb-4 border-b border-slate-800/80">
+                  <div className="flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[11px] font-mono tracking-widest uppercase text-slate-300">
+                      TELEMETRY DOSSIER · 0{activePersona + 1}
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-blue-400 uppercase">
+                    3D ASTROLABE LIVE
+                  </span>
+                </div>
+
+                {/* Middle: 3D Interactive Astrolabe Blueprint Canvas */}
+                <div className="relative z-10 w-full h-[260px] sm:h-[300px] my-2">
+                  <StrategicBlueprintCanvas 
+                    activePersona={activePersona} 
+                    colorHex={service.colorHex || '#38BDF8'} 
+                  />
+                  
+                  {/* Floating Micro-Telemetry Overlays */}
+                  <div className="absolute top-2 left-2 text-[10px] font-mono text-slate-400 bg-slate-950/80 px-2 py-1 rounded border border-slate-800 pointer-events-none">
+                    NODE: {activePersona === 0 ? "ALPHA // INGESTION" : activePersona === 1 ? "BETA // ACCELERATION" : "GAMMA // GOVERNANCE"}
+                  </div>
+
+                  <div className="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400 bg-slate-950/80 px-2 py-1 rounded border border-slate-800 pointer-events-none">
+                    COORDINATE: 360° ACTIVE
+                  </div>
+                </div>
+
+                {/* Bottom: Dynamic Spec Dossier */}
+                <div className="relative z-10 pt-4 border-t border-slate-800/80 space-y-3.5">
+                  
+                  <div className="grid grid-cols-2 gap-2.5 text-[11px] font-mono">
+                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                      <span className="text-slate-400 block mb-1">TARGET SLA</span>
+                      <span className="text-white font-semibold">
+                        {(personaDossiers[activePersona] || personaDossiers[0]).slaTarget}
+                      </span>
+                    </div>
+                    <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                      <span className="text-slate-400 block mb-1">GOVERNANCE</span>
+                      <span className="text-white font-semibold">
+                        {(personaDossiers[activePersona] || personaDossiers[0]).governance}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider block mb-1">
+                      CORE OPERATIONAL FOCUS
+                    </span>
+                    <p className="text-xs font-sans text-slate-300 leading-relaxed">
+                      {(personaDossiers[activePersona] || personaDossiers[0]).deliverableSummary}
+                    </p>
+                  </div>
+
+                  {/* Primary Deployment Action */}
+                  <a
+                    href="#closing-cta"
+                    className="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-space-950 font-sans font-semibold text-xs text-center flex items-center justify-center gap-2 transition-all active:scale-[0.99] shadow-lg shadow-white/5"
+                  >
+                    <span>Deploy This Engagement Playbook</span>
+                    <span>→</span>
+                  </a>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ===================================================================== */}
+      {/* 4. THE E-COMET ADVANTAGE (White Background, Center Short-Ratio Video)  */}
+      {/* 4 Corners with Clean Cards (Zero Dots, Zero Header, Zero Footer)      */}
+      {/* ===================================================================== */}
+      <section className="sec-why-us relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 relative z-10">
+          
+          {/* Section Header */}
+          <div className="max-w-3xl mb-12 sm:mb-16">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+              The E-Comet Advantage · 04 Core Pillars
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
+              Why businesses partner with our orbit.
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed max-w-2xl">
+              An execution philosophy centered on sustainable compounding equity, transparent governance, and elimination of operational bloat.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {service.keyFeatures?.map((feat, idx) => {
-              const isPaper = idx % 2 === 0;
-              const cardBg = isPaper ? 'bg-[#f5f3ed] border-[#E9E6DF]' : 'bg-[#edf0f3] border-[#E2E5E9]';
-              return (
-                <div 
-                  key={idx}
-                  className={`card-architecture p-8 rounded-card ${cardBg} border flex flex-col justify-between group hover:-translate-y-1 hover:shadow-md transition-all`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between pb-4 border-b border-slate-300/40 mb-6">
-                      <span className="text-xs font-mono font-bold text-space-950">CAPABILITY · 0{idx + 1}</span>
-                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: service.colorHex }}></span>
-                    </div>
-                    <h3 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-3">
-                      {feat.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                      {feat.desc}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ===================================================================== */}
-      {/* 3. STRATEGIC FIT ("Who Can Benefit?")                                  */}
-      {/* ===================================================================== */}
-      <section className="sec-benefits relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
-          
-          <div className="max-w-2xl mb-14 sm:mb-18">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
-              Strategic Fit
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
-              Who can benefit from this service?
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-            {service.whoBenefits?.map((item, idx) => {
-              const isPaper = idx % 2 === 0;
-              const cardBg = isPaper ? 'bg-[#f5f3ed] border-[#E9E6DF]' : 'bg-[#edf0f3] border-[#E2E5E9]';
-              return (
-                <div 
-                  key={idx}
-                  className={`card-benefit p-8 sm:p-10 rounded-card ${cardBg} border flex flex-col justify-between hover:shadow-md hover:-translate-y-1 transition-all`}
-                >
-                  <div>
-                    <div className="w-8 h-8 rounded-full bg-white border border-slate-200/80 flex items-center justify-center text-xs font-mono font-bold text-space-950 mb-6 shadow-2xs">
-                      0{idx + 1}
-                    </div>
-                    <h3 className="font-serif text-2xl font-normal text-space-950 mb-3">
-                      {item.role}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans">
-                      {item.desc}
-                    </p>
-                  </div>
-                  <div className="pt-6 mt-6 border-t border-slate-300/40 flex items-center gap-2 text-xs font-mono text-emerald-700">
-                    <span>✓</span>
-                    <span>Tailored Playbook Ready</span>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ===================================================================== */}
-      {/* 4. THE E-COMET ADVANTAGE ("Why Us / Differentiators")                  */}
-      {/* ===================================================================== */}
-      <section className="sec-why-us relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
-          
-          <div className="max-w-2xl mb-14 sm:mb-18">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
-              The E-Comet Advantage
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
-              Why businesses partner with our orbit.
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {/* 3-Column 4-Corner Layout: 2 Left Cards + Center Short Video + 2 Right Cards */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
             
-            <div className="card-why-us p-7 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF] flex flex-col justify-between">
-              <div>
-                <span className="text-xs font-mono font-bold text-space-950 uppercase block mb-3">01 · Commercial</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2">
-                  Business-First Thinking
-                </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                  We start by understanding your margins, inventory, audience, and commercial priorities before choosing tools.
+            {/* Left Column: Top-Left Card & Bottom-Left Card */}
+            <div className="lg:col-span-4 flex flex-col justify-between gap-6 sm:gap-8">
+              {/* Card 1: Business-First Thinking */}
+              <div className="card-why-left group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
+                <div>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                    {whyPoints[0].title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
+                    {whyPoints[0].desc}
+                  </p>
+                </div>
+                <p className="text-xs sm:text-sm font-sans font-medium text-slate-800 leading-relaxed pt-4 border-t border-stone-200/60">
+                  {whyPoints[0].highlight}
                 </p>
               </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                P&amp;L ALIGNED
+
+              {/* Card 2: Connected Capabilities */}
+              <div className="card-why-left group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
+                <div>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                    {whyPoints[1].title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
+                    {whyPoints[1].desc}
+                  </p>
+                </div>
+                <p className="text-xs sm:text-sm font-sans font-medium text-slate-800 leading-relaxed pt-4 border-t border-stone-200/60">
+                  {whyPoints[1].highlight}
+                </p>
               </div>
             </div>
 
-            <div className="card-why-us p-7 rounded-2xl bg-[#edf0f3] border border-[#E2E5E9] flex flex-col justify-between">
-              <div>
-                <span className="text-xs font-mono font-bold text-space-950 uppercase block mb-3">02 · Multi-Pillar</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2">
-                  Connected Capabilities
-                </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                  Marketplaces, web development, video, and paid acquisition work in unified lockstep under one roof.
-                </p>
-              </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                ZERO SILOS
+            {/* Center Column: Center Video playing in short ratio (9:16) on continuous slowmo loop */}
+            <div className="lg:col-span-4 flex items-center justify-center my-4 lg:my-0">
+              <div className="why-center-video-frame w-full max-w-[320px] sm:max-w-[340px] aspect-[9/16] rounded-[32px] sm:rounded-[36px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.12)] border border-stone-200/90 relative bg-black group select-none">
+                <video
+                  ref={whyVideoRef}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  onLoadedMetadata={(e) => { e.currentTarget.playbackRate = 0.65; }}
+                  className="w-full h-full object-cover"
+                >
+                  <source src="/assets/why-video.mp4" type="video/mp4" />
+                  <source src="/197387-904825088.mp4" type="video/mp4" />
+                </video>
+
+                {/* Subtle glass overlay & top status badge */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
+                
+                <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-[10px] font-mono text-white/80 pointer-events-none">
+                  <span className="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 uppercase tracking-widest">
+                    Orbital Core
+                  </span>
+                  <span className="px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 uppercase tracking-wider">
+                    Continuous
+                  </span>
+                </div>
               </div>
             </div>
 
-            <div className="card-why-us p-7 rounded-2xl bg-[#f5f3ed] border border-[#E9E6DF] flex flex-col justify-between">
-              <div>
-                <span className="text-xs font-mono font-bold text-space-950 uppercase block mb-3">03 · Integrity</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2">
-                  Transparent Scope
-                </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                  Deliverables, revision limits, costs, and responsibilities are discussed and agreed in writing before kickoff.
+            {/* Right Column: Top-Right Card & Bottom-Right Card */}
+            <div className="lg:col-span-4 flex flex-col justify-between gap-6 sm:gap-8">
+              {/* Card 3: Transparent Scope */}
+              <div className="card-why-right group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
+                <div>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                    {whyPoints[2].title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
+                    {whyPoints[2].desc}
+                  </p>
+                </div>
+                <p className="text-xs sm:text-sm font-sans font-medium text-slate-800 leading-relaxed pt-4 border-t border-stone-200/60">
+                  {whyPoints[2].highlight}
                 </p>
               </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                WRITTEN CONTRACT
-              </div>
-            </div>
 
-            <div className="card-why-us p-7 rounded-2xl bg-[#edf0f3] border border-[#E2E5E9] flex flex-col justify-between">
-              <div>
-                <span className="text-xs font-mono font-bold text-space-950 uppercase block mb-3">04 · Grounded</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2">
-                  Zero Vanity Claims
-                </h3>
-                <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                  No fabricated testimonials or false revenue guarantees. We evaluate performance through honest operational progress.
+              {/* Card 4: Zero Vanity Claims */}
+              <div className="card-why-right group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
+                <div>
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                    {whyPoints[3].title}
+                  </h3>
+                  <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
+                    {whyPoints[3].desc}
+                  </p>
+                </div>
+                <p className="text-xs sm:text-sm font-sans font-medium text-slate-800 leading-relaxed pt-4 border-t border-stone-200/60">
+                  {whyPoints[3].highlight}
                 </p>
-              </div>
-              <div className="pt-4 mt-6 border-t border-slate-300/40 text-[11px] font-mono text-slate-500">
-                HONEST DELIVERY
               </div>
             </div>
 
@@ -459,47 +881,109 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 5. 5-STEP EXECUTION ROADMAP ("Our Approach")                          */}
+      {/* 5. 4-STAGE EXECUTION ROADMAP (Ascending Staircase Stage)              */}
       {/* ===================================================================== */}
-      <section className="sec-roadmap relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section className="sec-roadmap relative pt-24 lg:pt-28 pb-16 lg:pb-20 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="max-w-2xl mb-14 sm:mb-18">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
-              Execution Roadmap
+          <div className="max-w-3xl mb-8 sm:mb-12">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-2.5">
+              Execution Roadmap · 04 Progressive Stages
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-3">
               A structured roadmap to compounding results.
             </h2>
+            <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
+              Every stage builds sequentially on the previous milestone, advancing your business from foundational audit to compounding commercial scale.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {service.process?.map((prc, idx) => {
-              const isPaper = idx % 2 === 0;
-              const cardBg = isPaper ? 'bg-[#f5f3ed] border-[#E9E6DF]' : 'bg-[#edf0f3] border-[#E2E5E9]';
+          {/* Ascending Staircase Cards Grid: Items-end creates literal ascending steps */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 items-end w-full">
+            {(service.process && service.process.length >= 4 ? service.process.slice(0, 4) : [
+              { step: "01", title: "Commercial Analysis", desc: "Understand products, margins, capacity, and business goals." },
+              { step: "02", title: "Marketplace Review", desc: "Review current setup, catalogue hygiene, and operational needs." },
+              { step: "03", title: "Scope & Proposal", desc: "Confirm deliverables, responsibilities, timing, and custom quote." },
+              { step: "04", title: "Setup or Optimisation", desc: "Complete agreed account, listing, and advertising work." }
+            ]).map((prc, idx) => {
+              // Ascending physical heights on desktop forming a real staircase
+              const heightClass = idx === 0 
+                ? 'lg:min-h-[350px]' 
+                : idx === 1 
+                  ? 'lg:min-h-[390px]' 
+                  : idx === 2 
+                    ? 'lg:min-h-[430px]' 
+                    : 'lg:min-h-[470px]';
+
+              const stagePillars = [
+                "01 // FOUNDATION",
+                "02 // AUDIT & HYGIENE",
+                "03 // SCOPE AGREEMENT",
+                "04 // SCALE & VELOCITY"
+              ];
+
+              const stageMilestones = [
+                ["Unit economics & margin review", "Catalogue data & taxonomy mapping"],
+                ["Account hygiene & compliance audit", "Search indexing & bottleneck review"],
+                ["Deliverable scope boundaries", "SLA timeline & partner alignment"],
+                ["Execution deployment & launch", "Weekly telemetry & compounding scale"]
+              ];
+
               return (
                 <div 
                   key={idx}
-                  className={`card-roadmap p-7 rounded-card ${cardBg} border flex flex-col justify-between relative overflow-hidden hover:shadow-md hover:-translate-y-1 transition-all`}
+                  className={`architecture-stair-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 lg:p-10 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden ${heightClass}`}
                 >
-                  <div className="flex items-center justify-between pb-3 border-b border-slate-300/40 mb-6">
-                    <span className="text-xs font-mono font-bold text-space-950">STAGE {prc.step}</span>
-                    <span className="text-[10px] font-mono text-slate-500 uppercase">PHASE 0{idx + 1}</span>
-                  </div>
                   <div>
-                    <h3 className="font-serif text-2xl font-normal text-space-950 mb-2">
+                    {/* Stage Title (Larger prominent display serif) */}
+                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-normal text-space-950 tracking-tight leading-[1.15] mb-4 group-hover:text-blue-600 transition-colors duration-300">
                       {prc.title}
                     </h3>
-                    <p className="text-xs text-slate-600 leading-relaxed font-sans">
+
+                    {/* Stage Description */}
+                    <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed mb-6">
                       {prc.desc}
                     </p>
+
+                    {/* Milestones Breakdown */}
+                    <div className="pt-5 border-t border-stone-200/60 space-y-2.5">
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-2">
+                        Key Milestones
+                      </span>
+                      {stageMilestones[idx].map((ms, mIdx) => (
+                        <div key={mIdx} className="flex items-start gap-2 text-xs text-slate-600 font-sans leading-relaxed">
+                          <span className="text-blue-600 font-semibold select-none flex-shrink-0">―</span>
+                          <span>{ms}</span>
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <div className="w-full h-1.5 bg-white/80 rounded-full mt-8 overflow-hidden shadow-inner">
-                    <div 
-                      className="h-full bg-space-950 rounded-full"
-                      style={{ width: `${(idx + 1) * 25}%` }}
-                    />
+
+                  {/* Staircase Step Visual Indicator (Ascending stepped bars) */}
+                  <div className="pt-6 mt-6 border-t border-stone-100">
+                    <div className="flex items-end justify-between gap-1 mb-2">
+                      <span className="text-[10px] font-mono uppercase text-slate-400">
+                        PROGRESS STEP 0{idx + 1} / 04
+                      </span>
+                      
+                      {/* Physical mini stair glyph */}
+                      <div className="flex items-end gap-1 h-5">
+                        <div className={`w-1.5 rounded-xs transition-colors ${idx >= 0 ? 'bg-space-950 h-2' : 'bg-stone-200 h-2'}`} />
+                        <div className={`w-1.5 rounded-xs transition-colors ${idx >= 1 ? 'bg-space-950 h-3' : 'bg-stone-200 h-3'}`} />
+                        <div className={`w-1.5 rounded-xs transition-colors ${idx >= 2 ? 'bg-space-950 h-4' : 'bg-stone-200 h-4'}`} />
+                        <div className={`w-1.5 rounded-xs transition-colors ${idx >= 3 ? 'bg-space-950 h-5' : 'bg-stone-200 h-5'}`} />
+                      </div>
+                    </div>
+
+                    {/* Smooth progression bar */}
+                    <div className="w-full h-1 bg-stone-200 rounded-full overflow-hidden">
+                      <div 
+                        className="h-full bg-space-950 rounded-full group-hover:bg-blue-600 transition-all duration-500"
+                        style={{ width: `${(idx + 1) * 25}%` }}
+                      />
+                    </div>
                   </div>
+
                 </div>
               );
             })}
@@ -509,87 +993,81 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 6. ILLUSTRATIVE USE CASES ("Client Stories / Practical Scenarios")     */}
+      {/* 6. ILLUSTRATIVE USE CASES ("How we solve practical business challenges") */}
       {/* Strictly compliant with client policy: Genuine sample use cases       */}
       {/* ===================================================================== */}
-      <section className="sec-usecases relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
+      <section className="sec-usecases relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 sm:mb-18 gap-6">
-            <div className="max-w-2xl">
-              <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
-                Real-World Scenarios
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
-                How we solve practical business challenges.
-              </h2>
-            </div>
-            
-            <div className="px-3.5 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-[11px] font-mono text-slate-600 self-start md:self-auto">
-              <span>✦ Illustrative Business Workflows</span>
-            </div>
+          <div className="max-w-3xl mb-12 sm:mb-16">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+              Real-World Scenarios · 02 Practical Workflows
+            </span>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
+              How we solve practical business challenges.
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
+              Illustrative execution scenarios demonstrating how we diagnose operational friction, deploy structured systems, and achieve verified commercial progress.
+            </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
             {useCases.map((cs, idx) => {
               const isFirst = idx === 0;
-              const cardBg = isFirst ? 'bg-[#f5f3ed] border-[#E9E6DF]' : 'bg-[#edf0f3] border-[#E2E5E9]';
               const cardClass = isFirst ? 'card-usecase-left' : 'card-usecase-right';
 
               return (
                 <div 
                   key={idx}
-                  className={`${cardClass} rounded-3xl ${cardBg} p-8 sm:p-12 border flex flex-col justify-between shadow-sm`}
+                  className={`${cardClass} group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-10 lg:p-12 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between`}
                 >
-                  <div className="space-y-6">
-                    <div className="flex items-center justify-between pb-4 border-b border-slate-300/40">
-                      <span className="text-xs font-mono font-bold text-space-950 uppercase">
-                        SCENARIO 0{idx + 1}
-                      </span>
-                      <span className="text-xs font-sans font-medium text-slate-600">
-                        {cs.clientType}
-                      </span>
-                    </div>
+                  <div>
+                    {/* Client Type Category Kicker */}
+                    <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-3">
+                      {cs.clientType}
+                    </span>
 
-                    <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 leading-snug">
+                    {/* Big Heading */}
+                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-normal text-space-950 tracking-tight leading-[1.15] mb-8 group-hover:text-blue-600 transition-colors duration-300">
                       {cs.title}
                     </h3>
 
-                    {/* Challenge Box */}
-                    <div className="p-4 rounded-xl bg-white/70 border border-slate-200/60">
-                      <span className="text-[10px] font-mono font-bold text-rose-600 uppercase tracking-wider block mb-1">
+                    {/* Challenge & Friction */}
+                    <div className="space-y-2 mb-6">
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block">
                         Operational Friction
                       </span>
-                      <p className="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+                      <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed">
                         {cs.challenge}
                       </p>
                     </div>
 
-                    {/* Solution Box */}
-                    <div className="p-4 rounded-xl bg-white/70 border border-slate-200/60">
-                      <span className="text-[10px] font-mono font-bold text-cyan-700 uppercase tracking-wider block mb-1">
+                    {/* Solution & Intervention */}
+                    <div className="space-y-2 pt-6 border-t border-stone-200/60 mb-6">
+                      <span className="text-[11px] font-mono uppercase tracking-wider text-blue-600 font-semibold block">
                         E-Comet Strategy &amp; Execution
                       </span>
-                      <p className="text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
+                      <p className="text-slate-700 font-sans text-sm sm:text-base leading-relaxed font-medium">
                         {cs.solution}
                       </p>
                     </div>
+                  </div>
 
-                    {/* Resulting Outcome */}
-                    <div className="p-4 rounded-xl bg-emerald-50/80 border border-emerald-200/80">
-                      <span className="text-[10px] font-mono font-bold text-emerald-800 uppercase tracking-wider block mb-1">
-                        Verified Outcome
-                      </span>
-                      <p className="text-xs sm:text-sm text-emerald-950 font-sans font-medium leading-relaxed">
-                        {cs.outcome}
-                      </p>
+                  {/* Resulting Outcome Box */}
+                  <div className="pt-6 border-t border-stone-200/80">
+                    <div className="flex items-start gap-3 bg-white p-5 rounded-2xl border border-stone-200/70 shadow-2xs">
+                      <span className="text-blue-600 font-bold select-none flex-shrink-0 mt-0.5">―</span>
+                      <div>
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-1">
+                          Verified Milestone Outcome
+                        </span>
+                        <p className="text-xs sm:text-sm font-sans font-medium text-space-950 leading-relaxed">
+                          {cs.outcome}
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="pt-6 mt-6 border-t border-slate-300/40 flex items-center justify-between text-xs font-mono text-slate-500">
-                    <span>E-COMET PROVEN PROTOCOL</span>
-                    <span>100% AUDITABLE</span>
-                  </div>
                 </div>
               );
             })}
@@ -743,46 +1221,104 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 8. FREQUENTLY ASKED QUESTIONS (FAQ Accordion)                         */}
+      {/* 8. FREQUENTLY ASKED QUESTIONS (10 Curated Answers · 5 Left · 5 Right)  */}
       {/* ===================================================================== */}
-      {service.faqs && service.faqs.length > 0 && (
-        <section className="sec-faq relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-          <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
-            
-            <div className="max-w-2xl mb-14">
-              <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
-                Clarity &amp; Answers
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
-                Frequently Asked Questions
-              </h2>
-            </div>
+      <section className="sec-faq relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+          
+          <div className="max-w-3xl mb-12 sm:mb-16">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
+              Frequently Asked Questions.
+            </h2>
+            <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
+              Clear answers regarding execution governance, operational turnaround, commercial terms, and multi-channel synchronization.
+            </p>
+          </div>
 
-            <div className="space-y-4 max-w-4xl">
-              {service.faqs.map((faq, idx) => {
-                const isOpen = openFaq === idx;
-                const isPaper = idx % 2 === 0;
-                const cardBg = isPaper ? 'bg-[#f5f3ed] border-[#E9E6DF]' : 'bg-[#edf0f3] border-[#E2E5E9]';
+          {/* 2-Column Grid: 5 Questions Left · 5 Questions Right */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-start">
+            
+            {/* Left Column: 5 Questions */}
+            <div className="space-y-4 sm:space-y-5">
+              {leftFaqs.map((faq, lIdx) => {
+                const globalIdx = lIdx;
+                const isOpen = openFaqs.includes(globalIdx);
+
                 return (
                   <div 
-                    key={idx}
-                    className={`card-faq rounded-2xl border ${cardBg} overflow-hidden transition-all shadow-2xs`}
+                    key={globalIdx}
+                    className={`card-faq group relative rounded-[24px] sm:rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 transition-all duration-300 p-6 sm:p-7 overflow-hidden ${
+                      isOpen 
+                        ? 'bg-white border-space-950 shadow-[0_15px_35px_rgba(0,0,0,0.05)]' 
+                        : 'hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.04)]'
+                    }`}
                   >
                     <button 
                       type="button" 
-                      onClick={() => toggleFaq(idx)}
-                      className="w-full p-6 text-left flex items-center justify-between gap-4 cursor-pointer select-none"
+                      onClick={() => toggleFaq(globalIdx)}
+                      className="w-full text-left flex items-start justify-between gap-4 cursor-pointer select-none"
                     >
-                      <span className="text-base sm:text-lg font-serif font-normal text-space-950">
+                      <h3 className="font-serif text-lg sm:text-xl font-normal text-space-950 tracking-tight leading-snug group-hover:text-blue-600 transition-colors pr-2">
                         {faq.q}
-                      </span>
-                      <span className={`w-7 h-7 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 transition-transform duration-200 ${isOpen ? 'bg-space-950 text-white rotate-45' : 'bg-white text-space-800 shadow-2xs'}`}>
+                      </h3>
+                      
+                      <span className={`w-8 h-8 rounded-full border border-stone-200 bg-white flex items-center justify-center text-sm font-mono text-space-950 flex-shrink-0 transition-all duration-300 shadow-2xs ${
+                        isOpen ? 'rotate-45 bg-space-950 text-white border-space-950' : 'group-hover:border-space-950'
+                      }`}>
                         +
                       </span>
                     </button>
+
                     {isOpen && (
-                      <div className="px-6 pb-6 pt-1 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed border-t border-black/5">
-                        {faq.a}
+                      <div className="pt-4 mt-4 border-t border-stone-200/70 text-slate-600 font-sans text-xs sm:text-sm leading-relaxed">
+                        <div className="flex items-start gap-2.5">
+                          <span className="text-blue-600 font-semibold select-none flex-shrink-0 mt-0.5">―</span>
+                          <p>{faq.a}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Right Column: 5 Questions */}
+            <div className="space-y-4 sm:space-y-5">
+              {rightFaqs.map((faq, rIdx) => {
+                const globalIdx = rIdx + 5;
+                const isOpen = openFaqs.includes(globalIdx);
+
+                return (
+                  <div 
+                    key={globalIdx}
+                    className={`card-faq group relative rounded-[24px] sm:rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 transition-all duration-300 p-6 sm:p-7 overflow-hidden ${
+                      isOpen 
+                        ? 'bg-white border-space-950 shadow-[0_15px_35px_rgba(0,0,0,0.05)]' 
+                        : 'hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.04)]'
+                    }`}
+                  >
+                    <button 
+                      type="button" 
+                      onClick={() => toggleFaq(globalIdx)}
+                      className="w-full text-left flex items-start justify-between gap-4 cursor-pointer select-none"
+                    >
+                      <h3 className="font-serif text-lg sm:text-xl font-normal text-space-950 tracking-tight leading-snug group-hover:text-blue-600 transition-colors pr-2">
+                        {faq.q}
+                      </h3>
+                      
+                      <span className={`w-8 h-8 rounded-full border border-stone-200 bg-white flex items-center justify-center text-sm font-mono text-space-950 flex-shrink-0 transition-all duration-300 shadow-2xs ${
+                        isOpen ? 'rotate-45 bg-space-950 text-white border-space-950' : 'group-hover:border-space-950'
+                      }`}>
+                        +
+                      </span>
+                    </button>
+
+                    {isOpen && (
+                      <div className="pt-4 mt-4 border-t border-stone-200/70 text-slate-600 font-sans text-xs sm:text-sm leading-relaxed">
+                        <div className="flex items-start gap-2.5">
+                          <span className="text-blue-600 font-semibold select-none flex-shrink-0 mt-0.5">―</span>
+                          <p>{faq.a}</p>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -791,8 +1327,9 @@ export default function ServiceDetailPage({ slugOverride }) {
             </div>
 
           </div>
-        </section>
-      )}
+
+        </div>
+      </section>
 
       {/* ===================================================================== */}
       {/* 9. SIBLING SERVICES NAVIGATION (Related in this Pillar)               */}

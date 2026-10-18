@@ -23,15 +23,14 @@ export default function MobileDrawer({ isOpen, onClose }) {
       <div className="fixed inset-y-0 right-0 max-w-sm w-full bg-white shadow-2xl p-6 flex flex-col justify-between overflow-y-auto">
         <div>
           {/* Header */}
-          <div className="flex items-center justify-between pb-5 border-b border-slate-200">
-            <div>
-              <span className="font-sans font-extrabold text-base text-slate-900 tracking-tight block">
-                E-COMET OUTVERSE
-              </span>
-              <span className="text-[11px] font-sans text-slate-500">
-                Beyond Digital. Into the Next Orbit.
-              </span>
-            </div>
+          <div className="flex items-center justify-between pb-4 border-b border-slate-200">
+            <Link to="/" onClick={onClose} className="block">
+              <img 
+                src="/assets/brand-logo.jpg" 
+                alt="E-COMET" 
+                className="h-10 w-auto object-contain mix-blend-multiply" 
+              />
+            </Link>
             <button 
               type="button" 
               onClick={onClose} 

@@ -1,31 +1,36 @@
 import * as THREE from 'three';
 
 /**
- * Procedural Asteroid/Comet Nucleus Texture (1024x1024)
- * Generates natural regolith gradients, rolling boulder swells, and blended crater bowls.
+ * High-Resolution Procedural Asteroid/Comet Nucleus Texture (2048x2048)
+ * Generates natural carbonaceous regolith, multi-scale impact crater bowls,
+ * ejecta blankets, and micro-mineral speckles.
  */
 export function createProceduralCometTexture() {
   const canvas = document.createElement('canvas');
-  canvas.width = 1024;
-  canvas.height = 1024;
+  canvas.width = 2048;
+  canvas.height = 2048;
   const ctx = canvas.getContext('2d');
 
-  const baseGrad = ctx.createRadialGradient(512, 512, 0, 512, 512, 800);
-  baseGrad.addColorStop(0, '#161b22');
-  baseGrad.addColorStop(1, '#0d1117');
+  // Deep carbonaceous/basaltic base gradient
+  const baseGrad = ctx.createRadialGradient(1024, 1024, 0, 1024, 1024, 1600);
+  baseGrad.addColorStop(0, '#1a1f26');
+  baseGrad.addColorStop(0.5, '#12161c');
+  baseGrad.addColorStop(1, '#0a0d12');
   ctx.fillStyle = baseGrad;
-  ctx.fillRect(0, 0, 1024, 1024);
+  ctx.fillRect(0, 0, 2048, 2048);
 
-  for (let i = 0; i < 250; i++) {
-    const x = Math.random() * 1024;
-    const y = Math.random() * 1024;
-    const r = Math.random() * 120 + 40;
-    const opacity = Math.random() * 0.15 + 0.05;
-    const gray = Math.floor(Math.random() * 30 + 20);
+  // 1. Large rolling regolith dust swells & mineral strata (400 passes)
+  for (let i = 0; i < 400; i++) {
+    const x = Math.random() * 2048;
+    const y = Math.random() * 2048;
+    const r = Math.random() * 260 + 60;
+    const opacity = Math.random() * 0.18 + 0.04;
+    const tone = Math.floor(Math.random() * 45 + 18);
 
     const dabGrad = ctx.createRadialGradient(x, y, 0, x, y, r);
-    dabGrad.addColorStop(0, `rgba(${gray}, ${gray}, ${gray}, ${opacity})`);
-    dabGrad.addColorStop(1, `rgba(${gray}, ${gray}, ${gray}, 0)`);
+    dabGrad.addColorStop(0, `rgba(${tone}, ${tone + 2}, ${tone + 6}, ${opacity})`);
+    dabGrad.addColorStop(0.7, `rgba(${tone}, ${tone}, ${tone}, ${opacity * 0.4})`);
+    dabGrad.addColorStop(1, `rgba(${tone}, ${tone}, ${tone}, 0)`);
 
     ctx.fillStyle = dabGrad;
     ctx.beginPath();
@@ -33,22 +38,58 @@ export function createProceduralCometTexture() {
     ctx.fill();
   }
 
-  for (let i = 0; i < 50; i++) {
-    const cx = Math.random() * 1024;
-    const cy = Math.random() * 1024;
-    const cr = Math.random() * 60 + 20;
+  // 2. Primary & Secondary Impact Craters with sunlit rims & shadowed deep bowls (120 craters)
+  for (let i = 0; i < 120; i++) {
+    const cx = Math.random() * 2048;
+    const cy = Math.random() * 2048;
+    const cr = Math.random() * 110 + 25;
 
-    const grad = ctx.createRadialGradient(cx - cr * 0.2, cy - cr * 0.2, 0, cx, cy, cr);
-    grad.addColorStop(0, 'rgba(5, 7, 10, 0.9)');
-    grad.addColorStop(0.7, 'rgba(13, 17, 28, 0.6)');
-    grad.addColorStop(0.9, 'rgba(26, 32, 44, 0.4)');
-    grad.addColorStop(1, 'rgba(62, 74, 97, 0.2)');
+    // Outer rim uplift (lighter basaltic ejecta)
+    const rimGrad = ctx.createRadialGradient(cx, cy, cr * 0.75, cx, cy, cr * 1.25);
+    rimGrad.addColorStop(0, 'rgba(45, 54, 68, 0.5)');
+    rimGrad.addColorStop(0.6, 'rgba(32, 38, 48, 0.3)');
+    rimGrad.addColorStop(1, 'rgba(18, 22, 28, 0)');
+    ctx.fillStyle = rimGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, cr * 1.25, 0, Math.PI * 2);
+    ctx.fill();
 
-    ctx.fillStyle = grad;
+    // Deep shadowed crater cavity
+    const bowlGrad = ctx.createRadialGradient(cx - cr * 0.25, cy - cr * 0.25, 0, cx, cy, cr);
+    bowlGrad.addColorStop(0, 'rgba(3, 4, 7, 0.95)');
+    bowlGrad.addColorStop(0.6, 'rgba(8, 11, 16, 0.85)');
+    bowlGrad.addColorStop(0.85, 'rgba(18, 23, 32, 0.5)');
+    bowlGrad.addColorStop(1, 'rgba(40, 48, 62, 0.2)');
+
+    ctx.fillStyle = bowlGrad;
     ctx.beginPath();
     ctx.arc(cx, cy, cr, 0, Math.PI * 2);
     ctx.fill();
   }
+
+  // 3. Dense micro-crater pits & fine rocky texture (600 micro-impacts)
+  for (let i = 0; i < 600; i++) {
+    const mx = Math.random() * 2048;
+    const my = Math.random() * 2048;
+    const mr = Math.random() * 12 + 3;
+
+    ctx.fillStyle = Math.random() > 0.4 ? 'rgba(4, 5, 8, 0.8)' : 'rgba(55, 65, 80, 0.35)';
+    ctx.beginPath();
+    ctx.arc(mx, my, mr, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // 4. Photorealistic mineral grain noise (Direct pixel manipulation)
+  const imgData = ctx.getImageData(0, 0, 2048, 2048);
+  const data = imgData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    // Add subtle fine grit noise (-12 to +12)
+    const n = (Math.random() - 0.5) * 24;
+    data[i] = Math.min(255, Math.max(0, data[i] + n));
+    data[i + 1] = Math.min(255, Math.max(0, data[i + 1] + n));
+    data[i + 2] = Math.min(255, Math.max(0, data[i + 2] + n + 2)); // slight cool iron tint
+  }
+  ctx.putImageData(imgData, 0, 0);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;
@@ -60,25 +101,30 @@ export function createProceduralCometTexture() {
 }
 
 /**
- * Procedural Bump Texture for Surface Cragginess (1024x1024)
+ * High-Resolution Procedural Bump Texture for Deep Surface Relief (2048x2048)
+ * Creates sharp ridges, jagged rocky fractures, and cavernous crater depth.
  */
 export function createProceduralBumpTexture() {
   const canvas = document.createElement('canvas');
-  canvas.width = 1024;
-  canvas.height = 1024;
+  canvas.width = 2048;
+  canvas.height = 2048;
   const ctx = canvas.getContext('2d');
 
+  // Neutral mid-gray elevation baseline
   ctx.fillStyle = '#808080';
-  ctx.fillRect(0, 0, 1024, 1024);
+  ctx.fillRect(0, 0, 2048, 2048);
 
-  for (let i = 0; i < 300; i++) {
-    const x = Math.random() * 1024;
-    const y = Math.random() * 1024;
-    const r = Math.random() * 200 + 100;
-    const val = Math.random() > 0.5 ? 200 : 50;
+  // 1. Broad tectonic macro ridges & tectonic shelves (200 passes)
+  for (let i = 0; i < 200; i++) {
+    const x = Math.random() * 2048;
+    const y = Math.random() * 2048;
+    const r = Math.random() * 400 + 150;
+    const isPeak = Math.random() > 0.45;
+    const val = isPeak ? 220 : 40;
 
     const grad = ctx.createRadialGradient(x, y, 0, x, y, r);
-    grad.addColorStop(0, `rgba(${val}, ${val}, ${val}, 0.2)`);
+    grad.addColorStop(0, `rgba(${val}, ${val}, ${val}, 0.25)`);
+    grad.addColorStop(0.7, `rgba(${val}, ${val}, ${val}, 0.08)`);
     grad.addColorStop(1, `rgba(${val}, ${val}, ${val}, 0)`);
 
     ctx.fillStyle = grad;
@@ -86,6 +132,44 @@ export function createProceduralBumpTexture() {
     ctx.arc(x, y, r, 0, Math.PI * 2);
     ctx.fill();
   }
+
+  // 2. Deep crater depressions (carve dark wells with bright rims)
+  for (let i = 0; i < 90; i++) {
+    const cx = Math.random() * 2048;
+    const cy = Math.random() * 2048;
+    const cr = Math.random() * 120 + 30;
+
+    // Raised crater rim (high elevation = white/light gray)
+    const rimGrad = ctx.createRadialGradient(cx, cy, cr * 0.8, cx, cy, cr * 1.2);
+    rimGrad.addColorStop(0, 'rgba(235, 235, 235, 0.6)');
+    rimGrad.addColorStop(1, 'rgba(128, 128, 128, 0)');
+    ctx.fillStyle = rimGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, cr * 1.2, 0, Math.PI * 2);
+    ctx.fill();
+
+    // Crater bowl floor (deep indentation = dark gray/black)
+    const bowlGrad = ctx.createRadialGradient(cx, cy, 0, cx, cy, cr * 0.85);
+    bowlGrad.addColorStop(0, 'rgba(15, 15, 15, 0.85)');
+    bowlGrad.addColorStop(0.7, 'rgba(40, 40, 40, 0.5)');
+    bowlGrad.addColorStop(1, 'rgba(128, 128, 128, 0)');
+    ctx.fillStyle = bowlGrad;
+    ctx.beginPath();
+    ctx.arc(cx, cy, cr * 0.85, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // 3. Fine grain surface roughness noise
+  const imgData = ctx.getImageData(0, 0, 2048, 2048);
+  const data = imgData.data;
+  for (let i = 0; i < data.length; i += 4) {
+    const n = (Math.random() - 0.5) * 36;
+    const v = Math.min(255, Math.max(0, data[i] + n));
+    data[i] = v;
+    data[i + 1] = v;
+    data[i + 2] = v;
+  }
+  ctx.putImageData(imgData, 0, 0);
 
   const texture = new THREE.CanvasTexture(canvas);
   texture.wrapS = THREE.RepeatWrapping;

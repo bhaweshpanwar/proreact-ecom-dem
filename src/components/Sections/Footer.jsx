@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import FooterAsteroidCanvas from '../Hero3D/FooterAsteroidCanvas';
 
 export default function Footer() {
   return (
@@ -10,11 +9,6 @@ export default function Footer() {
       <div className="pointer-events-none absolute top-0 left-1/2 -translate-x-1/2 w-[1100px] h-[340px] bg-gradient-to-b from-blue-600/10 via-transparent to-transparent blur-3xl rounded-full" aria-hidden="true"></div>
 
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        {/* Interactive 3D Asteroid Feature replacing static logo */}
-        <div className="pb-12 mb-14">
-          <FooterAsteroidCanvas />
-        </div>
 
         {/* Top Row: Editorial Prompt + Actions */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-12 border-b border-white/10 mb-14">

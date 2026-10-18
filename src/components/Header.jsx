@@ -34,24 +34,13 @@ export default function Header() {
       <header id="main-header" className="fixed top-0 left-0 right-0 h-20 bg-white border-b border-slate-200 shadow-sm z-50 flex items-center transition-all duration-300">
         <div className="w-full max-w-[1360px] h-full mx-auto px-4 sm:px-8 flex items-center justify-between gap-4">
           
-          {/* Brand Logo & Tagline (Clean Vector Emblem & Typography) */}
-          <Link to="/" className="flex items-center gap-3 flex-shrink-0 text-decoration-none group">
-            <div className="w-10 h-10 rounded-xl bg-space-950 flex items-center justify-center text-white shadow-xs group-hover:bg-slate-900 transition-all">
-              <svg className="w-5 h-5 text-blue-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="4" fill="currentColor" />
-                <path d="M12 2v3M12 19v3M2 12h3M19 12h3" />
-                <path d="M18.364 5.636l-2.121 2.121M7.757 16.243l-2.121 2.121M18.364 18.364l-2.121-2.121M7.757 7.757L5.636 5.636" opacity="0.6" />
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="font-sans text-xl font-extrabold text-slate-900 tracking-tight flex items-center gap-1.5 leading-none">
-                E-COMET
-                <span className="w-2 h-2 rounded-full bg-blue-600"></span>
-              </span>
-              <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase mt-1">
-                Beyond Digital. Into the Next Orbit.
-              </span>
-            </div>
+          {/* Brand Logo */}
+          <Link to="/" className="flex items-center flex-shrink-0 text-decoration-none group py-1">
+            <img 
+              src="/assets/brand-logo.jpg" 
+              alt="E-COMET · Beyond Digital. Into the Next Orbit." 
+              className="h-12 sm:h-14 w-auto object-contain mix-blend-multiply group-hover:opacity-90 transition-opacity" 
+            />
           </Link>
 
           {/* Desktop Navigation */}
