@@ -570,7 +570,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                 >
                   <div className="relative z-10">
                     {/* Card Heading */}
-                    <h3 className="font-serif text-2xl sm:text-3xl lg:text-[2.2rem] font-normal text-space-950 tracking-tight leading-[1.2] mb-3.5 group-hover:text-blue-600 transition-colors duration-300 max-w-lg">
+                    <h3 className="font-serif text-2xl sm:text-3xl lg:text-[2.2rem] font-normal text-space-950 tracking-tight leading-[1.2] mb-3.5 group-hover:text-black transition-colors duration-300 max-w-lg">
                       {feat.title}
                     </h3>
 
@@ -723,12 +723,11 @@ export default function ServiceDetailPage({ slugOverride }) {
                 {/* Top Meta Terminal Bar */}
                 <div className="relative z-10 flex items-center justify-between pb-4 border-b border-slate-800/80">
                   <div className="flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="text-[11px] font-mono tracking-widest uppercase text-slate-300">
                       TELEMETRY DOSSIER · 0{activePersona + 1}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-blue-400 uppercase">
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300 uppercase">
                     3D ASTROLABE LIVE
                   </span>
                 </div>
@@ -825,7 +824,7 @@ export default function ServiceDetailPage({ slugOverride }) {
               {/* Card 1: Business-First Thinking */}
               <div className="card-why-left group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
                     {whyPoints[0].title}
                   </h3>
                   <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
@@ -840,7 +839,7 @@ export default function ServiceDetailPage({ slugOverride }) {
               {/* Card 2: Connected Capabilities */}
               <div className="card-why-left group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
                     {whyPoints[1].title}
                   </h3>
                   <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
@@ -888,7 +887,7 @@ export default function ServiceDetailPage({ slugOverride }) {
               {/* Card 3: Transparent Scope */}
               <div className="card-why-right group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
                     {whyPoints[2].title}
                   </h3>
                   <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
@@ -903,7 +902,7 @@ export default function ServiceDetailPage({ slugOverride }) {
               {/* Card 4: Zero Vanity Claims */}
               <div className="card-why-right group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
                 <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-blue-600 transition-colors duration-300">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
                     {whyPoints[3].title}
                   </h3>
                   <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
@@ -977,7 +976,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                 >
                   <div>
                     {/* Stage Title (Larger prominent display serif) */}
-                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-normal text-space-950 tracking-tight leading-[1.15] mb-4 group-hover:text-blue-600 transition-colors duration-300">
+                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-normal text-space-950 tracking-tight leading-[1.15] mb-4 group-hover:text-black transition-colors duration-300">
                       {prc.title}
                     </h3>
 
@@ -1019,7 +1018,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                     {/* Smooth progression bar */}
                     <div className="w-full h-1 bg-stone-200 rounded-full overflow-hidden">
                       <div 
-                        className="h-full bg-space-950 rounded-full group-hover:bg-blue-600 transition-all duration-500"
+                        className="h-full bg-space-950 rounded-full group-hover:bg-[#252B36] transition-all duration-500"
                         style={{ width: `${(idx + 1) * 25}%` }}
                       />
                     </div>
@@ -1069,7 +1068,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                     </span>
 
                     {/* Big Heading */}
-                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-normal text-space-950 tracking-tight leading-[1.15] mb-8 group-hover:text-blue-600 transition-colors duration-300">
+                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-normal text-space-950 tracking-tight leading-[1.15] mb-8 group-hover:text-black transition-colors duration-300">
                       {cs.title}
                     </h3>
 
@@ -1299,7 +1298,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                       onClick={() => toggleFaq(globalIdx)}
                       className="w-full text-left flex items-start justify-between gap-4 cursor-pointer select-none"
                     >
-                      <h3 className="font-serif text-lg sm:text-xl font-normal text-space-950 tracking-tight leading-snug group-hover:text-blue-600 transition-colors pr-2">
+                      <h3 className="font-serif text-lg sm:text-xl font-normal text-space-950 tracking-tight leading-snug group-hover:text-black transition-colors pr-2">
                         {faq.q}
                       </h3>
                       
@@ -1343,7 +1342,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                       onClick={() => toggleFaq(globalIdx)}
                       className="w-full text-left flex items-start justify-between gap-4 cursor-pointer select-none"
                     >
-                      <h3 className="font-serif text-lg sm:text-xl font-normal text-space-950 tracking-tight leading-snug group-hover:text-blue-600 transition-colors pr-2">
+                      <h3 className="font-serif text-lg sm:text-xl font-normal text-space-950 tracking-tight leading-snug group-hover:text-black transition-colors pr-2">
                         {faq.q}
                       </h3>
                       
@@ -1392,9 +1391,8 @@ export default function ServiceDetailPage({ slugOverride }) {
                 <Link 
                   key={rel.id}
                   to={`/services/${rel.id}`}
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-xs font-sans font-medium text-space-950 hover:bg-space-950 hover:text-white transition-all shadow-2xs"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-xs font-sans font-medium text-space-950 hover:bg-[#080B10] hover:text-white transition-all shadow-2xs"
                 >
-                  <span className="w-2 h-2 rounded-full" style={{ backgroundColor: rel.colorHex }}></span>
                   <span>{rel.shortTitle || rel.title}</span>
                   <span>→</span>
                 </Link>

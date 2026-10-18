@@ -64,7 +64,7 @@ export default function SelectedWorkSection() {
           <button 
             type="button" 
             onClick={() => scroll('left')}
-            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors text-space-950 cursor-pointer" 
+            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#080B10] hover:text-white hover:border-[#080B10] transition-all text-space-950 cursor-pointer shadow-xs" 
             aria-label="Previous work slide"
           >
             ←
@@ -72,7 +72,7 @@ export default function SelectedWorkSection() {
           <button 
             type="button" 
             onClick={() => scroll('right')}
-            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-slate-100 transition-colors text-space-950 cursor-pointer" 
+            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#080B10] hover:text-white hover:border-[#080B10] transition-all text-space-950 cursor-pointer shadow-xs" 
             aria-label="Next work slide"
           >
             →
@@ -90,8 +90,8 @@ export default function SelectedWorkSection() {
           {workItems.map((item, idx) => (
             <div key={idx} className="work-card flex-shrink-0 w-[280px] sm:w-[320px] snap-start group cursor-pointer">
               
-              {/* Intelligent Architectural Card (No Raster Images) */}
-              <div className="aspect-[9/13] rounded-card bg-[#0E1218] text-white p-6 sm:p-7 relative overflow-hidden mb-3 shadow-md flex flex-col justify-between border border-white/10 group-hover:border-blue-500/40 transition-all duration-300">
+              {/* Intelligent Architectural Card (Cosmic Black Brand Primary) */}
+              <div className="aspect-[9/13] rounded-card bg-[#080B10] text-white p-6 sm:p-7 relative overflow-hidden mb-3 shadow-md flex flex-col justify-between border border-white/10 group-hover:border-white/30 transition-all duration-300">
                 
                 {/* Background Subtle Geometric Grid */}
                 <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:24px_24px] pointer-events-none" />
@@ -113,11 +113,12 @@ export default function SelectedWorkSection() {
                     <svg className="w-full h-full overflow-visible" viewBox="0 0 200 60" fill="none">
                       <path 
                         d={`M0 50 Q 50 ${40 - idx * 5}, 100 ${30 - idx * 4} T 200 ${10 + (idx % 2) * 5}`} 
-                        stroke="#2563EB" 
+                        stroke="#FFFFFF" 
                         strokeWidth="2.5" 
                         strokeLinecap="round"
+                        opacity="0.9"
                       />
-                      <circle cx="200" cy={`${10 + (idx % 2) * 5}`} r="4" fill="#3B82F6" />
+                      <circle cx="200" cy={`${10 + (idx % 2) * 5}`} r="4" fill="#FFFFFF" />
                     </svg>
                   </div>
 
@@ -125,7 +126,7 @@ export default function SelectedWorkSection() {
                     <span className="font-serif text-3xl sm:text-4xl text-white font-normal block tracking-tight">
                       {item.metric}
                     </span>
-                    <span className="text-[11px] font-mono uppercase tracking-wider text-blue-400 block mt-1">
+                    <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mt-1">
                       {item.metricLabel}
                     </span>
                   </div>

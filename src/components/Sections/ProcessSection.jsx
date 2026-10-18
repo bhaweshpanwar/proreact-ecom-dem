@@ -184,7 +184,7 @@ export default function ProcessSection() {
                       onClick={() => handlePillClick(idx)}
                       className={`px-2.5 py-1 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
                         activeStage === idx
-                          ? 'bg-space-950 text-white border border-space-950'
+                          ? 'bg-[#080B10] text-white border border-[#080B10]'
                           : 'bg-white text-space-600 border border-slate-200 hover:border-space-800'
                       }`}
                     >
@@ -198,7 +198,7 @@ export default function ProcessSection() {
               <div className="flex items-center gap-3 py-1">
                 <div className="w-28 sm:w-36 h-[3px] bg-slate-200 rounded-full relative overflow-hidden">
                   <div 
-                    className="h-full bg-blue-600 transition-all duration-300" 
+                    className="h-full bg-[#080B10] transition-all duration-300" 
                     style={{ width: current.rail }}
                   />
                 </div>
@@ -217,7 +217,6 @@ export default function ProcessSection() {
               </p>
 
               <div className="pt-2 flex items-center gap-2 text-xs font-sans text-space-600">
-                <span className="inline-block animate-pulse w-1.5 h-1.5 rounded-full bg-blue-600"></span>
                 <span>Scroll to progress through orbit stages</span>
               </div>
             </div>
@@ -238,8 +237,7 @@ export default function ProcessSection() {
                     <div>
                       <div className="flex items-center justify-between pb-3 hairline-b mb-4">
                         <div className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-blue-600 inline-block"></span>
-                          <span className="text-xs font-mono font-bold tracking-wider text-blue-600">{s.stageTag}</span>
+                          <span className="text-xs font-mono font-bold tracking-wider text-space-950">{s.stageTag}</span>
                         </div>
                         <span className="text-xs font-mono text-space-600 tracking-wider">{s.badge}</span>
                       </div>
@@ -255,7 +253,7 @@ export default function ProcessSection() {
                     <div className="relative w-full h-44 sm:h-52 rounded-xl bg-slate-50 border border-slate-200/80 p-5 overflow-hidden flex flex-col justify-between mt-auto">
                       <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
                         <span>SYSTEM ARCHITECTURE PROTOCOL</span>
-                        <span className="text-blue-600 font-bold">ACTIVE</span>
+                        <span className="text-space-950 font-bold">ACTIVE</span>
                       </div>
                       <div className="grid grid-cols-3 gap-3 my-auto">
                         <div className="p-3 rounded-lg bg-white border border-slate-200 text-center">
@@ -264,7 +262,7 @@ export default function ProcessSection() {
                         </div>
                         <div className="p-3 rounded-lg bg-white border border-slate-200 text-center">
                           <span className="text-[10px] font-mono text-slate-400 uppercase block">Cadence</span>
-                          <span className="text-sm font-bold text-blue-600 font-sans">Bi-Weekly</span>
+                          <span className="text-sm font-bold text-space-950 font-sans">Bi-Weekly</span>
                         </div>
                         <div className="p-3 rounded-lg bg-white border border-slate-200 text-center">
                           <span className="text-[10px] font-mono text-slate-400 uppercase block">Target</span>
@@ -272,13 +270,13 @@ export default function ProcessSection() {
                         </div>
                       </div>
                       <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                        <div className="bg-blue-600 h-full rounded-full" style={{ width: `${(idx + 1) * 25}%` }} />
+                        <div className="bg-[#080B10] h-full rounded-full" style={{ width: `${(idx + 1) * 25}%` }} />
                       </div>
                     </div>
 
                     <div className="pt-3.5 mt-2 flex items-center justify-between text-[11px] font-mono text-space-600 hairline-t">
                       <span>{s.footer}</span>
-                      <span className="text-blue-600 font-medium">STAGE 0{idx + 1} / 04</span>
+                      <span className="text-space-950 font-medium">STAGE 0{idx + 1} / 04</span>
                     </div>
                   </div>
                 ))}

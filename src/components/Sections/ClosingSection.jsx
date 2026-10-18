@@ -101,9 +101,9 @@ export default function ClosingSection() {
           aria-hidden="true"
         />
 
-        {/* Subtle Cyan Ambient Spotlight */}
+        {/* Subtle Ambient Spotlight */}
         <div 
-          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[140px] opacity-20 pointer-events-none bg-[#00B4D8]"
+          className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] rounded-full blur-[140px] opacity-10 pointer-events-none bg-white"
           aria-hidden="true"
         />
       </div>
@@ -115,12 +115,11 @@ export default function ClosingSection() {
         {/* ===================================================================== */}
         <div className="relative z-10 max-w-3xl mx-auto text-center mb-10 sm:mb-14">
           <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-xs font-mono font-medium text-slate-200 mb-6 shadow-lg">
-            <span className="w-2 h-2 rounded-full bg-[#00B4D8] animate-pulse" />
             <span>E-COMET PRACTICE DESK · DIRECT COMMERCIAL ACCESS</span>
           </div>
 
           <h2 id="closing-heading" className="text-4xl sm:text-5xl lg:text-6xl font-serif text-white font-normal tracking-tight leading-[1.08] mb-4">
-            Growth, on a steady <span className="italic text-[#00B4D8] font-normal">orbit.</span>
+            Growth, on a steady <span className="italic text-white font-normal">orbit.</span>
           </h2>
           <p className="text-sm sm:text-base text-slate-300 font-sans max-w-xl mx-auto leading-relaxed">
             Connect directly with our senior partners. We analyze your commercial footprint and craft an actionable execution blueprint.
@@ -136,7 +135,7 @@ export default function ClosingSection() {
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />
           
           {/* Ambient Inner Corner Glow */}
-          <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-[#00B4D8]/15 blur-3xl pointer-events-none" />
+          <div className="absolute -top-20 -right-20 w-60 h-60 rounded-full bg-white/[0.04] blur-3xl pointer-events-none" />
 
           {submitted ? (
             /* Success Confirmation View */
@@ -157,7 +156,7 @@ export default function ClosingSection() {
               </div>
 
               <p className="text-xs sm:text-sm text-slate-300 font-sans max-w-lg mx-auto leading-relaxed">
-                Thank you, <strong className="text-white">{formData.name}</strong>. Our senior growth architect is personally reviewing your digital and marketplace presence for <strong className="text-white">{formData.brand || 'your brand'}</strong>. We will deliver a tailored blueprint to <span className="font-mono text-[#00B4D8]">{formData.email}</span> within 24–48 hours.
+                Thank you, <strong className="text-white">{formData.name}</strong>. Our senior growth architect is personally reviewing your digital and marketplace presence for <strong className="text-white">{formData.brand || 'your brand'}</strong>. We will deliver a tailored blueprint to <span className="font-mono text-white font-semibold">{formData.email}</span> within 24–48 hours.
               </p>
 
               <div className="pt-4 flex flex-wrap items-center justify-center gap-3">
@@ -196,7 +195,7 @@ export default function ClosingSection() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="audit-name" className="block text-[11px] font-mono font-bold text-slate-300 uppercase tracking-wider mb-2">
-                    Your Name <span className="text-[#00B4D8]">*</span>
+                    Your Name <span className="text-slate-400">*</span>
                   </label>
                   <input
                     type="text"
@@ -205,8 +204,8 @@ export default function ClosingSection() {
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     placeholder="e.g. Rahul Sharma"
-                    className={`w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-[#00B4D8] shadow-inner ${
-                      errors.name ? 'border-rose-400/90 bg-rose-500/10' : 'border-white/15 focus:border-[#00B4D8]'
+                    className={`w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-white/40 shadow-inner ${
+                      errors.name ? 'border-rose-400/90 bg-rose-500/10' : 'border-white/15 focus:border-white/50'
                     }`}
                   />
                   {errors.name && <span className="text-[11px] text-rose-400 mt-1.5 block font-sans">{errors.name}</span>}
@@ -223,7 +222,7 @@ export default function ClosingSection() {
                     value={formData.brand}
                     onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
                     placeholder="e.g. Zen Botanics"
-                    className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/15 focus:border-[#00B4D8] text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-[#00B4D8] shadow-inner"
+                    className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/15 focus:border-white/50 text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-white/40 shadow-inner"
                   />
                 </div>
               </div>
@@ -232,7 +231,7 @@ export default function ClosingSection() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="audit-email" className="block text-[11px] font-mono font-bold text-slate-300 uppercase tracking-wider mb-2">
-                    Business Email <span className="text-[#00B4D8]">*</span>
+                    Business Email <span className="text-slate-400">*</span>
                   </label>
                   <input
                     type="email"
@@ -241,8 +240,8 @@ export default function ClosingSection() {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="name@company.com"
-                    className={`w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-[#00B4D8] shadow-inner ${
-                      errors.email ? 'border-rose-400/90 bg-rose-500/10' : 'border-white/15 focus:border-[#00B4D8]'
+                    className={`w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-white/40 shadow-inner ${
+                      errors.email ? 'border-rose-400/90 bg-rose-500/10' : 'border-white/15 focus:border-white/50'
                     }`}
                   />
                   {errors.email && <span className="text-[11px] text-rose-400 mt-1.5 block font-sans">{errors.email}</span>}
@@ -250,7 +249,7 @@ export default function ClosingSection() {
 
                 <div>
                   <label htmlFor="audit-phone" className="block text-[11px] font-mono font-bold text-slate-300 uppercase tracking-wider mb-2">
-                    Phone / WhatsApp <span className="text-[#00B4D8]">*</span>
+                    Phone / WhatsApp <span className="text-slate-400">*</span>
                   </label>
                   <input
                     type="tel"
@@ -259,8 +258,8 @@ export default function ClosingSection() {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+91 98765 43210"
-                    className={`w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-[#00B4D8] shadow-inner ${
-                      errors.phone ? 'border-rose-400/90 bg-rose-500/10' : 'border-white/15 focus:border-[#00B4D8]'
+                    className={`w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-white/40 shadow-inner ${
+                      errors.phone ? 'border-rose-400/90 bg-rose-500/10' : 'border-white/15 focus:border-white/50'
                     }`}
                   />
                   {errors.phone && <span className="text-[11px] text-rose-400 mt-1.5 block font-sans">{errors.phone}</span>}
@@ -286,7 +285,6 @@ export default function ClosingSection() {
                             : 'bg-white/[0.06] hover:bg-white/[0.12] text-slate-300 border border-white/15 hover:border-white/25'
                         }`}
                       >
-                        <span className={`w-1.5 h-1.5 rounded-full transition-colors ${isSelected ? 'bg-[#00B4D8]' : 'bg-slate-500'}`} />
                         <span>{opt.label}</span>
                       </button>
                     );
@@ -306,7 +304,7 @@ export default function ClosingSection() {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Briefly describe your category, target timeline, or channels you want to accelerate..."
-                  className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/15 focus:border-[#00B4D8] text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-[#00B4D8] shadow-inner resize-none"
+                  className="w-full px-5 py-3.5 rounded-2xl bg-white/[0.07] hover:bg-white/[0.1] focus:bg-white/[0.14] border border-white/15 focus:border-white/50 text-xs sm:text-sm text-white placeholder-slate-400 transition-all font-sans focus:outline-none focus:ring-1 focus:ring-white/40 shadow-inner resize-none"
                 />
               </div>
 
@@ -334,10 +332,7 @@ export default function ClosingSection() {
               {/* Trust Reassurances */}
               <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-400 font-sans gap-3 text-center sm:text-left">
                 <div className="flex items-center gap-3">
-                  <span className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    Strict NDA Protected
-                  </span>
+                  <span>Strict NDA Protected</span>
                   <span>·</span>
                   <span>Senior Strategist Review</span>
                 </div>
@@ -345,7 +340,7 @@ export default function ClosingSection() {
                   href="https://wa.me/91XXXXXXXXXX" 
                   target="_blank" 
                   rel="noopener noreferrer" 
-                  className="text-[#00B4D8] hover:text-white transition-colors underline font-mono text-[11px]"
+                  className="text-white hover:underline transition-colors font-mono text-[11px]"
                 >
                   Direct WhatsApp Desk →
                 </a>

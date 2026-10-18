@@ -76,10 +76,6 @@ export default function MobileDrawer({ isOpen, onClose }) {
                         className="w-full flex items-center justify-between p-3 text-left hover:bg-slate-100/70 transition-colors"
                       >
                         <div className="flex items-center gap-2">
-                          <span 
-                            className="w-2 h-2 rounded-full flex-shrink-0" 
-                            style={{ backgroundColor: pillar.colorHex }}
-                          />
                           <span className="text-xs font-semibold text-slate-900">
                             {pillar.title}
                           </span>
@@ -145,7 +141,7 @@ export default function MobileDrawer({ isOpen, onClose }) {
           <a
             href="#closing"
             onClick={onClose}
-            className="w-full py-2.5 rounded-xl bg-slate-900 text-white font-sans text-xs font-semibold flex items-center justify-center gap-2 shadow-sm"
+            className="w-full py-2.5 rounded-xl bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-xs font-semibold flex items-center justify-center gap-2 shadow-sm transition-colors"
           >
             <span>Get a Custom Quote →</span>
           </a>

@@ -202,9 +202,9 @@ export default function OrbitChatbot() {
             {/* Typing Indicator */}
             {isTyping && (
               <div className="flex items-center gap-1.5 text-slate-400 text-xs px-3 py-2 bg-white/5 rounded-2xl w-fit border border-white/5">
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce"></span>
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.2s]"></span>
-                <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.4s]"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-bounce"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-bounce [animation-delay:0.2s]"></span>
+                <span className="w-1.5 h-1.5 rounded-full bg-slate-300 animate-bounce [animation-delay:0.4s]"></span>
                 <span className="text-[10px] font-mono ml-1 text-slate-500">Synthesizing...</span>
               </div>
             )}
@@ -225,13 +225,13 @@ export default function OrbitChatbot() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask about services, pricing, audit..."
-                className="flex-1 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-white/20 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-cyan-400 transition-all font-sans"
+                className="flex-1 px-4 py-2.5 rounded-full bg-white/5 border border-white/10 hover:border-white/20 text-xs text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-white/40 transition-all font-sans"
               />
               <button
                 type="submit"
                 disabled={!inputValue.trim()}
                 aria-label="Send message"
-                className="w-9 h-9 rounded-full bg-[#38BDF8] hover:bg-[#0284c7] disabled:opacity-40 disabled:hover:bg-[#38BDF8] text-space-950 flex items-center justify-center transition-all cursor-pointer flex-shrink-0 shadow-md"
+                className="w-9 h-9 rounded-full bg-white hover:bg-slate-200 disabled:opacity-40 text-[#080B10] flex items-center justify-center transition-all cursor-pointer flex-shrink-0 shadow-md"
               >
                 <svg className="w-4 h-4 fill-current rotate-45 -translate-y-0.5" viewBox="0 0 24 24">
                   <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
@@ -252,14 +252,14 @@ export default function OrbitChatbot() {
         aria-label={isOpen ? "Close orbital guide" : "Open orbital guide"}
         className="group relative flex items-center justify-center cursor-pointer transition-all focus:outline-none"
       >
-        {/* Soft Ambient Cyan Radar Halo */}
-        <div className="absolute -inset-1 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 opacity-60 blur-md group-hover:opacity-90 group-hover:scale-110 transition-all duration-300 animate-pulse"></div>
+        {/* Soft Ambient Halo */}
+        <div className="absolute -inset-1 rounded-full bg-slate-400/20 blur-md group-hover:scale-110 transition-all duration-300"></div>
 
         {/* Main Circular Button Shell */}
-        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#0B0F17] border-2 border-cyan-400/60 group-hover:border-cyan-300 p-2 shadow-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 active:scale-95 overflow-hidden">
+        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#080B10] border border-white/20 group-hover:border-white/40 p-2 shadow-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 active:scale-95 overflow-hidden">
           
           {/* Subtle cosmic star speckles in background */}
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(56,189,248,0.25),transparent_70%)] pointer-events-none"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.1),transparent_70%)] pointer-events-none"></div>
 
           {/* Astronaut Head SVG Icon */}
           <AstronautHeadSVG className="w-full h-full relative z-10 transition-transform duration-300 group-hover:rotate-6" />

@@ -34,11 +34,11 @@ export default function GoalsSection() {
           
           {/* Header */}
           <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
-            <span className="text-xs font-sans text-space-600 uppercase tracking-widest font-semibold block mb-3">
-              Growth Blueprint
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+              02 · Growth Blueprint
             </span>
             <h2 id="goals-heading" className="text-3xl sm:text-5xl lg:text-6xl font-serif text-space-950 tracking-tight leading-tight mb-4">
-              What can we do for <span className="italic text-blue-600">you</span>?
+              What can we do for <span className="italic">you</span>?
             </h2>
             <p className="text-sm sm:text-base text-space-600 font-sans leading-relaxed max-w-2xl mx-auto">
               Select your immediate objective to discover the customized growth roadmap, mapped services, and audit scope.
@@ -58,13 +58,10 @@ export default function GoalsSection() {
                   onClick={() => setCurrentGoalIndex(idx)}
                   className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-sans font-medium transition-all cursor-pointer flex items-center gap-2 select-none ${
                     isActive
-                      ? 'bg-space-950 text-white border border-space-950 shadow-md ring-2 ring-space-950/10'
+                      ? 'bg-[#080B10] text-white border border-[#080B10] shadow-md ring-2 ring-[#080B10]/10'
                       : 'bg-white text-space-800 border border-slate-200/90 hover:border-space-800 hover:bg-slate-50'
                   }`}
                 >
-                  {isActive && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse inline-block"></span>
-                  )}
                   <span>{item.label}</span>
                 </button>
               );
@@ -78,11 +75,7 @@ export default function GoalsSection() {
               {/* Top Meta Row */}
               <div className="blueprint-header flex flex-wrap items-center justify-between gap-3 pb-5 border-b border-slate-100">
                 <div className="flex items-center gap-2.5">
-                  <span className="relative flex h-2.5 w-2.5">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-600 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-600"></span>
-                  </span>
-                  <span className="text-xs font-mono text-blue-600 font-bold tracking-wider">{goal.badge}</span>
+                  <span className="px-3 py-1 rounded-full bg-slate-100 text-xs font-mono text-space-950 font-bold tracking-wider">{goal.badge}</span>
                 </div>
                 
                 <div className="flex items-center gap-3">
@@ -93,7 +86,7 @@ export default function GoalsSection() {
                     <button 
                       type="button" 
                       onClick={handlePrev}
-                      className="w-6 h-6 rounded-full bg-white hover:bg-space-950 hover:text-white text-space-700 flex items-center justify-center text-xs transition-colors shadow-2xs cursor-pointer active:scale-90"
+                      className="w-6 h-6 rounded-full bg-white hover:bg-[#080B10] hover:text-white text-space-700 flex items-center justify-center text-xs transition-colors shadow-2xs cursor-pointer active:scale-90"
                       title="Previous objective"
                     >
                       ←
@@ -104,7 +97,7 @@ export default function GoalsSection() {
                     <button 
                       type="button" 
                       onClick={handleNext}
-                      className="w-6 h-6 rounded-full bg-white hover:bg-space-950 hover:text-white text-space-700 flex items-center justify-center text-xs transition-colors shadow-2xs cursor-pointer active:scale-90"
+                      className="w-6 h-6 rounded-full bg-white hover:bg-[#080B10] hover:text-white text-space-700 flex items-center justify-center text-xs transition-colors shadow-2xs cursor-pointer active:scale-90"
                       title="Next objective"
                     >
                       →
@@ -140,8 +133,7 @@ export default function GoalsSection() {
                     >
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div className="flex items-center gap-2">
-                          <span className="w-1.5 h-1.5 rounded-full bg-blue-600/60 group-hover:bg-blue-600 transition-colors"></span>
-                          <span className="text-sm font-serif font-bold text-space-950 group-hover:text-blue-600 transition-colors">{s.title}</span>
+                          <span className="text-sm font-serif font-bold text-space-950 group-hover:text-black transition-colors">{s.title}</span>
                         </div>
                         <span className="text-xs text-space-400 group-hover:text-space-950 group-hover:translate-x-1 transition-all">→</span>
                       </div>
@@ -161,7 +153,7 @@ export default function GoalsSection() {
                 </div>
                 <a 
                   href="#closing" 
-                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-space-950 hover:bg-blue-600 text-white text-xs font-semibold transition-all duration-300 hover:scale-[1.02] shadow-sm hover:shadow-lg group"
+                  className="inline-flex items-center gap-2.5 px-6 py-3 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white text-xs font-semibold transition-all duration-300 hover:scale-[1.02] shadow-sm hover:shadow-lg group"
                 >
                   <span>{goal.auditCta}</span>
                   <span className="group-hover:translate-x-0.5 transition-transform">→</span>

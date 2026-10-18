@@ -30,9 +30,9 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
     // Hovered: expansive full-focus (w-[76%], flex-[7.5])
     // Shrunk: slim vertical anchor tab (w-[12%], flex-[1.2])
     const flexClass = isHovered
-      ? 'lg:flex-[7.5] lg:w-[76%] border-slate-300 shadow-xl'
+      ? 'lg:flex-[7.5] lg:w-[76%] bg-white border-slate-300 shadow-xl'
       : isShrunk
-        ? 'lg:flex-[1.2] lg:w-[12%] bg-[#F8F9FA] hover:bg-slate-100/90 border-slate-200 cursor-pointer'
+        ? 'lg:flex-[1.2] lg:w-[12%] bg-[#F8F9FA] hover:bg-white border-slate-200 cursor-pointer'
         : 'lg:flex-1 lg:w-1/3 bg-[#FAFAFA] hover:bg-white border-slate-200 hover:border-slate-300 hover:shadow-md';
 
     return (
@@ -42,7 +42,6 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
         className={`group relative rounded-[22px] border p-5 sm:p-6 transition-[flex,width,background-color] duration-1000 lg:duration-[1400ms] ease-[cubic-bezier(0.25,1,0.35,1)] overflow-hidden flex flex-col justify-between min-w-0 ${flexClass}`}
         style={{
           minHeight: '380px',
-          backgroundColor: isHovered ? `${pillar.colorHex}0C` : undefined,
         }}
       >
         {/* ================================================================= */}
@@ -50,49 +49,41 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
         {/* ================================================================= */}
         {isShrunk && (
           <div className="hidden lg:flex flex-col items-center justify-between h-full w-full py-2 animate-fadeIn select-none">
-            {/* Top Indicator Orb + Number */}
-            <div className="flex flex-col items-center gap-1.5">
-              <span
-                className="w-3 h-3 rounded-full shadow-xs"
-                style={{ backgroundColor: pillar.colorHex }}
-              />
-              <span className="text-[10px] font-mono font-bold text-slate-400">
+            {/* Top Index Number */}
+            <div className="flex flex-col items-center">
+              <span className="text-[11px] font-mono font-bold text-slate-400">
                 0{PILLARS_DATA.findIndex(p => p.id === pillar.id) + 1}
               </span>
             </div>
 
-            {/* Vertical Rotated Title */}
+            {/* Vertical Rotated Title (No blue hover) */}
             <div className="flex-1 flex items-center justify-center my-6">
-              <span className="font-serif text-[15px] font-normal text-space-950 [writing-mode:vertical-rl] rotate-180 whitespace-nowrap tracking-wide group-hover:text-blue-600 transition-colors">
+              <span className="font-serif text-[15px] font-normal text-space-950 [writing-mode:vertical-rl] rotate-180 whitespace-nowrap tracking-wide group-hover:text-black transition-colors">
                 {pillar.title}
               </span>
             </div>
 
             {/* Expand Prompt Icon */}
-            <div className="w-7 h-7 rounded-full bg-slate-200/70 group-hover:bg-space-950 group-hover:text-white flex items-center justify-center text-xs font-bold text-slate-600 transition-all shadow-xs">
+            <div className="w-7 h-7 rounded-full bg-slate-200/70 group-hover:bg-[#080B10] group-hover:text-white flex items-center justify-center text-xs font-bold text-slate-600 transition-all shadow-xs">
               +
             </div>
           </div>
         )}
 
         {/* ================================================================= */}
-        {/* 2. DEFAULT UNHOVERED VIEW (Balanced 1/3 card)                     */}
+        {/* 2. DEFAULT UNHOVERED VIEW (Balanced 1/3 card - Clean, No Footer)  */}
         {/* ================================================================= */}
         {!isRowActive && (
           <div className="flex flex-col justify-between h-full w-full animate-fadeIn">
             <div>
-              {/* Top Header */}
+              {/* Top Header without color dot or blue hover */}
               <div className="flex items-center justify-between gap-2 mb-2">
                 <Link
                   to={pillar.primarySlug}
                   onClick={onClose}
-                  className="flex items-center gap-2 group-hover:text-blue-600 transition-colors"
+                  className="flex items-center gap-2"
                 >
-                  <span
-                    className="w-2.5 h-2.5 rounded-full flex-shrink-0"
-                    style={{ backgroundColor: pillar.colorHex }}
-                  />
-                  <h4 className="font-serif text-lg font-normal text-space-950 group-hover:text-blue-600 transition-colors">
+                  <h4 className="font-serif text-lg font-normal text-space-950 transition-colors">
                     {pillar.title}
                   </h4>
                 </Link>
@@ -114,7 +105,7 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
                     <Link
                       to={link.href}
                       onClick={onClose}
-                      className="text-[12.5px] font-sans text-slate-600 hover:text-space-950 hover:translate-x-1 transition-all inline-flex items-center gap-1.5"
+                      className="text-[12.5px] font-sans text-slate-600 hover:text-[#080B10] hover:translate-x-1 transition-all inline-flex items-center gap-1.5"
                     >
                       <span className="text-[10px] text-slate-400">·</span>
                       <span className="truncate">{link.label}</span>
@@ -123,26 +114,11 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
                 ))}
               </ul>
             </div>
-
-            {/* Explore Pillar Link */}
-            <div className="pt-3.5 mt-3.5 border-t border-slate-200/60 flex items-center justify-between text-xs">
-              <Link
-                to={pillar.primarySlug}
-                onClick={onClose}
-                className="font-sans font-semibold text-space-950 group-hover:text-blue-600 group-hover:underline inline-flex items-center gap-1"
-              >
-                <span>Explore Pillar</span>
-                <span>→</span>
-              </Link>
-              <span className="text-[10px] font-mono text-slate-400">
-                Hover to expand
-              </span>
-            </div>
           </div>
         )}
 
         {/* ================================================================= */}
-        {/* 3. EXPANDED HOVERED VIEW (Multi-pillar full-width stage)          */}
+        {/* 3. EXPANDED HOVERED VIEW (Full-width pure white stage - No Footer)*/}
         {/* ================================================================= */}
         {isHovered && (
           <div className="flex flex-col justify-between h-full w-full animate-fadeIn">
@@ -150,10 +126,6 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
             <div className="pb-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
               <div>
                 <div className="flex items-center gap-2.5 mb-1">
-                  <span
-                    className="w-3 h-3 rounded-full flex-shrink-0 shadow-xs"
-                    style={{ backgroundColor: pillar.colorHex }}
-                  />
                   <h4 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight">
                     {pillar.title}
                   </h4>
@@ -166,11 +138,11 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
                 </p>
               </div>
 
-              {/* Direct Full-Pillar Overview Button */}
+              {/* Direct Full-Pillar Overview Button (Cosmic Black, Brand Hover) */}
               <Link
                 to={pillar.primarySlug}
                 onClick={onClose}
-                className="self-start sm:self-auto px-4 py-2 rounded-full bg-space-950 hover:bg-blue-600 text-white font-sans text-xs font-semibold tracking-wide transition-all hover:scale-105 shadow-sm inline-flex items-center gap-2 whitespace-nowrap"
+                className="self-start sm:self-auto px-4 py-2 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-xs font-semibold tracking-wide transition-all shadow-sm inline-flex items-center gap-2 whitespace-nowrap"
               >
                 <span>Explore Full Pillar</span>
                 <span>→</span>
@@ -181,27 +153,23 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 pt-5 flex-1">
               {(pillar.subPillars || []).map((sub, sIdx) => (
                 <div key={sIdx} className="space-y-3">
-                  {/* Sub-Pillar Kicker Header */}
+                  {/* Sub-Pillar Kicker Header (No color dot) */}
                   <div className="flex items-center gap-2 pb-1.5 border-b border-slate-200/50">
-                    <span 
-                      className="w-1.5 h-1.5 rounded-full" 
-                      style={{ backgroundColor: pillar.colorHex }} 
-                    />
                     <span className="text-[11px] font-mono uppercase tracking-widest text-slate-500 font-bold block">
                       {sub.kicker}
                     </span>
                   </div>
 
-                  {/* Sub-Pillar Links */}
+                  {/* Sub-Pillar Links (No blue on hover) */}
                   <ul className="space-y-2">
                     {sub.links.map((link, lIdx) => (
                       <li key={lIdx}>
                         <Link
                           to={link.href}
                           onClick={onClose}
-                          className="text-[12.5px] font-sans font-medium text-slate-700 hover:text-blue-600 hover:translate-x-1 transition-all inline-flex items-center gap-2 group/sublink"
+                          className="text-[12.5px] font-sans font-medium text-slate-700 hover:text-[#080B10] hover:translate-x-1 transition-all inline-flex items-center gap-2 group/sublink"
                         >
-                          <span className="text-slate-300 group-hover/sublink:text-blue-600 transition-colors">
+                          <span className="text-slate-400 group-hover/sublink:text-[#080B10] transition-colors">
                             ›
                           </span>
                           <span className="leading-snug">{link.label}</span>
@@ -211,16 +179,6 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
                   </ul>
                 </div>
               ))}
-            </div>
-
-            {/* Bottom Meta Status */}
-            <div className="pt-3.5 mt-4 border-t border-slate-100 flex items-center justify-between text-[11px] font-mono text-slate-400">
-              <span className="uppercase tracking-wider">
-                100% IN-HOUSE SENIOR EXECUTION · DIRECT GOVERNANCE
-              </span>
-              <span className="text-blue-600 font-sans font-semibold">
-                Click any service to view dossier →
-              </span>
             </div>
           </div>
         )}
@@ -290,7 +248,6 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
           {/* Bottom Bar: Brand Promise & Quote Action */}
           <div className="mt-8 pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 p-4 rounded-xl">
             <div className="flex items-center gap-3">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="text-xs font-sans font-medium text-slate-700">
                 <strong>Need a tailored multi-pillar scope?</strong> E-Comet designs custom operational scopes across marketplaces, web, and performance marketing.
               </span>
@@ -299,7 +256,7 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
             <a 
               href="#closing"
               onClick={onClose}
-              className="px-5 py-2.5 rounded-full bg-space-950 hover:bg-slate-800 text-white font-sans text-xs font-semibold whitespace-nowrap transition-colors"
+              className="px-5 py-2.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-xs font-semibold whitespace-nowrap transition-colors"
             >
               Get a Custom Quote →
             </a>

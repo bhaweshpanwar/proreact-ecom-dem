@@ -4,6 +4,8 @@
 
 @layer base {
   :root {
+    --brand-primary: #080B10;
+    --brand-hover: #252B36;
     --font-serif: "Cormorant", "Cormorant Garamond", Georgia, serif;
     --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
     --bg-deep-void: #010207;

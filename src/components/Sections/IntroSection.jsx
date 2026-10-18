@@ -108,21 +108,17 @@ export default function IntroSection() {
   }, []);
 
   return (
-    <section ref={sectionRef} id="intro" aria-labelledby="whiteout-heading" className="relative pt-6 pb-16 sm:pb-28 bg-white overflow-hidden">
+    <section ref={sectionRef} id="intro" aria-labelledby="whiteout-heading" className="relative pt-6 pb-16 sm:pb-28 bg-white overflow-hidden hairline-b">
       
-      {/* Confetti Squares at section edge */}
-      <div className="confetti-square pointer-events-none absolute top-10 left-12 w-2 h-2 rounded-sm bg-pillar-marketing opacity-60" data-speed="0.8"></div>
-      <div className="confetti-square pointer-events-none absolute bottom-12 right-16 w-2 h-2 rounded-sm bg-pillar-websites opacity-60" data-speed="1.2"></div>
-
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
+      <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
 
         {/* Two Side-by-Side Tinted Panels (Paper and Mist) */}
         <div id="intro-cards-grid" className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-20" style={{ perspective: '1600px' }}>
           
           {/* LEFT PANEL: Paper Tint (#F5F3EE) -> Marketplace Growth */}
-          <div id="audience-card-left" className="audience-panel rounded-container bg-paper p-8 sm:p-12 border border-[#E9E6DF]/80 flex flex-col justify-between relative overflow-hidden group will-change-transform">
+          <div id="audience-card-left" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-paper p-8 sm:p-12 border border-[#E9E6DF]/80 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs">
             <div className="mb-10">
-              <span className="text-xs font-sans text-space-600 block mb-2">For brands that sell online</span>
+              <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-2">For brands that sell online</span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 leading-tight mb-4">
                 Marketplace growth, handled.
               </h3>
@@ -130,7 +126,7 @@ export default function IntroSection() {
                 From Day-One catalogue onboarding and buy-box governance to algorithmic PPC advertising across Amazon, Flipkart, and quick commerce.
               </p>
               <div className="pt-6">
-                <a href="#services" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-space-950 hover:bg-space-900 text-white text-xs font-medium transition-all hover:scale-[1.02]">
+                <a href="#services" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white text-xs font-medium transition-all hover:scale-[1.02] shadow-sm">
                   <span>Explore Marketplaces</span>
                   <span>→</span>
                 </a>
@@ -141,7 +137,6 @@ export default function IntroSection() {
             <div className="w-full bg-white rounded-2xl p-6 border border-slate-200/70 shadow-sm relative overflow-hidden transform transition-transform duration-500 group-hover:-translate-y-1">
               <div className="flex items-center justify-between pb-4 hairline-b mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-pillar-marketplaces"></span>
                   <span className="text-xs font-sans font-semibold text-space-950">Active Catalogue Status</span>
                 </div>
                 <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full font-medium">Synchronized</span>
@@ -188,9 +183,9 @@ export default function IntroSection() {
           </div>
 
           {/* RIGHT PANEL: Mist Tint (#EDF0F3) -> Marketing & Websites */}
-          <div id="audience-card-right" className="audience-panel rounded-container bg-mist p-8 sm:p-12 border border-[#E4EAF0]/80 flex flex-col justify-between relative overflow-hidden group will-change-transform">
+          <div id="audience-card-right" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-mist p-8 sm:p-12 border border-[#E4EAF0]/80 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs">
             <div className="mb-10">
-              <span className="text-xs font-sans text-space-600 block mb-2">For businesses that need customers</span>
+              <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-2">For businesses that need customers</span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 leading-tight mb-4">
                 Traffic, leads and sites that convert.
               </h3>
@@ -198,7 +193,7 @@ export default function IntroSection() {
                 High-intent organic search visibility, Meta/Google performance advertising, and custom storefront engineering connected to real pipeline.
               </p>
               <div className="pt-6">
-                <a href="#services" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-space-950 hover:bg-space-900 text-white text-xs font-medium transition-all hover:scale-[1.02]">
+                <a href="#services" className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white text-xs font-medium transition-all hover:scale-[1.02] shadow-sm">
                   <span>Explore Marketing</span>
                   <span>→</span>
                 </a>
@@ -209,7 +204,6 @@ export default function IntroSection() {
             <div className="w-full bg-white rounded-2xl p-6 border border-slate-200/70 shadow-sm relative overflow-hidden transform transition-transform duration-500 group-hover:-translate-y-1 space-y-4">
               <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
                 <div className="flex items-center gap-2 text-[10px] font-mono text-space-600 mb-1">
-                  <span className="w-1.5 h-1.5 rounded-full bg-pillar-marketing"></span>
                   <span>google.com/search · high-intent query</span>
                 </div>
                 <div className="h-3.5 bg-space-950 rounded w-2/3 mb-1.5"></div>
@@ -218,12 +212,12 @@ export default function IntroSection() {
 
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[9px] font-mono text-blue-600 block mb-1 uppercase tracking-wider">Campaign Ad</span>
+                  <span className="text-[9px] font-mono text-slate-500 font-bold block mb-1 uppercase tracking-wider">Campaign Ad</span>
                   <div className="h-2.5 bg-slate-300 rounded w-4/5 mb-1"></div>
                   <div className="h-2 bg-slate-200 rounded w-full"></div>
                 </div>
                 <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[9px] font-mono text-pillar-websites block mb-1 uppercase tracking-wider">Web Funnel</span>
+                  <span className="text-[9px] font-mono text-slate-500 font-bold block mb-1 uppercase tracking-wider">Web Funnel</span>
                   <div className="h-2.5 bg-slate-300 rounded w-3/4 mb-1"></div>
                   <div className="h-2 bg-slate-200 rounded w-5/6"></div>
                 </div>

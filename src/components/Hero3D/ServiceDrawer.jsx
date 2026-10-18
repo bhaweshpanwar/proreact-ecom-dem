@@ -21,16 +21,12 @@ export default function ServiceDrawer({ service, onClose }) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="drawer-service-title"
-      className="fixed top-20 bottom-0 right-0 max-w-md w-full bg-[#0E1218]/95 text-white p-6 sm:p-8 shadow-[-25px_0_60px_rgba(0,0,0,0.8)] z-40 flex flex-col justify-between overflow-y-auto border-l border-white/15 backdrop-blur-2xl transition-all duration-300 animate-in slide-in-from-right"
+      className="fixed top-20 bottom-0 right-0 max-w-md w-full bg-[#080B10]/95 text-white p-6 sm:p-8 shadow-[-25px_0_60px_rgba(0,0,0,0.8)] z-40 flex flex-col justify-between overflow-y-auto border-l border-white/15 backdrop-blur-2xl transition-all duration-300 animate-in slide-in-from-right"
     >
         <div>
           {/* Header Row with Distinct, High-Contrast Close Cross on Right */}
           <div className="flex items-center justify-between pb-6 border-b border-white/10">
             <div className="flex items-center gap-3">
-              <span 
-                className="w-3.5 h-3.5 rounded-full shadow-sm" 
-                style={{ backgroundColor: service.colorHex || '#38BDF8' }}
-              />
               <span className="font-mono text-xs uppercase tracking-wider text-slate-400 font-bold">
                 Orbital Node · {service.id}
               </span>
@@ -59,7 +55,7 @@ export default function ServiceDrawer({ service, onClose }) {
             <h3 id="drawer-service-title" className="font-serif text-3xl sm:text-4xl font-normal tracking-tight text-white leading-tight">
               {service.title}
             </h3>
-            <p className="mt-2 text-xs sm:text-sm font-mono text-cyan-400 font-medium tracking-wide">
+            <p className="mt-2 text-xs sm:text-sm font-mono text-slate-400 font-medium tracking-wide">
               {service.tagline}
             </p>
             <p className="mt-4 text-xs sm:text-sm text-slate-300 leading-relaxed font-sans">
@@ -75,7 +71,7 @@ export default function ServiceDrawer({ service, onClose }) {
             <ul className="space-y-3">
               {service.deliverables?.map((item, idx) => (
                 <li key={idx} className="flex items-start gap-3 text-xs sm:text-sm text-slate-200 font-sans">
-                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 mt-2 flex-shrink-0" />
+                  <span className="text-slate-400 font-semibold select-none flex-shrink-0 mt-0.5">―</span>
                   <span>{item}</span>
                 </li>
               ))}
@@ -94,7 +90,7 @@ export default function ServiceDrawer({ service, onClose }) {
           <a 
             href="#closing" 
             onClick={onClose}
-            className="w-full py-3.5 rounded-xl bg-white text-space-950 hover:bg-slate-100 font-sans text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-lg cursor-pointer text-center"
+            className="w-full py-3.5 rounded-xl bg-white text-[#080B10] hover:bg-slate-100 font-sans text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-lg cursor-pointer text-center"
           >
             Book Priority Growth Audit
           </a>

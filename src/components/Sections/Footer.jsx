@@ -13,7 +13,7 @@ export default function Footer() {
         {/* Top Row: Editorial Prompt + Actions */}
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 pb-12 border-b border-white/10 mb-14">
           <div>
-            <span className="text-xs font-mono text-blue-500 uppercase tracking-widest block mb-2 font-bold">NEXT ORBIT</span>
+            <span className="text-xs font-mono text-slate-400 uppercase tracking-widest block mb-2 font-bold">NEXT ORBIT</span>
             <p className="text-2xl sm:text-3xl lg:text-4xl font-serif text-white tracking-tight">
               Make your next move.
             </p>
@@ -46,9 +46,8 @@ export default function Footer() {
           
           {/* Col 1: E-Commerce Management */}
           <div className="space-y-3.5">
-            <strong className="text-white block font-semibold tracking-wide flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-pillar-marketplaces"></span>
-              <span>E-Commerce Management</span>
+            <strong className="text-white block font-semibold tracking-wide">
+              E-Commerce Management
             </strong>
             <ul className="space-y-2.5 text-slate-400">
               <li><Link to="/services/amazon-operations" className="hover:text-white transition-colors">Amazon Seller Account</Link></li>
@@ -56,15 +55,14 @@ export default function Footer() {
               <li><Link to="/services/amazon-operations" className="hover:text-white transition-colors">Amazon PPC Advertising</Link></li>
               <li><Link to="/services/marketplace-management" className="hover:text-white transition-colors">Meesho, Myntra &amp; Nykaa</Link></li>
               <li><Link to="/services/quick-commerce" className="hover:text-white transition-colors">Quick Commerce (Blinkit)</Link></li>
-              <li><Link to="/services/ecommerce-management" className="text-cyan-400 hover:text-cyan-300 font-mono transition-colors">View Pillar Overview →</Link></li>
+              <li><Link to="/services/ecommerce-management" className="text-slate-300 hover:text-white font-mono transition-colors">View Pillar Overview →</Link></li>
             </ul>
           </div>
 
           {/* Col 2: Digital Marketing */}
           <div className="space-y-3.5">
-            <strong className="text-white block font-semibold tracking-wide flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-pillar-marketing"></span>
-              <span>Digital Marketing</span>
+            <strong className="text-white block font-semibold tracking-wide">
+              Digital Marketing
             </strong>
             <ul className="space-y-2.5 text-slate-400">
               <li><Link to="/services/seo" className="hover:text-white transition-colors">Search Engine Optimization</Link></li>
@@ -72,15 +70,14 @@ export default function Footer() {
               <li><Link to="/services/performance-marketing" className="hover:text-white transition-colors">Meta &amp; Instagram Ads</Link></li>
               <li><Link to="/services/local-seo" className="hover:text-white transition-colors">Local SEO &amp; Maps</Link></li>
               <li><Link to="/services/uiux-design" className="hover:text-white transition-colors">Conversion Rate Optimization</Link></li>
-              <li><Link to="/services/digital-marketing" className="text-cyan-400 hover:text-cyan-300 font-mono transition-colors">View Pillar Overview →</Link></li>
+              <li><Link to="/services/digital-marketing" className="text-slate-300 hover:text-white font-mono transition-colors">View Pillar Overview →</Link></li>
             </ul>
           </div>
 
           {/* Col 3: Website Development */}
           <div className="space-y-3.5">
-            <strong className="text-white block font-semibold tracking-wide flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-pillar-websites"></span>
-              <span>Website Development</span>
+            <strong className="text-white block font-semibold tracking-wide">
+              Website Development
             </strong>
             <ul className="space-y-2.5 text-slate-400">
               <li><Link to="/services/shopify-stores" className="hover:text-white transition-colors">Custom Shopify Stores</Link></li>
@@ -88,30 +85,28 @@ export default function Footer() {
               <li><Link to="/services/websites" className="hover:text-white transition-colors">High-Converting Landing Pages</Link></li>
               <li><Link to="/services/websites" className="hover:text-white transition-colors">Modern Web Engineering</Link></li>
               <li><Link to="/services/websites" className="hover:text-white transition-colors">Speed &amp; Infrastructure</Link></li>
-              <li><Link to="/services/website-development" className="text-cyan-400 hover:text-cyan-300 font-mono transition-colors">View Pillar Overview →</Link></li>
+              <li><Link to="/services/website-development" className="text-slate-300 hover:text-white font-mono transition-colors">View Pillar Overview →</Link></li>
             </ul>
           </div>
 
           {/* Col 4: YouTube & Video */}
           <div className="space-y-3.5">
-            <strong className="text-white block font-semibold tracking-wide flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
-              <span>YouTube &amp; Video</span>
+            <strong className="text-white block font-semibold tracking-wide">
+              YouTube &amp; Video
             </strong>
             <ul className="space-y-2.5 text-slate-400">
               <li><Link to="/services/youtube-growth" className="hover:text-white transition-colors">YouTube Channel Growth</Link></li>
               <li><Link to="/services/video-motion" className="hover:text-white transition-colors">Commercial Video Production</Link></li>
               <li><Link to="/services/youtube-growth" className="hover:text-white transition-colors">High-CTR Custom Thumbnails</Link></li>
               <li><Link to="/services/video-motion" className="hover:text-white transition-colors">Reels &amp; Shorts Editing</Link></li>
-              <li><Link to="/services/youtube-video-services" className="text-cyan-400 hover:text-cyan-300 font-mono transition-colors">View Pillar Overview →</Link></li>
+              <li><Link to="/services/youtube-video-services" className="text-slate-300 hover:text-white font-mono transition-colors">View Pillar Overview →</Link></li>
             </ul>
           </div>
 
           {/* Col 5: Company & Navigation */}
           <div className="space-y-3.5">
-            <strong className="text-white block font-semibold tracking-wide flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
-              <span>Company &amp; Navigation</span>
+            <strong className="text-white block font-semibold tracking-wide">
+              Company &amp; Navigation
             </strong>
             <ul className="space-y-2.5 text-slate-400">
               <li><Link to="/about-us" className="hover:text-white transition-colors font-medium text-slate-200">About Us (Mission &amp; Values)</Link></li>

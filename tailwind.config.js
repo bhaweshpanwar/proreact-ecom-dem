@@ -31,6 +31,10 @@ export default {
           websites: '#5B7C99',
           creative: '#B8737A',
           sand: '#E2DDD5'
+        },
+        brand: {
+          primary: '#080B10',
+          hover: '#252B36'
         }
       },
       fontFamily: {

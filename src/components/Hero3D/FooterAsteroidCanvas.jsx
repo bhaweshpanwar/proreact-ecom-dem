@@ -296,7 +296,7 @@ export default function FooterAsteroidCanvas() {
       {/* Top HUD Celestial Details Bar */}
       <div className="absolute top-4 left-4 right-4 z-20 flex items-center justify-between text-[10px] font-mono tracking-wider text-slate-500 pointer-events-none">
         <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+          <span className="w-1.5 h-1.5 rounded-full bg-white"></span>
           <span className="text-slate-300 font-bold uppercase">ASTEROID BELT // 21-ORBIT-CORE</span>
         </div>
         <div className="hidden sm:flex items-center gap-4 text-slate-400">
@@ -316,7 +316,7 @@ export default function FooterAsteroidCanvas() {
       {/* Bottom Interactive Prompt Pill */}
       <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 pointer-events-none">
         <div className="px-3.5 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-[10px] font-mono text-slate-400 tracking-wider flex items-center gap-2 shadow-sm">
-          <span className="text-cyan-400">✦</span>
+          <span className="text-white">✦</span>
           <span>Interactive 3D Asteroid · Drag to inspect orbit</span>
           <span className="text-cyan-400">✦</span>
         </div>

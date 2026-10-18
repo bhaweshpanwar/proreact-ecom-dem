@@ -239,7 +239,7 @@ export default function PillarExplorePage({ pillarOverride }) {
               <div className="maze-hero-anim flex flex-wrap items-center gap-4 w-full sm:w-auto">
                 <a
                   href="#services-grid"
-                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-slate-950 hover:bg-blue-600 text-white font-sans text-sm font-semibold tracking-wide transition-all hover:scale-105 shadow-md inline-flex items-center justify-center gap-2"
+                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-sm font-semibold tracking-wide transition-all hover:scale-105 shadow-md inline-flex items-center justify-center gap-2"
                 >
                   <span>Explore All Services</span>
                   <span>↓</span>
@@ -291,16 +291,12 @@ export default function PillarExplorePage({ pillarOverride }) {
                 {/* Header Tag with Platform Dot */}
                 <div className="flex items-center justify-between pb-4 border-b border-stone-200/60 mb-4">
                   <div className="flex items-center gap-2">
-                    <span 
-                      className="w-2.5 h-2.5 rounded-full" 
-                      style={{ backgroundColor: activePillar.colorHex }} 
-                    />
                     <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500">
                       {activePillar.badge} SPRINT
                     </span>
                   </div>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    ● ACTIVE
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-stone-100 text-stone-700 border border-stone-200">
+                    ACTIVE
                   </span>
                 </div>
 
@@ -442,10 +438,6 @@ export default function PillarExplorePage({ pillarOverride }) {
                       <span className="font-mono text-xs font-bold text-slate-400 group-hover:text-space-950 transition-colors">
                         {cardNum}
                       </span>
-                      <span 
-                        className="w-2 h-2 rounded-full" 
-                        style={{ backgroundColor: activePillar.colorHex }} 
-                      />
                     </div>
                     <span className="text-[10.5px] font-mono font-semibold uppercase tracking-wider text-slate-500 bg-white px-2.5 py-1 rounded-full border border-stone-200/80">
                       {service.kicker || service.category || activePillar.badge}
@@ -453,7 +445,7 @@ export default function PillarExplorePage({ pillarOverride }) {
                   </div>
 
                   {/* Service Title - Font Serif with Cormorant matching services page */}
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 group-hover:text-blue-600 transition-colors duration-300 leading-snug mb-3 relative z-10">
+                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 group-hover:text-black transition-colors duration-300 leading-snug mb-3 relative z-10">
                     <Link to={targetUrl} className="hover:underline">
                       {service.title || service.name}
                     </Link>
@@ -496,7 +488,7 @@ export default function PillarExplorePage({ pillarOverride }) {
 
                     <Link
                       to={targetUrl}
-                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-slate-900 group-hover:bg-blue-600 text-white font-sans text-xs font-semibold tracking-wide transition-all shadow-xs group-hover:scale-105"
+                      className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[#080B10] hover:bg-[#252B36] group-hover:bg-[#252B36] text-white font-sans text-xs font-semibold tracking-wide transition-all shadow-xs group-hover:scale-105"
                     >
                       <span>View Dossier</span>
                       <span className="group-hover:translate-x-1 transition-transform">→</span>

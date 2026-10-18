@@ -121,10 +121,10 @@ export default function Header() {
               </svg>
             </a>
 
-            {/* Official Primary CTA Button from Handoff Document */}
+            {/* Official Primary CTA Button */}
             <a 
               href="/#closing" 
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-900 text-white font-sans text-xs font-semibold hover:bg-slate-800 transition-all hover:scale-[1.02] shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#080B10] text-white font-sans text-xs font-semibold hover:bg-[#252B36] transition-all hover:scale-[1.02] shadow-sm cursor-pointer"
             >
               <span>Get a Custom Quote</span>
               <span>→</span>

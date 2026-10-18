@@ -14,10 +14,10 @@ export default function CapabilitiesSection() {
   const sectionRef = useRef(null);
 
   const tabs = [
-    { id: 'marketing', label: 'Digital Marketing', color: 'bg-blue-600' },
-    { id: 'marketplaces', label: 'Marketplaces', color: 'bg-amber-600' },
-    { id: 'websites', label: 'Websites', color: 'bg-sky-600' },
-    { id: 'creative', label: 'Creative', color: 'bg-indigo-600' },
+    { id: 'marketing', label: 'Digital Marketing' },
+    { id: 'marketplaces', label: 'Marketplaces' },
+    { id: 'websites', label: 'Websites' },
+    { id: 'creative', label: 'Creative' },
   ];
 
   // Update sliding pill position
@@ -89,9 +89,9 @@ export default function CapabilitiesSection() {
               role="tablist" 
               className="relative inline-flex items-center p-1.5 rounded-full bg-white border border-slate-200/80 shadow-sm overflow-x-auto max-w-full no-scrollbar"
             >
-              {/* Sliding Indicator Pill */}
+              {/* Sliding Indicator Pill (Cosmic Black) */}
               <div 
-                className="absolute top-1.5 bottom-1.5 bg-space-950 rounded-full transition-all duration-300 ease-out z-0 pointer-events-none"
+                className="absolute top-1.5 bottom-1.5 bg-[#080B10] rounded-full transition-all duration-300 ease-out z-0 pointer-events-none"
                 style={{
                   left: `${pillStyle.left}px`,
                   width: `${pillStyle.width}px`,
@@ -112,10 +112,7 @@ export default function CapabilitiesSection() {
                       isSelected ? 'text-white' : 'text-space-800 hover:text-space-950'
                     }`}
                   >
-                    <span className="inline-flex items-center gap-1.5">
-                      <span className={`w-1.5 h-1.5 rounded-full ${tab.color}`}></span>
-                      <span>{tab.label}</span>
-                    </span>
+                    <span>{tab.label}</span>
                   </button>
                 );
               })}
@@ -152,7 +149,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Be found on Google.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">SEO, local SEO, technical SEO and keyword research that put you in front of people already searching.</p>
-                      <Link to="/services/seo" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/seo" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -180,7 +177,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Reach people ready to buy.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Google Ads, Meta Ads and YouTube campaigns built around performance, tight unit economics, and clean tracking.</p>
-                      <Link to="/services/performance-marketing" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/performance-marketing" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -208,7 +205,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Turn attention into enquiries.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Social media, content, email, WhatsApp, conversion optimisation and clear analytics reporting.</p>
-                      <Link to="/services/lead-generation" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/lead-generation" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -243,7 +240,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Launch on a clean foundation.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Seller account setup, catalogue and product listings done properly the first time across marketplaces.</p>
-                      <Link to="/services/marketplace-management" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/marketplace-management" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -271,7 +268,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Rank, convert, repeat.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Listing optimisation, Amazon SEO and A+ content that turn casual browsers into verified buyers.</p>
-                      <Link to="/services/amazon-operations" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/amazon-operations" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -299,7 +296,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Scale with smarter ads.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Amazon PPC, Flipkart ads and account health across Amazon, Flipkart, Meesho, Myntra and Nykaa.</p>
-                      <Link to="/services/flipkart-management" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/flipkart-management" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -334,7 +331,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Sites that earn trust.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Business websites designed to look premium, convey authority, and load fast on every screen.</p>
-                      <Link to="/services/websites" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/websites" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -362,7 +359,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Stores built to sell.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Shopify, WooCommerce and custom e-commerce builds focused purely on conversion and effortless checkout.</p>
-                      <Link to="/services/shopify-stores" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/shopify-stores" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -390,7 +387,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Fast, maintained, improving.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Speed optimisation, redesigns, security patches, and ongoing proactive maintenance.</p>
-                      <Link to="/services/websites" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/websites" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -425,7 +422,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">A brand people remember.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Brand identity and logo design executed with a clear, scalable system that sets you apart.</p>
-                      <Link to="/services/brand-identity" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/brand-identity" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -453,7 +450,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Content made for the scroll.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">High-tempo social creatives, vertical video reels, and motion assets designed to halt thumb movement.</p>
-                      <Link to="/services/video-motion" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/video-motion" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -481,7 +478,7 @@ export default function CapabilitiesSection() {
                     <h3 className="md:col-span-5 text-2xl sm:text-3xl font-serif text-space-950 font-normal">Creatives that sell.</h3>
                     <div className="md:col-span-7 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-sm text-space-600 font-sans">
                       <p className="leading-relaxed max-w-xl">Product lifestyle visuals, A+ content infographic design, and packaging that justifies premium pricing.</p>
-                      <Link to="/services/brand-identity" className="text-xs font-semibold text-space-950 hover:text-blue-600 whitespace-nowrap transition-colors">Learn more →</Link>
+                      <Link to="/services/brand-identity" className="text-xs font-semibold text-[#080B10] hover:text-[#252B36] hover:underline underline-offset-4 whitespace-nowrap transition-all">Learn more →</Link>
                     </div>
                   </div>
                 </div>
@@ -496,7 +493,7 @@ export default function CapabilitiesSection() {
             <span className="text-xs font-sans text-space-600">Not sure which fits your current stage?</span>
             <a 
               href="#closing" 
-              className="px-6 py-2.5 rounded-full bg-space-950 hover:bg-space-900 text-white text-xs font-semibold transition-all cursor-pointer"
+              className="px-6 py-2.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white text-xs font-semibold transition-all cursor-pointer shadow-sm"
             >
               Discuss with our strategist →
             </a>

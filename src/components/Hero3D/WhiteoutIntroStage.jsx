@@ -35,17 +35,17 @@ export default function WhiteoutIntroStage({ progress }) {
           One unified growth architecture scaling organic search visibility, high-performance web engineering, marketplace dominance, and brand prestige.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
-            <span className="w-2 h-2 rounded-full bg-pillar-marketplaces"></span>
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
             Marketplaces
           </span>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
-            <span className="w-2 h-2 rounded-full bg-pillar-marketing"></span>
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
             Performance Marketing
           </span>
-          <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
-            <span className="w-2 h-2 rounded-full bg-pillar-websites"></span>
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
             Web &amp; App Development
+          </span>
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
+            YouTube &amp; Video
           </span>
         </div>
       </div>

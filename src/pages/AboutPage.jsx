@@ -11,49 +11,22 @@ gsap.registerPlugin(ScrollTrigger);
 // CELESTIAL COMET & ORBIT TILE (Vector Comet & Lines matching index.html)
 // Used in place of all raster images for pure vector rendering & zero latency
 // =========================================================================
-function CelestialCometTile({ tone = 'blue', label = '', code = '01', aspect = 'aspect-[16/10]' }) {
+function CelestialCometTile({ tone = 'mono', label = '', code = '01', aspect = 'aspect-[16/10]' }) {
   const toneConfigs = {
-    blue: {
-      c1: '#00B4D8',
+    mono: {
+      c1: '#1E2430',
       c2: '#F8FAFC',
-      stroke: '#0284C7',
-      dot: '#00B4D8',
+      stroke: '#080B10',
+      dot: '#080B10',
       rot: -18,
       cx: 340,
       cy: 160
     },
-    emerald: {
-      c1: '#10B981',
-      c2: '#F8FAFC',
-      stroke: '#059669',
-      dot: '#10B981',
-      rot: 24,
-      cx: 260,
-      cy: 220
-    },
-    amber: {
-      c1: '#F59E0B',
-      c2: '#F8FAFC',
-      stroke: '#D97706',
-      dot: '#F59E0B',
-      rot: -12,
-      cx: 380,
-      cy: 180
-    },
-    rose: {
-      c1: '#F43F5E',
-      c2: '#F8FAFC',
-      stroke: '#E11D48',
-      dot: '#F43F5E',
-      rot: 30,
-      cx: 220,
-      cy: 140
-    },
     dark: {
-      c1: '#00B4D8',
-      c2: '#0A0E1A',
-      stroke: '#38BDF8',
-      dot: '#00B4D8',
+      c1: '#252B36',
+      c2: '#080B10',
+      stroke: '#475569',
+      dot: '#FFFFFF',
       rot: -22,
       cx: 320,
       cy: 200,
@@ -61,9 +34,9 @@ function CelestialCometTile({ tone = 'blue', label = '', code = '01', aspect = '
     }
   };
 
-  const cfg = toneConfigs[tone] || toneConfigs.blue;
-  const gradId = `comet-grad-${tone}-${code.replace(/[^a-zA-Z0-9]/g, '')}`;
-  const sunId = `comet-sun-${tone}-${code.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const cfg = toneConfigs[tone] || (tone === 'dark' ? toneConfigs.dark : toneConfigs.mono);
+  const gradId = `comet-grad-${code.replace(/[^a-zA-Z0-9]/g, '')}`;
+  const sunId = `comet-sun-${code.replace(/[^a-zA-Z0-9]/g, '')}`;
 
   return (
     <div className={`w-full ${aspect} relative overflow-hidden select-none`}>
@@ -315,7 +288,7 @@ export default function AboutPage() {
           
           {/* Subtle Ambient Radial Highlight */}
           <div 
-            className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-20 blur-3xl bg-[#00B4D8]"
+            className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-10 blur-3xl bg-slate-400"
             aria-hidden="true"
           />
 
@@ -326,7 +299,6 @@ export default function AboutPage() {
               
               {/* Category Kicker Badge */}
               <div className="about-hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-200/70 text-[11px] font-mono font-bold tracking-wider text-slate-700 shadow-2xs mb-6">
-                <span className="w-2 h-2 rounded-full bg-[#00B4D8] animate-pulse" />
                 <span>CORE AGENCY IDENTITY · ABOUT E-COMET</span>
               </div>
 
@@ -349,7 +321,7 @@ export default function AboutPage() {
               <div className="about-hero-anim flex flex-wrap items-center gap-4 w-full sm:w-auto">
                 <a
                   href="#closing"
-                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-slate-950 hover:bg-blue-600 text-white font-sans text-sm font-semibold tracking-wide transition-all hover:scale-105 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer"
+                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-sm font-semibold tracking-wide transition-all hover:scale-105 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer"
                 >
                   <span>Discuss Your Project</span>
                   <span>→</span>
@@ -367,15 +339,15 @@ export default function AboutPage() {
               {/* Verified Trust Strip */}
               <div className="about-hero-anim mt-10 pt-6 border-t border-slate-200/70 flex flex-wrap items-center gap-6 text-[12px] font-mono text-slate-500">
                 <div className="flex items-center gap-2">
-                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span className="text-[#080B10] font-bold">✓</span>
                   <span>100% In-House Senior Execution</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span className="text-[#080B10] font-bold">✓</span>
                   <span>Direct Written SLAs</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-emerald-600 font-bold">✓</span>
+                  <span className="text-[#080B10] font-bold">✓</span>
                   <span>Zero Junior Trainees</span>
                 </div>
               </div>
@@ -398,16 +370,13 @@ export default function AboutPage() {
               {/* Main Crisp Foreground Card 1 (Top Hero Tile - Services card style) */}
               <div className="about-floating-card relative z-20 w-full max-w-[340px] sm:max-w-[380px] bg-[#FAFAFA] border border-stone-200/90 rounded-[28px] p-6 sm:p-7 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
                 
-                {/* Header Tag with Platform Dot */}
+                {/* Header Tag */}
                 <div className="flex items-center justify-between pb-4 border-b border-stone-200/60 mb-4">
-                  <div className="flex items-center gap-2">
-                    <span className="w-2.5 h-2.5 rounded-full bg-[#00B4D8]" />
-                    <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                      PRACTICE ARCHITECTURE
-                    </span>
-                  </div>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
-                    ● ACTIVE
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                    PRACTICE ARCHITECTURE
+                  </span>
+                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-stone-100 text-stone-700 border border-stone-200">
+                    ACTIVE
                   </span>
                 </div>
 
@@ -444,8 +413,8 @@ export default function AboutPage() {
               </div>
 
               {/* Foreground Card 2 (Bottom Offset Mini Card) */}
-              <div className="about-floating-card absolute -bottom-6 -left-2 sm:-left-6 z-30 bg-slate-950 text-white rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-800 flex items-center gap-3.5 max-w-[280px]">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold text-white shadow-sm bg-[#00B4D8]">
+              <div className="about-floating-card absolute -bottom-6 -left-2 sm:-left-6 z-30 bg-[#080B10] text-white rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-800 flex items-center gap-3.5 max-w-[280px]">
+                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold text-white shadow-sm bg-[#252B36]">
                   ⚡
                 </div>
                 <div>
@@ -463,7 +432,7 @@ export default function AboutPage() {
                 className="about-floating-card absolute bottom-2 -right-3 z-30 w-11 h-11 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center font-bold text-slate-800 hover:scale-110 transition-transform cursor-pointer"
                 title="E-Comet Certified Architecture"
               >
-                <span className="w-3.5 h-3.5 rounded-full bg-[#00B4D8]" />
+                <span className="w-2.5 h-2.5 rounded-full bg-[#080B10]" />
               </div>
 
             </div>
@@ -509,7 +478,7 @@ export default function AboutPage() {
                 
                 <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-blue-600 font-semibold select-none text-xs">―</span>
+                    <span className="text-[#080B10] font-semibold select-none text-xs">―</span>
                     <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
                       Clarity First
                     </span>
@@ -521,7 +490,7 @@ export default function AboutPage() {
 
                 <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-blue-600 font-semibold select-none text-xs">―</span>
+                    <span className="text-[#080B10] font-semibold select-none text-xs">―</span>
                     <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
                       Connected
                     </span>
@@ -533,7 +502,7 @@ export default function AboutPage() {
 
                 <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-blue-600 font-semibold select-none text-xs">―</span>
+                    <span className="text-[#080B10] font-semibold select-none text-xs">―</span>
                     <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
                       No Bloat
                     </span>
@@ -549,7 +518,7 @@ export default function AboutPage() {
 
             {/* Right Editorial Architectural Card with Comet & Lines (No Real Images) */}
             <div className="lg:col-span-5 relative">
-              <div className="relative rounded-[32px] overflow-hidden border border-stone-200/90 shadow-xl group bg-[#0A0E1A]">
+              <div className="relative rounded-[32px] overflow-hidden border border-stone-200/90 shadow-xl group bg-[#080B10]">
                 <CelestialCometTile 
                   tone="dark" 
                   label="PRACTICE GOVERNANCE" 
@@ -563,7 +532,6 @@ export default function AboutPage() {
                     <span className="text-xs font-mono font-bold uppercase tracking-wider text-space-950">
                       Coordinated Brand Execution
                     </span>
-                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                   </div>
                   <p className="text-xs font-sans text-slate-600 leading-relaxed">
                     Consistent brand presentation across digital touchpoints, uniting packaging, storefront design, and marketplace operations.
@@ -597,7 +565,7 @@ export default function AboutPage() {
             {/* Left: Our Mission (Clean, Substantive Paragraphs, Header & Footer Removed) */}
             <div className="bento-card-left group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.5rem] font-normal text-space-950 mb-5 group-hover:text-blue-600 transition-colors leading-tight">
+                <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.5rem] font-normal text-space-950 mb-5 group-hover:text-black transition-colors leading-tight">
                   Our Mission
                 </h3>
 
@@ -622,7 +590,7 @@ export default function AboutPage() {
             {/* Right: Our Vision (Clean, Substantive Paragraphs, Header & Footer Removed) */}
             <div className="bento-card-right group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.5rem] font-normal text-space-950 mb-5 group-hover:text-blue-600 transition-colors leading-tight">
+                <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.5rem] font-normal text-space-950 mb-5 group-hover:text-black transition-colors leading-tight">
                   Our Vision
                 </h3>
 
@@ -676,7 +644,7 @@ export default function AboutPage() {
             <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
               <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
                 <CelestialCometTile 
-                  tone="blue" 
+                  tone="mono" 
                   label="CREATIVE // TOKEN SYSTEM" 
                   code="01" 
                   aspect="h-full w-full" 
@@ -684,10 +652,10 @@ export default function AboutPage() {
               </div>
               <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-blue-600 block mb-1.5">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#080B10] block mb-1.5">
                     Pillar · Creative Services
                   </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-blue-600 transition-colors">
+                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-black transition-colors">
                     Brand Identity &amp; Logo Systems
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -707,7 +675,7 @@ export default function AboutPage() {
             <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
               <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
                 <CelestialCometTile 
-                  tone="emerald" 
+                  tone="mono" 
                   label="WEB // HEADLESS REACT" 
                   code="02" 
                   aspect="h-full w-full" 
@@ -715,10 +683,10 @@ export default function AboutPage() {
               </div>
               <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-emerald-600 block mb-1.5">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#080B10] block mb-1.5">
                     Pillar · Website Development
                   </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-emerald-600 transition-colors">
+                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-black transition-colors">
                     Business &amp; E-Commerce Stores
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -738,7 +706,7 @@ export default function AboutPage() {
             <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
               <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
                 <CelestialCometTile 
-                  tone="amber" 
+                  tone="mono" 
                   label="MARKETPLACES // GLOBAL ASIN" 
                   code="03" 
                   aspect="h-full w-full" 
@@ -746,10 +714,10 @@ export default function AboutPage() {
               </div>
               <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-amber-600 block mb-1.5">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#080B10] block mb-1.5">
                     Pillar · E-Commerce Management
                   </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-amber-600 transition-colors">
+                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-black transition-colors">
                     Marketplace Catalogue &amp; Operations
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -769,7 +737,7 @@ export default function AboutPage() {
             <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
               <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
                 <CelestialCometTile 
-                  tone="rose" 
+                  tone="mono" 
                   label="VIDEO // MOTION & REELS" 
                   code="04" 
                   aspect="h-full w-full" 
@@ -777,10 +745,10 @@ export default function AboutPage() {
               </div>
               <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
                 <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-rose-600 block mb-1.5">
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#080B10] block mb-1.5">
                     Pillar · YouTube &amp; Video
                   </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-rose-600 transition-colors">
+                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-black transition-colors">
                     Video Editing &amp; Shorts / Reels
                   </h4>
                   <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -802,7 +770,7 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 5. THE 5 CORE BRAND VALUES (Header Part "01//" "02//" Removed)         */}
+      {/* 5. THE 5 CORE BRAND VALUES (Zero Colored Dots, Monochromatic)          */}
       {/* ===================================================================== */}
       <section className="sec-values relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
@@ -821,16 +789,15 @@ export default function AboutPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
             
-            {/* Value 1: Clarity (Header "01 //" removed) */}
+            {/* Value 1: Clarity */}
             <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                <div className="pb-3 border-b border-stone-200/60 mb-5">
                   <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
                     NO AMBIGUITY
                   </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#00B4D8]" />
                 </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
                   Clarity
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -845,16 +812,15 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Value 2: Purpose (Header "02 //" removed) */}
+            {/* Value 2: Purpose */}
             <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                <div className="pb-3 border-b border-stone-200/60 mb-5">
                   <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
                     GOAL-ALIGNED
                   </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-600" />
                 </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
                   Purpose
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -869,16 +835,15 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Value 3: Flexibility (Header "03 //" removed) */}
+            {/* Value 3: Flexibility */}
             <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                <div className="pb-3 border-b border-stone-200/60 mb-5">
                   <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
                     ADAPTIVE SCOPE
                   </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500" />
                 </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
                   Flexibility
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -893,16 +858,15 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Value 4: Consistency (Header "04 //" removed) */}
+            {/* Value 4: Consistency */}
             <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                <div className="pb-3 border-b border-stone-200/60 mb-5">
                   <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
                     UNIFIED VOICE
                   </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
                 </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
                   Consistency
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -917,16 +881,15 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* Value 5: Transparency (Header "05 //" removed) */}
+            {/* Value 5: Transparency */}
             <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
               <div>
-                <div className="flex items-center justify-between pb-3 border-b border-stone-200/60 mb-5">
+                <div className="pb-3 border-b border-stone-200/60 mb-5">
                   <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
                     UPFRONT HONESTY
                   </span>
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500" />
                 </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-blue-600 transition-colors">
+                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
                   Transparency
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
@@ -966,8 +929,8 @@ export default function AboutPage() {
             {/* Step 1 */}
             <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-[10px] font-mono font-bold text-cyan-600 uppercase tracking-wider block mb-3">STAGE 01</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
+                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 01</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
                   Understand
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
@@ -978,15 +941,15 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-1/5 h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
+                <div className="w-1/5 h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
               </div>
             </div>
 
             {/* Step 2 */}
             <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-[10px] font-mono font-bold text-blue-600 uppercase tracking-wider block mb-3">STAGE 02</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
+                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 02</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
                   Identify
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
@@ -997,15 +960,15 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-2/5 h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
+                <div className="w-2/5 h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
               </div>
             </div>
 
             {/* Step 3 */}
             <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-[10px] font-mono font-bold text-emerald-600 uppercase tracking-wider block mb-3">STAGE 03</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
+                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 03</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
                   Define
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
@@ -1016,15 +979,15 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-3/5 h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
+                <div className="w-3/5 h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
               </div>
             </div>
 
             {/* Step 4 */}
             <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-[10px] font-mono font-bold text-rose-600 uppercase tracking-wider block mb-3">STAGE 04</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
+                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 04</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
                   Execute
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
@@ -1035,15 +998,15 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-4/5 h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
+                <div className="w-4/5 h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
               </div>
             </div>
 
             {/* Step 5 */}
             <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
               <div>
-                <span className="text-[10px] font-mono font-bold text-purple-600 uppercase tracking-wider block mb-3">STAGE 05</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-blue-600 transition-colors">
+                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 05</span>
+                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
                   Review
                 </h3>
                 <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
@@ -1054,7 +1017,7 @@ export default function AboutPage() {
                 </p>
               </div>
               <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-full h-full bg-space-950 group-hover:bg-blue-600 transition-colors rounded-full" />
+                <div className="w-full h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
               </div>
             </div>
 
@@ -1072,7 +1035,7 @@ export default function AboutPage() {
           <div className="rounded-[32px] sm:rounded-[40px] bg-[#030712] text-white p-8 sm:p-14 border border-slate-800 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
             
             <div className="max-w-2xl space-y-3">
-              <span className="px-3.5 py-1 rounded-full bg-white/10 text-cyan-300 font-mono text-[11px] font-semibold uppercase tracking-wider inline-block">
+              <span className="px-3.5 py-1 rounded-full bg-white/10 text-slate-300 font-mono text-[11px] font-semibold uppercase tracking-wider inline-block">
                 Brand Integrity &amp; Transparency Guarantee
               </span>
               <h3 className="font-serif text-2xl sm:text-3xl font-normal text-white leading-tight">
