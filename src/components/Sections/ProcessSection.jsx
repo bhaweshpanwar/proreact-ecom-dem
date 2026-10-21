@@ -165,50 +165,13 @@ export default function ProcessSection() {
   const current = STAGES[activeStage];
 
   return (
-    <section ref={sectionRef} id="process" aria-labelledby="process-heading" className="relative py-14 sm:py-24 overflow-hidden min-h-screen">
-      
-      {/* Dynamic Cosmic Full Section Background - Crossfades with Active Stage Image */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
-        {STAGES.map((s, idx) => (
-          <div
-            key={idx}
-            className="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-out"
-            style={{
-              opacity: activeStage === idx ? 1 : 0,
-            }}
-          >
-            <img 
-              src={s.img} 
-              alt={s.heading} 
-              className="w-full h-full object-cover scale-105"
-              style={{
-                filter: 'brightness(0.65) contrast(1.05)',
-                transform: activeStage === idx ? 'scale(1.04)' : 'scale(1.0)',
-                transition: 'transform 1.8s ease-out, opacity 0.8s ease'
-              }}
-            />
-            {/* Ambient Celestial Vignettes */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#080B10]/75 via-transparent to-[#080B10]/80" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.75)_100%)]" />
-          </div>
-        ))}
-
-        {/* Dynamic Celestial Coordinates Tag */}
-        <div className="absolute top-6 right-6 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-mono text-slate-300">
-          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-          <span>IMMERSIVE SECTOR: STAGE 0{activeStage + 1} // {current.badge}</span>
-        </div>
-
-        {/* Ambient Subtle Grid */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
-      </div>
-
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 relative z-10">
+    <section ref={sectionRef} id="process" aria-labelledby="process-heading" className="relative py-14 sm:py-24 bg-white overflow-hidden">
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
         
-        {/* Architectural Container - Floating Frosted Glass Observatory Canvas */}
+        {/* Architectural Container - White */}
         <div 
           id="process-pinned-container" 
-          className="rounded-[32px] sm:rounded-[40px] bg-white/95 backdrop-blur-2xl p-7 sm:p-12 lg:p-14 border border-white/60 relative overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.18)]"
+          className="rounded-container bg-white p-7 sm:p-12 lg:p-14 border border-stone-200/90 relative overflow-hidden shadow-xs"
         >
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
