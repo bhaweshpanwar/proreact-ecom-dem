@@ -471,7 +471,7 @@ export default function Home2Page() {
       {/* 1. 3D Celestial Hero with Sticky Parallax Curtain Hand-Off */}
       <div 
         id="hero-parallax-wrapper" 
-        className="sticky top-0 left-0 w-full h-screen z-10 overflow-hidden will-change-transform"
+        className="sticky top-0 left-0 w-full h-screen z-10 overflow-hidden"
       >
         <CelestialHero 
           trackHeightClass="h-screen" 
@@ -495,7 +495,7 @@ export default function Home2Page() {
       {/* 2. Main Content Curtain: relative z-20 with heavy top shadow — rolls over the sticky hero like a physical architectural slab */}
       <main 
         id="main-content" 
-        className="relative bg-white z-20 shadow-[0_-35px_80px_rgba(0,0,0,0.85)] will-change-transform"
+        className="relative bg-white z-20 shadow-[0_-35px_80px_rgba(0,0,0,0.85)]"
       >
         {/* 2. The Problem */}
         <Home2Problem data={HOME2_CONTENT.problem} />

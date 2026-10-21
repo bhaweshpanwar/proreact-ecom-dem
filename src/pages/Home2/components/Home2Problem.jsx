@@ -141,14 +141,17 @@ export default function Home2Problem({ data }) {
         {/* Section Header Row with Scrubbed Parallax */}
         <div 
           ref={headerRef}
-          className="pb-12 sm:pb-16 border-b border-[#E5E5E5] will-change-transform max-w-4xl space-y-6"
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] will-change-transform"
         >
-          <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
-            {headline}
-          </h2>
-          <p className="font-grotesk text-base sm:text-lg text-[#555555] leading-relaxed max-w-[60ch]">
-            {subtext}
-          </p>
+          <div className="lg:col-span-3" />
+          <div className="lg:col-span-9 space-y-6">
+            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
+              {headline}
+            </h2>
+            <p className="font-grotesk text-base sm:text-lg text-[#555555] leading-relaxed max-w-[60ch]">
+              {subtext}
+            </p>
+          </div>
         </div>
 
         {/* 3-Column Pain Points Grid with Multi-Speed Floating Parallax Waves */}

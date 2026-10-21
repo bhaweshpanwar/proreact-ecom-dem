@@ -7,7 +7,6 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Home2StickyProcess({ data }) {
   const containerRef = useRef(null);
   const cardRefs = useRef([]);
-  const imgRefs = useRef([]);
 
   const {
     steps = [
@@ -53,49 +52,36 @@ export default function Home2StickyProcess({ data }) {
   useEffect(() => {
     const ctx = gsap.context(() => {
       const cards = cardRefs.current;
-      const images = imgRefs.current;
       if (!cards[0] || !cards[1] || !cards[2] || !cards[3]) return;
 
-      // Initial positions: Card 0 fills the screen, subsequent cards wait below the screen
-      gsap.set(cards[0], { yPercent: 0, scale: 1, opacity: 1, zIndex: 10 });
-      gsap.set(cards[1], { yPercent: 100, scale: 1, opacity: 1, zIndex: 20 });
-      gsap.set(cards[2], { yPercent: 100, scale: 1, opacity: 1, zIndex: 30 });
-      gsap.set(cards[3], { yPercent: 100, scale: 1, opacity: 1, zIndex: 40 });
+      // Card 0 starts active. Subsequent cards wait below at yPercent: 100 with higher zIndexes
+      gsap.set(cards[0], { yPercent: 0, scale: 1, zIndex: 10 });
+      gsap.set(cards[1], { yPercent: 100, scale: 1, zIndex: 20 });
+      gsap.set(cards[2], { yPercent: 100, scale: 1, zIndex: 30 });
+      gsap.set(cards[3], { yPercent: 100, scale: 1, zIndex: 40 });
 
-      // Master scroll scrubbed timeline
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: 'top top',
-          end: '+=3200',
+          end: '+=2800',
           pin: true,
           scrub: 0.8,
           anticipatePin: 1,
         }
       });
 
-      // --- PHASE 1: Card 02 swipes in from bottom with parallax over Card 01 ---
-      tl.to(cards[1], { yPercent: 0, ease: 'none', duration: 1 }, 0);
-      tl.to(cards[0], { yPercent: -22, scale: 0.94, opacity: 0.35, ease: 'none', duration: 1 }, 0);
-      if (images[1]) {
-        tl.fromTo(images[1], { yPercent: -15, scale: 1.15 }, { yPercent: 0, scale: 1.05, ease: 'none', duration: 1 }, 0);
-      }
+      // --- 1. Card 02 (Build) swipes in from bottom over Card 01 ---
+      tl.to(cards[1], { yPercent: 0, ease: 'none', duration: 1 }, 0.2);
+      tl.to(cards[0], { yPercent: -15, scale: 0.96, ease: 'none', duration: 1 }, 0.2);
 
-      // --- PHASE 2: Card 03 swipes in from bottom with parallax over Card 02 ---
-      tl.to(cards[2], { yPercent: 0, ease: 'none', duration: 1 }, 1.15);
-      tl.to(cards[1], { yPercent: -22, scale: 0.94, opacity: 0.35, ease: 'none', duration: 1 }, 1.15);
-      tl.set(cards[0], { opacity: 0 }, 1.15);
-      if (images[2]) {
-        tl.fromTo(images[2], { yPercent: -15, scale: 1.15 }, { yPercent: 0, scale: 1.05, ease: 'none', duration: 1 }, 1.15);
-      }
+      // --- 2. Card 03 (Launch) swipes in from bottom over Card 02 ---
+      tl.to(cards[2], { yPercent: 0, ease: 'none', duration: 1 }, 1.5);
+      tl.to(cards[1], { yPercent: -15, scale: 0.96, ease: 'none', duration: 1 }, 1.5);
 
-      // --- PHASE 3: Card 04 swipes in from bottom with parallax over Card 03 ---
-      tl.to(cards[3], { yPercent: 0, ease: 'none', duration: 1 }, 2.3);
-      tl.to(cards[2], { yPercent: -22, scale: 0.94, opacity: 0.35, ease: 'none', duration: 1 }, 2.3);
-      tl.set(cards[1], { opacity: 0 }, 2.3);
-      if (images[3]) {
-        tl.fromTo(images[3], { yPercent: -15, scale: 1.15 }, { yPercent: 0, scale: 1.05, ease: 'none', duration: 1 }, 2.3);
-      }
+      // --- 3. Card 04 (Grow) swipes in from bottom over Card 03 ---
+      tl.to(cards[3], { yPercent: 0, ease: 'none', duration: 1 }, 2.8);
+      tl.to(cards[2], { yPercent: -15, scale: 0.96, ease: 'none', duration: 1 }, 2.8);
 
     }, containerRef);
 
@@ -106,34 +92,34 @@ export default function Home2StickyProcess({ data }) {
     <section 
       id="process" 
       ref={containerRef} 
-      className="relative w-full h-screen bg-[#000000] overflow-hidden select-none"
+      className="relative w-full h-screen bg-[#02040C] overflow-hidden select-none"
     >
-      {/* 4 Full-Screen Width & Height Immersive Space Cards */}
+      {/* 4 Immersive Full-Bleed Space Cards */}
       {steps.map((step, idx) => (
         <div
           key={idx}
           ref={(el) => (cardRefs.current[idx] = el)}
-          className="absolute inset-0 w-full h-full overflow-hidden will-change-transform shadow-[0_-30px_70px_rgba(0,0,0,0.9)]"
+          className="absolute inset-0 w-full h-full bg-[#02040C] overflow-hidden will-change-transform shadow-[0_-30px_80px_rgba(0,0,0,0.95)]"
         >
-          {/* Full Screen Width Space Image with Parallax Depth */}
+          {/* Full Screen Width Space Image */}
           <img
-            ref={(el) => (imgRefs.current[idx] = el)}
             src={step.image}
             alt={step.name}
-            className="absolute inset-0 w-full h-full object-cover scale-105 will-change-transform"
+            className="absolute inset-0 w-full h-full object-cover select-none will-change-transform"
+            loading="eager"
           />
 
-          {/* Cinematic Dark Gradient Scrim (ensures white letters pop with maximum contrast) */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/55 to-black/30 z-10 pointer-events-none" />
-          <div className="absolute inset-0 bg-black/20 z-10 pointer-events-none" />
+          {/* Deep Cinematic Gradient Scrim (ensures white typography is 100% legible) */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 to-black/35 z-10 pointer-events-none" />
+          <div className="absolute inset-0 bg-black/25 z-10 pointer-events-none" />
 
-          {/* Minimalist Top Right Phase Indicator */}
-          <div className="absolute top-8 right-8 sm:top-12 sm:right-12 z-20 font-grotesk font-bold text-lg sm:text-2xl text-white/70 tracking-widest uppercase select-none">
+          {/* Clean Step Counter in Top Right */}
+          <div className="absolute top-8 right-8 sm:top-12 sm:right-12 z-20 font-grotesk font-bold text-lg sm:text-2xl text-white/80 tracking-widest uppercase select-none">
             {step.num} / 04
           </div>
 
           {/* White Typography Content Layer */}
-          <div className="relative z-20 w-full max-w-[1440px] mx-auto h-full px-6 sm:px-12 lg:px-16 flex flex-col justify-end pb-16 sm:pb-20 lg:pb-24">
+          <div className="relative z-20 w-full max-w-[1440px] mx-auto h-full px-6 sm:px-12 lg:px-16 pt-24 sm:pt-32 lg:pt-36 flex flex-col justify-start">
             <div className="max-w-3xl space-y-4 sm:space-y-6">
               
               {/* Step Tag */}
@@ -161,7 +147,7 @@ export default function Home2StickyProcess({ data }) {
 
               {/* White Key Deliverable Pill */}
               <div className="pt-2">
-                <div className="inline-block p-4 sm:p-5 bg-black/60 backdrop-blur-md border border-white/15 max-w-xl">
+                <div className="inline-block p-4 sm:p-5 bg-black/70 backdrop-blur-md border border-white/20 max-w-xl">
                   <span className="text-[11px] font-sans uppercase tracking-widest text-white/60 font-semibold block mb-1">
                     KEY DELIVERABLE
                   </span>

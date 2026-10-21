@@ -85,13 +85,16 @@ export default function Home2Timeline30Days({ data }) {
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
-        <div className="pb-12 sm:pb-16 border-b border-[#E5E5E5] max-w-3xl space-y-4">
-          <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
-            {headline}
-          </h2>
-          <p className="font-grotesk text-sm sm:text-base text-[#666666] leading-relaxed max-w-[55ch]">
-            {subtext}
-          </p>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] items-end">
+          <div className="lg:col-span-3" />
+          <div className="lg:col-span-9 space-y-4">
+            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
+              {headline}
+            </h2>
+            <p className="font-grotesk text-sm sm:text-base text-[#666666] leading-relaxed max-w-[55ch]">
+              {subtext}
+            </p>
+          </div>
         </div>
 
         {/* 4-Week Horizontal Grid Layout with Staggered Entrance */}
