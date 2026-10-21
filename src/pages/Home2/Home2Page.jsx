@@ -390,42 +390,113 @@ export default function Home2Page() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // Subtle GSAP scroll parallax: as user scrolls down, hero dims and drifts up naturally
-    const heroTrack = document.getElementById('hero-scroll-track');
+    // High-impact GSAP scroll parallax: as user scrolls down from hero to section 2
+    const heroWrapper = document.getElementById('hero-parallax-wrapper');
+    const heroCanvas = document.getElementById('webgl-canvas');
+    const heroLabels = document.getElementById('labels-container');
+    const heroOverlay = document.querySelector('.viewport-atmospheric-overlay');
+    const heroCue = document.getElementById('hero-scroll-cue');
     const mainContent = document.getElementById('main-content');
-    let st;
-    if (heroTrack && mainContent) {
-      st = ScrollTrigger.create({
-        trigger: mainContent,
-        start: 'top bottom',
-        end: 'top top',
-        scrub: true,
-        onUpdate: (self) => {
-          heroTrack.style.opacity = `${1 - self.progress * 0.4}`;
-          heroTrack.style.transform = `translateY(${self.progress * 60}px)`;
+
+    let heroParallaxST;
+    if (heroWrapper && mainContent) {
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: mainContent,
+          start: 'top bottom',
+          end: 'top top',
+          scrub: true,
+          onUpdate: (self) => {
+            // Performance guard: pause visibility when completely covered by mainContent
+            if (self.progress >= 1) {
+              heroWrapper.style.visibility = 'hidden';
+              heroWrapper.style.pointerEvents = 'none';
+            } else {
+              heroWrapper.style.visibility = 'visible';
+              heroWrapper.style.pointerEvents = 'auto';
+            }
+          }
         }
       });
+
+      // 1. 3D WebGL Canvas Parallax: drifts down at slower speed and recedes into deep space
+      if (heroCanvas) {
+        tl.to(heroCanvas, {
+          yPercent: 32,
+          scale: 0.90,
+          opacity: 0.35,
+          filter: 'blur(6px)',
+          ease: 'none',
+        }, 0);
+      }
+
+      // 2. Projected 2D Comet Labels: floats upwards into space with negative parallax
+      if (heroLabels) {
+        tl.to(heroLabels, {
+          yPercent: -40,
+          opacity: 0,
+          ease: 'none',
+        }, 0);
+      }
+
+      // 3. Cosmic Atmosphere Vignette Darkens
+      if (heroOverlay) {
+        tl.to(heroOverlay, {
+          opacity: 0.95,
+          ease: 'none',
+        }, 0);
+      }
+
+      // 4. Hero Scroll Cue Fades & Drifts Away
+      if (heroCue) {
+        tl.to(heroCue, {
+          y: -30,
+          opacity: 0,
+          ease: 'none',
+        }, 0);
+      }
+
+      heroParallaxST = tl.scrollTrigger;
     }
 
     return () => {
       window.removeEventListener('scroll', onScroll);
-      if (st) st.kill();
+      if (heroParallaxST) heroParallaxST.kill();
     };
   }, []);
 
   return (
     <div className="relative w-full bg-[#02040C] text-[#000000] font-sans antialiased selection:bg-[#000000] selection:text-[#FFFFFF]">
       
-      {/* 3D Celestial Hero: 100vh height, unzoomed calm orbital cosmos, zero whiteout overlay */}
-      <CelestialHero 
-        trackHeightClass="h-screen" 
-        sticky={false} 
-        disableScrollZoom={true} 
-        renderOverlay={false} 
-      />
+      {/* 1. 3D Celestial Hero with Sticky Parallax Curtain Hand-Off */}
+      <div 
+        id="hero-parallax-wrapper" 
+        className="sticky top-0 left-0 w-full h-screen z-10 overflow-hidden will-change-transform"
+      >
+        <CelestialHero 
+          trackHeightClass="h-screen" 
+          sticky={false} 
+          disableScrollZoom={true} 
+          renderOverlay={false} 
+        />
+        
+        {/* Parallax Cosmic Scroll Cue */}
+        <div 
+          id="hero-scroll-cue"
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none select-none transition-opacity duration-300"
+        >
+          <span className="font-sans text-[11px] uppercase tracking-[0.25em] text-[#A0A5B5] font-semibold bg-[#000000]/75 backdrop-blur-md px-3.5 py-1.5 border border-white/10 rounded-full shadow-lg">
+            ORBIT 01 // SCROLL TO DESCEND
+          </span>
+          <div className="w-[1.5px] h-6 bg-gradient-to-b from-white/70 via-white/20 to-transparent animate-pulse" />
+        </div>
+      </div>
 
-      {/* Main Content Hand-off starts seamlessly from problem section with GSAP reveal */}
-      <main id="main-content" className="relative bg-white z-20">
+      {/* 2. Main Content Curtain: relative z-20 with heavy top shadow — rolls over the sticky hero like a physical architectural slab */}
+      <main 
+        id="main-content" 
+        className="relative bg-white z-20 shadow-[0_-35px_80px_rgba(0,0,0,0.85)] will-change-transform"
+      >
         {/* 2. The Problem */}
         <Home2Problem data={HOME2_CONTENT.problem} />
 

@@ -6,6 +6,11 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home2Problem({ data }) {
   const sectionRef = useRef(null);
+  const headerRef = useRef(null);
+  const cardsRef = useRef([]);
+  const imgContainerRef = useRef(null);
+  const imgParallaxRef = useRef(null);
+  const statPrimaryRef = useRef(null);
 
   const {
     eyebrow = "02 / THE BOTTLENECK",
@@ -46,40 +51,80 @@ export default function Home2Problem({ data }) {
     if (!sectionRef.current) return;
 
     const ctx = gsap.context(() => {
-      // 1. Smooth physical rise of next section as user scrolls down from hero
-      gsap.fromTo(
-        sectionRef.current,
-        { y: 60, opacity: 0.94 },
-        {
-          y: 0,
-          opacity: 1,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 98%",
-            end: "top 72%",
-            scrub: 0.8,
+      // 1. Section Header Parallax Float
+      if (headerRef.current) {
+        gsap.fromTo(
+          headerRef.current,
+          { y: 35 },
+          {
+            y: -15,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top bottom",
+              end: "top 20%",
+              scrub: 0.6,
+            }
           }
-        }
-      );
+        );
+      }
 
-      // 2. High-impact staggered lift of problem elements
-      gsap.fromTo(
-        ".problem-anim-item",
-        { y: 35, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          stagger: 0.12,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 80%",
-            toggleActions: "play none none reverse",
+      // 2. High-impact Staggered Parallax Floating Wave across 3 Pain Point Columns
+      cardsRef.current.forEach((card, idx) => {
+        if (!card) return;
+        const initialY = (idx + 1) * 24; // 24px, 48px, 72px
+        gsap.fromTo(
+          card,
+          { y: initialY, opacity: 0.75 },
+          {
+            y: -initialY * 0.35,
+            opacity: 1,
+            ease: "none",
+            scrollTrigger: {
+              trigger: sectionRef.current,
+              start: "top 70%",
+              end: "bottom 80%",
+              scrub: 0.6,
+            }
           }
-        }
-      );
+        );
+      });
+
+      // 3. Planetary Space Photo Parallax Window (drifts inside its frame on scroll)
+      if (imgParallaxRef.current && imgContainerRef.current) {
+        gsap.fromTo(
+          imgParallaxRef.current,
+          { yPercent: -16 },
+          {
+            yPercent: 16,
+            ease: "none",
+            scrollTrigger: {
+              trigger: imgContainerRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true,
+            }
+          }
+        );
+      }
+
+      // 4. Giant Benchmark Stat Number Floating Parallax
+      if (statPrimaryRef.current) {
+        gsap.fromTo(
+          statPrimaryRef.current,
+          { y: 20 },
+          {
+            y: -20,
+            ease: "none",
+            scrollTrigger: {
+              trigger: statPrimaryRef.current,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: 0.8,
+            }
+          }
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
@@ -89,12 +134,25 @@ export default function Home2Problem({ data }) {
     <section 
       id="problem" 
       ref={sectionRef} 
-      className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5] will-change-transform z-20"
+      className="relative bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5] will-change-transform z-20"
     >
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
+      {/* Editorial Architectural Hand-off Bar (Top of 2nd Section) */}
+      <div className="w-full border-b border-[#E5E5E5] bg-[#F7F7F7] py-2.5 px-4 sm:px-8 flex items-center justify-between text-[11px] font-sans font-bold uppercase tracking-[0.2em] text-[#8A8A8A] select-none">
+        <div className="flex items-center gap-2">
+          <span className="w-2 h-2 bg-[#000000] inline-block rounded-xs animate-pulse" />
+          <span className="text-[#000000]">ORBIT 02 // SYSTEMIC DIAGNOSIS</span>
+        </div>
+        <span className="hidden sm:inline text-[#A0A0A0]">PARALLAX MOTION TELEMETRY</span>
+        <span>STATUS: THE BOTTLENECK</span>
+      </div>
+
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-20 sm:py-32">
         
-        {/* Section Header Row */}
-        <div className="problem-anim-item grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5]">
+        {/* Section Header Row with Scrubbed Parallax */}
+        <div 
+          ref={headerRef}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] will-change-transform"
+        >
           <div className="lg:col-span-3">
             <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block">
               {eyebrow}
@@ -110,10 +168,14 @@ export default function Home2Problem({ data }) {
           </div>
         </div>
 
-        {/* 3-Column Pain Points Grid (Separated by Thin 1px Rules) */}
+        {/* 3-Column Pain Points Grid with Multi-Speed Floating Parallax Waves */}
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E5E5E5] border-b border-[#E5E5E5]">
           {painPoints.map((point, idx) => (
-            <div key={idx} className="problem-anim-item py-8 sm:py-12 md:px-8 first:pl-0 last:pr-0 space-y-4">
+            <div 
+              key={idx} 
+              ref={(el) => (cardsRef.current[idx] = el)}
+              className="py-8 sm:py-12 md:px-8 first:pl-0 last:pr-0 space-y-4 will-change-transform"
+            >
               <div className="flex items-center justify-between">
                 <span className="font-sans text-xs text-[#8A8A8A] uppercase tracking-wider font-semibold">
                   {point.label}
@@ -132,18 +194,22 @@ export default function Home2Problem({ data }) {
           ))}
         </div>
 
-        {/* Split Pair (Photo on Left, Solid Light Grey Block on Right with Giant Stats) */}
-        <div className="problem-anim-item grid grid-cols-1 lg:grid-cols-12 gap-0 pt-12 sm:pt-16 items-stretch">
+        {/* Split Pair (Planetary Photo with Window Parallax on Left, Solid Block with Stat on Right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 pt-12 sm:pt-16 items-stretch">
           
-          {/* Left Half: Space Image */}
-          <div className="lg:col-span-7 border border-[#E5E5E5] overflow-hidden min-h-[360px] sm:min-h-[460px] relative bg-[#000000]">
+          {/* Left Half: Space Image with Window Parallax */}
+          <div 
+            ref={imgContainerRef}
+            className="lg:col-span-7 border border-[#E5E5E5] overflow-hidden min-h-[380px] sm:min-h-[480px] relative bg-[#000000] select-none"
+          >
             <img
+              ref={imgParallaxRef}
               src={statBlock.image}
               alt="Deep Space Planetary Horizons"
-              className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
+              className="w-full h-[140%] object-cover absolute -top-[20%] left-0 will-change-transform"
               loading="lazy"
             />
-            <div className="absolute top-4 left-4 bg-[#000000] text-[#FFFFFF] font-sans font-semibold text-[11px] px-3 py-1 uppercase tracking-wider">
+            <div className="absolute top-4 left-4 bg-[#000000] text-[#FFFFFF] font-sans font-semibold text-[11px] px-3 py-1 uppercase tracking-wider z-10">
               SECTOR 02 // REALITY CHECK
             </div>
           </div>
@@ -154,7 +220,10 @@ export default function Home2Problem({ data }) {
               <span className="font-sans text-xs uppercase tracking-wider text-[#8A8A8A] block font-semibold">
                 [EFFICIENCY BENCHMARK]
               </span>
-              <div className="font-grotesk font-bold text-[clamp(80px,12vw,160px)] leading-[0.88] tracking-[-0.05em] text-[#000000]">
+              <div 
+                ref={statPrimaryRef}
+                className="font-grotesk font-bold text-[clamp(80px,12vw,160px)] leading-[0.88] tracking-[-0.05em] text-[#000000] will-change-transform"
+              >
                 {statBlock.statPrimary}
               </div>
               <span className="font-grotesk font-bold text-lg sm:text-xl text-[#000000] block">
