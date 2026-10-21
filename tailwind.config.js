@@ -40,8 +40,9 @@ export default {
       fontFamily: {
         serif: ['"Cormorant"', '"Cormorant Garamond"', 'Georgia', 'serif'],
         display: ['"Cormorant"', '"Cormorant Garamond"', 'Georgia', 'serif'],
+        grotesk: ['"Inter Tight"', '"Space Grotesk"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
         sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
       },
       borderRadius: {
         'container': '28px',
