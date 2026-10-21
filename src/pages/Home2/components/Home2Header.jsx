@@ -114,13 +114,6 @@ export default function Home2Header() {
           >
             05 / Free Growth Audit
           </a>
-          <a 
-            href="#pricing" 
-            onClick={() => setMobileMenuOpen(false)} 
-            className="block py-2 border-b border-[#1F1F1F] hover:text-white"
-          >
-            06 / Pricing Clarity
-          </a>
           <Link
             to="/"
             onClick={() => setMobileMenuOpen(false)}

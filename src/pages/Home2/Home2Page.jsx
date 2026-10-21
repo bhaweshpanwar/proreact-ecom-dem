@@ -1,4 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CelestialHero from '../../components/Hero3D/CelestialHero';
 import Home2Problem from './components/Home2Problem';
 import Home2Services from './components/Home2Services';
@@ -8,10 +10,11 @@ import Home2AuditOffer from './components/Home2AuditOffer';
 import Home2WhyNewAgency from './components/Home2WhyNewAgency';
 import Home2ToolsMarquee from './components/Home2ToolsMarquee';
 import Home2SampleWork from './components/Home2SampleWork';
-import Home2Pricing from './components/Home2Pricing';
 import Home2Faq from './components/Home2Faq';
 import Home2FinalCta from './components/Home2FinalCta';
 import Home2Footer from './components/Home2Footer';
+
+gsap.registerPlugin(ScrollTrigger);
 
 /**
  * ============================================================================
@@ -214,7 +217,7 @@ const HOME2_CONTENT = {
     eyebrow: "06 / DIAGNOSTIC OFFER",
     headline: "The Free Growth Audit.",
     subtext: "Before you commit a single rupee to a retainer, let us inspect your actual commercial telemetry. We run a comprehensive 48-hour diagnostic across your digital channels.",
-    image: "/assets/img1/marketplace-ppc-scale.png",
+    image: "/images/space/new-second-section-web.jpg",
     auditFeatures: [
       {
         title: "Search & Ad Account Forensics",
@@ -285,7 +288,7 @@ const HOME2_CONTENT = {
     ]
   },
 
-  // 9. Sample Work (Concept Projects)
+  // 9. Sample Work (Concept Projects with Orbital Space Visuals)
   work: {
     eyebrow: "09 / CONCEPT PORTFOLIO",
     headline: "Sample Work (Concept Projects).",
@@ -296,7 +299,7 @@ const HOME2_CONTENT = {
         category: "D2C HEALTH & NUTRITION",
         title: "Multi-Marketplace Synchronization",
         desc: "Unified catalogue architecture, Amazon Brand Store overhaul, and high-intent keyword capture models.",
-        image: "/assets/img1/amazon-listing-aplus.png",
+        image: "/images/space/work-1.jpg",
         tags: ["AMAZON", "CATALOGUE", "BUY-BOX"]
       },
       {
@@ -304,7 +307,7 @@ const HOME2_CONTENT = {
         category: "HIGH-FASHION & APPAREL",
         title: "Headless Shopify & Checkout CRO",
         desc: "Sub-second mobile loading speed, cart drawer conversion triggers, and Meta Advantage+ catalogue funnels.",
-        image: "/assets/img1/shopify-flagship-store.png",
+        image: "/images/space/work-2.jpg",
         tags: ["SHOPIFY", "META ADS", "CRO"]
       },
       {
@@ -312,7 +315,7 @@ const HOME2_CONTENT = {
         category: "ARCHITECTURAL HOME LIVING",
         title: "Category Market Share Dominance",
         desc: "Sponsored Brands video architecture, competitor Buy-Box monitoring, and organic search ranking.",
-        image: "/assets/img1/ads-performance.png",
+        image: "/images/space/work-3.jpg",
         tags: ["SPONSORED ADS", "VIDEO", "SEO"]
       },
       {
@@ -320,7 +323,7 @@ const HOME2_CONTENT = {
         category: "B2B INDUSTRIAL SUPPLY",
         title: "High-Intent Qualified Pipeline",
         desc: "Google Search bottom-funnel keyword bidding, CRM tracking hooks, and conversion landing page models.",
-        image: "/assets/img1/creative-brand-identity.png",
+        image: "/images/space/work-4.jpg",
         tags: ["GOOGLE ADS", "B2B PIPELINE", "CAPI"]
       },
       {
@@ -328,59 +331,8 @@ const HOME2_CONTENT = {
         category: "CONSUMER HARDWARE & TECH",
         title: "3D CGI Commercial Product Motion",
         desc: "Photorealistic 3D rendering, feature breakdown animations, and short-form launch creative.",
-        image: "/assets/img1/reels-motion-film.png",
+        image: "/images/space/work-5.jpg",
         tags: ["3D CGI", "MOTION", "CINEMA"]
-      }
-    ]
-  },
-
-  // 10. Pricing Clarity
-  pricing: {
-    eyebrow: "10 / COMMERCIAL MODELS",
-    headline: "Pricing clarity.",
-    subtext: "Transparent partnership structures. No hidden markup fees, no percentage-of-ad-spend traps that incentivize wasteful spending.",
-    tiers: [
-      {
-        num: "01",
-        name: "FOUNDATION SPRINT",
-        scope: "One-Time Architecture Overhaul",
-        pricePlaceholder: "Starting from ₹75,000", // TODO: Update with finalized commercial sprint pricing
-        badge: "ONE-TIME FIXED FEE",
-        desc: "Ideal for brands needing a complete rebuild of their catalogue, search indexing, custom Shopify storefront, or broken ad tracking.",
-        includes: [
-          "Complete catalogue rebuild & variations",
-          "Shopify speed & checkout CRO overhaul",
-          "Meta CAPI & GA4 first-party tracking setup",
-          "30 days post-launch warranty support"
-        ]
-      },
-      {
-        num: "02",
-        name: "MONTHLY GROWTH RETAINER",
-        scope: "Dedicated Multi-Channel Pod",
-        pricePlaceholder: "Starting from ₹1,20,000/mo", // TODO: Update with finalized monthly retainer tiers
-        badge: "MONTH-TO-MONTH PERFORMANCE",
-        desc: "A dedicated senior team managing daily marketplace Buy-Box algorithms, Google & Meta ads, creative iterations, and weekly reporting.",
-        includes: [
-          "Daily marketplace & ad bid governance",
-          "Continuous creative motion & listing updates",
-          "Direct founder Slack / WhatsApp line",
-          "Weekly net contribution margin reports"
-        ]
-      },
-      {
-        num: "03",
-        name: "GROWTH DIAGNOSTIC AUDIT",
-        scope: "Comprehensive 48h Inspection",
-        pricePlaceholder: "Complimentary for Qualified Brands", // TODO: Confirm qualifying criteria for complimentary audits
-        badge: "NO OBLIGATION",
-        desc: "A forensic inspection of your current search query logs, Buy-Box suppression risks, and checkout drop-off before signing any agreement.",
-        includes: [
-          "Full search & ad account forensics",
-          "Marketplace listing health score",
-          "Checkout speed & mobile latency audit",
-          "90-day prioritized execution roadmap"
-        ]
       }
     ]
   },
@@ -438,18 +390,41 @@ export default function Home2Page() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
+    // Subtle GSAP scroll parallax: as user scrolls down, hero dims and drifts up naturally
+    const heroTrack = document.getElementById('hero-scroll-track');
+    const mainContent = document.getElementById('main-content');
+    let st;
+    if (heroTrack && mainContent) {
+      st = ScrollTrigger.create({
+        trigger: mainContent,
+        start: 'top bottom',
+        end: 'top top',
+        scrub: true,
+        onUpdate: (self) => {
+          heroTrack.style.opacity = `${1 - self.progress * 0.4}`;
+          heroTrack.style.transform = `translateY(${self.progress * 60}px)`;
+        }
+      });
+    }
+
     return () => {
       window.removeEventListener('scroll', onScroll);
+      if (st) st.kill();
     };
   }, []);
 
   return (
     <div className="relative w-full bg-[#02040C] text-[#000000] font-sans antialiased selection:bg-[#000000] selection:text-[#FFFFFF]">
       
-      {/* 3D Celestial Hero & Polar Dive Whiteout from normal Home page */}
-      <CelestialHero />
+      {/* 3D Celestial Hero: 100vh height, unzoomed calm orbital cosmos, zero whiteout overlay */}
+      <CelestialHero 
+        trackHeightClass="h-screen" 
+        sticky={false} 
+        disableScrollZoom={true} 
+        renderOverlay={false} 
+      />
 
-      {/* Main Content Hand-off starts seamlessly from the white section */}
+      {/* Main Content Hand-off starts seamlessly from problem section with GSAP reveal */}
       <main id="main-content" className="relative bg-white z-20">
         {/* 2. The Problem */}
         <Home2Problem data={HOME2_CONTENT.problem} />
@@ -472,11 +447,8 @@ export default function Home2Page() {
         {/* 8. Tools We Work With */}
         <Home2ToolsMarquee data={HOME2_CONTENT.tools} />
 
-        {/* 9. Sample Work (Concept Projects Carousel) */}
+        {/* 9. Sample Work (Concept Projects Carousel with Space Visuals) */}
         <Home2SampleWork data={HOME2_CONTENT.work} />
-
-        {/* 10. Pricing Clarity (with // TODO placeholders) */}
-        <Home2Pricing data={HOME2_CONTENT.pricing} />
 
         {/* 11. FAQ Accordion */}
         <Home2Faq data={HOME2_CONTENT.faq} />

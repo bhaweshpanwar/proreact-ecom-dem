@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home2Problem({ data }) {
+  const sectionRef = useRef(null);
+
   const {
     eyebrow = "02 / THE BOTTLENECK",
     headline = "Too many freelancers. Too little growth.",
@@ -36,12 +42,59 @@ export default function Home2Problem({ data }) {
     }
   } = data || {};
 
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // 1. Smooth physical rise of next section as user scrolls down from hero
+      gsap.fromTo(
+        sectionRef.current,
+        { y: 60, opacity: 0.94 },
+        {
+          y: 0,
+          opacity: 1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 98%",
+            end: "top 72%",
+            scrub: 0.8,
+          }
+        }
+      );
+
+      // 2. High-impact staggered lift of problem elements
+      gsap.fromTo(
+        ".problem-anim-item",
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 80%",
+            toggleActions: "play none none reverse",
+          }
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="problem" className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5]">
+    <section 
+      id="problem" 
+      ref={sectionRef} 
+      className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5] will-change-transform z-20"
+    >
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
         {/* Section Header Row */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5]">
+        <div className="problem-anim-item grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5]">
           <div className="lg:col-span-3">
             <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block">
               {eyebrow}
@@ -60,7 +113,7 @@ export default function Home2Problem({ data }) {
         {/* 3-Column Pain Points Grid (Separated by Thin 1px Rules) */}
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E5E5E5] border-b border-[#E5E5E5]">
           {painPoints.map((point, idx) => (
-            <div key={idx} className="py-8 sm:py-12 md:px-8 first:pl-0 last:pr-0 space-y-4">
+            <div key={idx} className="problem-anim-item py-8 sm:py-12 md:px-8 first:pl-0 last:pr-0 space-y-4">
               <div className="flex items-center justify-between">
                 <span className="font-sans text-xs text-[#8A8A8A] uppercase tracking-wider font-semibold">
                   {point.label}
@@ -80,7 +133,7 @@ export default function Home2Problem({ data }) {
         </div>
 
         {/* Split Pair (Photo on Left, Solid Light Grey Block on Right with Giant Stats) */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-0 pt-12 sm:pt-16 items-stretch">
+        <div className="problem-anim-item grid grid-cols-1 lg:grid-cols-12 gap-0 pt-12 sm:pt-16 items-stretch">
           
           {/* Left Half: Space Image */}
           <div className="lg:col-span-7 border border-[#E5E5E5] overflow-hidden min-h-[360px] sm:min-h-[460px] relative bg-[#000000]">

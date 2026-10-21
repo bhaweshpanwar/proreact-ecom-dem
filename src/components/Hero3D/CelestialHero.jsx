@@ -3,7 +3,12 @@ import { CelestialEngine } from './CelestialEngine';
 import ServiceDrawer from './ServiceDrawer';
 import WhiteoutIntroStage from './WhiteoutIntroStage';
 
-export default function CelestialHero({ renderOverlay, trackHeightClass = "h-[200vh]" } = {}) {
+export default function CelestialHero({ 
+  renderOverlay, 
+  trackHeightClass = "h-[200vh]",
+  disableScrollZoom = false,
+  sticky = true
+} = {}) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const labelsRef = useRef(null);
@@ -23,22 +28,26 @@ export default function CelestialHero({ renderOverlay, trackHeightClass = "h-[20
     engineRef.current = engine;
 
     const handleScroll = () => {
+      if (disableScrollZoom) return;
       const scrollY = window.scrollY;
       const track = containerRef.current;
       if (!track) return;
       const maxScroll = track.offsetHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
       const p = Math.min(Math.max(scrollY / maxScroll, 0), 1);
       setScrollProgress(p);
       engine.setScrollProgress(p);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
+    if (!disableScrollZoom) {
+      window.addEventListener('scroll', handleScroll, { passive: true });
+    }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
       engine.destroy();
     };
-  }, []);
+  }, [disableScrollZoom]);
 
   // Prevent website scrolling while inspecting a focused comet
   useEffect(() => {
@@ -66,7 +75,7 @@ export default function CelestialHero({ renderOverlay, trackHeightClass = "h-[20
 
   return (
     <div id="hero-scroll-track" ref={containerRef} className={`relative w-full ${trackHeightClass} z-10`}>
-      <div id="hero-sticky-container" className="sticky top-0 left-0 w-full h-screen overflow-hidden z-10">
+      <div id="hero-sticky-container" className={`${sticky ? 'sticky top-0 left-0' : 'relative'} w-full h-screen overflow-hidden z-10`}>
         
         {/* 3D WebGL Canvas */}
         <canvas id="webgl-canvas" ref={canvasRef} className="block w-full h-full" />
@@ -87,7 +96,7 @@ export default function CelestialHero({ renderOverlay, trackHeightClass = "h-[20
         />
 
         {/* Dynamic Transition Stage Hand-off */}
-        {renderOverlay ? renderOverlay(scrollProgress) : <WhiteoutIntroStage progress={scrollProgress} />}
+        {renderOverlay === false ? null : (renderOverlay ? renderOverlay(scrollProgress) : <WhiteoutIntroStage progress={scrollProgress} />)}
 
       </div>
     </div>
