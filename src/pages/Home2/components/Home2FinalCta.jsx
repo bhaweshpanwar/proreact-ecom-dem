@@ -33,9 +33,6 @@ export default function Home2FinalCta({ data }) {
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-12 sm:mb-16">
-          <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block">
-            {eyebrow}
-          </span>
           <h2 className="font-grotesk font-bold text-[clamp(40px,6vw,90px)] leading-[0.92] tracking-[-0.04em] uppercase text-[#FFFFFF]">
             {headline}
           </h2>

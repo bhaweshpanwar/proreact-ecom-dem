@@ -136,36 +136,19 @@ export default function Home2Problem({ data }) {
       ref={sectionRef} 
       className="relative bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5] will-change-transform z-20"
     >
-      {/* Editorial Architectural Hand-off Bar (Top of 2nd Section) */}
-      <div className="w-full border-b border-[#E5E5E5] bg-[#F7F7F7] py-2.5 px-4 sm:px-8 flex items-center justify-between text-[11px] font-sans font-bold uppercase tracking-[0.2em] text-[#8A8A8A] select-none">
-        <div className="flex items-center gap-2">
-          <span className="w-2 h-2 bg-[#000000] inline-block rounded-xs animate-pulse" />
-          <span className="text-[#000000]">ORBIT 02 // SYSTEMIC DIAGNOSIS</span>
-        </div>
-        <span className="hidden sm:inline text-[#A0A0A0]">PARALLAX MOTION TELEMETRY</span>
-        <span>STATUS: THE BOTTLENECK</span>
-      </div>
-
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-20 sm:py-32">
         
         {/* Section Header Row with Scrubbed Parallax */}
         <div 
           ref={headerRef}
-          className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] will-change-transform"
+          className="pb-12 sm:pb-16 border-b border-[#E5E5E5] will-change-transform max-w-4xl space-y-6"
         >
-          <div className="lg:col-span-3">
-            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block">
-              {eyebrow}
-            </span>
-          </div>
-          <div className="lg:col-span-9 space-y-6">
-            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
-              {headline}
-            </h2>
-            <p className="font-grotesk text-base sm:text-lg text-[#555555] leading-relaxed max-w-[60ch]">
-              {subtext}
-            </p>
-          </div>
+          <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
+            {headline}
+          </h2>
+          <p className="font-grotesk text-base sm:text-lg text-[#555555] leading-relaxed max-w-[60ch]">
+            {subtext}
+          </p>
         </div>
 
         {/* 3-Column Pain Points Grid with Multi-Speed Floating Parallax Waves */}
@@ -209,17 +192,11 @@ export default function Home2Problem({ data }) {
               className="w-full h-[140%] object-cover absolute -top-[20%] left-0 will-change-transform"
               loading="lazy"
             />
-            <div className="absolute top-4 left-4 bg-[#000000] text-[#FFFFFF] font-sans font-semibold text-[11px] px-3 py-1 uppercase tracking-wider z-10">
-              SECTOR 02 // REALITY CHECK
-            </div>
           </div>
 
           {/* Right Half: Solid Light Grey Block with Giant Editorial Numbers */}
           <div className="lg:col-span-5 bg-[#F2F2F2] border-t lg:border-t border-b border-l-0 lg:border-l border-r border-[#E5E5E5] p-8 sm:p-12 flex flex-col justify-between space-y-8">
             <div className="space-y-2">
-              <span className="font-sans text-xs uppercase tracking-wider text-[#8A8A8A] block font-semibold">
-                [EFFICIENCY BENCHMARK]
-              </span>
               <div 
                 ref={statPrimaryRef}
                 className="font-grotesk font-bold text-[clamp(80px,12vw,160px)] leading-[0.88] tracking-[-0.05em] text-[#000000] will-change-transform"

@@ -85,23 +85,13 @@ export default function Home2Timeline30Days({ data }) {
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] items-end">
-          <div className="lg:col-span-3">
-            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block">
-              {eyebrow}
-            </span>
-          </div>
-          <div className="lg:col-span-6 space-y-4">
-            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
-              {headline}
-            </h2>
-            <p className="font-grotesk text-sm sm:text-base text-[#666666] leading-relaxed max-w-[50ch]">
-              {subtext}
-            </p>
-          </div>
-          <div className="lg:col-span-3 lg:text-right font-sans text-xs text-[#8A8A8A] uppercase font-semibold tracking-wider">
-            <span>[4 WEEKS TO COMPOUNDING]</span>
-          </div>
+        <div className="pb-12 sm:pb-16 border-b border-[#E5E5E5] max-w-3xl space-y-4">
+          <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
+            {headline}
+          </h2>
+          <p className="font-grotesk text-sm sm:text-base text-[#666666] leading-relaxed max-w-[55ch]">
+            {subtext}
+          </p>
         </div>
 
         {/* 4-Week Horizontal Grid Layout with Staggered Entrance */}

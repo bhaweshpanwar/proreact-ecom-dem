@@ -86,23 +86,13 @@ export default function Home2Services({ data }) {
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#262626] items-end">
-          <div className="lg:col-span-3">
-            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block">
-              {eyebrow}
-            </span>
-          </div>
-          <div className="lg:col-span-6 space-y-4">
-            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
-              {headline}
-            </h2>
-            <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-[50ch]">
-              {subtext}
-            </p>
-          </div>
-          <div className="lg:col-span-3 lg:text-right font-sans text-xs text-[#8A8A8A] uppercase font-semibold tracking-wider">
-            <span>[05 SOVEREIGN CAPABILITIES]</span>
-          </div>
+        <div className="pb-12 sm:pb-16 border-b border-[#262626] max-w-3xl space-y-4">
+          <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
+            {headline}
+          </h2>
+          <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-[55ch]">
+            {subtext}
+          </p>
         </div>
 
         {/* 5 Big Numbered Rows (Hover fills with Space Image) */}

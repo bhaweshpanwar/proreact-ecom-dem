@@ -74,9 +74,6 @@ export default function Home2ToolsMarquee({ data }) {
     <section ref={sectionRef} className="relative py-16 sm:py-24 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5] overflow-hidden">
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 mb-10 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block mb-2">
-            {eyebrow}
-          </span>
           <h2 className="font-grotesk font-bold text-2xl sm:text-4xl uppercase text-[#000000] tracking-tight">
             {headline}
           </h2>

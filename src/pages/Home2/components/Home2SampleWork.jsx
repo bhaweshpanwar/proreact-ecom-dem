@@ -88,9 +88,6 @@ export default function Home2SampleWork({ data }) {
         {/* Header Row with Arrow Controls */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#262626] mb-12">
           <div>
-            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block mb-2">
-              {eyebrow}
-            </span>
             <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
               {headline}
             </h2>

@@ -35,9 +35,6 @@ export default function Home2WhyNewAgency({ data }) {
       {/* Top Half: Huge Pull-Quote Statement on Solid Black Band */}
       <div className="bg-[#000000] text-[#FFFFFF] py-20 sm:py-28 px-4 sm:px-8 border-b border-[#262626]">
         <div className="w-full max-w-[1440px] mx-auto">
-          <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block mb-6">
-            {eyebrow}
-          </span>
           <h2 className="font-grotesk font-bold text-[clamp(36px,6.5vw,110px)] leading-[0.92] tracking-[-0.04em] uppercase">
             {pullQuoteBlack} <br />
             <span className="text-[#8A8A8A]">{pullQuoteGrey}</span>
