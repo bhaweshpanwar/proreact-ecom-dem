@@ -71,10 +71,10 @@ export default function ProcessSection() {
       if (!cards[0] || !cards[1] || !cards[2] || !cards[3]) return;
 
       // Initial positions
-      gsap.set(cards[0], { xPercent: 0, rotate: 0, scale: 1, opacity: 1 });
-      gsap.set(cards[1], { xPercent: 125, rotate: 4, scale: 0.95, opacity: 0 });
-      gsap.set(cards[2], { xPercent: 125, rotate: 4, scale: 0.95, opacity: 0 });
-      gsap.set(cards[3], { xPercent: 125, rotate: 4, scale: 0.95, opacity: 0 });
+      gsap.set(cards[0], { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1 });
+      gsap.set(cards[1], { xPercent: 105, yPercent: 4, rotate: 3, scale: 0.95, opacity: 0 });
+      gsap.set(cards[2], { xPercent: 105, yPercent: 4, rotate: 3, scale: 0.95, opacity: 0 });
+      gsap.set(cards[3], { xPercent: 105, yPercent: 4, rotate: 3, scale: 0.95, opacity: 0 });
 
       const mm = gsap.matchMedia();
 
@@ -83,35 +83,36 @@ export default function ProcessSection() {
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 10%',
-            end: '+=2400',
+            start: 'top 5%',
+            end: '+=1800',
             pin: true,
-            scrub: 0.6,
+            scrub: 0.5,
             anticipatePin: 1,
             onUpdate: (self) => {
               const p = self.progress;
-              if (p < 0.25) setStage(0);
-              else if (p < 0.55) setStage(1);
-              else if (p < 0.82) setStage(2);
+              if (p < 0.22) setStage(0);
+              else if (p < 0.52) setStage(1);
+              else if (p < 0.80) setStage(2);
               else setStage(3);
             }
           }
         });
         timelineRef.current = tl;
 
-        // 1 -> 2: Card 2 swipes in from right over Card 1
-        tl.to(cards[1], { xPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 0.2);
-        tl.to(cards[0], { scale: 0.94, xPercent: -6, opacity: 0.45, rotate: -2, ease: 'power2.out', duration: 1 }, 0.2);
+        // 1 -> 2: Stage 1 (Audit) slides in over Stage 0 (Discover)
+        tl.to(cards[1], { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.inOut', duration: 1 }, 0.2);
+        tl.to(cards[0], { scale: 0.94, yPercent: -4, opacity: 0.35, rotate: -1.5, ease: 'power2.inOut', duration: 1 }, 0.2);
 
-        // 2 -> 3: Card 3 swipes in over Card 2
-        tl.to(cards[2], { xPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 1.4);
-        tl.to(cards[1], { scale: 0.94, xPercent: -6, opacity: 0.45, rotate: -2, ease: 'power2.out', duration: 1 }, 1.4);
-        tl.to(cards[0], { scale: 0.88, xPercent: -12, opacity: 0.15, rotate: -4, ease: 'power2.out', duration: 1 }, 1.4);
+        // 2 -> 3: Stage 2 (Build) slides in over Stage 1 (Audit)
+        tl.to(cards[2], { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.inOut', duration: 1 }, 1.4);
+        tl.to(cards[1], { scale: 0.94, yPercent: -4, opacity: 0.35, rotate: -1.5, ease: 'power2.inOut', duration: 1 }, 1.4);
+        tl.to(cards[0], { scale: 0.88, yPercent: -8, opacity: 0.1, rotate: -3, ease: 'power2.inOut', duration: 1 }, 1.4);
 
-        // 3 -> 4: Card 4 swipes in over Card 3
-        tl.to(cards[3], { xPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 2.6);
-        tl.to(cards[2], { scale: 0.94, xPercent: -6, opacity: 0.45, rotate: -2, ease: 'power2.out', duration: 1 }, 2.6);
-        tl.to(cards[1], { scale: 0.88, xPercent: -12, opacity: 0.15, rotate: -4, ease: 'power2.out', duration: 1 }, 2.6);
+        // 3 -> 4: Stage 3 (Optimise) slides in over Stage 2 (Build)
+        tl.to(cards[3], { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.inOut', duration: 1 }, 2.6);
+        tl.to(cards[2], { scale: 0.94, yPercent: -4, opacity: 0.35, rotate: -1.5, ease: 'power2.inOut', duration: 1 }, 2.6);
+        tl.to(cards[1], { scale: 0.88, yPercent: -8, opacity: 0.1, rotate: -3, ease: 'power2.inOut', duration: 1 }, 2.6);
+        tl.to(cards[0], { opacity: 0, duration: 0.5 }, 2.6);
       });
 
       // Mobile (< 768px): Compact Swipe Scroll
@@ -119,29 +120,32 @@ export default function ProcessSection() {
         const tlMobile = gsap.timeline({
           scrollTrigger: {
             trigger: sectionRef.current,
-            start: 'top 12%',
-            end: '+=1600',
+            start: 'top 6%',
+            end: '+=1400',
             pin: true,
             scrub: 0.5,
+            anticipatePin: 1,
             onUpdate: (self) => {
               const p = self.progress;
-              if (p < 0.25) setStage(0);
-              else if (p < 0.55) setStage(1);
-              else if (p < 0.82) setStage(2);
+              if (p < 0.22) setStage(0);
+              else if (p < 0.52) setStage(1);
+              else if (p < 0.80) setStage(2);
               else setStage(3);
             }
           }
         });
         timelineRef.current = tlMobile;
 
-        tlMobile.to(cards[1], { xPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 0.2);
-        tlMobile.to(cards[0], { scale: 0.94, xPercent: -5, opacity: 0.4, rotate: -2, ease: 'power2.out', duration: 1 }, 0.2);
+        tlMobile.to(cards[1], { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, rotate: 0, ease: 'power2.inOut', duration: 1 }, 0.2);
+        tlMobile.to(cards[0], { scale: 0.94, yPercent: -3, opacity: 0.3, ease: 'power2.inOut', duration: 1 }, 0.2);
 
-        tlMobile.to(cards[2], { xPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 1.4);
-        tlMobile.to(cards[1], { scale: 0.94, xPercent: -5, opacity: 0.4, rotate: -2, ease: 'power2.out', duration: 1 }, 1.4);
+        tlMobile.to(cards[2], { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, rotate: 0, ease: 'power2.inOut', duration: 1 }, 1.4);
+        tlMobile.to(cards[1], { scale: 0.94, yPercent: -3, opacity: 0.3, ease: 'power2.inOut', duration: 1 }, 1.4);
+        tlMobile.to(cards[0], { opacity: 0, duration: 0.5 }, 1.4);
 
-        tlMobile.to(cards[3], { xPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.out', duration: 1 }, 2.6);
-        tlMobile.to(cards[2], { scale: 0.94, xPercent: -5, opacity: 0.4, rotate: -2, ease: 'power2.out', duration: 1 }, 2.6);
+        tlMobile.to(cards[3], { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, rotate: 0, ease: 'power2.inOut', duration: 1 }, 2.6);
+        tlMobile.to(cards[2], { scale: 0.94, yPercent: -3, opacity: 0.3, ease: 'power2.inOut', duration: 1 }, 2.6);
+        tlMobile.to(cards[1], { opacity: 0, duration: 0.5 }, 2.6);
       });
     }, sectionRef);
 
@@ -152,7 +156,7 @@ export default function ProcessSection() {
     setStage(idx);
     const tl = timelineRef.current;
     if (tl && tl.scrollTrigger) {
-      const targets = [0.1, 0.4, 0.7, 0.95];
+      const targets = [0.05, 0.38, 0.68, 0.98];
       const st = tl.scrollTrigger;
       const pos = st.start + (st.end - st.start) * targets[idx];
       window.scrollTo({ top: pos, behavior: 'smooth' });
@@ -162,11 +166,51 @@ export default function ProcessSection() {
   const current = STAGES[activeStage];
 
   return (
-    <section ref={sectionRef} id="process" aria-labelledby="process-heading" className="relative py-14 sm:py-24 bg-white overflow-hidden">
-      <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
+    <section ref={sectionRef} id="process" aria-labelledby="process-heading" className="relative py-14 sm:py-24 overflow-hidden min-h-screen">
+      
+      {/* Dynamic Cosmic Full Section Background - Crossfades with Active Stage Image */}
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+        {STAGES.map((s, idx) => (
+          <div
+            key={idx}
+            className="absolute inset-0 w-full h-full transition-opacity duration-1000 ease-out"
+            style={{
+              opacity: activeStage === idx ? 1 : 0,
+            }}
+          >
+            <img 
+              src={s.img} 
+              alt={s.heading} 
+              className="w-full h-full object-cover scale-105"
+              style={{
+                filter: 'blur(14px) brightness(0.40) contrast(1.15)',
+                transform: activeStage === idx ? 'scale(1.04)' : 'scale(1.0)',
+                transition: 'transform 1.8s ease-out, filter 1s ease'
+              }}
+            />
+            {/* Ambient Celestial Vignettes */}
+            <div className="absolute inset-0 bg-gradient-to-b from-[#080B10]/80 via-black/35 to-[#080B10]/85" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.85)_100%)]" />
+          </div>
+        ))}
+
+        {/* Dynamic Celestial Coordinates Tag */}
+        <div className="absolute top-6 right-6 hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[10px] font-mono text-slate-300">
+          <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
+          <span>IMMERSIVE SECTOR: STAGE 0{activeStage + 1} // {current.badge}</span>
+        </div>
+
+        {/* Ambient Subtle Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff06_1px,transparent_1px),linear-gradient(to_bottom,#ffffff06_1px,transparent_1px)] bg-[size:48px_48px] pointer-events-none" />
+      </div>
+
+      <div className="max-w-[1320px] mx-auto px-4 sm:px-6 relative z-10">
         
-        {/* Architectural Container - White */}
-        <div id="process-pinned-container" className="rounded-container bg-white p-7 sm:p-12 lg:p-14 border border-stone-200/90 relative overflow-hidden shadow-xs">
+        {/* Architectural Container - Floating Frosted Glass Observatory Canvas */}
+        <div 
+          id="process-pinned-container" 
+          className="rounded-[32px] sm:rounded-[40px] bg-white/95 backdrop-blur-2xl p-7 sm:p-12 lg:p-14 border border-white/60 relative overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.18)]"
+        >
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             

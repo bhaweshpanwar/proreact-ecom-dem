@@ -13,41 +13,37 @@ export default function IntroSection() {
       const rightCard = document.getElementById('audience-card-right');
       const grid = document.getElementById('intro-cards-grid');
 
-      if (leftCard && rightCard && grid) {
+      if (leftCard && rightCard) {
         const mm = gsap.matchMedia();
 
-        // Desktop (>= 1024px): Dramatic corner arrival with 3D rotation
+        // Desktop (>= 1024px): Fast, responsive, snappy entrance right on time
         mm.add("(min-width: 1024px)", () => {
-          gsap.fromTo(leftCard,
-            { x: '-70vw', y: -150, rotation: -14, scale: 0.9, opacity: 0, transformOrigin: 'top left' },
+          gsap.fromTo([leftCard, rightCard],
+            { y: 50, opacity: 0, scale: 0.96 },
             {
-              x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, duration: 1.25, ease: 'power3.out',
-              scrollTrigger: { trigger: grid, start: 'top 82%', toggleActions: 'play none none reverse' }
-            }
-          );
-          gsap.fromTo(rightCard,
-            { x: '70vw', y: -150, rotation: 14, scale: 0.9, opacity: 0, transformOrigin: 'top right' },
-            {
-              x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, duration: 1.25, ease: 'power3.out',
-              scrollTrigger: { trigger: grid, start: 'top 82%', toggleActions: 'play none none reverse' }
+              y: 0, opacity: 1, scale: 1, duration: 0.75, ease: 'power3.out', stagger: 0.12,
+              scrollTrigger: { 
+                trigger: sectionRef.current, 
+                start: 'top 88%', 
+                toggleActions: 'play none none none',
+                once: true
+              }
             }
           );
         });
 
-        // Mobile (< 1024px): Responsive corner swoop
+        // Mobile (< 1024px): Immediate responsive entrance
         mm.add("(max-width: 1023px)", () => {
-          gsap.fromTo(leftCard,
-            { x: '-50vw', y: -90, rotation: -8, scale: 0.94, opacity: 0, transformOrigin: 'top left' },
+          gsap.fromTo([leftCard, rightCard],
+            { y: 35, opacity: 0, scale: 0.98 },
             {
-              x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, duration: 1.05, ease: 'power3.out',
-              scrollTrigger: { trigger: grid, start: 'top 85%', toggleActions: 'play none none reverse' }
-            }
-          );
-          gsap.fromTo(rightCard,
-            { x: '50vw', y: -90, rotation: 8, scale: 0.94, opacity: 0, transformOrigin: 'top right' },
-            {
-              x: 0, y: 0, rotation: 0, scale: 1, opacity: 1, duration: 1.05, ease: 'power3.out',
-              scrollTrigger: { trigger: rightCard, start: 'top 85%', toggleActions: 'play none none reverse' }
+              y: 0, opacity: 1, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.1,
+              scrollTrigger: { 
+                trigger: sectionRef.current, 
+                start: 'top 92%', 
+                toggleActions: 'play none none none',
+                once: true
+              }
             }
           );
         });

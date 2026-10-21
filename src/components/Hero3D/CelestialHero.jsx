@@ -65,7 +65,7 @@ export default function CelestialHero() {
   }, [selectedComet]);
 
   return (
-    <div id="hero-scroll-track" ref={containerRef} className="relative w-full h-[200vh] z-10">
+    <div id="hero-scroll-track" ref={containerRef} className="relative w-full h-[170vh] z-10">
       <div id="hero-sticky-container" className="sticky top-0 left-0 w-full h-screen overflow-hidden z-10">
         
         {/* 3D WebGL Canvas */}
