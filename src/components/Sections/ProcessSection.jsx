@@ -71,10 +71,10 @@ export default function ProcessSection() {
       if (!cards[0] || !cards[1] || !cards[2] || !cards[3]) return;
 
       // Initial positions
-      gsap.set(cards[0], { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1 });
-      gsap.set(cards[1], { xPercent: 105, yPercent: 4, rotate: 3, scale: 0.95, opacity: 0 });
-      gsap.set(cards[2], { xPercent: 105, yPercent: 4, rotate: 3, scale: 0.95, opacity: 0 });
-      gsap.set(cards[3], { xPercent: 105, yPercent: 4, rotate: 3, scale: 0.95, opacity: 0 });
+      gsap.set(cards[0], { xPercent: 0, scale: 1, opacity: 1 });
+      gsap.set(cards[1], { xPercent: 110, scale: 0.96, opacity: 0 });
+      gsap.set(cards[2], { xPercent: 110, scale: 0.96, opacity: 0 });
+      gsap.set(cards[3], { xPercent: 110, scale: 0.96, opacity: 0 });
 
       const mm = gsap.matchMedia();
 
@@ -86,7 +86,7 @@ export default function ProcessSection() {
             start: 'top 5%',
             end: '+=1800',
             pin: true,
-            scrub: 0.5,
+            scrub: 0.4,
             anticipatePin: 1,
             onUpdate: (self) => {
               const p = self.progress;
@@ -100,19 +100,18 @@ export default function ProcessSection() {
         timelineRef.current = tl;
 
         // 1 -> 2: Stage 1 (Audit) slides in over Stage 0 (Discover)
-        tl.to(cards[1], { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.inOut', duration: 1 }, 0.2);
-        tl.to(cards[0], { scale: 0.94, yPercent: -4, opacity: 0.35, rotate: -1.5, ease: 'power2.inOut', duration: 1 }, 0.2);
+        tl.to(cards[1], { xPercent: 0, scale: 1, opacity: 1, ease: 'none', duration: 1 }, 0.2);
+        tl.to(cards[0], { scale: 0.94, opacity: 0.35, ease: 'none', duration: 1 }, 0.2);
 
         // 2 -> 3: Stage 2 (Build) slides in over Stage 1 (Audit)
-        tl.to(cards[2], { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.inOut', duration: 1 }, 1.4);
-        tl.to(cards[1], { scale: 0.94, yPercent: -4, opacity: 0.35, rotate: -1.5, ease: 'power2.inOut', duration: 1 }, 1.4);
-        tl.to(cards[0], { scale: 0.88, yPercent: -8, opacity: 0.1, rotate: -3, ease: 'power2.inOut', duration: 1 }, 1.4);
+        tl.to(cards[2], { xPercent: 0, scale: 1, opacity: 1, ease: 'none', duration: 1 }, 1.4);
+        tl.to(cards[1], { scale: 0.94, opacity: 0.35, ease: 'none', duration: 1 }, 1.4);
+        tl.to(cards[0], { opacity: 0, ease: 'none', duration: 0.5 }, 1.4);
 
         // 3 -> 4: Stage 3 (Optimise) slides in over Stage 2 (Build)
-        tl.to(cards[3], { xPercent: 0, yPercent: 0, rotate: 0, scale: 1, opacity: 1, ease: 'power2.inOut', duration: 1 }, 2.6);
-        tl.to(cards[2], { scale: 0.94, yPercent: -4, opacity: 0.35, rotate: -1.5, ease: 'power2.inOut', duration: 1 }, 2.6);
-        tl.to(cards[1], { scale: 0.88, yPercent: -8, opacity: 0.1, rotate: -3, ease: 'power2.inOut', duration: 1 }, 2.6);
-        tl.to(cards[0], { opacity: 0, duration: 0.5 }, 2.6);
+        tl.to(cards[3], { xPercent: 0, scale: 1, opacity: 1, ease: 'none', duration: 1 }, 2.6);
+        tl.to(cards[2], { scale: 0.94, opacity: 0.35, ease: 'none', duration: 1 }, 2.6);
+        tl.to(cards[1], { opacity: 0, ease: 'none', duration: 0.5 }, 2.6);
       });
 
       // Mobile (< 768px): Compact Swipe Scroll
@@ -123,7 +122,7 @@ export default function ProcessSection() {
             start: 'top 6%',
             end: '+=1400',
             pin: true,
-            scrub: 0.5,
+            scrub: 0.4,
             anticipatePin: 1,
             onUpdate: (self) => {
               const p = self.progress;
@@ -136,15 +135,15 @@ export default function ProcessSection() {
         });
         timelineRef.current = tlMobile;
 
-        tlMobile.to(cards[1], { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, rotate: 0, ease: 'power2.inOut', duration: 1 }, 0.2);
-        tlMobile.to(cards[0], { scale: 0.94, yPercent: -3, opacity: 0.3, ease: 'power2.inOut', duration: 1 }, 0.2);
+        tlMobile.to(cards[1], { xPercent: 0, scale: 1, opacity: 1, ease: 'none', duration: 1 }, 0.2);
+        tlMobile.to(cards[0], { scale: 0.94, opacity: 0.3, ease: 'none', duration: 1 }, 0.2);
 
-        tlMobile.to(cards[2], { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, rotate: 0, ease: 'power2.inOut', duration: 1 }, 1.4);
-        tlMobile.to(cards[1], { scale: 0.94, yPercent: -3, opacity: 0.3, ease: 'power2.inOut', duration: 1 }, 1.4);
+        tlMobile.to(cards[2], { xPercent: 0, scale: 1, opacity: 1, ease: 'none', duration: 1 }, 1.4);
+        tlMobile.to(cards[1], { scale: 0.94, opacity: 0.3, ease: 'none', duration: 1 }, 1.4);
         tlMobile.to(cards[0], { opacity: 0, duration: 0.5 }, 1.4);
 
-        tlMobile.to(cards[3], { xPercent: 0, yPercent: 0, scale: 1, opacity: 1, rotate: 0, ease: 'power2.inOut', duration: 1 }, 2.6);
-        tlMobile.to(cards[2], { scale: 0.94, yPercent: -3, opacity: 0.3, ease: 'power2.inOut', duration: 1 }, 2.6);
+        tlMobile.to(cards[3], { xPercent: 0, scale: 1, opacity: 1, ease: 'none', duration: 1 }, 2.6);
+        tlMobile.to(cards[2], { scale: 0.94, opacity: 0.3, ease: 'none', duration: 1 }, 2.6);
         tlMobile.to(cards[1], { opacity: 0, duration: 0.5 }, 2.6);
       });
     }, sectionRef);
@@ -183,14 +182,14 @@ export default function ProcessSection() {
               alt={s.heading} 
               className="w-full h-full object-cover scale-105"
               style={{
-                filter: 'blur(14px) brightness(0.40) contrast(1.15)',
+                filter: 'brightness(0.65) contrast(1.05)',
                 transform: activeStage === idx ? 'scale(1.04)' : 'scale(1.0)',
-                transition: 'transform 1.8s ease-out, filter 1s ease'
+                transition: 'transform 1.8s ease-out, opacity 0.8s ease'
               }}
             />
             {/* Ambient Celestial Vignettes */}
-            <div className="absolute inset-0 bg-gradient-to-b from-[#080B10]/80 via-black/35 to-[#080B10]/85" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.85)_100%)]" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#080B10]/75 via-transparent to-[#080B10]/80" />
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(0,0,0,0.1)_0%,rgba(0,0,0,0.75)_100%)]" />
           </div>
         ))}
 
@@ -275,7 +274,7 @@ export default function ProcessSection() {
                     ref={(el) => (cardRefs.current[idx] = el)}
                     id={`process-card-${idx + 1}`}
                     onClick={() => handlePillClick(idx)}
-                    className="absolute inset-0 w-full h-full p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] bg-white border border-stone-200/90 hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col justify-between overflow-hidden select-none cursor-pointer will-change-transform group"
+                    className="absolute inset-0 w-full h-full p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] bg-white border border-stone-200/90 hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-[border-color,box-shadow] duration-300 flex flex-col justify-between overflow-hidden select-none cursor-pointer will-change-transform group"
                     style={{ zIndex: 10 + idx }}
                   >
                     <div>

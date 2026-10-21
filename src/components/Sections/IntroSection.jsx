@@ -13,36 +13,45 @@ export default function IntroSection() {
       const rightCard = document.getElementById('audience-card-right');
       const grid = document.getElementById('intro-cards-grid');
 
-      if (leftCard && rightCard) {
+      if (leftCard && rightCard && grid) {
         const mm = gsap.matchMedia();
 
-        // Desktop (>= 1024px): Fast, responsive, snappy entrance right on time
+        // Desktop (>= 1024px): Smooth swiping-in entrance from left and right
         mm.add("(min-width: 1024px)", () => {
-          gsap.fromTo([leftCard, rightCard],
-            { y: 50, opacity: 0, scale: 0.96 },
+          gsap.fromTo(leftCard,
+            { x: -90, opacity: 0, scale: 0.95 },
             {
-              y: 0, opacity: 1, scale: 1, duration: 0.75, ease: 'power3.out', stagger: 0.12,
+              x: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
               scrollTrigger: { 
-                trigger: sectionRef.current, 
-                start: 'top 88%', 
-                toggleActions: 'play none none none',
-                once: true
+                trigger: grid, 
+                start: 'top 85%', 
+                toggleActions: 'play none none reverse'
+              }
+            }
+          );
+          gsap.fromTo(rightCard,
+            { x: 90, opacity: 0, scale: 0.95 },
+            {
+              x: 0, opacity: 1, scale: 1, duration: 0.9, ease: 'power3.out',
+              scrollTrigger: { 
+                trigger: grid, 
+                start: 'top 85%', 
+                toggleActions: 'play none none reverse'
               }
             }
           );
         });
 
-        // Mobile (< 1024px): Immediate responsive entrance
+        // Mobile (< 1024px): Smooth vertical swipe
         mm.add("(max-width: 1023px)", () => {
           gsap.fromTo([leftCard, rightCard],
-            { y: 35, opacity: 0, scale: 0.98 },
+            { y: 40, opacity: 0, scale: 0.97 },
             {
-              y: 0, opacity: 1, scale: 1, duration: 0.65, ease: 'power3.out', stagger: 0.1,
+              y: 0, opacity: 1, scale: 1, duration: 0.75, ease: 'power3.out', stagger: 0.15,
               scrollTrigger: { 
-                trigger: sectionRef.current, 
-                start: 'top 92%', 
-                toggleActions: 'play none none none',
-                once: true
+                trigger: grid, 
+                start: 'top 88%', 
+                toggleActions: 'play none none reverse'
               }
             }
           );
@@ -112,7 +121,7 @@ export default function IntroSection() {
         <div id="intro-cards-grid" className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-20" style={{ perspective: '1600px' }}>
           
           {/* LEFT PANEL: Modern architectural #FFFFFF -> Marketplace Growth */}
-          <div id="audience-card-left" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-white hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-8 sm:p-10 border border-stone-200/90 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs cursor-pointer">
+          <div id="audience-card-left" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-white hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-8 sm:p-10 border border-stone-200/90 transition-[border-color,box-shadow] duration-300 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs cursor-pointer">
             <div className="mb-8">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-2">For brands that sell online</span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 leading-tight mb-4">
@@ -169,7 +178,7 @@ export default function IntroSection() {
           </div>
 
           {/* RIGHT PANEL: Modern architectural #FFFFFF -> Marketing & Websites */}
-          <div id="audience-card-right" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-white hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-8 sm:p-10 border border-stone-200/90 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs cursor-pointer">
+          <div id="audience-card-right" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-white hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-8 sm:p-10 border border-stone-200/90 transition-[border-color,box-shadow] duration-300 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs cursor-pointer">
             <div className="mb-8">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-2">For businesses that need customers</span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 leading-tight mb-4">

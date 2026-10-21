@@ -3,7 +3,7 @@ import { CelestialEngine } from './CelestialEngine';
 import ServiceDrawer from './ServiceDrawer';
 import WhiteoutIntroStage from './WhiteoutIntroStage';
 
-export default function CelestialHero() {
+export default function CelestialHero({ renderOverlay, trackHeightClass = "h-[200vh]" } = {}) {
   const containerRef = useRef(null);
   const canvasRef = useRef(null);
   const labelsRef = useRef(null);
@@ -65,7 +65,7 @@ export default function CelestialHero() {
   }, [selectedComet]);
 
   return (
-    <div id="hero-scroll-track" ref={containerRef} className="relative w-full h-[170vh] z-10">
+    <div id="hero-scroll-track" ref={containerRef} className={`relative w-full ${trackHeightClass} z-10`}>
       <div id="hero-sticky-container" className="sticky top-0 left-0 w-full h-screen overflow-hidden z-10">
         
         {/* 3D WebGL Canvas */}
@@ -86,8 +86,8 @@ export default function CelestialHero() {
           }} 
         />
 
-        {/* Pure Whiteout Transition Hand-off */}
-        <WhiteoutIntroStage progress={scrollProgress} />
+        {/* Dynamic Transition Stage Hand-off */}
+        {renderOverlay ? renderOverlay(scrollProgress) : <WhiteoutIntroStage progress={scrollProgress} />}
 
       </div>
     </div>

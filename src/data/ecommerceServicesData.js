@@ -8384,17 +8384,16 @@ export const ECOMMERCE_SERVICES_DATA = {
         "Managing a WooCommerce store involves more than uploading products. Product information, stock records, pricing, orders, website content, plugins, updates and routine technical checks may all require attention.",
         "E-COMET OUTVERSE helps businesses manage these activities according to their operational requirements and agreed service scope.",
         "Our business-first approach begins with understanding your store, catalogue size, current setup, update frequency and management challenges. We then identify the support required and establish clear responsibilities, access permissions and workflows.",
-        "WooCommerce product catalogue updates",
-        "Product categories, attributes and variations",
-        "Inventory and stock information coordination",
-        "Authorised pricing and promotional updates",
-        "Order monitoring and administrative coordination",
-        "WordPress page and content updates",
-        "WooCommerce settings and configuration support",
-        "Plugin and theme update coordination",
-        "Routine website checks and issue reporting",
-        "Store reports and improvement recommendations",
-        "CTA: Plan Your WooCommerce Store Management"
+        "A. WooCommerce product catalogue updates",
+        "B. Product categories, attributes and variations",
+        "C. Inventory and stock information coordination",
+        "D. Authorised pricing and promotional updates",
+        "E. Order monitoring and administrative coordination",
+        "F. WordPress page and content updates",
+        "G. WooCommerce settings and configuration support",
+        "H. Plugin and theme update coordination",
+        "I. Routine website checks and issue reporting",
+        "J. Store reports and improvement recommendations",
       ]
     },
     "capabilities": [
@@ -8403,7 +8402,6 @@ export const ECOMMERCE_SERVICES_DATA = {
         "title": "Product Catalogue Management",
         "desc": "Keep your product catalogue organised and consistent as your business introduces new products or updates existing information.",
         "deliverables": [
-          "Our services may include:",
           "Adding new products to WooCommerce",
           "Updating existing product information",
           "Editing product titles and descriptions",
@@ -8414,17 +8412,17 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Managing simple and variable product information",
           "Updating product status as instructed",
           "Reviewing catalogue consistency",
+        ],
+        "benefit": [
           "Suitable for: Retailers, manufacturers, wholesalers, D2C brands and businesses with frequently changing product catalogues.",
           "The agreed quotation will specify product limits, variations, image preparation, data requirements and update frequency."
-        ],
-        "benefit": []
+        ]
       },
       {
         "code": "02",
         "title": "Product Variations, Categories & Attributes",
         "desc": "WooCommerce stores may require detailed product organisation, particularly when products have different sizes, colours, materials, styles or other variations.",
         "deliverables": [
-          "Our services may include:",
           "Configuring approved product attributes",
           "Updating product variations",
           "Organising product categories",
@@ -8433,16 +8431,16 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Coordinating variation images where supported",
           "Reviewing product filters available through the site's theme or plugins",
           "Maintaining consistent product organisation",
-          "The final setup depends on the product structure, installed theme, available plugins and agreed scope."
         ],
-        "benefit": []
+        "benefit": [
+          "The final setup depends on the product structure, installed theme, available plugins and agreed scope."
+        ]
       },
       {
         "code": "03",
         "title": "Inventory & Stock Update Coordination",
         "desc": "Help maintain accurate store inventory information using data supplied by your business or its authorised inventory system.",
         "deliverables": [
-          "Our services may include:",
           "Updating stock quantities",
           "Reviewing product availability settings",
           "Updating out-of-stock product status",
@@ -8451,17 +8449,17 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Checking inventory-related settings within the agreed scope",
           "Assisting with supported inventory plugins or integrations",
           "Flagging discrepancies identified during routine checks",
+        ],
+        "benefit": [
           "Reliable inventory management depends on accurate stock data from your business or inventory provider.",
           "Physical stock counting, warehouse operations, procurement, storage and inventory custody are not included unless separately agreed."
-        ],
-        "benefit": []
+        ]
       },
       {
         "code": "04",
         "title": "Pricing & Promotional Updates",
         "desc": "Keep product pricing and promotional information aligned with your approved business decisions.",
         "deliverables": [
-          "Our services may include:",
           "Updating regular product prices",
           "Entering approved sale prices",
           "Coordinating scheduled promotional updates where supported",
@@ -8469,16 +8467,16 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Reviewing price consistency across product variations",
           "Updating approved product descriptions and specifications",
           "Coordinating seasonal catalogue changes",
-          "E-COMET will not independently make pricing, discount or commercial decisions. Your business remains responsible for approving prices, promotions, product claims and relevant legal requirements."
         ],
-        "benefit": []
+        "benefit": [
+          "E-COMET will not independently make pricing, discount or commercial decisions. Your business remains responsible for approving prices, promotions, product claims and relevant legal requirements."
+        ]
       },
       {
         "code": "05",
         "title": "Order Monitoring & Processing Coordination",
         "desc": "Help your team maintain visibility over orders and agreed administrative activities within WooCommerce.",
         "deliverables": [
-          "Our services may include:",
           "Monitoring order status",
           "Reviewing order information for administrative completeness",
           "Coordinating authorised order-status updates",
@@ -8486,17 +8484,17 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Preparing agreed order summaries",
           "Coordinating supported shipping or fulfilment integrations",
           "Identifying unresolved order exceptions within the agreed workflow",
+        ],
+        "benefit": [
           "Order cancellations, refunds, fulfilment instructions and customer commitments will follow your approved procedures and permissions.",
           "Important: Physical picking, packing, dispatch, delivery and warehouse operations are not included unless specifically contracted. Your business or its appointed fulfilment provider remains responsible for fulfilling orders."
-        ],
-        "benefit": []
+        ]
       },
       {
         "code": "06",
         "title": "WordPress Website Content Management",
         "desc": "Because WooCommerce operates within WordPress, store management may also involve updating relevant website content.",
         "deliverables": [
-          "Our services may include:",
           "Updating agreed WordPress pages",
           "Editing homepage content",
           "Updating contact and business information",
@@ -8505,16 +8503,16 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Updating banners supplied by the business",
           "Reviewing navigation menus and links",
           "Maintaining agreed product-related landing pages",
-          "New website sections, extensive copywriting, custom development and major redesigns may require a separate quotation."
         ],
-        "benefit": []
+        "benefit": [
+          "New website sections, extensive copywriting, custom development and major redesigns may require a separate quotation."
+        ]
       },
       {
         "code": "07",
         "title": "WooCommerce Settings & Configuration Support",
         "desc": "Help maintain the store's relevant configuration based on your business model and supported WooCommerce features.",
         "deliverables": [
-          "Our services may include:",
           "Reviewing general store settings",
           "Coordinating product display settings",
           "Assisting with tax configuration based on approved instructions",
@@ -8523,17 +8521,17 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Coordinating customer notification settings",
           "Reviewing basic checkout-related settings",
           "Assisting with supported extensions and integrations",
+        ],
+        "benefit": [
           "Payment gateway availability, tax configuration and other settings depend on your business, location, hosting setup, installed extensions and applicable rules.",
           "Tax and legal decisions should be reviewed by qualified professionals where necessary. Payment provider approval is not guaranteed."
-        ],
-        "benefit": []
+        ]
       },
       {
         "code": "08",
         "title": "WordPress Plugins & Theme Maintenance",
         "desc": "Plugins and themes can affect the store's functionality, appearance, compatibility and performance. They therefore require appropriate maintenance.",
         "deliverables": [
-          "Our services may include:",
           "Reviewing installed plugins within the agreed scope",
           "Coordinating routine plugin updates",
           "Coordinating theme updates",
@@ -8542,17 +8540,17 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Reviewing plugin-related warnings",
           "Coordinating update planning",
           "Recommending additional technical investigation when required",
+        ],
+        "benefit": [
           "Updates can occasionally cause compatibility issues. Appropriate backups and testing procedures should be established before significant changes.",
           "Premium plugin licences, paid themes, specialist developer charges and emergency repairs are separate unless expressly included."
-        ],
-        "benefit": []
+        ]
       },
       {
         "code": "09",
         "title": "Website Backup, Security & Technical Health Coordination",
         "desc": "Support routine website maintenance through agreed checks and preventive workflows.",
         "deliverables": [
-          "Our services may include:",
           "Reviewing available backup arrangements",
           "Coordinating scheduled backups through supported tools",
           "Checking basic website availability",
@@ -8561,17 +8559,17 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Reviewing basic website health indicators",
           "Identifying issues that require specialist attention",
           "Coordinating with hosting or technical support providers",
+        ],
+        "benefit": [
           "Actual backup frequency, restoration testing, malware remediation, incident response and security monitoring must be explicitly defined in the service agreement.",
           "No website can be guaranteed to be completely secure. Advanced security investigations, hacked-site recovery and emergency incident response may require separate specialist support."
-        ],
-        "benefit": []
+        ]
       },
       {
         "code": "10",
         "title": "WooCommerce SEO & Product Page Maintenance",
         "desc": "Help maintain the clarity and search-related structure of your product and category pages.",
         "deliverables": [
-          "Our services may include:",
           "Updating approved product page titles and descriptions",
           "Maintaining meta titles and meta descriptions through supported SEO tools",
           "Reviewing heading structure",
@@ -8580,16 +8578,16 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Reviewing internal links",
           "Identifying broken links within the agreed scope",
           "Coordinating basic indexing and sitemap checks where applicable",
-          "SEO work depends on the site's configuration, content quality, technical condition and available tools. Search rankings, traffic and sales cannot be guaranteed."
         ],
-        "benefit": []
+        "benefit": [
+          "SEO work depends on the site's configuration, content quality, technical condition and available tools. Search rankings, traffic and sales cannot be guaranteed."
+        ]
       },
       {
         "code": "11",
         "title": "Website Performance & Storefront Checks",
         "desc": "Support the ongoing usability of your store by reviewing agreed customer-facing pages and reporting visible issues.",
         "deliverables": [
-          "Our services may include:",
           "Reviewing key product and category pages",
           "Checking navigation and important links",
           "Reviewing visible mobile layout issues",
@@ -8598,9 +8596,10 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Reviewing image optimisation opportunities",
           "Coordinating caching or optimisation plugin settings where appropriate",
           "Recommending further technical improvements",
-          "Advanced performance engineering, custom coding and hosting infrastructure changes are not automatically included in routine store management."
         ],
-        "benefit": []
+        "benefit": [
+          "Advanced performance engineering, custom coding and hosting infrastructure changes are not automatically included in routine store management."
+        ]
       },
       {
         "code": "12",
@@ -8616,9 +8615,10 @@ export const ECOMMERCE_SERVICES_DATA = {
           "Available WooCommerce analytics summaries",
           "Maintenance activity summaries",
           "Recommendations for catalogue and workflow improvements",
-          "Reports will follow the agreed frequency and format. Recommendations are intended to support business decisions, not guarantee specific performance outcomes."
         ],
-        "benefit": []
+        "benefit": [
+          "Reports will follow the agreed frequency and format. Recommendations are intended to support business decisions, not guarantee specific performance outcomes."
+        ]
       }
     ],
     "whoBenefits": [
@@ -8762,13 +8762,12 @@ export const ECOMMERCE_SERVICES_DATA = {
             "Reporting frequency",
             "Included revisions",
             "Exclusions and additional-work approval procedures",
-            "Hosting fees, premium plugin licences, paid themes, third-party services, payment processing charges and other external costs are separate unless explicitly included."
           ],
           "notes": [],
           "cta": "Discuss a Cosmic Solution"
         }
       ],
-      "policy": "Scope, deliverables and service fees are confirmed after initial consultation. E-COMET OUTVERSE does not guarantee sales, ranking or specific ROAS."
+      "policy": "Hosting fees, premium plugin licences, paid themes, third-party services, payment processing charges and other external costs are separate unless explicitly included. Scope, deliverables and service fees are confirmed after initial consultation. E-COMET OUTVERSE does not guarantee sales, ranking or specific ROAS."
     },
     "whyChoose": [
       {
