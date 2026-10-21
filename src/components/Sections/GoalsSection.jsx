@@ -34,9 +34,6 @@ export default function GoalsSection() {
           
           {/* Header - Left Aligned */}
           <div className="max-w-3xl mb-10 sm:mb-14 text-left">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-              02 · Growth Blueprint
-            </span>
             <h2 id="goals-heading" className="text-3xl sm:text-5xl lg:text-6xl font-serif text-space-950 tracking-tight leading-tight mb-4">
               What can we do for <span className="italic">you</span>?
             </h2>

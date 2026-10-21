@@ -76,7 +76,6 @@ export default function CapabilitiesSection() {
 
           {/* Section Header - Left Aligned */}
           <div className="text-left max-w-2xl mb-12 sm:mb-16">
-            <span className="text-xs font-sans text-space-600 uppercase tracking-widest block mb-2">Capabilities</span>
             <h2 id="services-heading" className="text-4xl sm:text-5xl lg:text-6xl font-serif text-space-950 tracking-tight leading-tight">
               For everything your growth needs.
             </h2>
@@ -166,7 +165,7 @@ export default function CapabilitiesSection() {
                 <div className="service-row space-y-6 pb-12 hairline-b">
                   <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
                     <img 
-                      src="/images/space/card-traffic.jpg" 
+                      src="/images/space/ring-part-2.jpg" 
                       alt="Full-Funnel Ad Optimization Cosmic Trajectory" 
                       className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
                       loading="lazy"
@@ -202,7 +201,7 @@ export default function CapabilitiesSection() {
                 <div className="service-row space-y-6">
                   <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
                     <img 
-                      src="/images/space/process-scale.jpg" 
+                      src="/images/space/ring-part-three.jpg" 
                       alt="Enquiry Velocity & Pipeline High Speed Comet" 
                       className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
                       loading="lazy"
