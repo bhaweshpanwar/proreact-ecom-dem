@@ -128,18 +128,26 @@ export default function CapabilitiesSection() {
                 
                 {/* SEO */}
                 <div className="service-row space-y-6 pb-12 hairline-b">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/dark-card-ads.jpg" 
+                      alt="Organic Search Visibility Galaxy Telemetry" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">ORGANIC TELEMETRY</span>
                       <h4 className="font-serif text-2xl text-white">High-Intent SERP Dominance</h4>
                       <p className="text-xs text-slate-400">Position #1 tracking across 450+ transactional search terms.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">ORGANIC CLICKS</span>
                         <span className="text-lg font-bold text-white">+280%</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">AVG POSITION</span>
                         <span className="text-lg font-bold text-blue-400">1.8</span>
                       </div>
@@ -156,18 +164,26 @@ export default function CapabilitiesSection() {
 
                 {/* Paid Ads */}
                 <div className="service-row space-y-6 pb-12 hairline-b">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/card-traffic.jpg" 
+                      alt="Full-Funnel Ad Optimization Cosmic Trajectory" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">AUCTION BIDDING ENGINE</span>
                       <h4 className="font-serif text-2xl text-white">Full-Funnel Ad Optimization</h4>
                       <p className="text-xs text-slate-400">Real-time ROAS algorithmic budget reallocation across Google & Meta.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">BLENDED ROAS</span>
                         <span className="text-lg font-bold text-blue-400">4.6x</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">CAC REDUCTION</span>
                         <span className="text-lg font-bold text-emerald-400">-38%</span>
                       </div>
@@ -184,18 +200,26 @@ export default function CapabilitiesSection() {
 
                 {/* Lead Gen */}
                 <div className="service-row space-y-6">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/process-scale.jpg" 
+                      alt="Enquiry Velocity & Pipeline High Speed Comet" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">CONVERSION ARCHITECTURE</span>
                       <h4 className="font-serif text-2xl text-white">Enquiry Velocity & Pipeline</h4>
                       <p className="text-xs text-slate-400">Automated WhatsApp & CRM sync turning intent into closed revenue.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">SQL PIPELINE</span>
                         <span className="text-lg font-bold text-white">₹12.4 Cr</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">CONVERSION RATE</span>
                         <span className="text-lg font-bold text-blue-400">8.2%</span>
                       </div>
@@ -219,18 +243,26 @@ export default function CapabilitiesSection() {
                 
                 {/* Launch */}
                 <div className="service-row space-y-6 pb-12 hairline-b">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/card-marketplace.jpg" 
+                      alt="Marketplace Account Clean Setup Orbital Satellite" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">CATALOGUE PROTOCOL</span>
                       <h4 className="font-serif text-2xl text-white">Marketplace Account Clean Setup</h4>
                       <p className="text-xs text-slate-400">Brand registry, GTIN exemptions, and zero-defect catalogue sync.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">ACCOUNT HEALTH</span>
                         <span className="text-lg font-bold text-emerald-400">100% Zero Defect</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">CHANNELS</span>
                         <span className="text-lg font-bold text-white">5 Active Platforms</span>
                       </div>
@@ -247,18 +279,26 @@ export default function CapabilitiesSection() {
 
                 {/* Listing SEO */}
                 <div className="service-row space-y-6 pb-12 hairline-b">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/dark-card-market.jpg" 
+                      alt="Listing SEO & A+ Architecture Orbital Disc" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">CONVERSION LIFT</span>
                       <h4 className="font-serif text-2xl text-white">Listing SEO &amp; A+ Architecture</h4>
                       <p className="text-xs text-slate-400">Algorithmic backend search terms, infographics, and premium brand storytelling.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">BUY BOX SHARE</span>
                         <span className="text-lg font-bold text-blue-400">99.4%</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">CVR UPLIFT</span>
                         <span className="text-lg font-bold text-white">+52%</span>
                       </div>
@@ -275,18 +315,26 @@ export default function CapabilitiesSection() {
 
                 {/* Ads Scale */}
                 <div className="service-row space-y-6">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/process-audit.jpg" 
+                      alt="Marketplace PPC Target ACOS Management" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">MARKETPLACE PPC</span>
                       <h4 className="font-serif text-2xl text-white">Target ACOS Management</h4>
                       <p className="text-xs text-slate-400">Sponsored Products, Brands &amp; Display driving category bestseller badges.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">TARGET ACOS</span>
                         <span className="text-lg font-bold text-emerald-400">14.2%</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">ORGANIC TACOS</span>
                         <span className="text-lg font-bold text-white">6.1%</span>
                       </div>
@@ -310,18 +358,26 @@ export default function CapabilitiesSection() {
                 
                 {/* Sites */}
                 <div className="service-row space-y-6 pb-12 hairline-b">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/dark-card-web.jpg" 
+                      alt="Editorial Performance Architecture Planetoid" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-sky-400">ENTERPRISE WEB</span>
                       <h4 className="font-serif text-2xl text-white">Editorial Performance Architecture</h4>
                       <p className="text-xs text-slate-400">Modern headless and React stacks engineered for credibility and conversion.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">LIGHTHOUSE</span>
                         <span className="text-lg font-bold text-sky-400">99 / 100</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">TIME TO FIRST BYTE</span>
                         <span className="text-lg font-bold text-white">&lt; 180ms</span>
                       </div>
@@ -338,18 +394,26 @@ export default function CapabilitiesSection() {
 
                 {/* Stores */}
                 <div className="service-row space-y-6 pb-12 hairline-b">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/card-marketplace.jpg" 
+                      alt="Frictionless Shopify Architecture Orbital Network" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-sky-400">D2C COMMERCE</span>
                       <h4 className="font-serif text-2xl text-white">Frictionless Shopify Architecture</h4>
                       <p className="text-xs text-slate-400">Sub-second checkout, custom cart drawers, and upsell telemetry.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">CHECKOUT CVR</span>
                         <span className="text-lg font-bold text-emerald-400">4.8%</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">AVERAGE ORDER VALUE</span>
                         <span className="text-lg font-bold text-white">+28%</span>
                       </div>
@@ -366,18 +430,26 @@ export default function CapabilitiesSection() {
 
                 {/* Speed & Maintenance */}
                 <div className="service-row space-y-6">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/process-build.jpg" 
+                      alt="Edge CDN & Security Shield Global Space Network" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-sky-400">INFRASTRUCTURE</span>
                       <h4 className="font-serif text-2xl text-white">Edge CDN &amp; Security Shield</h4>
                       <p className="text-xs text-slate-400">Proactive patch cycles, 24/7 uptime monitoring, and vulnerability hardening.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">UPTIME SLA</span>
                         <span className="text-lg font-bold text-sky-400">99.99%</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">GLOBAL EDGE</span>
                         <span className="text-lg font-bold text-white">&lt; 0.4s</span>
                       </div>
@@ -401,18 +473,26 @@ export default function CapabilitiesSection() {
                 
                 {/* Brand Identity */}
                 <div className="service-row space-y-6 pb-12 hairline-b">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/dark-card-creative.jpg" 
+                      alt="Distinctive Visual Identity Planetary Atmosphere" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-indigo-400">SYSTEM DESIGN</span>
                       <h4 className="font-serif text-2xl text-white">Distinctive Visual Identity</h4>
                       <p className="text-xs text-slate-400">Typography hierarchies, modular palette systems, and asset brand books.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">TOKEN SYSTEM</span>
                         <span className="text-lg font-bold text-indigo-400">Unified</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">BRAND ASSETS</span>
                         <span className="text-lg font-bold text-white">120+ Components</span>
                       </div>
@@ -429,18 +509,26 @@ export default function CapabilitiesSection() {
 
                 {/* Reels & Motion */}
                 <div className="service-row space-y-6 pb-12 hairline-b">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/why-celestial.jpg" 
+                      alt="High-Retention Motion Film Celestial Spiral" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-indigo-400">MOTION LAB</span>
                       <h4 className="font-serif text-2xl text-white">High-Retention Motion Film</h4>
                       <p className="text-xs text-slate-400">First-3-second hook mechanics and high-tempo commercial editing.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">RETENTION CURVE</span>
                         <span className="text-lg font-bold text-emerald-400">+64% 3s Hook</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">VIDEO VIEWS</span>
                         <span className="text-lg font-bold text-white">24M+ Total</span>
                       </div>
@@ -457,18 +545,26 @@ export default function CapabilitiesSection() {
 
                 {/* Product Creatives */}
                 <div className="service-row space-y-6">
-                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
-                    <div className="space-y-2 max-w-xs">
+                  <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm relative group/panel cursor-pointer hover:border-slate-600 transition-all">
+                    <img 
+                      src="/images/space/work-1.jpg" 
+                      alt="Packaging & Lifestyle Rendering Deep Cosmic Art" 
+                      className="absolute inset-0 w-full h-full object-cover opacity-50 group-hover/panel:scale-105 group-hover/panel:opacity-60 transition-all duration-700 pointer-events-none"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-[#0E1218] via-[#0E1218]/85 to-transparent pointer-events-none" />
+
+                    <div className="relative z-10 space-y-2 max-w-xs">
                       <span className="text-[10px] font-mono uppercase tracking-widest text-indigo-400">COMMERCIAL ASSETS</span>
                       <h4 className="font-serif text-2xl text-white">Packaging &amp; Lifestyle Rendering</h4>
                       <p className="text-xs text-slate-400">Photorealistic 3D packaging renders, tactile materials, and A+ modules.</p>
                     </div>
-                    <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                    <div className="relative z-10 hidden sm:flex items-center gap-4 font-mono text-xs">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">CLICK-THROUGH (CTR)</span>
                         <span className="text-lg font-bold text-indigo-400">+41% Lift</span>
                       </div>
-                      <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
+                      <div className="p-4 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">PACKAGING UNITS</span>
                         <span className="text-lg font-bold text-white">100% Print-Ready</span>
                       </div>

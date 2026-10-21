@@ -17,10 +17,10 @@ export default function FaqSection() {
     return (
       <div 
         key={idx} 
-        className={`group relative rounded-[24px] sm:rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 transition-all duration-300 p-6 sm:p-7 overflow-hidden ${
+        className={`group relative rounded-[24px] sm:rounded-[28px] bg-white border border-stone-200/90 transition-all duration-300 p-6 sm:p-7 overflow-hidden cursor-pointer ${
           isOpen 
-            ? 'bg-white border-[#080B10] shadow-[0_15px_35px_rgba(0,0,0,0.05)]' 
-            : 'hover:bg-white hover:border-[#080B10] hover:shadow-[0_15px_35px_rgba(0,0,0,0.04)]'
+            ? 'border-slate-300 shadow-[0_15px_35px_rgba(0,0,0,0.06)]' 
+            : 'hover:border-slate-300 hover:shadow-[0_15px_35px_rgba(0,0,0,0.04)]'
         }`}
       >
         <button 
@@ -34,7 +34,7 @@ export default function FaqSection() {
           </h3>
           <span 
             className={`w-8 h-8 rounded-full border border-stone-200 bg-white flex items-center justify-center text-sm font-mono text-space-950 flex-shrink-0 transition-all duration-300 shadow-2xs ${
-              isOpen ? 'rotate-45 bg-[#080B10] text-white border-[#080B10]' : 'group-hover:border-[#080B10]'
+              isOpen ? 'rotate-45 bg-[#080B10] text-white border-[#080B10]' : 'group-hover:border-slate-400'
             }`}
           >
             +

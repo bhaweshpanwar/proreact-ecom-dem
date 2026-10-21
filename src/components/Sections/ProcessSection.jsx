@@ -15,7 +15,7 @@ const STAGES = [
     shortDesc: 'We learn the business, unit economics, current channels and customer search intent.',
     footer: '01 · AUDIT & SCOPE',
     rail: '25%',
-    img: '/assets/img1/Search & Performance Workspace.png'
+    img: '/images/space/process-discover.jpg'
   },
   {
     num: '02 / 04',
@@ -27,7 +27,7 @@ const STAGES = [
     shortDesc: 'We find the gaps, catalog errors and the biggest growth opportunities across channels.',
     footer: '02 · HIGH-LEVERAGE BLUEPRINT',
     rail: '50%',
-    img: '/assets/img1/marketplace-ppc-scale.png'
+    img: '/images/space/process-audit.jpg'
   },
   {
     num: '03 / 04',
@@ -39,7 +39,7 @@ const STAGES = [
     shortDesc: 'Campaigns, listings, web updates and creative modules go live simultaneously.',
     footer: '03 · OMNI-CHANNEL GO LIVE',
     rail: '75%',
-    img: '/assets/img1/shopify-flagship-store.png'
+    img: '/images/space/process-build.jpg'
   },
   {
     num: '04 / 04',
@@ -51,7 +51,7 @@ const STAGES = [
     shortDesc: 'We measure, improve and scale unit economics systematically through weekly calibrations.',
     footer: '04 · SYSTEMATIC COMPOUNDING',
     rail: '100%',
-    img: '/assets/img1/attribution-funnel.png'
+    img: '/images/space/process-scale.jpg'
   }
 ];
 
@@ -231,7 +231,7 @@ export default function ProcessSection() {
                     ref={(el) => (cardRefs.current[idx] = el)}
                     id={`process-card-${idx + 1}`}
                     onClick={() => handlePillClick(idx)}
-                    className="absolute inset-0 w-full h-full p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] hover:bg-white border border-stone-200/90 hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 flex flex-col justify-between overflow-hidden select-none cursor-pointer will-change-transform group"
+                    className="absolute inset-0 w-full h-full p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] bg-white border border-stone-200/90 hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 flex flex-col justify-between overflow-hidden select-none cursor-pointer will-change-transform group"
                     style={{ zIndex: 10 + idx }}
                   >
                     <div>
@@ -249,28 +249,41 @@ export default function ProcessSection() {
                       </p>
                     </div>
 
-                    {/* Vector Architecture Stage Visualizer (No Images) */}
-                    <div className="relative w-full h-44 sm:h-52 rounded-2xl bg-white border border-stone-200/80 p-5 overflow-hidden flex flex-col justify-between mt-auto shadow-2xs">
-                      <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
-                        <span>SYSTEM ARCHITECTURE PROTOCOL</span>
-                        <span className="text-space-950 font-bold">ACTIVE</span>
+                    {/* Visual Space Architecture Stage Showcase */}
+                    <div className="relative w-full h-44 sm:h-52 rounded-2xl overflow-hidden flex flex-col justify-between mt-auto border border-stone-200/80 shadow-2xs p-5 select-none group/stage">
+                      <img 
+                        src={s.img} 
+                        alt={s.heading} 
+                        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/stage:scale-105"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/45 to-black/30 pointer-events-none" />
+
+                      <div className="relative z-10 flex items-center justify-between text-[11px] font-mono text-white/90">
+                        <span className="tracking-wider">SYSTEM ARCHITECTURE PROTOCOL</span>
+                        <span className="text-emerald-400 font-bold flex items-center gap-1.5">
+                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                          ACTIVE
+                        </span>
                       </div>
-                      <div className="grid grid-cols-3 gap-3 my-auto">
-                        <div className="p-3 rounded-xl bg-[#FAFAFA] border border-stone-200/70 text-center">
-                          <span className="text-[10px] font-mono text-slate-400 uppercase block">Phase</span>
-                          <span className="text-sm font-bold text-space-950 font-sans">0{idx + 1} Execution</span>
+
+                      <div className="relative z-10 grid grid-cols-3 gap-2.5 my-auto">
+                        <div className="p-2 sm:p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
+                          <span className="text-[9.5px] font-mono text-slate-300 uppercase block">Phase</span>
+                          <span className="text-xs sm:text-sm font-bold text-white font-sans">0{idx + 1} Run</span>
                         </div>
-                        <div className="p-3 rounded-xl bg-[#FAFAFA] border border-stone-200/70 text-center">
-                          <span className="text-[10px] font-mono text-slate-400 uppercase block">Cadence</span>
-                          <span className="text-sm font-bold text-space-950 font-sans">Bi-Weekly</span>
+                        <div className="p-2 sm:p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
+                          <span className="text-[9.5px] font-mono text-slate-300 uppercase block">Cadence</span>
+                          <span className="text-xs sm:text-sm font-bold text-white font-sans">Bi-Weekly</span>
                         </div>
-                        <div className="p-3 rounded-xl bg-[#FAFAFA] border border-stone-200/70 text-center">
-                          <span className="text-[10px] font-mono text-slate-400 uppercase block">Target</span>
-                          <span className="text-sm font-bold text-space-950 font-sans">Optimal CAC</span>
+                        <div className="p-2 sm:p-2.5 rounded-xl bg-black/60 backdrop-blur-md border border-white/10 text-center">
+                          <span className="text-[9.5px] font-mono text-slate-300 uppercase block">Target</span>
+                          <span className="text-xs sm:text-sm font-bold text-cyan-300 font-sans">Optimal CAC</span>
                         </div>
                       </div>
-                      <div className="w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
-                        <div className="bg-[#080B10] h-full rounded-full" style={{ width: `${(idx + 1) * 25}%` }} />
+
+                      <div className="relative z-10 w-full bg-white/20 h-1.5 rounded-full overflow-hidden">
+                        <div className="bg-white h-full rounded-full transition-all duration-500" style={{ width: `${(idx + 1) * 25}%` }} />
                       </div>
                     </div>
 

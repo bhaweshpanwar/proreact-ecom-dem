@@ -59,7 +59,7 @@ export default function GoalsSection() {
                   className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-sans font-medium transition-all cursor-pointer flex items-center gap-2 select-none ${
                     isActive
                       ? 'bg-[#080B10] text-white border border-[#080B10] shadow-md ring-2 ring-[#080B10]/10'
-                      : 'bg-[#FAFAFA] text-space-800 border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-xs'
+                      : 'bg-white text-space-800 border border-stone-200/90 hover:border-slate-300 hover:shadow-xs'
                   }`}
                 >
                   <span>{item.label}</span>
@@ -68,8 +68,8 @@ export default function GoalsSection() {
             })}
           </div>
 
-          {/* Dynamic Results Card - Off-White #FAFAFA, turns White on Hover */}
-          <div id="goal-results-card" className="w-full max-w-full bg-[#FAFAFA] hover:bg-white rounded-[28px] sm:rounded-[32px] p-7 sm:p-12 border border-stone-200/90 hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 relative overflow-hidden group">
+          {/* Dynamic Results Card - Clean White Architectural Card */}
+          <div id="goal-results-card" className="w-full max-w-full bg-white rounded-[28px] sm:rounded-[32px] p-7 sm:p-12 border border-stone-200/90 hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 relative overflow-hidden group cursor-pointer">
             <div ref={contentRef} className="blueprint-content-wrap space-y-6 sm:space-y-8 will-change-transform">
               
               {/* Top Meta Row */}
@@ -116,6 +116,31 @@ export default function GoalsSection() {
                 </p>
               </div>
 
+              {/* Space Feature Showcase Banner */}
+              <div className="w-full h-32 sm:h-36 rounded-2xl overflow-hidden relative border border-slate-200/80 shadow-xs flex items-center justify-between p-6 select-none group/banner">
+                <img 
+                  src="/images/space/goals-galaxy.jpg" 
+                  alt="Milky Way Galaxy and Planetary Deep Space Orbit" 
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover/banner:scale-105"
+                  loading="lazy"
+                />
+                <div className="absolute inset-0 bg-gradient-to-r from-black/90 via-black/60 to-black/80 pointer-events-none" />
+
+                <div className="relative z-10 max-w-md">
+                  <span className="text-[10px] font-mono uppercase tracking-widest text-cyan-400 font-bold block mb-1">
+                    EXECUTION PROTOCOL · 0{currentGoalIndex + 1}
+                  </span>
+                  <span className="text-sm sm:text-base font-serif text-white block leading-tight">
+                    Custom Operational Blueprint mapped to {goal.label}
+                  </span>
+                </div>
+
+                <div className="relative z-10 hidden sm:flex flex-col items-end text-right font-mono text-[11px] text-slate-300">
+                  <span className="text-emerald-400 font-bold">✓ 48H RAPID AUDIT</span>
+                  <span className="text-slate-400 text-[10px]">SENIOR PARTNER DIRECT</span>
+                </div>
+              </div>
+
               {/* Recommended Service Alignment Modules */}
               <div className="blueprint-services pt-1">
                 <div className="flex items-center justify-between mb-4">
@@ -129,7 +154,7 @@ export default function GoalsSection() {
                     <a 
                       key={sIdx}
                       href={s.href} 
-                      className="blueprint-service-card p-4 sm:p-5 rounded-2xl bg-white hover:bg-stone-50 border border-stone-200/80 hover:border-space-950 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between group/srv relative overflow-hidden"
+                      className="blueprint-service-card p-4 sm:p-5 rounded-2xl bg-white hover:bg-slate-50/80 border border-stone-200/80 hover:border-slate-300 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between group/srv relative overflow-hidden cursor-pointer"
                     >
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div className="flex items-center gap-2">

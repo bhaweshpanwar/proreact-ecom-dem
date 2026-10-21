@@ -115,9 +115,9 @@ export default function IntroSection() {
         {/* Two Side-by-Side Tinted Panels */}
         <div id="intro-cards-grid" className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-20" style={{ perspective: '1600px' }}>
           
-          {/* LEFT PANEL: Modern architectural #FAFAFA -> Marketplace Growth */}
-          <div id="audience-card-left" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-[#FAFAFA] hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] p-8 sm:p-12 border border-stone-200/90 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs">
-            <div className="mb-10">
+          {/* LEFT PANEL: Modern architectural #FFFFFF -> Marketplace Growth */}
+          <div id="audience-card-left" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-white hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-8 sm:p-10 border border-stone-200/90 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs cursor-pointer">
+            <div className="mb-8">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-2">For brands that sell online</span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 leading-tight mb-4">
                 Marketplace growth, handled.
@@ -133,58 +133,48 @@ export default function IntroSection() {
               </div>
             </div>
 
-            {/* Inside UI Mock: Marketplace Listing Card */}
-            <div className="w-full bg-white rounded-2xl p-6 border border-slate-200/70 shadow-sm relative overflow-hidden transform transition-transform duration-500 group-hover:-translate-y-1">
-              <div className="flex items-center justify-between pb-4 hairline-b mb-4">
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-sans font-semibold text-space-950">Active Catalogue Status</span>
-                </div>
-                <span className="text-[10px] font-mono text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full font-medium">Synchronized</span>
-              </div>
-              
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-4">
-                <div className="sm:col-span-1 aspect-square rounded-xl bg-slate-100 flex items-center justify-center p-3 text-slate-400">
-                  <svg className="w-8 h-8 stroke-current stroke-1.5" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                    <path d="M3 9h18M9 21V9" />
-                  </svg>
-                </div>
-                <div className="sm:col-span-2 space-y-2">
-                  <div className="h-3.5 bg-slate-200 rounded w-4/5"></div>
-                  <div className="h-2.5 bg-slate-100 rounded w-full"></div>
-                  <div className="h-2.5 bg-slate-100 rounded w-3/4"></div>
-                  <div className="pt-2 flex items-center gap-2">
-                    <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-space-950 text-[10px] font-mono">Top Category</span>
-                    <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-space-600 text-[10px] font-mono">Prime Ready</span>
-                  </div>
-                </div>
+            {/* Visual Showcase: Orbital Satellite Space Imagery */}
+            <div className="w-full h-60 sm:h-64 rounded-2xl overflow-hidden relative border border-slate-200/80 shadow-sm group-hover:scale-[1.01] transition-transform duration-500 flex flex-col justify-between p-4 sm:p-5 select-none">
+              <img 
+                src="/images/space/card-marketplace.jpg" 
+                alt="Orbital Satellite representing Synchronized Marketplace Operations" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/20 pointer-events-none" />
+
+              {/* Top Floating Badge */}
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono tracking-wide">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  ORBITAL SYNC · 100% HEALTH
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-mono text-white">
+                  MULTI-CHANNEL
+                </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-3 hairline-t text-xs text-space-800">
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">✓</span>
-                  <span>Title optimised</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">✓</span>
-                  <span>Images improved</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">✓</span>
-                  <span>A+ content ready</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center text-[10px] font-bold">✓</span>
-                  <span>Ads structured</span>
+              {/* Bottom Deliverables Pill Bar */}
+              <div className="relative z-10 space-y-2">
+                <div className="flex flex-wrap items-center gap-1.5">
+                  <span className="px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md border border-white/15 text-white text-[10px] font-sans font-medium flex items-center gap-1">
+                    <span className="text-emerald-400 font-bold">✓</span> Amazon & Flipkart Verified
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md border border-white/15 text-white text-[10px] font-sans font-medium flex items-center gap-1">
+                    <span className="text-emerald-400 font-bold">✓</span> 99.4% Buy Box
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-black/60 backdrop-blur-md border border-white/15 text-white text-[10px] font-sans font-medium flex items-center gap-1">
+                    <span className="text-emerald-400 font-bold">✓</span> A+ Brand Content
+                  </span>
                 </div>
               </div>
             </div>
 
           </div>
 
-          {/* RIGHT PANEL: Modern architectural #FAFAFA -> Marketing & Websites */}
-          <div id="audience-card-right" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-[#FAFAFA] hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] p-8 sm:p-12 border border-stone-200/90 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs">
-            <div className="mb-10">
+          {/* RIGHT PANEL: Modern architectural #FFFFFF -> Marketing & Websites */}
+          <div id="audience-card-right" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-white hover:border-slate-300 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] p-8 sm:p-10 border border-stone-200/90 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs cursor-pointer">
+            <div className="mb-8">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-2">For businesses that need customers</span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 leading-tight mb-4">
                 Traffic, leads and sites that convert.
@@ -200,26 +190,37 @@ export default function IntroSection() {
               </div>
             </div>
 
-            {/* Inside UI Mock: Search, Ad, and Web Wireframe */}
-            <div className="w-full bg-white rounded-2xl p-6 border border-slate-200/70 shadow-sm relative overflow-hidden transform transition-transform duration-500 group-hover:-translate-y-1 space-y-4">
-              <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100">
-                <div className="flex items-center gap-2 text-[10px] font-mono text-space-600 mb-1">
-                  <span>google.com/search · high-intent query</span>
-                </div>
-                <div className="h-3.5 bg-space-950 rounded w-2/3 mb-1.5"></div>
-                <div className="h-2 bg-slate-200 rounded w-full"></div>
+            {/* Visual Showcase: High-Velocity Comet Space Imagery */}
+            <div className="w-full h-60 sm:h-64 rounded-2xl overflow-hidden relative border border-slate-200/80 shadow-sm group-hover:scale-[1.01] transition-transform duration-500 flex flex-col justify-between p-4 sm:p-5 select-none">
+              <img 
+                src="/images/space/card-traffic.jpg" 
+                alt="Accelerating Comet Trail representing High-Intent Audience Traffic" 
+                className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-black/20 pointer-events-none" />
+
+              {/* Top Floating Badge */}
+              <div className="relative z-10 flex items-center justify-between">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/20 text-white text-[11px] font-mono tracking-wide">
+                  <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+                  ACQUISITION VELOCITY · ACTIVE
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-white/20 backdrop-blur-md text-[10px] font-mono text-white">
+                  HIGH-INTENT
+                </span>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 text-xs">
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[9px] font-mono text-slate-500 font-bold block mb-1 uppercase tracking-wider">Campaign Ad</span>
-                  <div className="h-2.5 bg-slate-300 rounded w-4/5 mb-1"></div>
-                  <div className="h-2 bg-slate-200 rounded w-full"></div>
+              {/* Bottom Metric Strip */}
+              <div className="relative z-10 flex items-center justify-between gap-3 bg-black/50 backdrop-blur-md border border-white/15 p-2.5 rounded-xl text-white">
+                <div>
+                  <span className="text-[9px] font-mono uppercase text-slate-300 block">Performance ROAS</span>
+                  <span className="text-sm font-sans font-bold text-cyan-300">4.8x – 6.5x Blended</span>
                 </div>
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100">
-                  <span className="text-[9px] font-mono text-slate-500 font-bold block mb-1 uppercase tracking-wider">Web Funnel</span>
-                  <div className="h-2.5 bg-slate-300 rounded w-3/4 mb-1"></div>
-                  <div className="h-2 bg-slate-200 rounded w-5/6"></div>
+                <div className="h-6 w-px bg-white/20" />
+                <div>
+                  <span className="text-[9px] font-mono uppercase text-slate-300 block">Lead Pipeline</span>
+                  <span className="text-sm font-sans font-bold text-white">100% Pre-Verified</span>
                 </div>
               </div>
             </div>
