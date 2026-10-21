@@ -1,319 +1,411 @@
 /**
- * E-Comet Official Services Architecture & Mega-Menu Data
- * Source of Truth: E-Comet Developer Handoff Document & Services Brief
- * Defines the 6 core pillars, their sub-services, and multi-column expanded sub-pillars.
+ * E-COMET OUTVERSE - Final Service Divisions
+ * Official Architecture & Mega-Menu Source of Truth
+ * 8 Core Pillars, their exact Divisions and Sub-Services.
  */
 
 export const PILLARS_DATA = [
   {
     id: "ecommerce-management",
+    number: "01",
     title: "E-Commerce Management",
     shortTitle: "E-Commerce",
-    badge: "Marketplaces",
-    tagline: "Amazon, Flipkart & Multi-Marketplace Growth",
-    description: "Marketplace operations, product listings, catalogue optimisation, advertising support, and ongoing account management.",
+    tagline: "Marketplace Management & E-Commerce Growth",
+    badge: "17 Services",
     primarySlug: "/services/ecommerce-management",
-    colorHex: "#00B4D8",
-    links: [
-      { label: "Amazon Seller Account Management", href: "/services/amazon-operations" },
-      { label: "Flipkart Seller Account Management", href: "/services/flipkart-management" },
-      { label: "Duo Management (Amazon + Flipkart)", href: "/services/marketplace-management" },
-      { label: "Listing & Catalogue Optimisation", href: "/services/catalog-listing-optimization" },
-      { label: "Marketplace Advertising & Sponsored PPC", href: "/services/marketplace-advertising" },
-      { label: "Quick Commerce Operations (Blinkit, Zepto)", href: "/services/quick-commerce" },
-    ],
-    subPillars: [
+    divisions: [
       {
-        kicker: "Marketplace Leaders",
+        kicker: "Indian Marketplace Management",
         links: [
-          { label: "Amazon Seller Account Management", href: "/services/amazon-operations" },
-          { label: "Flipkart Seller Account Management", href: "/services/flipkart-management" },
-          { label: "Amazon PPC & Sponsored Ads", href: "/services/marketplace-advertising" },
-          { label: "Flipkart PLA & Performance Ads", href: "/services/marketplace-advertising" },
-          { label: "Amazon Brand Store & A+ Visuals", href: "/services/catalog-listing-optimization" },
+          { label: "Amazon India Management", href: "/services/amazon-india-management" },
+          { label: "Flipkart Management", href: "/services/flipkart-management" },
+          { label: "DUO (AMAZON + FLIPKART)", href: "/services/duo-amazon-flipkart" },
+          { label: "Meesho Management", href: "/services/meesho-management" },
+          { label: "Myntra Management", href: "/services/myntra-management" },
+          { label: "AJIO Management", href: "/services/ajio-management" },
+          { label: "Nykaa Management", href: "/services/nykaa-management" },
+          { label: "JioMart Management", href: "/services/jiomart-management" },
+          { label: "Snapdeal Management", href: "/services/snapdeal-management" },
+          { label: "FirstCry Management", href: "/services/firstcry-management" },
+          { label: "Shopsy Management", href: "/services/shopsy-management" },
         ]
       },
       {
-        kicker: "Fashion & Multi-Marketplaces",
+        kicker: "International Marketplace Management",
         links: [
-          { label: "Meesho Seller Growth & Ops", href: "/services/marketplace-management" },
-          { label: "Myntra Brand Portal & Listing", href: "/services/marketplace-management" },
-          { label: "Nykaa & Nykaa Man Operations", href: "/services/marketplace-management" },
-          { label: "Tata 1mg, Ajio & Marketplace Duo", href: "/services/marketplace-management" },
-          { label: "Cross-Marketplace Inventory Sync", href: "/services/marketplace-management" },
+          { label: "Amazon Global Management", href: "/services/amazon-global-management" },
+          { label: "Walmart Marketplace Management", href: "/services/walmart-marketplace-management" },
+          { label: "eBay Marketplace Management", href: "/services/ebay-marketplace-management" },
+          { label: "Etsy Marketplace Management", href: "/services/etsy-marketplace-management" },
         ]
       },
       {
-        kicker: "Quick Commerce & Catalogue SEO",
+        kicker: "Online Store Management",
         links: [
-          { label: "Blinkit Brand & Darkstore Ops", href: "/services/quick-commerce" },
-          { label: "Zepto & Instamart Rapid Fulfillment", href: "/services/quick-commerce" },
-          { label: "Listing & Catalogue SEO Indexing", href: "/services/catalog-listing-optimization" },
-          { label: "Buy-Box Defense & Margin Audits", href: "/services/ecommerce-management" },
-          { label: "Account Health & Escalation Desk", href: "/services/ecommerce-management" },
+          { label: "Shopify store management", href: "/services/shopify-store-management" },
+          { label: "WooCommerce Store Management", href: "/services/woocommerce-store-management" },
         ]
       }
     ]
   },
   {
     id: "digital-marketing",
-    title: "Digital Marketing",
-    shortTitle: "Marketing",
-    badge: "Growth & Reach",
-    tagline: "Audience Reach, Visibility & Performance Campaigns",
-    description: "Build online visibility through social media management, paid advertising, SEO, lead generation, and creative content.",
+    number: "02",
+    title: "Digital Marketing, Performance Advertising & Brand Growth",
+    shortTitle: "Digital Marketing",
+    tagline: "Social Media, Paid Advertising, Search Visibility & Conversion Growth",
+    badge: "15 Services",
     primarySlug: "/services/digital-marketing",
-    colorHex: "#FF6B4A",
-    links: [
-      { label: "Social Media Management", href: "/services/social-media" },
-      { label: "Meta Ads (Facebook & Instagram)", href: "/services/meta-ads" },
-      { label: "Google Ads (Search & Shopping)", href: "/services/google-ads" },
-      { label: "Search Engine Optimisation (SEO)", href: "/services/seo" },
-      { label: "Inbound Lead Generation", href: "/services/lead-generation" },
-      { label: "Email & WhatsApp Marketing", href: "/services/email-whatsapp" },
-    ],
-    subPillars: [
+    divisions: [
       {
-        kicker: "Paid Media & Performance",
+        kicker: "Social Media & Paid Advertising",
         links: [
-          { label: "Meta Ads (Facebook & Instagram Growth)", href: "/services/meta-ads" },
-          { label: "Google Ads (Search, Shopping & PMax)", href: "/services/google-ads" },
-          { label: "YouTube Ads & Video Retargeting", href: "/services/google-ads" },
-          { label: "ROAS Optimization & Margin Bidding", href: "/services/digital-marketing" },
-          { label: "Paid Campaign Restructure & Scaling", href: "/services/digital-marketing" },
+          { label: "Social Media Management", href: "/services/social-media-management" },
+          { label: "Meta Ads", href: "/services/meta-ads" },
+          { label: "Google Ads", href: "/services/google-ads" },
+          { label: "YouTube Ads", href: "/services/youtube-ads" },
         ]
       },
       {
-        kicker: "Organic Reach & Search",
+        kicker: "Search Visibility & Local Marketing",
         links: [
-          { label: "Search Engine Optimisation (Technical SEO)", href: "/services/seo" },
-          { label: "Local & E-Commerce Keyword Ranking", href: "/services/seo" },
-          { label: "Organic Social Media Management", href: "/services/social-media" },
-          { label: "Content Marketing & Thought Leadership", href: "/services/content-copywriting" },
-          { label: "Brand Community & Engagement Sprints", href: "/services/social-media" },
+          { label: "Search Engine Optimization (SEO)", href: "/services/seo" },
+          { label: "Emerging Search & AI Marketing", href: "/services/emerging-search-ai-marketing" },
+          { label: "Local SEO & Local Digital Marketing", href: "/services/local-seo" },
         ]
       },
       {
-        kicker: "Conversion & Retention",
+        kicker: "Content & Customer Acquisition",
         links: [
-          { label: "Inbound B2B & B2C Lead Generation", href: "/services/lead-generation" },
-          { label: "Automated WhatsApp Flow Architecture", href: "/services/email-whatsapp" },
-          { label: "Klaviyo & Email Lifecycle Automation", href: "/services/email-whatsapp" },
-          { label: "Conversion Rate Optimization (CRO)", href: "/services/landing-pages" },
-          { label: "Audience Retargeting & LTV Systems", href: "/services/digital-marketing" },
+          { label: "Lead Generation & Conversion", href: "/services/lead-generation" },
+          { label: "Content Marketing & Online Growth", href: "/services/content-marketing-online-growth" },
+          { label: "Email Marketing", href: "/services/email-marketing" },
+          { label: "SMS Campaigns", href: "/services/sms-campaigns" },
+          { label: "WhatsApp Marketing", href: "/services/whatsapp-marketing" },
+          { label: "Influencer, Affiliate & Partnership Marketing", href: "/services/influencer-affiliate-partnerships" },
+        ]
+      },
+      {
+        kicker: "Marketing Intelligence & Optimization",
+        links: [
+          { label: "Marketing Analytics & Automation", href: "/services/marketing-analytics-automation" },
+          { label: "Conversion Rate Optimization (CRO)", href: "/services/cro" },
         ]
       }
     ]
   },
   {
-    id: "website-development",
-    title: "Website Development",
-    shortTitle: "Websites",
-    badge: "Engineering",
-    tagline: "High-Performance Websites, Stores & Funnels",
-    description: "Professional online presence with business websites, e-commerce stores, landing pages, WordPress, and redesigns.",
-    primarySlug: "/services/website-development",
-    colorHex: "#10B981",
-    links: [
-      { label: "Business & Corporate Websites", href: "/services/websites" },
-      { label: "E-Commerce & Shopify Plus Stores", href: "/services/shopify-stores" },
-      { label: "WordPress Website Development", href: "/services/wordpress-development" },
-      { label: "High-Converting Landing Pages", href: "/services/landing-pages" },
-      { label: "Website Redesign & UI/UX Systems", href: "/services/uiux-design" },
-      { label: "Website Maintenance & Support", href: "/services/website-maintenance" },
-    ],
-    subPillars: [
+    id: "web-development",
+    number: "03",
+    title: "Web Development, E-Commerce Stores & Digital Experiences",
+    shortTitle: "Web Development",
+    tagline: "Website Design, Store Engineering, Modernization & Custom Tech",
+    badge: "15 Services",
+    primarySlug: "/services/web-development",
+    divisions: [
       {
-        kicker: "Custom Web & Corporate",
+        kicker: "Website Design & Development",
         links: [
-          { label: "High-Speed Next.js & React Web Apps", href: "/services/websites" },
-          { label: "Corporate & Enterprise Brand Portals", href: "/services/websites" },
-          { label: "Full Website Redesign & Modernization", href: "/services/uiux-design" },
-          { label: "Technical Core Web Vitals Optimization", href: "/services/website-maintenance" },
-          { label: "Custom API & Third-Party Integrations", href: "/services/websites" },
+          { label: "Business & Corporate Websites", href: "/services/business-corporate-websites" },
+          { label: "E-Commerce Website Development", href: "/services/ecommerce-website-development" },
+          { label: "Landing Pages & Funnels", href: "/services/landing-pages-funnels" },
+          { label: "WordPress Website Development", href: "/services/wordpress-website-development" },
+          { label: "Shopify Store Development", href: "/services/shopify-store-development" },
+          { label: "WooCommerce Store Development", href: "/services/woocommerce-store-development" },
         ]
       },
       {
-        kicker: "E-Commerce & Stores",
+        kicker: "Website Platforms & Modernization",
         links: [
-          { label: "Custom Shopify & Shopify Plus Stores", href: "/services/shopify-stores" },
-          { label: "WooCommerce High-Volume Architectures", href: "/services/shopify-stores" },
-          { label: "Checkout & Cart Conversion Systems", href: "/services/shopify-stores" },
-          { label: "Payment Gateway & Logistics Integrations", href: "/services/shopify-stores" },
-          { label: "Catalog Architecture & Variant Matrix", href: "/services/shopify-stores" },
+          { label: "CMS & Website Platforms", href: "/services/cms-website-platforms" },
+          { label: "Website Redesign & Modernization", href: "/services/website-redesign-modernization" },
         ]
       },
       {
-        kicker: "Landing Pages & Support",
+        kicker: "UX, UI & Conversion Experience",
         links: [
-          { label: "High-Converting Direct Response Pages", href: "/services/landing-pages" },
-          { label: "WordPress Custom Theme Engineering", href: "/services/wordpress-development" },
-          { label: "UI/UX Design Systems & Wireframing", href: "/services/uiux-design" },
-          { label: "24/7 Security, Backups & Maintenance", href: "/services/website-maintenance" },
-          { label: "Speed Audits & Mobile Optimization", href: "/services/website-maintenance" },
+          { label: "Design, UX & Conversion", href: "/services/design-ux-conversion" },
+        ]
+      },
+      {
+        kicker: "Custom Development & Integrations",
+        links: [
+          { label: "Technical Development & Integrations", href: "/services/technical-development-integrations" },
+          { label: "Advanced Digital Solutions", href: "/services/advanced-digital-solutions" },
+          { label: "Custom Web Applications & Portals", href: "/services/custom-web-applications-portals" },
+          { label: "CRM, Payment & Third-Party Integrations", href: "/services/crm-payment-integrations" },
+        ]
+      },
+      {
+        kicker: "Website Maintenance & Performance",
+        links: [
+          { label: "Maintenance, Performance & Security", href: "/services/maintenance-performance-security" },
+          { label: "Website Analytics & Technical SEO", href: "/services/website-analytics-technical-seo" },
         ]
       }
     ]
   },
   {
-    id: "youtube-video-services",
-    title: "YouTube & Video Services",
-    shortTitle: "Video Services",
-    badge: "Media Production",
-    tagline: "Channel Setup, Editing, Shorts & Video SEO",
-    description: "Make your content clearer and more engaging with video editing, Shorts, Reels, thumbnails, and channel support.",
-    primarySlug: "/services/youtube-video-services",
-    colorHex: "#F43F5E",
-    links: [
-      { label: "Long-Form YouTube Video Editing", href: "/services/video-motion" },
-      { label: "YouTube Shorts & Instagram Reels", href: "/services/video-motion" },
-      { label: "High-CTR Thumbnail Design", href: "/services/youtube-growth" },
-      { label: "YouTube Channel Optimisation & SEO", href: "/services/youtube-growth" },
-      { label: "Promotional & Product Commercials", href: "/services/product-video-production" },
-      { label: "Multi-Platform Content Repurposing", href: "/services/video-motion" },
-    ],
-    subPillars: [
+    id: "creative-design",
+    number: "04",
+    title: "Creative Design, Brand Identity & Visual Communication",
+    shortTitle: "Creative Design",
+    tagline: "Brand Identity, Digital Creatives, Packaging & Visual Storytelling",
+    badge: "15 Services",
+    primarySlug: "/services/creative-design",
+    divisions: [
       {
-        kicker: "Long-Form YouTube Production",
+        kicker: "Brand Identity & Business Collateral",
         links: [
-          { label: "Commercial Video Editing & Storytelling", href: "/services/video-motion" },
-          { label: "Documentary & Narrative YouTube Videos", href: "/services/video-motion" },
-          { label: "Podcast Video Production & Multicam", href: "/services/video-motion" },
-          { label: "Dynamic Motion Graphics & Sound Design", href: "/services/video-motion" },
-          { label: "Color Grading & Cinematic Master Mix", href: "/services/video-motion" },
+          { label: "Brand Identity & Logo Design", href: "/services/brand-identity-logo-design" },
+          { label: "Brand Guidelines & Brand Kits", href: "/services/brand-guidelines-brand-kits" },
+          { label: "Print, Business & Corporate Design", href: "/services/print-business-corporate-design" },
+          { label: "Brochure & Catalogue Design", href: "/services/brochure-catalogue-design" },
+          { label: "Presentation & Company Profile Design", href: "/services/presentation-company-profile-design" },
         ]
       },
       {
-        kicker: "Short-Form & Viral Motion",
+        kicker: "Digital & Social Media Creatives",
         links: [
-          { label: "High-Retention YouTube Shorts", href: "/services/video-motion" },
-          { label: "Instagram Reels & TikTok Video Edits", href: "/services/video-motion" },
-          { label: "Captions, B-Roll & Visual Pacing Hooks", href: "/services/video-motion" },
-          { label: "Multi-Platform Video Repurposing", href: "/services/video-motion" },
-          { label: "Shorts Channel Incubation Sprints", href: "/services/video-motion" },
+          { label: "Social Media & Digital Creatives", href: "/services/social-media-digital-creatives" },
+          { label: "YouTube Thumbnail & Cover Design", href: "/services/youtube-thumbnail-cover-design" },
+          { label: "Website UI & Web Graphics", href: "/services/website-ui-web-graphics" },
         ]
       },
       {
-        kicker: "Channel Growth & Packaging",
+        kicker: "Advertising & Marketplace Creatives",
         links: [
-          { label: "High-CTR Custom YouTube Thumbnails", href: "/services/youtube-growth" },
-          { label: "YouTube Channel Audit & Keyword SEO", href: "/services/youtube-growth" },
-          { label: "Title & Packaging Conversion Testing", href: "/services/youtube-growth" },
-          { label: "Promotional Product Video Production", href: "/services/product-video-production" },
-          { label: "Channel Monetization & Strategy", href: "/services/youtube-growth" },
+          { label: "Advertising & Performance Creatives", href: "/services/advertising-performance-creatives" },
+          { label: "E-Commerce & Marketplace Design", href: "/services/ecommerce-marketplace-design" },
+        ]
+      },
+      {
+        kicker: "Product & Packaging Design",
+        links: [
+          { label: "Packaging & Label Design", href: "/services/packaging-label-design" },
+          { label: "Product Mockups & Visual Presentation", href: "/services/product-mockups-visual-presentation" },
+        ]
+      },
+      {
+        kicker: "Advanced Visual Communication",
+        links: [
+          { label: "Advanced Creative Services", href: "/services/advanced-creative-services" },
+          { label: "Infographics & Data Visualization", href: "/services/infographics-data-visualization" },
+          { label: "Motion Graphics & Animated Creatives", href: "/services/motion-graphics-animated-creatives" },
         ]
       }
     ]
   },
   {
-    id: "creative-services",
-    title: "Creative Services",
-    shortTitle: "Creative",
-    badge: "Brand Design",
-    tagline: "Brand Identity, Infographics, Ads & Packaging",
-    description: "Transform business ideas into clear, consistent visual experiences that support brand recognition and communication.",
-    primarySlug: "/services/creative-services",
-    colorHex: "#8B5CF6",
-    links: [
-      { label: "Brand Identity & Logo Design", href: "/services/brand-identity" },
-      { label: "E-Commerce Infographics & A+ Visuals", href: "/services/catalog-listing-optimization" },
-      { label: "Social Media Creative & Carousels", href: "/services/graphic-design" },
-      { label: "Advertising & Promotional Visuals", href: "/services/graphic-design" },
-      { label: "Packaging & Product Label Design", href: "/services/packaging-design" },
-      { label: "Strategic Copywriting & Voice", href: "/services/content-copywriting" },
-    ],
-    subPillars: [
+    id: "photography-photoshoots",
+    number: "05",
+    title: "Photography & Photoshoots",
+    shortTitle: "Photography",
+    tagline: "Product, Fashion, Lifestyle, Hospitality & Brand Imagery",
+    badge: "15 Services",
+    primarySlug: "/services/photography-photoshoots",
+    divisions: [
       {
-        kicker: "Brand Identity & Strategy",
+        kicker: "Product & E-Commerce Photography",
         links: [
-          { label: "Logo Design & Visual Identity Systems", href: "/services/brand-identity" },
-          { label: "Brand Style Guides & Typography Rules", href: "/services/brand-identity" },
-          { label: "Color Palette & Design Systems", href: "/services/brand-identity" },
-          { label: "Strategic Copywriting & Brand Voice", href: "/services/content-copywriting" },
-          { label: "Brand Re-Positioning & Identity Refresh", href: "/services/brand-identity" },
+          { label: "Product & E-Commerce Photography", href: "/services/product-ecommerce-photography" },
+          { label: "Jewellery & Accessories Photography", href: "/services/jewellery-accessories-photography" },
+          { label: "White Background Product Photography", href: "/services/white-background-product-photography" },
+          { label: "Product Detail & Feature Photography", href: "/services/product-detail-feature-photography" },
         ]
       },
       {
-        kicker: "E-Commerce & Commercial Design",
+        kicker: "Fashion, Model & Lifestyle Photography",
         links: [
-          { label: "Amazon A+ Content & Infographics", href: "/services/catalog-listing-optimization" },
-          { label: "Brand Storefront Design & Layouts", href: "/services/catalog-listing-optimization" },
-          { label: "Paid Social High-Converting Ad Creatives", href: "/services/graphic-design" },
-          { label: "Performance Banners & Display Assets", href: "/services/graphic-design" },
-          { label: "Conversion-Focused Carousel Decks", href: "/services/graphic-design" },
+          { label: "Fashion & Apparel Photography", href: "/services/fashion-apparel-photography" },
+          { label: "Lifestyle & Campaign Photography", href: "/services/lifestyle-campaign-photography" },
+          { label: "Model Photoshoots", href: "/services/model-photoshoots" },
+          { label: "Catalogue & Lookbook Photography", href: "/services/catalogue-lookbook-photography" },
+          { label: "Brand Campaign & Editorial Photography", href: "/services/brand-campaign-editorial-photography" },
         ]
       },
       {
-        kicker: "Packaging & Print",
+        kicker: "Food, Hospitality & Business Photography",
         links: [
-          { label: "Consumer Product Packaging Design", href: "/services/packaging-design" },
-          { label: "Box, Bottle & Pouch Label Architecture", href: "/services/packaging-design" },
-          { label: "Print-Ready Dielines & Production Proofs", href: "/services/packaging-design" },
-          { label: "Marketing Collateral & Pitch Decks", href: "/services/graphic-design" },
-          { label: "Eco-Friendly & Retail Ready Packaging", href: "/services/packaging-design" },
+          { label: "Food & Hospitality Photography", href: "/services/food-hospitality-photography" },
+          { label: "Business & Corporate Photography", href: "/services/business-corporate-photography" },
+          { label: "Restaurant & Menu Photography", href: "/services/restaurant-menu-photography" },
+          { label: "Store, Showroom & Interior Photography", href: "/services/store-showroom-interior-photography" },
+          { label: "Event & Corporate Activity Photography", href: "/services/event-corporate-activity-photography" },
+        ]
+      },
+      {
+        kicker: "Photo Editing & Post-Production",
+        links: [
+          { label: "Photography Post-Production", href: "/services/photography-post-production" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "video-production-editing",
+    number: "06",
+    title: "Video Production & Editing",
+    shortTitle: "Video Production",
+    tagline: "Short-Form, Long-Form, Commercial Films & Advanced Motion",
+    badge: "14 Services",
+    primarySlug: "/services/video-production-editing",
+    divisions: [
+      {
+        kicker: "Short-Form & Social Video",
+        links: [
+          { label: "Short-Form Video", href: "/services/short-form-video" },
+          { label: "Reels & YouTube Shorts Production", href: "/services/reels-youtube-shorts-production" },
+          { label: "Video Resizing & Multi-Platform Adaptation", href: "/services/video-resizing-multi-platform-adaptation" },
+        ]
+      },
+      {
+        kicker: "Long-Form, Educational & Editorial Video",
+        links: [
+          { label: "Long-Form Video Editing", href: "/services/long-form-video-editing" },
+          { label: "Interview & Podcast Editing", href: "/services/interview-podcast-editing" },
+          { label: "Educational & Explainer Videos", href: "/services/educational-explainer-videos" },
+        ]
+      },
+      {
+        kicker: "Commercial & Brand Video Production",
+        links: [
+          { label: "Product & Advertising Videos", href: "/services/product-advertising-videos" },
+          { label: "Video Production & On-Location Shoots", href: "/services/video-production-on-location-shoots" },
+          { label: "Brand Introduction & Corporate Videos", href: "/services/brand-introduction-corporate-videos" },
+          { label: "Promotional & Commercial Films", href: "/services/promotional-commercial-films" },
+        ]
+      },
+      {
+        kicker: "Post-Production & Motion",
+        links: [
+          { label: "Post-Production & Motion", href: "/services/post-production-motion" },
+          { label: "Color Grading & Audio Enhancement", href: "/services/color-grading-audio-enhancement" },
+          { label: "Subtitles, Captions & Localization", href: "/services/subtitles-captions-localization" },
+        ]
+      },
+      {
+        kicker: "Specialized Video Services",
+        links: [
+          { label: "International & Specialized Video Work", href: "/services/international-specialized-video-work" },
+        ]
+      }
+    ]
+  },
+  {
+    id: "youtube-strategy-management",
+    number: "07",
+    title: "YouTube Strategy, Channel Management & Content Growth",
+    shortTitle: "YouTube Growth",
+    tagline: "Channel Setup, Content Strategy, Video SEO & Monetization",
+    badge: "15 Services",
+    primarySlug: "/services/youtube-strategy-management",
+    divisions: [
+      {
+        kicker: "Channel Setup & Branding",
+        links: [
+          { label: "Channel Setup & Branding", href: "/services/channel-setup-branding" },
+          { label: "Channel Audit & Improvement Planning", href: "/services/channel-audit-improvement-planning" },
+          { label: "Playlist & Channel Organization", href: "/services/playlist-channel-organization" },
+        ]
+      },
+      {
+        kicker: "Content Strategy & Creative Planning",
+        links: [
+          { label: "Content Strategy & Planning", href: "/services/content-strategy-planning" },
+          { label: "Scripts & Creative Development", href: "/services/scripts-creative-development" },
+          { label: "YouTube Shorts Strategy", href: "/services/youtube-shorts-strategy" },
+          { label: "Content Repurposing & Distribution", href: "/services/content-repurposing-distribution" },
+        ]
+      },
+      {
+        kicker: "Video Optimization & Discoverability",
+        links: [
+          { label: "Video SEO & Discoverability", href: "/services/video-seo-discoverability" },
+          { label: "YouTube Keyword & Topic Research", href: "/services/youtube-keyword-topic-research" },
+          { label: "Thumbnail Design & Optimization", href: "/services/thumbnail-design-optimization" },
+        ]
+      },
+      {
+        kicker: "Publishing, Operations & Analytics",
+        links: [
+          { label: "Video Editing & Publishing", href: "/services/video-editing-publishing" },
+          { label: "Channel Operations & Analytics", href: "/services/channel-operations-analytics" },
+          { label: "Audience Retention & Performance Analysis", href: "/services/audience-retention-performance-analysis" },
+        ]
+      },
+      {
+        kicker: "Monetization Readiness & International Reach",
+        links: [
+          { label: "YouTube Advertising & Monetization Readiness", href: "/services/youtube-advertising-monetization-readiness" },
+          { label: "International Audience & Localization Strategy", href: "/services/international-audience-localization-strategy" },
         ]
       }
     ]
   },
   {
     id: "integrated-solutions",
+    number: "08",
     title: "Integrated Digital Solutions",
-    shortTitle: "Integrated",
-    badge: "Multi-Discipline",
-    tagline: "Coordinated Multi-Discipline Growth Packages",
-    description: "Combines two or more E-Comet services into one coordinated scope so you work with one unified growth partner.",
+    shortTitle: "Integrated Solutions",
+    tagline: "Cross-Channel Systems, Launch Sprints & Global Brand Expansion",
+    badge: "15 Services",
     primarySlug: "/services/integrated-solutions",
-    colorHex: "#F59E0B",
-    links: [
-      { label: "E-Commerce + Digital Marketing", href: "/services/integrated-solutions" },
-      { label: "Website + SEO + Digital Marketing", href: "/services/integrated-solutions" },
-      { label: "Website + E-Commerce Operations", href: "/services/integrated-solutions" },
-      { label: "Social Media + Creative + Video", href: "/services/integrated-solutions" },
-      { label: "Complete Brand Development", href: "/services/integrated-solutions" },
-      { label: "Custom Multi-Service Solutions", href: "/services/integrated-solutions" },
-    ],
-    subPillars: [
+    divisions: [
       {
-        kicker: "Omnichannel Strategic Growth",
+        kicker: "E-Commerce & Marketplace Solutions",
         links: [
-          { label: "Full-Funnel Digital Operating System", href: "/services/integrated-solutions" },
-          { label: "Cross-Pillar Marketing & E-Commerce", href: "/services/integrated-solutions" },
-          { label: "Product Launch & GTM Blueprints", href: "/services/integrated-solutions" },
-          { label: "Market Expansion & Category Penetration", href: "/services/integrated-solutions" },
-          { label: "Multi-Channel Revenue Acceleration", href: "/services/integrated-solutions" },
+          { label: "E-Commerce Growth System", href: "/services/ecommerce-growth-system" },
+          { label: "Marketplace & Marketing Growth", href: "/services/marketplace-marketing-growth" },
+          { label: "Marketplace & Website Integration", href: "/services/marketplace-website-integration" },
         ]
       },
       {
-        kicker: "Commercial Intelligence",
+        kicker: "Digital Launch & Brand Building",
         links: [
-          { label: "Multi-Channel Margin & Unit Economics", href: "/services/integrated-solutions" },
-          { label: "Cross-Platform Attribution & Telemetry", href: "/services/integrated-solutions" },
-          { label: "Inventory Forecasting & Supply Health", href: "/services/integrated-solutions" },
-          { label: "Weekly Executive Performance Report", href: "/services/integrated-solutions" },
-          { label: "Ad Spend vs Organic Revenue Modeling", href: "/services/integrated-solutions" },
+          { label: "Digital Presence Launch", href: "/services/digital-presence-launch" },
+          { label: "Product Launch & Brand Promotion", href: "/services/product-launch-brand-promotion" },
+          { label: "Brand Identity & Digital Experience", href: "/services/brand-identity-digital-experience" },
         ]
       },
       {
-        kicker: "Dedicated Executive Leadership",
+        kicker: "Website, Content & Marketing Integration",
         links: [
-          { label: "Dedicated Senior Practice Leadership", href: "/services/integrated-solutions" },
-          { label: "Direct WhatsApp & Slack Command Channel", href: "/services/integrated-solutions" },
-          { label: "Transparent Monthly Governance Reviews", href: "/services/integrated-solutions" },
-          { label: "Zero Delegation to Junior Trainees", href: "/services/integrated-solutions" },
-          { label: "Custom Tailored Enterprise Agreements", href: "/services/integrated-solutions" },
+          { label: "Website & Marketing Integration", href: "/services/website-marketing-integration" },
+          { label: "Content & Brand Studio", href: "/services/content-brand-studio" },
+          { label: "YouTube & Content Marketing System", href: "/services/youtube-content-marketing-system" },
+        ]
+      },
+      {
+        kicker: "Lead Generation & Business Systems",
+        links: [
+          { label: "Lead Generation & Conversion System", href: "/services/lead-generation-conversion-system" },
+          { label: "Local Business Growth System", href: "/services/local-business-growth-system" },
+          { label: "SEO & Digital Visibility System", href: "/services/seo-digital-visibility-system" },
+          { label: "CRM & Sales Workflow System", href: "/services/crm-sales-workflow-system" },
+        ]
+      },
+      {
+        kicker: "Complete Digital Ecosystem & Expansion",
+        links: [
+          { label: "Complete Digital Business Ecosystem", href: "/services/complete-digital-business-ecosystem" },
+          { label: "International Brand Expansion", href: "/services/international-brand-expansion" },
         ]
       }
     ]
   }
 ];
 
-export const MEGA_MENU_DATA = {
+// Helper: Ensure full backwards compatibility with components expecting subPillars or flat links
+PILLARS_DATA.forEach(pillar => {
+  pillar.subPillars = pillar.divisions;
+  pillar.links = pillar.divisions.flatMap(d => d.links);
+});
+
+export const MEGA_MENU_CONFIG = {
+  title: "E-COMET OUTVERSE · 8 Core Pillars & Services",
+  subtitle: "8 Core Pillars & Complete Capabilities Architecture",
   pillars: PILLARS_DATA,
-  featured: {
-    tag: "CUSTOM QUOTATION",
-    title: "Ready to Take Your Business to the Next Orbit?",
-    desc: "Tell us what you are building and where you want to go. We will discuss the services that fit your goals.",
-    cta: "Get a Custom Quote",
-    href: "#closing"
-  }
 };
+
+export default PILLARS_DATA;

@@ -34,13 +34,11 @@ export default function Header() {
       <header id="main-header" className="fixed top-0 left-0 right-0 h-20 bg-white border-b border-slate-200 shadow-sm z-50 flex items-center transition-all duration-300">
         <div className="w-full max-w-[1360px] h-full mx-auto px-4 sm:px-8 flex items-center justify-between gap-4">
           
-          {/* Brand Logo */}
-          <Link to="/" className="flex items-center flex-shrink-0 text-decoration-none group py-1">
-            <img 
-              src="/assets/ecomet logo .png" 
-              alt="E-COMET · Beyond Digital. Into the Next Orbit." 
-              className="h-12 sm:h-14 w-auto object-contain mix-blend-multiply group-hover:opacity-90 transition-opacity" 
-            />
+          {/* Brand Logo: Clean bold sans-serif typography */}
+          <Link to="/" className="flex items-center flex-shrink-0 text-decoration-none group py-1 select-none">
+            <span className="font-sans font-black text-lg sm:text-xl tracking-tighter text-[#080B10] uppercase transition-colors">
+              E-COMET OUTVERSE
+            </span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -62,7 +60,7 @@ export default function Header() {
               About Us
             </Link>
 
-            {/* Services Dropdown (The 6 Pillars Mega-Menu) */}
+            {/* Services Dropdown (The 8 Practice Pillars Mega-Menu) */}
             <button
               type="button"
               onClick={() => toggleMenu('services')}
@@ -75,7 +73,7 @@ export default function Header() {
             >
               <span>Services</span>
               <span className="px-1.5 py-0.5 rounded-full bg-slate-200/90 text-[10px] font-mono font-bold text-slate-700">
-                6 Pillars
+                8 Pillars
               </span>
               <svg 
                 className={`w-3.5 h-3.5 stroke-slate-500 fill-none stroke-[2.5] transition-transform duration-200 ${
@@ -87,13 +85,14 @@ export default function Header() {
               </svg>
             </button>
 
-            {/* Orbit Grid Anchor */}
-            <a 
-              href="/#services" 
+
+            {/* Marketplace */}
+            <Link 
+              to="/marketplace" 
               className="px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold text-slate-800 hover:bg-slate-100/80 transition-colors"
             >
-              Orbit Grid
-            </a>
+              Marketplace
+            </Link>
 
             {/* Contact Us */}
             <a 

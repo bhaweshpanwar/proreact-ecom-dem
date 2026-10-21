@@ -71,23 +71,23 @@ export default function CapabilitiesSection() {
     >
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Soft Container Wrapper */}
-        <div className="rounded-[2.5rem] bg-[#F8F7F4] p-6 sm:p-12 lg:p-16 border border-slate-200/80 shadow-xs">
+        {/* Soft Container Wrapper - White */}
+        <div className="rounded-[2.5rem] bg-white p-6 sm:p-12 lg:p-16 border border-stone-200/90 shadow-xs">
 
-          {/* Section Header */}
-          <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-16">
+          {/* Section Header - Left Aligned */}
+          <div className="text-left max-w-2xl mb-12 sm:mb-16">
             <span className="text-xs font-sans text-space-600 uppercase tracking-widest block mb-2">Capabilities</span>
             <h2 id="services-heading" className="text-4xl sm:text-5xl lg:text-6xl font-serif text-space-950 tracking-tight leading-tight">
               For everything your growth needs.
             </h2>
           </div>
 
-          {/* Pill Tab Switcher with Sliding Indicator */}
-          <div className="flex items-center justify-center mb-14 sm:mb-20">
+          {/* Pill Tab Switcher with Sliding Indicator - Left Aligned */}
+          <div className="flex items-center justify-start mb-14 sm:mb-20">
             <div 
               ref={tabsContainerRef}
               role="tablist" 
-              className="relative inline-flex items-center p-1.5 rounded-full bg-white border border-slate-200/80 shadow-sm overflow-x-auto max-w-full no-scrollbar"
+              className="relative inline-flex items-center p-1.5 rounded-full bg-[#FAFAFA] border border-stone-200/90 shadow-2xs overflow-x-auto max-w-full no-scrollbar"
             >
               {/* Sliding Indicator Pill (Cosmic Black) */}
               <div 
@@ -221,7 +221,7 @@ export default function CapabilitiesSection() {
                 <div className="service-row space-y-6 pb-12 hairline-b">
                   <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
                     <div className="space-y-2 max-w-xs">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400">CATALOGUE PROTOCOL</span>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">CATALOGUE PROTOCOL</span>
                       <h4 className="font-serif text-2xl text-white">Marketplace Account Clean Setup</h4>
                       <p className="text-xs text-slate-400">Brand registry, GTIN exemptions, and zero-defect catalogue sync.</p>
                     </div>
@@ -249,14 +249,14 @@ export default function CapabilitiesSection() {
                 <div className="service-row space-y-6 pb-12 hairline-b">
                   <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
                     <div className="space-y-2 max-w-xs">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400">CONVERSION LIFT</span>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">CONVERSION LIFT</span>
                       <h4 className="font-serif text-2xl text-white">Listing SEO &amp; A+ Architecture</h4>
                       <p className="text-xs text-slate-400">Algorithmic backend search terms, infographics, and premium brand storytelling.</p>
                     </div>
                     <div className="hidden sm:flex items-center gap-4 font-mono text-xs">
                       <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">BUY BOX SHARE</span>
-                        <span className="text-lg font-bold text-amber-400">99.4%</span>
+                        <span className="text-lg font-bold text-blue-400">99.4%</span>
                       </div>
                       <div className="p-4 rounded-xl bg-white/5 border border-white/10 text-center">
                         <span className="text-slate-400 block text-[10px]">CVR UPLIFT</span>
@@ -277,7 +277,7 @@ export default function CapabilitiesSection() {
                 <div className="service-row space-y-6">
                   <div className="preview-panel w-full aspect-[21/9] sm:aspect-[24/8] bg-[#0E1218] text-white rounded-2xl border border-slate-800 p-6 sm:p-8 flex items-center justify-between overflow-hidden shadow-sm">
                     <div className="space-y-2 max-w-xs">
-                      <span className="text-[10px] font-mono uppercase tracking-widest text-amber-400">MARKETPLACE PPC</span>
+                      <span className="text-[10px] font-mono uppercase tracking-widest text-blue-400">MARKETPLACE PPC</span>
                       <h4 className="font-serif text-2xl text-white">Target ACOS Management</h4>
                       <p className="text-xs text-slate-400">Sponsored Products, Brands &amp; Display driving category bestseller badges.</p>
                     </div>

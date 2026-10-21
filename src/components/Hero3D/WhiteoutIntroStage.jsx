@@ -25,7 +25,7 @@ export default function WhiteoutIntroStage({ progress }) {
         }}
       >
         <span className="inline-block font-sans text-xs sm:text-sm font-semibold tracking-widest text-slate-500 uppercase mb-3">
-          E-Comet — digital growth agency
+          E-COMET OUTVERSE — digital growth agency
         </span>
         <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-slate-900 leading-[1.08] tracking-tight">
           Where ambitious brands meet <br className="hidden sm:inline" />

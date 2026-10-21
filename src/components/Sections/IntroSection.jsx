@@ -112,11 +112,11 @@ export default function IntroSection() {
       
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
 
-        {/* Two Side-by-Side Tinted Panels (Paper and Mist) */}
+        {/* Two Side-by-Side Tinted Panels */}
         <div id="intro-cards-grid" className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 mb-20" style={{ perspective: '1600px' }}>
           
-          {/* LEFT PANEL: Paper Tint (#F5F3EE) -> Marketplace Growth */}
-          <div id="audience-card-left" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-paper p-8 sm:p-12 border border-[#E9E6DF]/80 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs">
+          {/* LEFT PANEL: Modern architectural #FAFAFA -> Marketplace Growth */}
+          <div id="audience-card-left" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-[#FAFAFA] hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] p-8 sm:p-12 border border-stone-200/90 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs">
             <div className="mb-10">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-2">For brands that sell online</span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 leading-tight mb-4">
@@ -154,7 +154,7 @@ export default function IntroSection() {
                   <div className="h-2.5 bg-slate-100 rounded w-full"></div>
                   <div className="h-2.5 bg-slate-100 rounded w-3/4"></div>
                   <div className="pt-2 flex items-center gap-2">
-                    <span className="inline-block px-2 py-0.5 rounded bg-sand/20 text-space-950 text-[10px] font-mono">Top Category</span>
+                    <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-space-950 text-[10px] font-mono">Top Category</span>
                     <span className="inline-block px-2 py-0.5 rounded bg-slate-100 text-space-600 text-[10px] font-mono">Prime Ready</span>
                   </div>
                 </div>
@@ -182,8 +182,8 @@ export default function IntroSection() {
 
           </div>
 
-          {/* RIGHT PANEL: Mist Tint (#EDF0F3) -> Marketing & Websites */}
-          <div id="audience-card-right" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-mist p-8 sm:p-12 border border-[#E4EAF0]/80 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs">
+          {/* RIGHT PANEL: Modern architectural #FAFAFA -> Marketing & Websites */}
+          <div id="audience-card-right" className="audience-panel rounded-[32px] sm:rounded-[36px] bg-[#FAFAFA] hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] p-8 sm:p-12 border border-stone-200/90 transition-all duration-500 flex flex-col justify-between relative overflow-hidden group will-change-transform shadow-xs">
             <div className="mb-10">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-semibold block mb-2">For businesses that need customers</span>
               <h3 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 leading-tight mb-4">

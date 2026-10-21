@@ -64,7 +64,7 @@ export default function Footer() {
           Clean architectural transition between dark form and dark footer.
           Header pill and footer telemetry strip removed per user request.
          ───────────────────────────────────────────────────────────── */}
-      <section className="relative bg-[#F8F9FA] text-[#080B10] border-t border-stone-200/90 py-20 sm:py-28 select-none">
+      <section className="relative bg-white text-[#080B10] border-t border-stone-200/90 py-20 sm:py-28 select-none">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
@@ -113,9 +113,28 @@ export default function Footer() {
         <div className="pt-12 sm:pt-16 pb-12 border-b border-white/10 relative">
           <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             
-            {/* That Real Comet */}
-            <div className="w-full flex items-center justify-center my-2">
-              <SingleCometCanvas height="h-[320px] sm:h-[380px]" title="E-Comet Core" />
+            {/* Comet Stage with Big Stretched E-COMET OUTVERSE Typography Behind */}
+            <div className="relative w-full min-h-[340px] sm:min-h-[420px] flex items-center justify-center my-6 overflow-hidden">
+              
+              {/* Massive Dark Gray Sans-Serif Stretched Typography Behind Comet */}
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
+                <span 
+                  className="inline-block font-sans font-black tracking-tighter text-[#222C3A] uppercase whitespace-nowrap leading-none select-none"
+                  style={{
+                    fontSize: 'clamp(2.5rem, 7.5vw, 10rem)',
+                    transform: 'scaleY(1.55)',
+                    transformOrigin: 'center center'
+                  }}
+                >
+                  E-COMET OUTVERSE
+                </span>
+              </div>
+
+              {/* That Real 3D Comet sitting on top */}
+              <div className="relative z-10 w-full flex items-center justify-center pointer-events-auto">
+                <SingleCometCanvas height="h-[340px] sm:h-[400px]" title="E-Comet Core" />
+              </div>
+
             </div>
 
             {/* Social Media Brand Ecosystem Pills */}

@@ -127,9 +127,9 @@ export default function ClosingSection() {
         </div>
 
         {/* ===================================================================== */}
-        {/* 3. AESTHETIC GLASSMORPHIC FORM CONTAINER                              */}
+        {/* 3. AESTHETIC GLASSMORPHIC FORM CONTAINER (Full Container Width)      */}
         {/* ===================================================================== */}
-        <div className="relative z-10 max-w-3xl mx-auto rounded-[32px] sm:rounded-[38px] bg-black/60 backdrop-blur-2xl border border-white/20 p-8 sm:p-12 lg:p-14 shadow-[0_25px_80px_rgba(0,0,0,0.85)] hover:border-white/30 transition-all duration-500 overflow-hidden">
+        <div className="relative z-10 w-full max-w-full rounded-[32px] sm:rounded-[44px] bg-black/60 backdrop-blur-2xl border border-white/20 p-8 sm:p-12 lg:p-16 shadow-[0_25px_80px_rgba(0,0,0,0.85)] hover:border-white/30 transition-all duration-500 overflow-hidden">
           
           {/* Top Specular Edge Highlight */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent pointer-events-none" />

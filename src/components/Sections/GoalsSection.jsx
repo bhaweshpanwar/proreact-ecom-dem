@@ -30,23 +30,23 @@ export default function GoalsSection() {
     <section id="goals" aria-labelledby="goals-heading" className="relative py-14 sm:py-24 bg-white overflow-hidden">
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
         
-        <div className="rounded-container bg-[#EDF0F3] p-8 sm:p-14 lg:p-16 border border-[#E2E5E9] shadow-sm relative overflow-hidden">
+        <div className="rounded-container bg-white p-8 sm:p-14 lg:p-16 border border-stone-200/90 shadow-xs relative overflow-hidden">
           
-          {/* Header */}
-          <div className="max-w-3xl mx-auto text-center mb-10 sm:mb-14">
+          {/* Header - Left Aligned */}
+          <div className="max-w-3xl mb-10 sm:mb-14 text-left">
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
               02 · Growth Blueprint
             </span>
             <h2 id="goals-heading" className="text-3xl sm:text-5xl lg:text-6xl font-serif text-space-950 tracking-tight leading-tight mb-4">
               What can we do for <span className="italic">you</span>?
             </h2>
-            <p className="text-sm sm:text-base text-space-600 font-sans leading-relaxed max-w-2xl mx-auto">
+            <p className="text-sm sm:text-base text-space-600 font-sans leading-relaxed max-w-2xl">
               Select your immediate objective to discover the customized growth roadmap, mapped services, and audit scope.
             </p>
           </div>
 
-          {/* 10 Selectable Objective Pills */}
-          <div id="goals-pills-wrap" role="tablist" className="flex flex-wrap items-center justify-center gap-2 sm:gap-2.5 w-full max-w-full mx-auto mb-10 sm:mb-12">
+          {/* 10 Selectable Objective Pills - Left Aligned */}
+          <div id="goals-pills-wrap" role="tablist" className="flex flex-wrap items-center justify-start gap-2 sm:gap-2.5 w-full max-w-full mb-10 sm:mb-12">
             {GOALS_DATA.map((item, idx) => {
               const isActive = idx === currentGoalIndex;
               return (
@@ -59,7 +59,7 @@ export default function GoalsSection() {
                   className={`px-4 py-2 sm:px-5 sm:py-2.5 rounded-full text-xs font-sans font-medium transition-all cursor-pointer flex items-center gap-2 select-none ${
                     isActive
                       ? 'bg-[#080B10] text-white border border-[#080B10] shadow-md ring-2 ring-[#080B10]/10'
-                      : 'bg-white text-space-800 border border-slate-200/90 hover:border-space-800 hover:bg-slate-50'
+                      : 'bg-[#FAFAFA] text-space-800 border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-xs'
                   }`}
                 >
                   <span>{item.label}</span>
@@ -68,8 +68,8 @@ export default function GoalsSection() {
             })}
           </div>
 
-          {/* Dynamic Results Card inside White Rounded Panel */}
-          <div id="goal-results-card" className="w-full max-w-full bg-white rounded-[24px] p-7 sm:p-12 border border-slate-200/80 shadow-[0_16px_48px_rgba(14,18,24,0.06)] relative overflow-hidden">
+          {/* Dynamic Results Card - Off-White #FAFAFA, turns White on Hover */}
+          <div id="goal-results-card" className="w-full max-w-full bg-[#FAFAFA] hover:bg-white rounded-[28px] sm:rounded-[32px] p-7 sm:p-12 border border-stone-200/90 hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 relative overflow-hidden group">
             <div ref={contentRef} className="blueprint-content-wrap space-y-6 sm:space-y-8 will-change-transform">
               
               {/* Top Meta Row */}
@@ -129,13 +129,13 @@ export default function GoalsSection() {
                     <a 
                       key={sIdx}
                       href={s.href} 
-                      className="blueprint-service-card p-4 sm:p-5 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-200/70 hover:border-space-900/30 hover:shadow-[0_8px_24px_rgba(14,18,24,0.06)] hover:-translate-y-0.5 transition-all duration-200 flex flex-col justify-between group relative overflow-hidden"
+                      className="blueprint-service-card p-4 sm:p-5 rounded-2xl bg-white hover:bg-stone-50 border border-stone-200/80 hover:border-space-950 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 flex flex-col justify-between group/srv relative overflow-hidden"
                     >
                       <div className="flex items-start justify-between gap-2 mb-2">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-serif font-bold text-space-950 group-hover:text-black transition-colors">{s.title}</span>
+                          <span className="text-sm font-serif font-bold text-space-950 group-hover/srv:text-black transition-colors">{s.title}</span>
                         </div>
-                        <span className="text-xs text-space-400 group-hover:text-space-950 group-hover:translate-x-1 transition-all">→</span>
+                        <span className="text-xs text-space-400 group-hover/srv:text-space-950 group-hover/srv:translate-x-1 transition-all">→</span>
                       </div>
                       <span className="text-xs text-space-600 leading-relaxed font-sans">{s.desc}</span>
                     </a>

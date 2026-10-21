@@ -3,6 +3,8 @@ import { useParams, Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SERVICES_DATA } from '../data/servicesData';
+import { ECOMMERCE_SERVICES_DATA } from '../data/ecommerceServicesData';
+import { DIGITAL_MARKETING_SERVICES_DATA } from '../data/digitalMarketingServicesData';
 import { PACKAGES_BY_PILLAR, USE_CASES_BY_PILLAR } from '../data/packagesData';
 import { getServiceFaqs } from '../data/serviceFaqsData';
 import SingleCometCanvas from '../components/Hero3D/SingleCometCanvas';
@@ -13,172 +15,156 @@ import Footer from '../components/Sections/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Slug alias resolver
+const SLUG_ALIASES = {
+  // E-Commerce aliases
+  'amazon-operations': 'amazon-india-management',
+  'flipkart-operations': 'flipkart-management',
+  'shopify-management': 'shopify-store-management',
+  'woocommerce-management': 'woocommerce-store-management',
+  'ecommerce-management': 'amazon-india-management',
+  // Digital Marketing aliases & doc variations
+  'search-engine-optimization': 'seo',
+  'seo-services': 'seo',
+  'meta-ads-management': 'meta-ads',
+  'google-ads-management': 'google-ads',
+  'youtube-ads-management': 'youtube-ads',
+  'local-seo-digital-marketing': 'local-seo',
+  'local-seo-services': 'local-seo',
+  'lead-generation-conversion': 'lead-generation',
+  'influencer-marketing': 'influencer-affiliate-partnerships',
+  'conversion-rate-optimization': 'cro',
+  'social-media': 'social-media-management',
+  'email-marketing-services': 'email-marketing',
+  'sms-marketing-services': 'sms-campaigns',
+  'whatsapp-marketing-services': 'whatsapp-marketing',
+  'email-whatsapp': 'email-marketing',
+  'digital-marketing': 'meta-ads'
+};
+
+const ALL_RICH_SERVICES = {
+  ...ECOMMERCE_SERVICES_DATA,
+  ...DIGITAL_MARKETING_SERVICES_DATA
+};
+
+const DEFAULT_PROCESS = [
+  {
+    step: '01',
+    title: 'Audit & Diagnostic Review',
+    desc: 'Deep inspection of current operations, baseline unit economics, competitive landscape, and channel bottlenecks.'
+  },
+  {
+    step: '02',
+    title: 'Strategic Architecture',
+    desc: 'Bespoke tactical roadmap defining channel positioning, creative pipelines, margin economics, and milestone SLAs.'
+  },
+  {
+    step: '03',
+    title: 'Precision Implementation',
+    desc: 'Systematic execution across platform listings, advertising funnels, asset delivery, and operational workflows.'
+  },
+  {
+    step: '04',
+    title: 'Compounding Optimization',
+    desc: 'Algorithmic performance monitoring, telemetry tracking, conversion rate elevation, and executive reporting.'
+  }
+];
+
 export default function ServiceDetailPage({ slugOverride }) {
   const { slug: routeSlug } = useParams();
-  const slug = slugOverride || routeSlug;
-  const [openFaqs, setOpenFaqs] = useState([0]); // Default first FAQ open
-  const [currency, setCurrency] = useState('INR'); // 'INR' or 'USD'
+  const rawSlug = slugOverride || routeSlug;
+  const slug = SLUG_ALIASES[rawSlug] || rawSlug;
+
+  // Check if this is one of our rich services (Pillar 1 E-Commerce or Pillar 2 Digital Marketing)
+  const richService = ALL_RICH_SERVICES[slug];
+  const hasRichData = !!richService;
+
+  // Resolve active service data (Rich data or generic fallback)
+  const service = richService || SERVICES_DATA.find(s => s.id === slug) || SERVICES_DATA[0];
+  const executionPhases = (service.process && service.process.length > 0) ? service.process : DEFAULT_PROCESS;
+
+  const [openFaqs, setOpenFaqs] = useState([0]); // First FAQ open by default
   const [activePersona, setActivePersona] = useState(0);
+  const [selectedPackage, setSelectedPackage] = useState('NOVA');
+  const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Platform enquiry form fields state
+  const [formData, setFormData] = useState({
+    fullName: '',
+    businessName: '',
+    phone: '',
+    email: '',
+    businessType: 'Manufacturer',
+    platformStatus: '',
+    productCategory: '',
+    skuCount: '21–100 products',
+    preferredPackage: 'NOVA',
+    servicesRequired: [],
+    adBudget: '',
+    requirements: ''
+  });
+
   const containerRef = useRef(null);
   const whyVideoRef = useRef(null);
 
-  // Strategic Fit Profiles tailored to engagement tiers
-  const personaProfiles = [
-    {
-      stageTag: "DAY-1 ONBOARDING",
-      slaTarget: "Rapid Setup Sprint",
-      coreMetric: "Catalogue Health & Verification",
-      governance: "Senior Specialist Direct",
-      deliverableSummary: "Complete brand onboarding, taxonomy mapping, compliance audit, and initial catalogue architecture.",
-      highlights: [
-        "Structured marketplace account registration & tax compliance checks",
-        "Clean catalogue variation mapping & high-indexing keyword seeds",
-        "Day-1 launch verification with zero initial listing rejections"
-      ]
-    },
-    {
-      stageTag: "GROWTH & EXPANSION",
-      slaTarget: "Continuous Sprints",
-      coreMetric: "ROAS Efficiency & Organic Share",
-      governance: "Practice Partner Direct",
-      deliverableSummary: "Full-funnel advertising restructuring, proactive buy-box monitoring, and margin-defending bid automation.",
-      highlights: [
-        "Keyword harvest campaigns and negative targeting to halt ad spend waste",
-        "A+ Content curation, brand store enhancement, and conversion testing",
-        "Automated margin audits and daily buy-box recovery protocols"
-      ]
-    },
-    {
-      stageTag: "ENTERPRISE & WHOLESALE",
-      slaTarget: "Strategic Governance",
-      coreMetric: "Multi-Channel Margin Stability",
-      governance: "Executive Director Lead",
-      deliverableSummary: "Multi-channel inventory synchronization, high-volume catalogue management, and centralized business reporting.",
-      highlights: [
-        "Dedicated enterprise account architecture across Amazon & Flipkart",
-        "Unified stock feed governance to prevent overselling penalties",
-        "Quarterly P&L reviews and custom executive margin dashboards"
-      ]
+  // Dynamic SEO Page Title & Meta Description
+  useEffect(() => {
+    if (service.seo?.title) {
+      document.title = service.seo.title;
+    } else {
+      document.title = `${service.title} | E-COMET OUTVERSE`;
     }
-  ];
 
-  // 4 Core Why Differentiators (Comet Trajectory Points)
-  const whyPoints = [
-    {
-      index: "01",
-      pillar: "Commercial Focus",
-      title: "Business-First Thinking",
-      desc: "We start by understanding your margins, inventory, audience, and commercial priorities before choosing tools.",
-      tag: "P&L ALIGNED",
-      highlight: "Direct Unit Economics Audit",
-      metric: "100% Margin Protected"
-    },
-    {
-      index: "02",
-      pillar: "Multi-Pillar Sync",
-      title: "Connected Capabilities",
-      desc: "Marketplaces, web development, video, and paid acquisition work in unified lockstep under one roof.",
-      tag: "ZERO SILOS",
-      highlight: "Unified Cross-Practice Roadmap",
-      metric: "6 Pillars Synchronized"
-    },
-    {
-      index: "03",
-      pillar: "Integrity & Governance",
-      title: "Transparent Scope",
-      desc: "Deliverables, revision limits, costs, and responsibilities are discussed and agreed in writing before kickoff.",
-      tag: "WRITTEN CONTRACT",
-      highlight: "Fixed Scope Guardrails",
-      metric: "Zero Surprise Overages"
-    },
-    {
-      index: "04",
-      pillar: "Grounded Reality",
-      title: "Zero Vanity Claims",
-      desc: "No fabricated testimonials or false revenue guarantees. We evaluate performance through honest operational progress.",
-      tag: "HONEST DELIVERY",
-      highlight: "Verified Telemetry Reporting",
-      metric: "Pure Performance Telemetry"
+    if (service.seo?.description) {
+      let metaDesc = document.querySelector('meta[name="description"]');
+      if (!metaDesc) {
+        metaDesc = document.createElement('meta');
+        metaDesc.name = 'description';
+        document.head.appendChild(metaDesc);
+      }
+      metaDesc.content = service.seo.description;
     }
-  ];
+  }, [service]);
 
-  // Find matching service by id or fallback to first
-  const service = SERVICES_DATA.find(s => s.id === slug) || SERVICES_DATA[0];
-
-  // Resolve packages and illustrative use cases for this pillar
-  const packageData = PACKAGES_BY_PILLAR[service.pillarId] || PACKAGES_BY_PILLAR['marketplaces'];
-  const useCases = USE_CASES_BY_PILLAR[service.pillarId] || USE_CASES_BY_PILLAR['marketplaces'];
-
-  // Resolve 10 comprehensive FAQs tailored to service and governance (5 Left, 5 Right)
-  const serviceFaqs = getServiceFaqs(service);
-  const leftFaqs = serviceFaqs.slice(0, 5);
-  const rightFaqs = serviceFaqs.slice(5, 10);
-
-  // Sibling services in the same pillar
-  const relatedServices = SERVICES_DATA.filter(
-    s => s.pillarId === service.pillarId && s.id !== service.id
-  ).slice(0, 4);
-
-  // Guarantee 4 capabilities for this service
-  const defaultCapabilities = [
-    { 
-      title: "Continuous Technical Governance", 
-      desc: "Dedicated architect oversight, proactive health checks, and verified issue mitigation within strict turnaround SLAs."
-    },
-    { 
-      title: "Data Telemetry & Attribution Reporting", 
-      desc: "Granular attribution mapping, performance cohort analytics, and executive business dashboards for executive visibility."
-    },
-    { 
-      title: "Direct Partner Channel Alignment", 
-      desc: "Senior practice lead direct communication, bi-weekly reviews, and transparent sprint milestones with zero middleman overhead."
-    },
-    { 
-      title: "Scalable Execution Architecture", 
-      desc: "Modular, zero-defect delivery systems structured around sustainable business economics and compounding revenue margins."
-    }
-  ];
-
-  const rawFeatures = service.keyFeatures || [];
-  const fourCapabilities = [
-    ...rawFeatures.slice(0, 4),
-    ...defaultCapabilities.slice(0, Math.max(0, 4 - rawFeatures.length))
-  ].slice(0, 4);
-
-  const getCardDeliverables = (idx) => {
-    const d = service.deliverables || [];
-    if (d.length > 0) {
-      const start = (idx * 2) % d.length;
-      const d1 = d[start];
-      const d2 = d[(start + 1) % d.length];
-      return [d1, d2].filter(Boolean);
-    }
-    return [
-      "Technical quality verification & performance audit",
-      "Milestone reviews & direct practice partner alignment"
-    ];
-  };
-
-  // Scroll to top on slug change
+  // Scroll to top on slug change & reset form state
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     setOpenFaqs([0]);
+    setActivePersona(0);
+    setFormSubmitted(false);
+    if (service.enquiryForm?.platformOptions?.length > 0) {
+      setFormData(prev => ({
+        ...prev,
+        platformStatus: service.enquiryForm.platformOptions[0],
+        preferredPackage: 'NOVA',
+        servicesRequired: (service.enquiryForm.serviceOptions || []).slice(0, 3)
+      }));
+    }
     ScrollTrigger.refresh();
+  }, [slug, service]);
+
+  // Handle why video slowmo playback
+  useEffect(() => {
+    if (whyVideoRef.current) {
+      whyVideoRef.current.playbackRate = 0.65;
+    }
   }, [slug]);
 
-  // Bespoke scroll swipe-in and stagger animations for all sections
+  // Bespoke scroll swipe-in and stagger animations
   useEffect(() => {
     let mm;
     const ctx = gsap.context(() => {
-      // 1a. Architecture Main Heading floating from right-outside directly locked to scroll
+      // 1. Architecture Main Heading float tied to scroll
       gsap.fromTo(
         '.architecture-heading-float',
-        { x: '100vw' },
+        { x: '40vw', opacity: 0.2 },
         {
           x: 0,
+          opacity: 1,
           ease: 'none',
           scrollTrigger: {
-            trigger: '.sec-architecture',
+            trigger: '.sec-capabilities',
             start: 'top bottom',
             end: 'top 20%',
             scrub: true,
@@ -187,15 +173,15 @@ export default function ServiceDetailPage({ slugOverride }) {
         }
       );
 
-      // 1b. The 4 Cards in 2x2 Matrix appearing as user scrolls
-      gsap.utils.toArray('.architecture-matrix-card').forEach((card) => {
+      // 2. Capabilities Cards Matrix
+      gsap.utils.toArray('.capability-matrix-card').forEach((card) => {
         gsap.fromTo(
           card,
-          { y: 60, opacity: 0 },
+          { y: 50, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.85,
+            duration: 0.75,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: card,
@@ -206,16 +192,16 @@ export default function ServiceDetailPage({ slugOverride }) {
         );
       });
 
-      // 2. Who Benefits Cards
+      // 3. Who Benefits Cards Stagger
       gsap.fromTo(
         '.card-benefit',
-        { x: 50, opacity: 0, scale: 0.95 },
+        { x: 40, opacity: 0, scale: 0.96 },
         {
           x: 0,
           opacity: 1,
           scale: 1,
-          duration: 0.75,
-          stagger: 0.12,
+          duration: 0.65,
+          stagger: 0.08,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '.sec-benefits',
@@ -225,30 +211,15 @@ export default function ServiceDetailPage({ slugOverride }) {
         }
       );
 
-      // 3. Why Section: 4 Corner Cards & Center Video Animation
+      // 4. Why Section Corner Cards
       gsap.fromTo(
         '.card-why-left',
-        { x: -50, opacity: 0 },
+        { x: -40, opacity: 0 },
         {
           x: 0,
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.15,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.sec-why-us',
-            start: 'top 80%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-      gsap.fromTo(
-        '.why-center-video-frame',
-        { scale: 0.92, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.85,
+          duration: 0.75,
+          stagger: 0.12,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '.sec-why-us',
@@ -259,12 +230,12 @@ export default function ServiceDetailPage({ slugOverride }) {
       );
       gsap.fromTo(
         '.card-why-right',
-        { x: 50, opacity: 0 },
+        { x: 40, opacity: 0 },
         {
           x: 0,
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.15,
+          duration: 0.75,
+          stagger: 0.12,
           ease: 'power3.out',
           scrollTrigger: {
             trigger: '.sec-why-us',
@@ -274,60 +245,63 @@ export default function ServiceDetailPage({ slugOverride }) {
         }
       );
 
-      // 4. Roadmap Staircase Cards: Flowing from bottom one-by-one on continuous scroll, reversing on scroll-up
+      // 5. Roadmap Staircase Cards: Sequential 1-by-1 entrance tied 1:1 to scroll progress
       mm = gsap.matchMedia();
-
-      // Desktop & large screens: Pin on arrival and animate cards sequentially 1-by-1 scrubbed to scroll
       mm.add("(min-width: 1024px)", () => {
         const cards = gsap.utils.toArray('.architecture-stair-card');
         if (!cards.length) return;
+
+        // Dedicated scroll track (~520px per card) so 1 scroll gesture = 1 card
+        const scrollDistance = cards.length * 520 + 350;
 
         const tl = gsap.timeline({
           scrollTrigger: {
             trigger: '.sec-roadmap',
             start: 'top top',
-            end: '+=1600',
+            end: `+=${scrollDistance}`,
             pin: true,
-            scrub: 1,
+            scrub: 0.25, // tight & responsive: stops immediately when scroll stops (no runaway lag)
             anticipatePin: 1,
             invalidateOnRefresh: true,
           }
         });
 
+        // Each card enters strictly sequentially, one by one, with ease: 'none' (linear)
+        // so movement is strictly proportional to scroll progress (partial scroll = partial card rise)
         cards.forEach((card, idx) => {
           tl.fromTo(
             card,
-            { y: 260, opacity: 0 },
+            { y: 160, opacity: 0 },
             { 
               y: 0, 
               opacity: 1, 
-              duration: 1, 
-              ease: 'power2.out' 
+              duration: 1.0, 
+              ease: 'none' 
             },
-            idx * 0.95
+            idx * 1.15 // strictly sequential: card idx+1 only starts after card idx finishes
           );
         });
 
-        // Settle pause so final staircase is appreciated before unpin
-        tl.to({}, { duration: 0.4 });
+        // Generous settle pause so all cards stay visible before unpinning
+        tl.to({}, { duration: 0.5 });
       });
 
-      // Mobile & small tablet: Scrubbed scroll for each card individually
       mm.add("(max-width: 1023px)", () => {
         const cards = gsap.utils.toArray('.architecture-stair-card');
         cards.forEach((card) => {
           gsap.fromTo(
             card,
-            { y: 100, opacity: 0 },
+            { y: 80, opacity: 0 },
             {
               y: 0,
               opacity: 1,
-              ease: 'power2.out',
+              duration: 1.0,
+              ease: 'none',
               scrollTrigger: {
                 trigger: card,
-                start: 'top 90%',
-                end: 'top 60%',
-                scrub: 1,
+                start: 'top 85%',
+                end: 'top 55%',
+                scrub: 0.25,
                 invalidateOnRefresh: true,
               }
             }
@@ -335,44 +309,10 @@ export default function ServiceDetailPage({ slugOverride }) {
         });
       });
 
-      // 5. Use Case Split Panels - Swipe in from left & right locked directly to scroll progress
-      gsap.fromTo(
-        '.card-usecase-left',
-        { x: -160, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.sec-usecases',
-            start: 'top 85%',
-            end: 'top 32%',
-            scrub: 1,
-            invalidateOnRefresh: true,
-          }
-        }
-      );
-      gsap.fromTo(
-        '.card-usecase-right',
-        { x: 160, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          ease: 'power2.out',
-          scrollTrigger: {
-            trigger: '.sec-usecases',
-            start: 'top 85%',
-            end: 'top 32%',
-            scrub: 1,
-            invalidateOnRefresh: true,
-          }
-        }
-      );
-
-      // 6. Pricing Tier Cards
+      // 6. Pricing Tier Cards Stagger
       gsap.fromTo(
         '.card-pricing',
-        { y: 50, opacity: 0, scale: 0.95 },
+        { y: 40, opacity: 0, scale: 0.96 },
         {
           y: 0,
           opacity: 1,
@@ -391,16 +331,16 @@ export default function ServiceDetailPage({ slugOverride }) {
       // 7. FAQs Stagger
       gsap.fromTo(
         '.card-faq',
-        { y: 30, opacity: 0 },
+        { y: 25, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.6,
-          stagger: 0.05,
+          duration: 0.5,
+          stagger: 0.04,
           ease: 'power2.out',
           scrollTrigger: {
             trigger: '.sec-faq',
-            start: 'top 82%',
+            start: 'top 85%',
             toggleActions: 'play none none none'
           }
         }
@@ -419,22 +359,62 @@ export default function ServiceDetailPage({ slugOverride }) {
     );
   };
 
+  const handleSelectPackageFromTier = (tierName) => {
+    setSelectedPackage(tierName);
+    setFormData(prev => ({ ...prev, preferredPackage: tierName }));
+    const formEl = document.getElementById('enquiry');
+    if (formEl) {
+      formEl.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleToggleServiceRequired = (srv) => {
+    setFormData(prev => {
+      const exists = prev.servicesRequired.includes(srv);
+      if (exists) {
+        return { ...prev, servicesRequired: prev.servicesRequired.filter(s => s !== srv) };
+      } else {
+        return { ...prev, servicesRequired: [...prev.servicesRequired, srv] };
+      }
+    });
+  };
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setTimeout(() => {
+      setIsSubmitting(false);
+      setFormSubmitted(true);
+    }, 800);
+  };
+
+  // Resolve FAQs
+  const allFaqs = hasRichData ? service.faqs : getServiceFaqs(service);
+  const halfFaq = Math.ceil(allFaqs.length / 2);
+  const leftFaqs = allFaqs.slice(0, halfFaq);
+  const rightFaqs = allFaqs.slice(halfFaq);
+
+  // Sibling services in the same division
+  const siblingServices = hasRichData
+    ? Object.values(ALL_RICH_SERVICES).filter(s => s.division === service.division && s.id !== service.id).slice(0, 4)
+    : SERVICES_DATA.filter(s => s.pillarId === service.pillarId && s.id !== service.id).slice(0, 5);
+
   return (
     <div ref={containerRef} className="relative min-h-screen bg-white select-none">
       
       {/* ===================================================================== */}
-      {/* 1. HERO SECTION (Deep Black Space, Zero Violet, Refined 3D Comet)     */}
+      {/* 1. HERO SECTION (Deep Black Space, Platform Accent, Monolithic 3D)    */}
       {/* ===================================================================== */}
       <section className="relative pt-36 pb-24 sm:pt-44 sm:pb-32 bg-[#000000] text-white overflow-hidden min-h-[720px] lg:min-h-[840px] xl:min-h-[880px] flex items-center">
         
-        {/* Full-bleed Real-Time 3D Galaxy Canvas (Starfield + Zero Violet Dust) */}
+        {/* Full-bleed Real-Time 3D Galaxy Canvas */}
         <CosmicGalaxyCanvas accentColorHex={service.colorHex} />
 
-        {/* Ambient Dark Vignette (Pure Black Space) */}
+        {/* Ambient Dark Radial Vignette */}
         <div 
           className="absolute inset-0 pointer-events-none opacity-50 z-[1]"
           style={{
-            background: 'radial-gradient(circle at 50% 50%, rgba(0,0,0,0.4) 0%, #000000 100%)'
+            background: 'radial-gradient(circle at 50% 50%, rgba(0,0,0,0.3) 0%, #000000 100%)'
           }}
           aria-hidden="true"
         />
@@ -448,13 +428,20 @@ export default function ServiceDetailPage({ slugOverride }) {
               <span>/</span>
               <span className="text-slate-500 uppercase tracking-wider">{service.category}</span>
               <span>/</span>
-              <span className="text-white font-semibold">{service.shortTitle || service.title}</span>
+              <span className="text-slate-500 uppercase tracking-wider">
+                {service.division?.replace(/^Division\s+\d+:\s*/i, '') || "Practice Track"}
+              </span>
+              <span>/</span>
+              <span className="text-white font-semibold">{service.title}</span>
             </nav>
 
             <div className="inline-flex items-center gap-2.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-white/70 animate-pulse" />
+              <span 
+                className="w-2 h-2 rounded-full animate-pulse" 
+                style={{ backgroundColor: service.colorHex || '#38BDF8' }} 
+              />
               <span className="text-[10px] font-mono tracking-widest uppercase text-slate-300">
-                PRACTICE TELEMETRY · 04 CORE PILLARS
+                {(service.division?.replace(/^Division\s+\d+:\s*/i, '') || "CORE SERVICE").toUpperCase()} · LIVE ORBIT
               </span>
             </div>
           </div>
@@ -465,25 +452,52 @@ export default function ServiceDetailPage({ slugOverride }) {
             <div className="lg:col-span-7 space-y-6">
               
               <h1 className="font-serif text-4xl sm:text-6xl lg:text-7xl xl:text-[5.25rem] font-normal leading-[1.04] tracking-tight text-white">
-                {service.title}
+                {hasRichData && service.hero?.headline ? service.hero.headline : service.title}
               </h1>
 
+              {/* Dynamic Accent Line matching the Telemetry Color Dot */}
+              <div className="flex items-center gap-2 pt-1 pb-1" aria-hidden="true">
+                <span 
+                  className="h-1 sm:h-1.5 rounded-full w-24 sm:w-36 transition-all duration-500"
+                  style={{ 
+                    backgroundColor: service.colorHex || '#38BDF8',
+                    boxShadow: `0 0 16px ${service.colorHex || '#38BDF8'}80`
+                  }}
+                />
+                <span 
+                  className="h-1 sm:h-1.5 rounded-full w-4 sm:w-6 transition-all duration-500 opacity-80"
+                  style={{ backgroundColor: service.colorHex || '#38BDF8' }}
+                />
+                <span 
+                  className="h-1 sm:h-1.5 rounded-full w-1.5 sm:w-2 transition-all duration-500 opacity-40"
+                  style={{ backgroundColor: service.colorHex || '#38BDF8' }}
+                />
+              </div>
+
               <p className="text-xl sm:text-2xl font-sans font-normal text-slate-200">
-                {service.tagline}
+                {hasRichData && service.hero?.subheadline ? service.hero.subheadline : service.tagline}
               </p>
 
               <p className="text-sm sm:text-base text-slate-300 font-sans leading-relaxed max-w-2xl">
-                {service.overview}
+                {hasRichData && service.hero?.description ? service.hero.description : service.overview}
               </p>
 
               {/* 3 Executive Spec Chips */}
               <div className="grid grid-cols-3 gap-3 py-4 border-y border-white/10 max-w-xl">
                 <div>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block mb-0.5">
-                    Deployment SLA
+                    Operational Model
                   </span>
                   <span className="text-xs sm:text-sm font-sans font-semibold text-white">
-                    &lt; 48-Hour Sprint
+                    Business-First Strategy
+                  </span>
+                </div>
+                <div>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block mb-0.5">
+                    Engagement Tiers
+                  </span>
+                  <span className="text-xs sm:text-sm font-sans font-semibold text-white">
+                    Orbit · Nova · Cosmic
                   </span>
                 </div>
                 <div>
@@ -491,15 +505,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                     Governance
                   </span>
                   <span className="text-xs sm:text-sm font-sans font-semibold text-white">
-                    Partner Direct
-                  </span>
-                </div>
-                <div>
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 block mb-0.5">
-                    Performance Model
-                  </span>
-                  <span className="text-xs sm:text-sm font-sans font-semibold text-white">
-                    Compounding Equity
+                    Practice Lead Direct
                   </span>
                 </div>
               </div>
@@ -507,15 +513,15 @@ export default function ServiceDetailPage({ slugOverride }) {
               {/* Action Buttons */}
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <a 
-                  href="#closing"
+                  href="#enquiry"
                   className="px-6 py-3.5 rounded-full bg-white hover:bg-slate-100 text-space-950 font-sans text-xs font-semibold transition-all hover:scale-105 shadow-[0_0_25px_rgba(255,255,255,0.2)] flex items-center gap-2 cursor-pointer"
                 >
-                  <span>Get a Custom Quote</span>
+                  <span>Request a Consultation</span>
                   <span>→</span>
                 </a>
 
                 <a 
-                  href="https://wa.me/91XXXXXXXXXX" 
+                  href={`https://wa.me/919999999999?text=${encodeURIComponent(`Hi E-COMET OUTVERSE, I would like to discuss ${service.title} for my business.`)}`}
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="px-5 py-3.5 rounded-full bg-[#25D366] hover:bg-[#20ba59] text-white font-sans text-xs font-semibold transition-all hover:scale-105 flex items-center gap-2 shadow-md cursor-pointer"
@@ -527,16 +533,16 @@ export default function ServiceDetailPage({ slugOverride }) {
                 </a>
 
                 <a 
-                  href="#pricing" 
+                  href="#packages" 
                   className="px-5 py-3.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/15 text-slate-200 font-sans text-xs font-semibold transition-colors cursor-pointer"
                 >
-                  View Packages ↓
+                  Explore Packages ↓
                 </a>
               </div>
 
             </div>
 
-            {/* Right Celestial Arena: 3D Asteroid from Blender */}
+            {/* Right Celestial Arena: 3D Asteroid Canvas */}
             <div className="lg:col-span-5 flex items-center justify-center relative w-full">
               <SingleCometCanvas colorHex={service.colorHex} title={service.title} />
             </div>
@@ -547,55 +553,147 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 2. CORE CAPABILITIES (2x2 Matrix Architectural Stage)                 */}
+      {/* 2. ABOUT PLATFORM & STRATEGIC APPROACH                                */}
       {/* ===================================================================== */}
-      <section className="sec-architecture relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+      {hasRichData && service.about && (service.about.paragraphs?.length > 0 || service.about.title) && (
+        <section className="relative py-20 sm:py-28 bg-white hairline-b">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+              
+              {/* Left Column: Heading & Executive Callout */}
+              <div className="lg:col-span-5">
+                <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+                  Strategic Foundation · About This Service
+                </span>
+                <h2 className="text-3xl sm:text-4xl lg:text-[2.75rem] font-serif text-space-950 font-normal tracking-tight leading-[1.18] mb-6">
+                  {service.about.title || `Manage Your ${service.title} with a Clear Strategy.`}
+                </h2>
+                
+                <div className="p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 text-xs sm:text-sm text-slate-700 font-sans leading-relaxed space-y-3">
+                  <div className="flex items-center gap-2 text-space-950 font-semibold font-mono text-[11px] uppercase tracking-wider">
+                    <span className="w-2 h-2 rounded-full" style={{ backgroundColor: service.colorHex || '#2563EB' }} />
+                    Business-First Agency Philosophy
+                  </div>
+                  <p>
+                    Selling on modern marketplaces requires structured coordination across catalogue data, accurate inventory signals, visual indexing, disciplined advertising, and active account health maintenance.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right Column: Complete Narrative Paragraphs */}
+              <div className="lg:col-span-7 space-y-5 text-slate-600 font-sans text-base sm:text-lg leading-relaxed">
+                {(service.about.paragraphs || []).map((paragraph, pIdx) => (
+                  <p key={pIdx}>
+                    {paragraph}
+                  </p>
+                ))}
+              </div>
+
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ===================================================================== */}
+      {/* 3. CORE CAPABILITIES (Complete Platform Services from Document)       */}
+      {/* ===================================================================== */}
+      <section className="sec-capabilities relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          {/* Main Display Heading tied 1:1 to scroll progress (decreased font size) */}
+          {/* Main Display Heading tied 1:1 to scroll progress */}
           <div className="mb-12 sm:mb-16 overflow-hidden">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+              Comprehensive Platform Capabilities · 0{service.capabilities?.length || 4} Core Services
+            </span>
             <h2 className="architecture-heading-float font-serif text-3xl sm:text-4xl lg:text-5xl font-normal text-space-950 tracking-tight leading-[1.15] will-change-transform">
               Engineered with zero operational bloat.
             </h2>
+            <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mt-3 max-w-2xl">
+              Complete, end-to-end management services for {service.title}, structured around your unit economics, catalogue depth, and commercial priorities.
+            </p>
           </div>
 
-          {/* 4 Cards in 2x2 Matrix: Full container width, minimum gap */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 w-full">
-            {fourCapabilities.map((feat, idx) => {
-              const cardDeliverables = getCardDeliverables(idx);
+          {/* Grid of All Capability Services from the Word Document */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full">
+            {(hasRichData ? service.capabilities : (service.keyFeatures || [])).map((feat, idx) => {
+              const codeDisplay = feat.code || (idx < 9 ? `0${idx + 1}` : `${idx + 1}`);
+              const deliverables = feat.deliverables || [];
+
               return (
                 <div 
                   key={idx}
-                  className="architecture-matrix-card group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-12 lg:p-14 min-h-[320px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden"
+                  className="capability-matrix-card group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-10 lg:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden"
                 >
                   <div className="relative z-10">
+                    {/* Header Row: Code & Category Tag */}
+                    <div className="flex items-center justify-between gap-3 mb-4">
+                      <span className="text-xs font-mono font-bold text-slate-400 uppercase tracking-widest">
+                        SERVICE · {codeDisplay}
+                      </span>
+                      <span className="text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-white border border-stone-200 text-slate-600">
+                        VERIFIED SCOPE
+                      </span>
+                    </div>
+
                     {/* Card Heading */}
-                    <h3 className="font-serif text-2xl sm:text-3xl lg:text-[2.2rem] font-normal text-space-950 tracking-tight leading-[1.2] mb-3.5 group-hover:text-black transition-colors duration-300 max-w-lg">
+                    <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-[1.2] mb-3 group-hover:text-black transition-colors duration-300">
                       {feat.title}
                     </h3>
 
-                    {/* Clean, articulate description */}
-                    <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed mb-6">
-                      {feat.desc}
-                    </p>
+                    {/* Overview description */}
+                    {feat.desc && (
+                      <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed mb-6">
+                        {feat.desc}
+                      </p>
+                    )}
 
                     {/* Substantive Scope & Key Deliverables */}
-                    <div className="pt-5 border-t border-stone-200/60">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-3">
-                        Scope &amp; Deliverables
-                      </span>
-                      <ul className="space-y-2">
-                        {cardDeliverables.map((item, dIdx) => (
-                          <li key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
-                            <span className="text-blue-600 font-semibold select-none flex-shrink-0">―</span>
-                            <span>{item}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
+                    {deliverables.length > 0 && (
+                      <div className="pt-5 border-t border-stone-200/60">
+                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-3">
+                          Specific Scope &amp; Deliverables
+                        </span>
+                        <ul className="space-y-2">
+                          {deliverables.map((item, dIdx) => (
+                            <li key={dIdx} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+                              <span className="text-blue-600 font-semibold select-none flex-shrink-0">―</span>
+                              <span>{item}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {/* Note Callout */}
+                    {Boolean((Array.isArray(feat.benefit) ? feat.benefit.length > 0 : feat.benefit)) && (() => {
+                      const benefitList = Array.isArray(feat.benefit)
+                        ? feat.benefit.filter(Boolean)
+                        : (feat.benefit ? [feat.benefit] : []);
+                      if (benefitList.length === 0) return null;
+
+                      return (
+                        <div className="mt-6 p-4 rounded-xl bg-white border border-stone-200/80 text-xs text-slate-700 font-sans leading-relaxed">
+                          <strong className="text-space-950 font-mono text-[10px] uppercase tracking-wider block mb-1">
+                            {benefitList.length > 1 ? 'Notes:' : 'Note:'}
+                          </strong>
+                          {benefitList.length === 1 ? (
+                            <p>{benefitList[0]}</p>
+                          ) : (
+                            <div className="space-y-1.5 mt-1.5">
+                              {benefitList.map((item, bIdx) => (
+                                <div key={bIdx} className="flex items-start gap-2">
+                                  <span className="text-blue-600 font-bold select-none flex-shrink-0 mt-0.5">―</span>
+                                  <span>{item}</span>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })()}
                   </div>
 
-                  {/* Clean hairline accent line (No dot) */}
+                  {/* Clean hairline accent line */}
                   <div className="relative z-10 mt-8">
                     <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
                   </div>
@@ -608,19 +706,19 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 3. STRATEGIC FIT (Split-Screen Interactive 3D Blueprint Stage)        */}
+      {/* 4. WHO CAN BENEFIT (Audience Personas & Interactive 3D Astrolabe)     */}
       {/* ===================================================================== */}
       <section className="sec-benefits relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-start">
             
-            {/* Left Column: Title & 3 Interactive Persona Cards */}
+            {/* Left Column: Title & Interactive Persona Cards */}
             <div className="lg:col-span-7 flex flex-col justify-between">
               
               <div className="max-w-2xl mb-8 sm:mb-12">
                 <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-                  Strategic Fit · 03 Engagement Profiles
+                  Strategic Fit · Audience Personas
                 </span>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
                   Who can benefit from this service?
@@ -630,11 +728,10 @@ export default function ServiceDetailPage({ slugOverride }) {
                 </p>
               </div>
 
-              {/* 3 Persona Cards Stack */}
+              {/* Persona Cards Stack */}
               <div className="space-y-3.5 sm:space-y-4">
                 {(service.whoBenefits || []).map((item, idx) => {
                   const isActive = activePersona === idx;
-                  const profile = personaProfiles[idx] || personaProfiles[0];
                   
                   return (
                     <div 
@@ -657,47 +754,35 @@ export default function ServiceDetailPage({ slugOverride }) {
 
                       <div className="flex items-center justify-between gap-4 mb-3">
                         <span className="text-[11px] font-mono uppercase tracking-wider font-semibold text-slate-400">
-                          PROFILE · 0{idx + 1}
+                          PERSONA · 0{idx + 1}
                         </span>
                         <span className={`text-[10px] font-mono uppercase tracking-wider px-2.5 py-0.5 rounded-full border transition-colors ${
                           isActive 
                             ? 'bg-space-950 text-white border-space-950 font-semibold' 
                             : 'bg-stone-100 text-slate-500 border-stone-200'
                         }`}>
-                          {profile.stageTag}
+                          TARGET FIT
                         </span>
                       </div>
 
-                      <h3 className={`font-serif text-2xl sm:text-[1.75rem] font-normal tracking-tight mb-2.5 transition-colors ${
+                      <h3 className={`font-serif text-2xl sm:text-[1.65rem] font-normal tracking-tight mb-2.5 transition-colors ${
                         isActive ? 'text-space-950' : 'text-space-900'
                       }`}>
                         {item.role}
                       </h3>
 
-                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-4">
+                      <p className="text-xs sm:text-sm text-slate-600 leading-relaxed font-sans mb-3">
                         {item.desc}
                       </p>
 
-                      {/* Expanded criteria when active */}
-                      {isActive && (
-                        <div className="pt-3.5 mt-2 border-t border-stone-100 space-y-2">
-                          {profile.highlights.slice(0, 2).map((hl, hIdx) => (
-                            <div key={hIdx} className="flex items-start gap-2 text-xs text-slate-600 font-sans leading-relaxed">
-                              <span className="text-blue-600 font-semibold select-none">―</span>
-                              <span>{hl}</span>
-                            </div>
-                          ))}
-                        </div>
-                      )}
-
-                      <div className="mt-4 pt-3 border-t border-stone-100/70 flex items-center justify-between text-[11px] font-mono">
+                      <div className="mt-3 pt-3 border-t border-stone-100/70 flex items-center justify-between text-[11px] font-mono">
                         <span className="text-slate-400">
                           {isActive ? '● Live Simulation Active' : '○ Select to inspect blueprint'}
                         </span>
                         <span className={`font-semibold transition-transform ${
                           isActive ? 'text-space-950 translate-x-1' : 'text-slate-400'
                         }`}>
-                          View Overview →
+                          View Alignment →
                         </span>
                       </div>
 
@@ -724,7 +809,7 @@ export default function ServiceDetailPage({ slugOverride }) {
                 <div className="relative z-10 flex items-center justify-between pb-4 border-b border-slate-800/80">
                   <div className="flex items-center gap-2">
                     <span className="text-[11px] font-mono tracking-widest uppercase text-slate-300">
-                      TELEMETRY OVERVIEW · 0{activePersona + 1}
+                      ORBIT BLUEPRINT · 0{activePersona + 1}
                     </span>
                   </div>
                   <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-900 border border-slate-700 text-slate-300 uppercase">
@@ -739,9 +824,8 @@ export default function ServiceDetailPage({ slugOverride }) {
                     colorHex={service.colorHex || '#38BDF8'} 
                   />
                   
-                  {/* Floating Micro-Telemetry Overlays */}
                   <div className="absolute top-2 left-2 text-[10px] font-mono text-slate-400 bg-slate-950/80 px-2 py-1 rounded border border-slate-800 pointer-events-none">
-                    NODE: {activePersona === 0 ? "ALPHA // INGESTION" : activePersona === 1 ? "BETA // ACCELERATION" : "GAMMA // GOVERNANCE"}
+                    PERSONA: {service.whoBenefits?.[activePersona]?.role?.slice(0, 24) || "ACTIVE PROFILE"}
                   </div>
 
                   <div className="absolute bottom-2 right-2 text-[10px] font-mono text-slate-400 bg-slate-950/80 px-2 py-1 rounded border border-slate-800 pointer-events-none">
@@ -754,31 +838,31 @@ export default function ServiceDetailPage({ slugOverride }) {
                   
                   <div className="grid grid-cols-2 gap-2.5 text-[11px] font-mono">
                     <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-                      <span className="text-slate-400 block mb-1">TARGET SLA</span>
+                      <span className="text-slate-400 block mb-1">TARGET FIT</span>
                       <span className="text-white font-semibold">
-                        {(personaProfiles[activePersona] || personaProfiles[0]).slaTarget}
+                        {service.whoBenefits?.[activePersona]?.role || "Business Fit"}
                       </span>
                     </div>
                     <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
                       <span className="text-slate-400 block mb-1">GOVERNANCE</span>
                       <span className="text-white font-semibold">
-                        {(personaProfiles[activePersona] || personaProfiles[0]).governance}
+                        Direct Partner Lead
                       </span>
                     </div>
                   </div>
 
                   <div className="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
                     <span className="text-[10px] font-mono uppercase text-slate-400 tracking-wider block mb-1">
-                      CORE OPERATIONAL FOCUS
+                      OPERATIONAL FOCUS
                     </span>
                     <p className="text-xs font-sans text-slate-300 leading-relaxed">
-                      {(personaProfiles[activePersona] || personaProfiles[0]).deliverableSummary}
+                      {service.whoBenefits?.[activePersona]?.desc || "Complete operational synchronization tailored to your platform status."}
                     </p>
                   </div>
 
                   {/* Primary Deployment Action */}
                   <a
-                    href="#closing-cta"
+                    href="#enquiry"
                     className="w-full py-3 px-4 rounded-xl bg-white hover:bg-slate-100 text-space-950 font-sans font-semibold text-xs text-center flex items-center justify-center gap-2 transition-all active:scale-[0.99] shadow-lg shadow-white/5"
                   >
                     <span>Deploy This Engagement Playbook</span>
@@ -797,8 +881,7 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 4. THE E-COMET ADVANTAGE (White Background, Center Short-Ratio Video)  */}
-      {/* 4 Corners with Clean Cards (Zero Dots, Zero Header, Zero Footer)      */}
+      {/* 5. THE E-COMET ADVANTAGE (Why Choose Us & 9:16 Center Video Loop)     */}
       {/* ===================================================================== */}
       <section className="sec-why-us relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8 relative z-10">
@@ -806,10 +889,10 @@ export default function ServiceDetailPage({ slugOverride }) {
           {/* Section Header */}
           <div className="max-w-3xl mb-12 sm:mb-16">
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-              The E-Comet Advantage · 04 Core Pillars
+              The E-Comet Advantage · Core Principles
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
-              Why businesses partner with our orbit.
+              Why choose E-COMET OUTVERSE?
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed max-w-2xl">
               An execution philosophy centered on sustainable compounding equity, transparent governance, and elimination of operational bloat.
@@ -817,209 +900,165 @@ export default function ServiceDetailPage({ slugOverride }) {
           </div>
 
           {/* 3-Column 4-Corner Layout: 2 Left Cards + Center Short Video + 2 Right Cards */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
-            
-            {/* Left Column: Top-Left Card & Bottom-Left Card */}
-            <div className="lg:col-span-4 flex flex-col justify-between gap-6 sm:gap-8">
-              {/* Card 1: Business-First Thinking */}
-              <div className="card-why-left group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
-                <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
-                    {whyPoints[0].title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
-                    {whyPoints[0].desc}
-                  </p>
-                </div>
-                <p className="text-xs sm:text-sm font-sans font-medium text-slate-800 leading-relaxed pt-4 border-t border-stone-200/60">
-                  {whyPoints[0].highlight}
-                </p>
+          {service.whyChoose && service.whyChoose.length >= 4 && (
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
+              
+              {/* Left Column: Top-Left Card & Bottom-Left Card */}
+              <div className="lg:col-span-4 flex flex-col justify-between gap-6 sm:gap-8">
+                {service.whyChoose.slice(0, 2).map((item, wIdx) => (
+                  <div 
+                    key={wIdx}
+                    className="card-why-left group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[240px]"
+                  >
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-2">
+                        PILLAR · 0{wIdx + 1}
+                      </span>
+                      <h3 className="font-serif text-2xl sm:text-[1.65rem] font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 font-sans leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              {/* Card 2: Connected Capabilities */}
-              <div className="card-why-left group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
-                <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
-                    {whyPoints[1].title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
-                    {whyPoints[1].desc}
-                  </p>
+              {/* Center Column: Center Video playing in short ratio (9:16) on continuous slowmo loop */}
+              <div className="lg:col-span-4 flex items-center justify-center my-4 lg:my-0">
+                <div className="why-center-video-frame w-full max-w-[320px] sm:max-w-[340px] aspect-[9/16] rounded-[32px] sm:rounded-[36px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.12)] border border-stone-200/90 relative bg-black group select-none">
+                  <video
+                    ref={whyVideoRef}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="w-full h-full object-cover"
+                  >
+                    <source src="/197387-904825088.mp4" type="video/mp4" />
+                    <source src="/assets/why-video.mp4" type="video/mp4" />
+                  </video>
+
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
+                  
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-[10px] font-mono text-white/80 pointer-events-none">
+                    <span className="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 uppercase tracking-widest">
+                      Orbital Core
+                    </span>
+                    <span className="px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 uppercase tracking-wider">
+                      Continuous
+                    </span>
+                  </div>
                 </div>
-                <p className="text-xs sm:text-sm font-sans font-medium text-slate-800 leading-relaxed pt-4 border-t border-stone-200/60">
-                  {whyPoints[1].highlight}
-                </p>
               </div>
+
+              {/* Right Column: Top-Right Card & Bottom-Right Card */}
+              <div className="lg:col-span-4 flex flex-col justify-between gap-6 sm:gap-8">
+                {service.whyChoose.slice(2, 4).map((item, wIdx) => (
+                  <div 
+                    key={wIdx}
+                    className="card-why-right group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[240px]"
+                  >
+                    <div>
+                      <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-2">
+                        PILLAR · 0{wIdx + 3}
+                      </span>
+                      <h3 className="font-serif text-2xl sm:text-[1.65rem] font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm text-slate-600 font-sans leading-relaxed">
+                        {item.desc}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
             </div>
+          )}
 
-            {/* Center Column: Center Video playing in short ratio (9:16) on continuous slowmo loop */}
-            <div className="lg:col-span-4 flex items-center justify-center my-4 lg:my-0">
-              <div className="why-center-video-frame w-full max-w-[320px] sm:max-w-[340px] aspect-[9/16] rounded-[32px] sm:rounded-[36px] overflow-hidden shadow-[0_25px_60px_rgba(0,0,0,0.12)] border border-stone-200/90 relative bg-black group select-none">
-                <video
-                  ref={whyVideoRef}
-                  autoPlay
-                  loop
-                  muted
-                  playsInline
-                  onLoadedMetadata={(e) => { e.currentTarget.playbackRate = 0.65; }}
-                  className="w-full h-full object-cover"
+          {/* Additional Why Choose Points (5, 6, 7) */}
+          {service.whyChoose && service.whyChoose.length > 4 && (
+            <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+              {service.whyChoose.slice(4).map((item, extraIdx) => (
+                <div 
+                  key={extraIdx}
+                  className="rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 p-6 hover:bg-white hover:border-space-950 transition-all"
                 >
-                  <source src="/assets/why-video.mp4" type="video/mp4" />
-                  <source src="/197387-904825088.mp4" type="video/mp4" />
-                </video>
-
-                {/* Subtle glass overlay & top status badge */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20 pointer-events-none" />
-                
-                <div className="absolute top-4 left-4 right-4 flex items-center justify-between text-[10px] font-mono text-white/80 pointer-events-none">
-                  <span className="px-2.5 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/15 uppercase tracking-widest">
-                    Orbital Core
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-2">
+                    PILLAR · 0{extraIdx + 5}
                   </span>
-                  <span className="px-2 py-0.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 uppercase tracking-wider">
-                    Continuous
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Top-Right Card & Bottom-Right Card */}
-            <div className="lg:col-span-4 flex flex-col justify-between gap-6 sm:gap-8">
-              {/* Card 3: Transparent Scope */}
-              <div className="card-why-right group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
-                <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
-                    {whyPoints[2].title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
-                    {whyPoints[2].desc}
+                  <h4 className="font-serif text-xl font-normal text-space-950 mb-2">
+                    {item.title}
+                  </h4>
+                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
+                    {item.desc}
                   </p>
                 </div>
-                <p className="text-xs sm:text-sm font-sans font-medium text-slate-800 leading-relaxed pt-4 border-t border-stone-200/60">
-                  {whyPoints[2].highlight}
-                </p>
-              </div>
-
-              {/* Card 4: Zero Vanity Claims */}
-              <div className="card-why-right group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between">
-                <div>
-                  <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 tracking-tight leading-snug mb-3 group-hover:text-black transition-colors duration-300">
-                    {whyPoints[3].title}
-                  </h3>
-                  <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
-                    {whyPoints[3].desc}
-                  </p>
-                </div>
-                <p className="text-xs sm:text-sm font-sans font-medium text-slate-800 leading-relaxed pt-4 border-t border-stone-200/60">
-                  {whyPoints[3].highlight}
-                </p>
-              </div>
+              ))}
             </div>
-
-          </div>
+          )}
 
         </div>
       </section>
 
       {/* ===================================================================== */}
-      {/* 5. 4-STAGE EXECUTION ROADMAP (Ascending Staircase Stage)              */}
+      {/* 6. OUR MANAGEMENT PROCESS (Ascending Staircase Stage)                 */}
       {/* ===================================================================== */}
       <section className="sec-roadmap relative pt-24 lg:pt-28 pb-16 lg:pb-20 bg-white overflow-hidden hairline-b">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
           <div className="max-w-3xl mb-8 sm:mb-12">
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-2.5">
-              Execution Roadmap · 04 Progressive Stages
+              Execution Roadmap · {executionPhases.length} Progressive Phases
             </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-3">
               A structured roadmap to compounding results.
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-              Every stage builds sequentially on the previous milestone, advancing your business from foundational audit to compounding commercial scale.
+              Every phase builds sequentially on the previous milestone, advancing your marketplace presence from foundational audit to compounding scale.
             </p>
           </div>
 
-          {/* Ascending Staircase Cards Grid: Items-end creates literal ascending steps */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 xl:gap-5 items-end w-full">
-            {(service.process && service.process.length >= 4 ? service.process.slice(0, 4) : [
-              { step: "01", title: "Commercial Analysis", desc: "Understand products, margins, capacity, and business goals." },
-              { step: "02", title: "Marketplace Review", desc: "Review current setup, catalogue hygiene, and operational needs." },
-              { step: "03", title: "Scope & Proposal", desc: "Confirm deliverables, responsibilities, timing, and custom quote." },
-              { step: "04", title: "Setup or Optimisation", desc: "Complete agreed account, listing, and advertising work." }
-            ]).map((prc, idx) => {
-              // Ascending physical heights on desktop forming a real staircase
-              const heightClass = idx === 0 
-                ? 'lg:min-h-[350px]' 
-                : idx === 1 
-                  ? 'lg:min-h-[390px]' 
-                  : idx === 2 
-                    ? 'lg:min-h-[430px]' 
-                    : 'lg:min-h-[470px]';
-
-              const stagePillars = [
-                "01 // FOUNDATION",
-                "02 // AUDIT & HYGIENE",
-                "03 // SCOPE AGREEMENT",
-                "04 // SCALE & VELOCITY"
-              ];
-
-              const stageMilestones = [
-                ["Unit economics & margin review", "Catalogue data & taxonomy mapping"],
-                ["Account hygiene & compliance audit", "Search indexing & bottleneck review"],
-                ["Deliverable scope boundaries", "SLA timeline & partner alignment"],
-                ["Execution deployment & launch", "Weekly telemetry & compounding scale"]
-              ];
+          {/* Ascending Staircase Cards Grid */}
+          <div className={`grid gap-4 items-stretch w-full ${
+            executionPhases.length <= 4 
+              ? 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-4' 
+              : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6'
+          }`}>
+            {executionPhases.map((prc, idx) => {
+              const totalSteps = executionPhases.length;
+              const progressPct = Math.round(((idx + 1) / totalSteps) * 100);
 
               return (
                 <div 
                   key={idx}
-                  className={`architecture-stair-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 lg:p-10 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden ${heightClass}`}
+                  className="architecture-stair-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-6 sm:p-7 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[360px]"
                 >
                   <div>
-                    {/* Stage Title (Larger prominent display serif) */}
-                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-normal text-space-950 tracking-tight leading-[1.15] mb-4 group-hover:text-black transition-colors duration-300">
+                    <span className="text-[11px] font-mono font-bold text-slate-400 uppercase tracking-widest block mb-2">
+                      PHASE · {prc.step || `0${idx + 1}`}
+                    </span>
+
+                    <h3 className="font-serif text-xl sm:text-2xl font-normal text-space-950 tracking-tight leading-[1.2] mb-3 group-hover:text-black transition-colors duration-300">
                       {prc.title}
                     </h3>
 
-                    {/* Stage Description */}
-                    <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed mb-6">
+                    <p className="text-slate-600 font-sans text-xs sm:text-sm leading-relaxed mb-4">
                       {prc.desc}
                     </p>
-
-                    {/* Milestones Breakdown */}
-                    <div className="pt-5 border-t border-stone-200/60 space-y-2.5">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-2">
-                        Key Milestones
-                      </span>
-                      {stageMilestones[idx].map((ms, mIdx) => (
-                        <div key={mIdx} className="flex items-start gap-2 text-xs text-slate-600 font-sans leading-relaxed">
-                          <span className="text-blue-600 font-semibold select-none flex-shrink-0">―</span>
-                          <span>{ms}</span>
-                        </div>
-                      ))}
-                    </div>
                   </div>
 
-                  {/* Staircase Step Visual Indicator (Ascending stepped bars) */}
-                  <div className="pt-6 mt-6 border-t border-stone-100">
-                    <div className="flex items-end justify-between gap-1 mb-2">
-                      <span className="text-[10px] font-mono uppercase text-slate-400">
-                        PROGRESS STEP 0{idx + 1} / 04
-                      </span>
-                      
-                      {/* Physical mini stair glyph */}
-                      <div className="flex items-end gap-1 h-5">
-                        <div className={`w-1.5 rounded-xs transition-colors ${idx >= 0 ? 'bg-space-950 h-2' : 'bg-stone-200 h-2'}`} />
-                        <div className={`w-1.5 rounded-xs transition-colors ${idx >= 1 ? 'bg-space-950 h-3' : 'bg-stone-200 h-3'}`} />
-                        <div className={`w-1.5 rounded-xs transition-colors ${idx >= 2 ? 'bg-space-950 h-4' : 'bg-stone-200 h-4'}`} />
-                        <div className={`w-1.5 rounded-xs transition-colors ${idx >= 3 ? 'bg-space-950 h-5' : 'bg-stone-200 h-5'}`} />
-                      </div>
+                  <div className="pt-4 mt-4 border-t border-stone-200/60">
+                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-400 mb-1.5">
+                      <span>STEP 0{idx + 1} / 0{totalSteps}</span>
+                      <span>{progressPct}%</span>
                     </div>
-
-                    {/* Smooth progression bar */}
                     <div className="w-full h-1 bg-stone-200 rounded-full overflow-hidden">
                       <div 
                         className="h-full bg-space-950 rounded-full group-hover:bg-[#252B36] transition-all duration-500"
-                        style={{ width: `${(idx + 1) * 25}%` }}
+                        style={{ width: `${progressPct}%` }}
                       />
                     </div>
                   </div>
@@ -1033,142 +1072,75 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 6. ILLUSTRATIVE USE CASES ("How we solve practical business challenges") */}
-      {/* Strictly compliant with client policy: Genuine sample use cases       */}
+      {/* 7. INTEGRATED CROSS-PILLAR SERVICES (If present in Document)          */}
       {/* ===================================================================== */}
-      <section className="sec-usecases relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
+      {service.integratedServices && service.integratedServices.length > 0 && (
+        <section className="py-20 sm:py-28 bg-[#FAFAFA] hairline-b">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+            <div className="max-w-3xl mb-12">
+              <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+                Cross-Pillar Synergy · Integrated Digital Solutions
+              </span>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
+                Complementary services for market leadership.
+              </h2>
+              <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
+                Connect your {service.title} operations with specialized photography, graphic design, commercial video production, and high-conversion web experiences.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {service.integratedServices.map((intSrv, intIdx) => (
+                <div 
+                  key={intIdx}
+                  className="rounded-[28px] bg-white border border-stone-200/90 p-8 hover:border-space-950 hover:shadow-lg transition-all"
+                >
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-600 font-semibold block mb-2">
+                    CROSS-PRACTICE SERVICE · 0{intIdx + 1}
+                  </span>
+                  <h3 className="font-serif text-2xl font-normal text-space-950 mb-3">
+                    {intSrv.service}
+                  </h3>
+                  <p className="text-sm text-slate-600 font-sans leading-relaxed">
+                    {intSrv.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ===================================================================== */}
+      {/* 8. MANAGEMENT PACKAGES & SCOPE (Orbit · Nova · Cosmic)                */}
+      {/* Strictly compliant with policy: Hidden public prices, custom quotes   */}
+      {/* ===================================================================== */}
+      <section id="packages" className="sec-pricing relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
-          <div className="max-w-3xl mb-12 sm:mb-16">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-              Real-World Scenarios · 02 Practical Workflows
+          <div className="max-w-3xl mb-14 sm:mb-18">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
+              Engagement Tiers · Orbit · Nova · Cosmic
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
-              How we solve practical business challenges.
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight mb-4">
+              Structured scope designed for every stage.
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-              Illustrative execution scenarios demonstrating how we diagnose operational friction, deploy structured systems, and achieve verified commercial progress.
+              {service.packages?.intro || "Choose a service level based on your catalogue size, update frequency, and ongoing operational requirements. Final scope and deliverables are confirmed after initial consultation."}
             </p>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 items-stretch">
-            {useCases.map((cs, idx) => {
-              const isFirst = idx === 0;
-              const cardClass = isFirst ? 'card-usecase-left' : 'card-usecase-right';
-
-              return (
-                <div 
-                  key={idx}
-                  className={`${cardClass} group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-10 lg:p-12 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between`}
-                >
-                  <div>
-                    {/* Client Type Category Kicker */}
-                    <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-3">
-                      {cs.clientType}
-                    </span>
-
-                    {/* Big Heading */}
-                    <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.25rem] xl:text-[2.5rem] font-normal text-space-950 tracking-tight leading-[1.15] mb-8 group-hover:text-black transition-colors duration-300">
-                      {cs.title}
-                    </h3>
-
-                    {/* Challenge & Friction */}
-                    <div className="space-y-2 mb-6">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block">
-                        Operational Friction
-                      </span>
-                      <p className="text-slate-600 font-sans text-sm sm:text-base leading-relaxed">
-                        {cs.challenge}
-                      </p>
-                    </div>
-
-                    {/* Solution & Intervention */}
-                    <div className="space-y-2 pt-6 border-t border-stone-200/60 mb-6">
-                      <span className="text-[11px] font-mono uppercase tracking-wider text-blue-600 font-semibold block">
-                        E-Comet Strategy &amp; Execution
-                      </span>
-                      <p className="text-slate-700 font-sans text-sm sm:text-base leading-relaxed font-medium">
-                        {cs.solution}
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Resulting Outcome Box */}
-                  <div className="pt-6 border-t border-stone-200/80">
-                    <div className="flex items-start gap-3 bg-white p-5 rounded-2xl border border-stone-200/70 shadow-2xs">
-                      <span className="text-blue-600 font-bold select-none flex-shrink-0 mt-0.5">―</span>
-                      <div>
-                        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-semibold block mb-1">
-                          Verified Milestone Outcome
-                        </span>
-                        <p className="text-xs sm:text-sm font-sans font-medium text-space-950 leading-relaxed">
-                          {cs.outcome}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              );
-            })}
-          </div>
-
-        </div>
-      </section>
-
-      {/* ===================================================================== */}
-      {/* 7. STANDARDIZED PACKAGES & PRICING (Orbit · Nova · Cosmic)            */}
-      {/* Includes India ₹ vs International $ Currency Toggle                   */}
-      {/* ===================================================================== */}
-      <section id="pricing" className="sec-pricing relative py-20 sm:py-28 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1340px] mx-auto px-4 sm:px-8">
-          
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-14 sm:mb-18 gap-6">
-            <div className="max-w-2xl">
-              <span className="text-xs font-mono uppercase tracking-widest text-slate-500 font-bold block mb-2">
-                Standardized Packages
-              </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-tight">
-                Structured scope designed for every stage.
-              </h2>
-            </div>
-
-            {/* Currency Switcher Toggle */}
-            <div className="flex items-center gap-2 p-1.5 rounded-full bg-slate-100 border border-slate-200 self-start md:self-auto shadow-inner">
-              <button
-                type="button"
-                onClick={() => setCurrency('INR')}
-                className={`px-4 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
-                  currency === 'INR' ? 'bg-space-950 text-white shadow-sm' : 'text-slate-600 hover:text-black'
-                }`}
-              >
-                India (₹ INR)
-              </button>
-              <button
-                type="button"
-                onClick={() => setCurrency('USD')}
-                className={`px-4 py-1.5 rounded-full text-xs font-mono font-bold transition-all cursor-pointer ${
-                  currency === 'USD' ? 'bg-space-950 text-white shadow-sm' : 'text-slate-600 hover:text-black'
-                }`}
-              >
-                Global ($ USD)
-              </button>
-            </div>
           </div>
 
           {/* 3 Tier Cards: Orbit · Nova · Cosmic */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-            {packageData.tiers.map((tier, idx) => {
-              const isPopular = tier.popular;
-              const priceDisplay = currency === 'INR' ? tier.inrPrice : tier.usdPrice;
-              const subDisplay = currency === 'INR' ? tier.inrSub : tier.usdSub;
+            {(service.packages?.tiers || []).map((tier, idx) => {
+              const isPopular = tier.name === 'NOVA';
 
               return (
                 <div 
                   key={idx}
                   className={`card-pricing rounded-3xl p-8 sm:p-10 flex flex-col justify-between transition-all relative ${
                     isPopular 
-                      ? 'bg-space-950 text-white shadow-xl ring-2 ring-space-950 lg:-translate-y-2' 
+                      ? 'bg-space-950 text-white shadow-2xl ring-2 ring-space-950 lg:-translate-y-2' 
                       : 'bg-[#fafafa] text-space-950 border border-slate-200/90 hover:shadow-md'
                   }`}
                 >
@@ -1183,76 +1155,140 @@ export default function ServiceDetailPage({ slugOverride }) {
                     {/* Top Tier Info */}
                     <div className="flex items-center justify-between pb-4 border-b border-slate-200/30 mb-6">
                       <span className={`text-xs font-mono uppercase tracking-widest font-bold ${isPopular ? 'text-cyan-300' : 'text-slate-500'}`}>
-                        {tier.badge}
+                        TIER 0{idx + 1} // {tier.name}
                       </span>
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: service.colorHex }} />
+                      <span className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: service.colorHex || '#38BDF8' }} />
                     </div>
 
                     <h3 className={`font-serif text-3xl font-normal mb-2 ${isPopular ? 'text-white' : 'text-space-950'}`}>
                       {tier.name}
                     </h3>
 
-                    <p className={`text-xs font-sans mb-6 ${isPopular ? 'text-slate-300' : 'text-slate-600'}`}>
-                      {tier.description}
-                    </p>
+                    {tier.tagline && (
+                      <p className={`text-sm font-sans font-medium mb-3 ${isPopular ? 'text-cyan-200' : 'text-slate-800'}`}>
+                        {tier.tagline}
+                      </p>
+                    )}
 
-                    {/* Price Block */}
+                    {tier.positioning && (
+                      <p className={`text-xs font-sans mb-6 leading-relaxed ${isPopular ? 'text-slate-300' : 'text-slate-600'}`}>
+                        {tier.positioning}
+                      </p>
+                    )}
+
+                    {/* Price Block: Custom Scope & Quote */}
                     <div className="py-5 my-4 border-y border-slate-200/20">
                       <div className="flex items-baseline gap-2">
-                        <span className={`text-3xl sm:text-4xl font-serif font-normal ${isPopular ? 'text-white' : 'text-space-950'}`}>
-                          {priceDisplay}
+                        <span className={`text-2xl sm:text-3xl font-serif font-normal ${isPopular ? 'text-white' : 'text-space-950'}`}>
+                          Custom Scope &amp; Quote
                         </span>
                       </div>
-                      <span className={`text-xs font-mono block mt-1 ${isPopular ? 'text-slate-400' : 'text-slate-500'}`}>
-                        {subDisplay}
+                      <span className={`text-xs font-mono block mt-1.5 ${isPopular ? 'text-slate-400' : 'text-slate-500'}`}>
+                        Based on catalogue size, condition &amp; advertising scope
                       </span>
                     </div>
+
+                    {/* Suitable For Section */}
+                    {tier.suitableFor?.length > 0 && (
+                      <div className="space-y-2 mb-6">
+                        <span className={`text-[11px] font-mono uppercase tracking-wider block font-bold ${isPopular ? 'text-slate-400' : 'text-slate-500'}`}>
+                          Suitable For:
+                        </span>
+                        {tier.suitableFor.map((suit, sIdx) => (
+                          <div key={sIdx} className="flex items-start gap-2 text-xs font-sans leading-relaxed">
+                            <span className={`font-bold flex-shrink-0 mt-0.5 ${isPopular ? 'text-cyan-400' : 'text-blue-600'}`}>
+                              •
+                            </span>
+                            <span className={isPopular ? 'text-slate-300' : 'text-slate-600'}>
+                              {suit}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
 
                     {/* Deliverables Checklist */}
-                    <div className="space-y-3 pt-3">
-                      <span className={`text-[11px] font-mono uppercase tracking-wider block font-bold mb-3 ${isPopular ? 'text-slate-400' : 'text-slate-500'}`}>
-                        Included Deliverables:
-                      </span>
-                      {tier.deliverables.map((del, dIdx) => (
-                        <div key={dIdx} className="flex items-start gap-2.5 text-xs font-sans leading-relaxed">
-                          <span className={`font-bold flex-shrink-0 mt-0.5 ${isPopular ? 'text-cyan-400' : 'text-emerald-600'}`}>
-                            ✓
+                    {tier.deliverables?.length > 0 && (
+                      <div className="space-y-2.5 pt-4 border-t border-slate-200/20">
+                        <span className={`text-[11px] font-mono uppercase tracking-wider block font-bold mb-3 ${isPopular ? 'text-slate-400' : 'text-slate-500'}`}>
+                          Potential Deliverables:
+                        </span>
+                        {tier.deliverables.map((del, dIdx) => (
+                          <div key={dIdx} className="flex items-start gap-2.5 text-xs font-sans leading-relaxed">
+                            <span className={`font-bold flex-shrink-0 mt-0.5 ${isPopular ? 'text-cyan-400' : 'text-emerald-600'}`}>
+                              ✓
+                            </span>
+                            <span className={isPopular ? 'text-slate-200' : 'text-slate-700'}>
+                              {del}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
+
+                    {/* Tier Note(s) Section */}
+                    {Boolean((Array.isArray(tier.notes) ? tier.notes.length > 0 : tier.notes) || (Array.isArray(tier.note) ? tier.note.length > 0 : tier.note)) && (() => {
+                      const notesList = Array.isArray(tier.notes) 
+                        ? tier.notes 
+                        : tier.notes 
+                          ? [tier.notes] 
+                          : Array.isArray(tier.note) 
+                            ? tier.note 
+                            : tier.note 
+                              ? [tier.note] 
+                              : [];
+                      if (notesList.length === 0) return null;
+
+                      return (
+                        <div className="space-y-2 pt-4 border-t border-slate-200/20">
+                          <span className={`text-[11px] font-mono uppercase tracking-wider block font-bold mb-2 ${isPopular ? 'text-amber-300' : 'text-slate-500'}`}>
+                            {notesList.length > 1 ? 'Notes:' : 'Note:'}
                           </span>
-                          <span className={isPopular ? 'text-slate-200' : 'text-slate-700'}>
-                            {del}
-                          </span>
+                          {notesList.map((noteItem, nIdx) => (
+                            <div key={nIdx} className="flex items-start gap-2.5 text-xs font-sans leading-relaxed">
+                              <span className={`font-bold flex-shrink-0 mt-0.5 ${isPopular ? 'text-amber-400' : 'text-blue-600'}`}>
+                                ―
+                              </span>
+                              <span className={isPopular ? 'text-slate-300' : 'text-slate-600'}>
+                                {noteItem}
+                              </span>
+                            </div>
+                          ))}
                         </div>
-                      ))}
-                    </div>
+                      );
+                    })()}
                   </div>
 
-                  {/* Tier Action Button */}
+                  {/* Tier Action Button: Pre-selects package and scrolls to form */}
                   <div className="pt-8 mt-8 border-t border-slate-200/20">
-                    <a
-                      href="#closing"
-                      className={`w-full py-3 rounded-full text-xs font-sans font-semibold text-center block transition-all shadow-sm ${
+                    <button
+                      type="button"
+                      onClick={() => handleSelectPackageFromTier(tier.name)}
+                      className={`w-full py-3.5 rounded-full text-xs font-sans font-semibold text-center block transition-all shadow-sm cursor-pointer ${
                         isPopular
-                          ? 'bg-white text-space-950 hover:bg-slate-100'
-                          : 'bg-space-950 text-white hover:bg-slate-800'
+                          ? 'bg-white text-space-950 hover:bg-slate-100 hover:scale-102'
+                          : 'bg-space-950 text-white hover:bg-slate-800 hover:scale-102'
                       }`}
                     >
-                      Request {tier.name} Quote →
-                    </a>
+                      {tier.cta || `Request ${tier.name} Proposal`} →
+                    </button>
                   </div>
                 </div>
               );
             })}
           </div>
 
-          {/* Mandatory Commercial Policy Disclaimer (from Brief Section 12) */}
-          <div className="mt-12 p-6 rounded-2xl bg-slate-50 border border-slate-200 text-xs text-slate-600 font-sans leading-relaxed flex items-start gap-3.5">
-            <span className="w-5 h-5 rounded-full bg-slate-200 text-slate-700 flex items-center justify-center font-mono font-bold text-xs flex-shrink-0 mt-0.5">i</span>
+          {/* Pricing & Commercial Scope Policy Disclaimer */}
+          <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-600 font-sans leading-relaxed flex items-start gap-4">
+            <span className="w-6 h-6 rounded-full bg-slate-200 text-slate-800 flex items-center justify-center font-mono font-bold text-xs flex-shrink-0 mt-0.5">
+              i
+            </span>
             <div>
               <strong className="text-space-950 font-mono text-[11px] uppercase tracking-wider block mb-1">
                 Pricing &amp; Commercial Scope Policy:
               </strong>
               <p>
-                {packageData.disclaimer || "Packages are subject to scope confirmation. Taxes, advertising spend, third-party costs, and out-of-scope work may be charged separately. E-Comet does not guarantee sales, ranking, or ROAS."}
+                {service.packages?.policy || "Public pricing is not displayed on our website. The final package scope, deliverables and service fees are determined after understanding the business, catalogue size, account condition and advertising requirements. E-COMET OUTVERSE does not guarantee sales, rankings, profitability or a specific advertising return."}
               </p>
             </div>
           </div>
@@ -1261,24 +1297,27 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 8. FREQUENTLY ASKED QUESTIONS (10 Curated Answers · 5 Left · 5 Right)  */}
+      {/* 9. FREQUENTLY ASKED QUESTIONS (Platform-Specific from Document)       */}
       {/* ===================================================================== */}
       <section className="sec-faq relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
           
           <div className="max-w-3xl mb-12 sm:mb-16">
+            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
+              Governance &amp; Operations · Platform FAQs
+            </span>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
-              Frequently Asked Questions.
+              Frequently asked questions.
             </h2>
             <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-              Clear answers regarding execution governance, operational turnaround, commercial terms, and multi-channel synchronization.
+              Clear answers regarding execution governance, operational turnaround, catalogue maintenance, commercial terms, and compliance for {service.title}.
             </p>
           </div>
 
-          {/* 2-Column Grid: 5 Questions Left · 5 Questions Right */}
+          {/* 2-Column Grid of FAQs */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 sm:gap-6 items-start">
             
-            {/* Left Column: 5 Questions */}
+            {/* Left Column */}
             <div className="space-y-4 sm:space-y-5">
               {leftFaqs.map((faq, lIdx) => {
                 const globalIdx = lIdx;
@@ -1322,10 +1361,10 @@ export default function ServiceDetailPage({ slugOverride }) {
               })}
             </div>
 
-            {/* Right Column: 5 Questions */}
+            {/* Right Column */}
             <div className="space-y-4 sm:space-y-5">
               {rightFaqs.map((faq, rIdx) => {
-                const globalIdx = rIdx + 5;
+                const globalIdx = rIdx + halfFaq;
                 const isOpen = openFaqs.includes(globalIdx);
 
                 return (
@@ -1372,28 +1411,28 @@ export default function ServiceDetailPage({ slugOverride }) {
       </section>
 
       {/* ===================================================================== */}
-      {/* 9. SIBLING SERVICES NAVIGATION (Related in this Pillar)               */}
+      {/* 10. SIBLING SERVICES IN DIVISION                                      */}
       {/* ===================================================================== */}
-      {relatedServices.length > 0 && (
+      {siblingServices.length > 0 && (
         <section className="py-14 bg-slate-50 border-t border-slate-200">
-          <div className="max-w-[1340px] mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
               <span className="text-xs font-mono font-bold text-slate-500 uppercase tracking-wider block mb-1">
-                Explore More in this Pillar
+                Explore More in {service.division?.replace(/^Division\s+\d+:\s*/i, '') || service.category}
               </span>
               <p className="font-serif text-xl font-normal text-space-950">
-                Connected services in {service.category}:
+                Connected marketplace services:
               </p>
             </div>
 
             <div className="flex flex-wrap gap-2.5">
-              {relatedServices.map((rel) => (
+              {siblingServices.map((rel) => (
                 <Link 
                   key={rel.id}
                   to={`/services/${rel.id}`}
                   className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white border border-slate-200 text-xs font-sans font-medium text-space-950 hover:bg-[#080B10] hover:text-white transition-all shadow-2xs"
                 >
-                  <span>{rel.shortTitle || rel.title}</span>
+                  <span>{rel.title}</span>
                   <span>→</span>
                 </Link>
               ))}
@@ -1403,9 +1442,351 @@ export default function ServiceDetailPage({ slugOverride }) {
       )}
 
       {/* ===================================================================== */}
-      {/* 10. CLOSING SECTION & LEAD ENQUIRY FORM                               */}
+      {/* 11. FINAL CALL TO ACTION & CUSTOM TAILORED ENQUIRY FORM               */}
       {/* ===================================================================== */}
-      <ClosingSection />
+      <section id="enquiry" className="relative py-24 sm:py-32 bg-[#080B10] text-white overflow-hidden">
+        
+        {/* Background glow & subtle stars */}
+        <div 
+          className="absolute -top-32 -left-32 w-96 h-96 rounded-full blur-3xl opacity-20 pointer-events-none"
+          style={{ backgroundColor: service.colorHex || '#2563EB' }}
+        />
+        <div className="absolute -bottom-32 -right-32 w-96 h-96 rounded-full blur-3xl opacity-15 bg-[#38BDF8] pointer-events-none" />
+
+        <div className="max-w-[1400px] mx-auto px-4 sm:px-8 relative z-10">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            
+            {/* Left Column: Final Call to Action from Document */}
+            <div className="lg:col-span-5 space-y-6">
+              
+              <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block">
+                Next Orbit · Tailored Consultation
+              </span>
+
+              <h2 className="font-serif text-3xl sm:text-5xl lg:text-[3.25rem] font-normal leading-[1.12] tracking-tight text-white">
+                {service.finalCta?.headline || `Ready to Take Your ${service.title} to the Next Orbit?`}
+              </h2>
+
+              <p className="text-slate-300 font-sans text-base sm:text-lg leading-relaxed">
+                {service.finalCta?.description || `Tell us about your products, current marketplace presence and commercial goals. Our team will help define an appropriate service scope and customized quotation.`}
+              </p>
+
+              {/* Trust Indicators */}
+              <div className="pt-6 border-t border-slate-800 space-y-4">
+                <div className="flex items-start gap-3">
+                  <span className="text-[#38BDF8] font-bold text-base select-none mt-0.5">✓</span>
+                  <div>
+                    <span className="text-xs font-mono uppercase tracking-wider text-white font-semibold block">
+                      Zero Fluff &amp; Fixed Scope Guardrails
+                    </span>
+                    <p className="text-xs text-slate-400 font-sans">
+                      All deliverables, reporting milestones, and SLAs confirmed in writing.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <span className="text-[#38BDF8] font-bold text-base select-none mt-0.5">✓</span>
+                  <div>
+                    <span className="text-xs font-mono uppercase tracking-wider text-white font-semibold block">
+                      Rapid Turnaround &amp; Senior Practice Oversight
+                    </span>
+                    <p className="text-xs text-slate-400 font-sans">
+                      Direct access to experienced practice leads without agency middleman bloat.
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Direct WhatsApp Callout */}
+              <div className="pt-4">
+                <a
+                  href={`https://wa.me/919999999999?text=${encodeURIComponent(`Hi E-COMET OUTVERSE, I'd like to discuss ${service.title}.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-white/5 border border-white/10 text-xs font-mono text-slate-200 hover:bg-white/10 hover:text-white transition-colors"
+                >
+                  <span className="w-2.5 h-2.5 rounded-full bg-[#25D366] animate-pulse" />
+                  <span>Prefer fast chat? Talk directly on WhatsApp →</span>
+                </a>
+              </div>
+
+            </div>
+
+            {/* Right Column: Platform-Tailored Form */}
+            <div className="lg:col-span-7">
+              <div className="rounded-[32px] bg-[#0E131F] border border-slate-800 p-8 sm:p-12 shadow-2xl relative">
+                
+                {formSubmitted ? (
+                  <div className="text-center py-12 space-y-5">
+                    <div className="w-16 h-16 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 flex items-center justify-center text-2xl mx-auto">
+                      ✓
+                    </div>
+                    <h3 className="font-serif text-3xl text-white">
+                      Enquiry Received
+                    </h3>
+                    <p className="text-slate-300 font-sans text-sm max-w-md mx-auto leading-relaxed">
+                      Thank you for contacting E-COMET OUTVERSE. We have received your enquiry details for <strong className="text-white">{service.title}</strong> and will review your requirements to discuss the next steps.
+                    </p>
+                    <div className="pt-4">
+                      <button
+                        type="button"
+                        onClick={() => setFormSubmitted(false)}
+                        className="px-6 py-2.5 rounded-full bg-white/10 hover:bg-white/20 text-xs font-mono uppercase tracking-wider text-slate-200 transition-colors"
+                      >
+                        Submit Another Requirement
+                      </button>
+                    </div>
+                  </div>
+                ) : (
+                  <form onSubmit={handleFormSubmit} className="space-y-6">
+                    
+                    <div>
+                      <h3 className="font-serif text-2xl sm:text-3xl text-white font-normal mb-1.5">
+                        {service.enquiryForm?.title || `Discuss Your ${service.title} Requirements`}
+                      </h3>
+                      <p className="text-slate-400 font-sans text-xs sm:text-sm">
+                        {service.enquiryForm?.subtitle || "Complete the form below so our team can evaluate requirements and discuss a customized scope."}
+                      </p>
+                    </div>
+
+                    {/* Platform Status Question (from Document) */}
+                    {service.enquiryForm?.platformQuestion && service.enquiryForm?.platformOptions?.length > 0 && (
+                      <div className="space-y-2.5 pt-2">
+                        <label className="text-xs font-mono uppercase tracking-wider text-slate-300 block font-semibold">
+                          {service.enquiryForm.platformQuestion}
+                        </label>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+                          {service.enquiryForm.platformOptions.map((opt, oIdx) => {
+                            const isSelected = formData.platformStatus === opt;
+                            return (
+                              <button
+                                key={oIdx}
+                                type="button"
+                                onClick={() => setFormData(prev => ({ ...prev, platformStatus: opt }))}
+                                className={`p-3 rounded-xl text-xs font-sans text-left transition-all border cursor-pointer ${
+                                  isSelected 
+                                    ? 'bg-white text-space-950 font-semibold border-white shadow-sm' 
+                                    : 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700'
+                                }`}
+                              >
+                                {opt}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Contact Details Grid */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                          Full Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.fullName}
+                          onChange={(e) => setFormData(prev => ({ ...prev, fullName: e.target.value }))}
+                          placeholder="Your Name"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                          Business / Brand Name *
+                        </label>
+                        <input
+                          type="text"
+                          required
+                          value={formData.businessName}
+                          onChange={(e) => setFormData(prev => ({ ...prev, businessName: e.target.value }))}
+                          placeholder="Company or Brand Name"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                          Phone / WhatsApp Number *
+                        </label>
+                        <input
+                          type="tel"
+                          required
+                          value={formData.phone}
+                          onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                          placeholder="+91 98765 43210"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                          Business Email *
+                        </label>
+                        <input
+                          type="email"
+                          required
+                          value={formData.email}
+                          onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                          placeholder="you@company.com"
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Business Type & SKU Count */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                          Business Type
+                        </label>
+                        <select
+                          value={formData.businessType}
+                          onChange={(e) => setFormData(prev => ({ ...prev, businessType: e.target.value }))}
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white text-sm focus:outline-none focus:border-white transition-colors cursor-pointer"
+                        >
+                          {(service.enquiryForm?.businessTypes || [
+                            'Manufacturer', 'Wholesaler / Distributor', 'Retailer', 
+                            'D2C Brand', 'Startup', 'Established Brand', 'Other'
+                          ]).map((bType, bIdx) => (
+                            <option key={bIdx} value={bType}>{bType}</option>
+                          ))}
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                          {service.enquiryForm?.scaleQuestion || "Approximate Catalogue Size"}
+                        </label>
+                        <select
+                          value={formData.skuCount}
+                          onChange={(e) => setFormData(prev => ({ ...prev, skuCount: e.target.value }))}
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white text-sm focus:outline-none focus:border-white transition-colors cursor-pointer"
+                        >
+                          {(service.enquiryForm?.scaleOptions || [
+                            '1–20 products / SKUs',
+                            '21–100 products / SKUs',
+                            '101–500 products / SKUs',
+                            '500+ products / SKUs'
+                          ]).map((scaleOpt, scIdx) => (
+                            <option key={scIdx} value={scaleOpt}>{scaleOpt}</option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Preferred Tier & Product Category */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                      <div>
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                          Preferred Package Tier
+                        </label>
+                        <select
+                          value={formData.preferredPackage}
+                          onChange={(e) => setFormData(prev => ({ ...prev, preferredPackage: e.target.value }))}
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white text-sm focus:outline-none focus:border-white transition-colors cursor-pointer"
+                        >
+                          <option value="ORBIT">Orbit — {service.packages?.tiers?.[0]?.tagline || 'Foundational Setup & Support'}</option>
+                          <option value="NOVA">Nova — {service.packages?.tiers?.[1]?.tagline || 'Growth & Optimisation Support'}</option>
+                          <option value="COSMIC">Cosmic — {service.packages?.tiers?.[2]?.tagline || 'Extended Management Operations'}</option>
+                          <option value="Need Guidance">Need Guidance / Custom Scope</option>
+                        </select>
+                      </div>
+
+                      <div>
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                          {service.pillarId === 'marketing' ? 'Industry / Sector' : 'Product Category / Sector'}
+                        </label>
+                        <input
+                          type="text"
+                          value={formData.productCategory}
+                          onChange={(e) => setFormData(prev => ({ ...prev, productCategory: e.target.value }))}
+                          placeholder={service.pillarId === 'marketing' ? 'e.g. D2C Fashion, B2B Tech, Healthcare, Retail' : 'e.g. Fashion, Electronics, Beauty, Home'}
+                          className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-white transition-colors"
+                        />
+                      </div>
+                    </div>
+
+                    {/* Platform-Specific Services Required Checkboxes (from Document) */}
+                    {service.enquiryForm?.serviceOptions?.length > 0 && (
+                      <div className="space-y-2 pt-2">
+                        <label className="text-[11px] font-mono uppercase tracking-wider text-slate-300 block font-semibold">
+                          Services Required for {service.title}:
+                        </label>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {service.enquiryForm.serviceOptions.map((srv, sIdx) => {
+                            const isChecked = formData.servicesRequired.includes(srv);
+                            return (
+                              <label
+                                key={sIdx}
+                                onClick={() => handleToggleServiceRequired(srv)}
+                                className={`flex items-center gap-2.5 p-3 rounded-xl text-xs font-sans border transition-all cursor-pointer ${
+                                  isChecked 
+                                    ? 'bg-white/10 text-white border-white/40' 
+                                    : 'bg-slate-900/60 text-slate-400 border-slate-800/80 hover:border-slate-700'
+                                }`}
+                              >
+                                <span className={`w-4 h-4 rounded flex items-center justify-center text-[10px] border transition-colors ${
+                                  isChecked ? 'bg-white text-space-950 font-bold border-white' : 'border-slate-700'
+                                }`}>
+                                  {isChecked && '✓'}
+                                </span>
+                                <span>{srv}</span>
+                              </label>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Additional Notes */}
+                    <div>
+                      <label className="text-[11px] font-mono uppercase tracking-wider text-slate-400 block mb-1">
+                        Additional Business Requirements (Optional)
+                      </label>
+                      <textarea
+                        rows={3}
+                        value={formData.requirements}
+                        onChange={(e) => setFormData(prev => ({ ...prev, requirements: e.target.value }))}
+                        placeholder="Tell us about your specific goals, existing pain points, or timeline..."
+                        className="w-full px-4 py-3 rounded-xl bg-slate-900/90 border border-slate-800 text-white placeholder-slate-600 text-sm focus:outline-none focus:border-white transition-colors resize-none"
+                      />
+                    </div>
+
+                    {/* Submit Button */}
+                    <button
+                      type="submit"
+                      disabled={isSubmitting}
+                      className="w-full py-4 rounded-full bg-white hover:bg-slate-100 text-space-950 font-sans font-semibold text-sm transition-all hover:scale-[1.01] shadow-xl flex items-center justify-center gap-2 cursor-pointer disabled:opacity-70"
+                    >
+                      {isSubmitting ? (
+                        <span>Submitting Consultation Request...</span>
+                      ) : (
+                        <>
+                          <span>Request My {service.title} Consultation</span>
+                          <span>→</span>
+                        </>
+                      )}
+                    </button>
+
+                    <p className="text-[11px] text-slate-500 font-sans text-center">
+                      We respect your privacy. No spam. Sensitive account credentials should only be shared via secure authorization.
+                    </p>
+
+                  </form>
+                )}
+
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
 
       {/* Site Footer */}
       <Footer />

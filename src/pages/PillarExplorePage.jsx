@@ -4,6 +4,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { PILLARS_DATA } from '../data/megaMenuData';
 import { SERVICES_DATA } from '../data/servicesData';
+import { ECOMMERCE_SERVICES_DATA } from '../data/ecommerceServicesData';
+import { DIGITAL_MARKETING_SERVICES_DATA } from '../data/digitalMarketingServicesData';
 import ClosingSection from '../components/Sections/ClosingSection';
 import Footer from '../components/Sections/Footer';
 
@@ -44,6 +46,61 @@ const PILLAR_HERO_CONTENT = {
       { label: 'Conversion Lift', value: '+34% Average' }
     ]
   },
+  'web-development': {
+    headline: 'Build high-performance digital stores & web applications',
+    subtitle: 'Fast, secure, conversion-first web architectures engineered for modern commerce. From custom Shopify Plus builds to React/Next.js corporate portals with Core Web Vitals excellence.',
+    badge: 'CORE PILLAR · WEB & COMMERCE ENGINEERING',
+    floatingTags: ['Shopify Plus Certified', 'Next.js & React Core', 'Core Web Vitals 95+', 'Checkout Funnel Optimization'],
+    stats: [
+      { label: 'Lighthouse Score', value: '95+ Mobile' },
+      { label: 'Checkout Speed', value: '< 1.4s' },
+      { label: 'Conversion Lift', value: '+34% Average' }
+    ]
+  },
+  'creative-design': {
+    headline: 'Build memorable brand identity & visual communication',
+    subtitle: 'Visual identity systems, Amazon A+ content, performance ad creatives, retail-ready packaging, and motion graphics crafted with strategic intent and consumer psychology.',
+    badge: 'CORE PILLAR · BRAND IDENTITY & VISUALS',
+    floatingTags: ['Visual Identity Systems', 'A+ Content Infographics', 'High-Yield Ad Creatives', 'Retail Packaging Dielines'],
+    stats: [
+      { label: 'Asset Approval Rate', value: '97% First Pass' },
+      { label: 'Listing Conversion Lift', value: '+28%' },
+      { label: 'Delivery Guardrails', value: 'Fixed Written Scope' }
+    ]
+  },
+  'creative-services': {
+    headline: 'Build memorable brand identity & visual communication',
+    subtitle: 'Visual identity systems, Amazon A+ content, performance ad creatives, and retail-ready packaging crafted with strategic intent and consumer psychology.',
+    badge: 'CORE PILLAR · BRAND IDENTITY & VISUALS',
+    floatingTags: ['Visual Identity Systems', 'A+ Content Infographics', 'High-Yield Ad Creatives', 'Retail Packaging Dielines'],
+    stats: [
+      { label: 'Asset Approval Rate', value: '97% First Pass' },
+      { label: 'Listing Conversion Lift', value: '+28%' },
+      { label: 'Delivery Guardrails', value: 'Fixed Written Scope' }
+    ]
+  },
+  'photography-photoshoots': {
+    headline: 'Product, fashion, lifestyle & studio photography that converts',
+    subtitle: 'High-resolution commercial photography engineered for marketplaces, DTC storefronts, and brand lookbooks. Zero reflection flaws, colour-accurate calibration, and full post-production.',
+    badge: 'CORE PILLAR · COMMERCIAL PHOTOGRAPHY',
+    floatingTags: ['E-Commerce Clean White', 'Fashion & Editorial Shoots', 'Jewellery & Macro Optics', 'Batch Color Grading'],
+    stats: [
+      { label: 'Resolution Standard', value: 'Ultra HD 8K' },
+      { label: 'Platform Readiness', value: '100% Marketplace Spec' },
+      { label: 'Studio Turnaround', value: 'Direct SLAs' }
+    ]
+  },
+  'video-production-editing': {
+    headline: 'Scale audience engagement with commercial video production',
+    subtitle: 'High-retention video editing, viral Shorts/Reels repurposing, and commercial films designed to capture watch time, earn algorithmic impressions, and compound organic brand reach.',
+    badge: 'CORE PILLAR · VIDEO & MEDIA PRODUCTION',
+    floatingTags: ['High-Retention Edits', 'Viral Shorts & Reels', 'High-CTR Thumbnails', 'Sound Design & Motion'],
+    stats: [
+      { label: 'Average Watch Time', value: '+62%' },
+      { label: 'Thumbnail CTR', value: '11.4% Avg' },
+      { label: 'Monthly Video Views', value: 'Compounding' }
+    ]
+  },
   'youtube-video-services': {
     headline: 'Scale audience engagement with commercial video production',
     subtitle: 'High-retention video editing, viral Shorts/Reels repurposing, and channel packaging designed to capture watch time, earn algorithmic impressions, and compound organic brand reach.',
@@ -55,15 +112,15 @@ const PILLAR_HERO_CONTENT = {
       { label: 'Monthly Video Views', value: 'Compounding' }
     ]
   },
-  'creative-services': {
-    headline: 'Build memorable brand identity & conversion creative',
-    subtitle: 'Visual identity systems, Amazon A+ content, performance ad creatives, and retail-ready packaging crafted with strategic intent and consumer psychology.',
-    badge: 'CORE PILLAR · BRAND IDENTITY & VISUALS',
-    floatingTags: ['Visual Identity Systems', 'A+ Content Infographics', 'High-Yield Ad Creatives', 'Retail Packaging Dielines'],
+  'youtube-strategy-management': {
+    headline: 'Systematic YouTube channel growth, SEO & monetization',
+    subtitle: 'End-to-end channel branding, strategic content planning, YouTube search optimization, and retention analytics to scale organic viewership and subscriber equity.',
+    badge: 'CORE PILLAR · YOUTUBE STRATEGY & GROWTH',
+    floatingTags: ['Channel Packaging & SEO', 'Shorts Growth Strategy', 'High-CTR Thumbnails', 'Retention Curve Analytics'],
     stats: [
-      { label: 'Asset Approval Rate', value: '97% First Pass' },
-      { label: 'Listing Conversion Lift', value: '+28%' },
-      { label: 'Delivery Guardrails', value: 'Fixed Written Scope' }
+      { label: 'Watch Time Lift', value: '+74% Avg' },
+      { label: 'CTR Benchmark', value: '10%+ Target' },
+      { label: 'Monetization Readiness', value: 'Compliant' }
     ]
   },
   'integrated-solutions': {
@@ -72,7 +129,7 @@ const PILLAR_HERO_CONTENT = {
     badge: 'CORE PILLAR · FULL-FUNNEL OPERATING SYSTEM',
     floatingTags: ['Cross-Pillar Roadmap', 'Unified Unit Economics', 'Direct Practice Partner Lead', 'Real-Time Telemetry'],
     stats: [
-      { label: 'Pillars Synchronized', value: 'Up to 6 Practices' },
+      { label: 'Pillars Synchronized', value: 'Up to 8 Practices' },
       { label: 'Agency Silos', value: '0 Silos' },
       { label: 'Governance SLA', value: 'Direct WhatsApp/Slack' }
     ]
@@ -95,43 +152,78 @@ export default function PillarExplorePage({ pillarOverride }) {
   const pillarServices = SERVICES_DATA.filter(s => {
     if (activePillar.id === 'ecommerce-management') return s.pillarId === 'marketplaces' && s.id !== 'ecommerce-management';
     if (activePillar.id === 'digital-marketing') return s.pillarId === 'marketing' && s.id !== 'digital-marketing';
-    if (activePillar.id === 'website-development') return s.pillarId === 'websites' && s.id !== 'website-development';
-    if (activePillar.id === 'youtube-video-services') return s.pillarId === 'video' && s.id !== 'youtube-video-services';
-    if (activePillar.id === 'creative-services') return s.pillarId === 'creative' && s.id !== 'creative-services';
+    if (activePillar.id === 'web-development' || activePillar.id === 'website-development') return s.pillarId === 'websites' && s.id !== 'website-development';
+    if (activePillar.id === 'creative-design' || activePillar.id === 'creative-services') return s.pillarId === 'creative' && s.id !== 'creative-services';
+    if (activePillar.id === 'photography-photoshoots') return s.pillarId === 'creative' || s.pillarId === 'photography';
+    if (activePillar.id === 'video-production-editing' || activePillar.id === 'youtube-video-services') return s.pillarId === 'video' && s.id !== 'youtube-video-services';
+    if (activePillar.id === 'youtube-strategy-management') return s.pillarId === 'video';
     if (activePillar.id === 'integrated-solutions') return s.pillarId === 'integrated';
     return false;
   });
 
-  // If few direct services exist in SERVICES_DATA, synthesize rich capability modules from subPillars
-  const subPillarCards = (activePillar.subPillars || []).flatMap((sub, subIdx) => {
-    return sub.links.map((link, lIdx) => ({
-      id: link.href.replace('/services/', ''),
-      title: link.label,
-      shortTitle: link.label.split(' ')[0],
-      tagline: `${sub.kicker} Execution Squad`,
-      overview: `Dedicated operational module specializing in ${link.label.toLowerCase()} with senior practice governance and written deliverable guardrails.`,
-      kicker: sub.kicker,
-      colorHex: activePillar.colorHex,
-      href: link.href,
-      deliverables: [
-        'Strategic audit & technical mapping sprint',
-        'Direct practice partner delivery oversight',
-        'Weekly verified performance telemetry'
-      ],
-      kpis: [
-        { label: 'Sprint Governance', value: 'Senior Direct' },
-        { label: 'Turnaround SLA', value: '48h Rapid' }
-      ]
-    }));
+  // Synthesize rich capability cards from activePillar.divisions or subPillars
+  const divisionsSource = activePillar.divisions || activePillar.subPillars || [];
+  const divisionCards = divisionsSource.flatMap((sub, subIdx) => {
+    return (sub.links || []).map((link, lIdx) => {
+      const sId = link.href.replace('/services/', '');
+      const richMatch = ECOMMERCE_SERVICES_DATA[sId] || DIGITAL_MARKETING_SERVICES_DATA[sId];
+
+      if (richMatch) {
+        return {
+          id: sId,
+          title: richMatch.title,
+          shortTitle: richMatch.title.split(' ')[0],
+          tagline: richMatch.hero?.subheadline || `${sub.kicker} Execution Squad`,
+          overview: richMatch.hero?.description || `Dedicated operational service specializing in ${link.label.toLowerCase()} with senior practice governance.`,
+          kicker: sub.kicker || richMatch.division,
+          colorHex: richMatch.colorHex || activePillar.colorHex,
+          href: link.href,
+          deliverables: richMatch.capabilities?.slice(0, 3).map(c => c.title) || [
+            'Operational audit & channel setup',
+            'Direct practice partner delivery oversight',
+            'Weekly verified performance telemetry'
+          ],
+          kpis: [
+            { label: 'Governance', value: 'Senior Lead' },
+            { label: 'Turnaround', value: 'Direct SLAs' }
+          ]
+        };
+      }
+
+      return {
+        id: sId,
+        title: link.label,
+        shortTitle: link.label.split(' ')[0],
+        tagline: `${sub.kicker} Execution Squad`,
+        overview: `Dedicated operational service specializing in ${link.label.toLowerCase()} with senior practice governance and written deliverable guardrails.`,
+        kicker: sub.kicker,
+        colorHex: activePillar.colorHex,
+        href: link.href,
+        deliverables: [
+          'Strategic audit & technical mapping sprint',
+          'Direct practice partner delivery oversight',
+          'Weekly verified performance telemetry'
+        ],
+        kpis: [
+          { label: 'Sprint Governance', value: 'Senior Direct' },
+          { label: 'Turnaround SLA', value: '48h Rapid' }
+        ]
+      };
+    });
   });
 
-  // Combine primary services with sub-pillar specializations, avoiding duplicate IDs
-  const combinedCards = [...pillarServices];
-  subPillarCards.forEach(subCard => {
-    if (!combinedCards.some(c => c.id === subCard.id || c.title.toLowerCase() === subCard.title.toLowerCase())) {
-      combinedCards.push(subCard);
-    }
-  });
+  // Combine primary services with division specializations, avoiding duplicate IDs
+  const combinedCards = activePillar.id === 'ecommerce-management' && divisionCards.length > 0 
+    ? divisionCards 
+    : [...pillarServices];
+  
+  if (activePillar.id !== 'ecommerce-management') {
+    divisionCards.forEach(subCard => {
+      if (!combinedCards.some(c => c.id === subCard.id || c.title.toLowerCase() === subCard.title.toLowerCase())) {
+        combinedCards.push(subCard);
+      }
+    });
+  }
 
   // Scroll to top on pillar switch
   useEffect(() => {

@@ -53,8 +53,8 @@ export default function WhySection() {
     <section ref={sectionRef} id="why-ecomet" aria-labelledby="why-heading" className="relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
       <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
         
-        {/* Clean Architectural Canvas Container */}
-        <div className="rounded-[32px] sm:rounded-[40px] bg-[#F4F4F1] p-8 sm:p-16 lg:p-20 border border-slate-200/90 shadow-xs">
+        {/* Clean Architectural Canvas Container - White */}
+        <div className="rounded-[32px] sm:rounded-[40px] bg-white p-8 sm:p-16 lg:p-20 border border-stone-200/90 shadow-xs">
           
           <div className="mb-14 sm:mb-20">
             <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">

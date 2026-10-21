@@ -165,8 +165,8 @@ export default function ProcessSection() {
     <section ref={sectionRef} id="process" aria-labelledby="process-heading" className="relative py-14 sm:py-24 bg-white overflow-hidden">
       <div className="max-w-[1320px] mx-auto px-4 sm:px-6">
         
-        {/* Mist Rounded Container */}
-        <div id="process-pinned-container" className="rounded-container bg-mist p-7 sm:p-12 lg:p-14 border border-[#E4EAF0]/90 relative overflow-hidden shadow-sm">
+        {/* Architectural Container - White */}
+        <div id="process-pinned-container" className="rounded-container bg-white p-7 sm:p-12 lg:p-14 border border-stone-200/90 relative overflow-hidden shadow-xs">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center">
             
@@ -185,7 +185,7 @@ export default function ProcessSection() {
                       className={`px-2.5 py-1 rounded-full text-xs font-mono font-medium transition-all cursor-pointer ${
                         activeStage === idx
                           ? 'bg-[#080B10] text-white border border-[#080B10]'
-                          : 'bg-white text-space-600 border border-slate-200 hover:border-space-800'
+                          : 'bg-[#FAFAFA] text-space-600 border border-stone-200/90 hover:bg-white hover:border-space-800'
                       }`}
                     >
                       0{idx + 1}
@@ -231,7 +231,7 @@ export default function ProcessSection() {
                     ref={(el) => (cardRefs.current[idx] = el)}
                     id={`process-card-${idx + 1}`}
                     onClick={() => handlePillClick(idx)}
-                    className="absolute inset-0 w-full h-full p-6 sm:p-8 rounded-[24px] bg-white border border-slate-200/80 shadow-[0_16px_40px_rgba(14,18,24,0.06)] flex flex-col justify-between overflow-hidden select-none cursor-pointer will-change-transform"
+                    className="absolute inset-0 w-full h-full p-6 sm:p-8 rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] hover:bg-white border border-stone-200/90 hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 flex flex-col justify-between overflow-hidden select-none cursor-pointer will-change-transform group"
                     style={{ zIndex: 10 + idx }}
                   >
                     <div>
@@ -250,21 +250,21 @@ export default function ProcessSection() {
                     </div>
 
                     {/* Vector Architecture Stage Visualizer (No Images) */}
-                    <div className="relative w-full h-44 sm:h-52 rounded-xl bg-slate-50 border border-slate-200/80 p-5 overflow-hidden flex flex-col justify-between mt-auto">
+                    <div className="relative w-full h-44 sm:h-52 rounded-2xl bg-white border border-stone-200/80 p-5 overflow-hidden flex flex-col justify-between mt-auto shadow-2xs">
                       <div className="flex items-center justify-between text-[11px] font-mono text-slate-400">
                         <span>SYSTEM ARCHITECTURE PROTOCOL</span>
                         <span className="text-space-950 font-bold">ACTIVE</span>
                       </div>
                       <div className="grid grid-cols-3 gap-3 my-auto">
-                        <div className="p-3 rounded-lg bg-white border border-slate-200 text-center">
+                        <div className="p-3 rounded-xl bg-[#FAFAFA] border border-stone-200/70 text-center">
                           <span className="text-[10px] font-mono text-slate-400 uppercase block">Phase</span>
                           <span className="text-sm font-bold text-space-950 font-sans">0{idx + 1} Execution</span>
                         </div>
-                        <div className="p-3 rounded-lg bg-white border border-slate-200 text-center">
+                        <div className="p-3 rounded-xl bg-[#FAFAFA] border border-stone-200/70 text-center">
                           <span className="text-[10px] font-mono text-slate-400 uppercase block">Cadence</span>
                           <span className="text-sm font-bold text-space-950 font-sans">Bi-Weekly</span>
                         </div>
-                        <div className="p-3 rounded-lg bg-white border border-slate-200 text-center">
+                        <div className="p-3 rounded-xl bg-[#FAFAFA] border border-stone-200/70 text-center">
                           <span className="text-[10px] font-mono text-slate-400 uppercase block">Target</span>
                           <span className="text-sm font-bold text-space-950 font-sans">Optimal CAC</span>
                         </div>
