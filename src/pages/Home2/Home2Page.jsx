@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
-import Home2Header from './components/Home2Header';
-import Home2Hero from './components/Home2Hero';
+import CelestialHero from '../../components/Hero3D/CelestialHero';
 import Home2Problem from './components/Home2Problem';
 import Home2Services from './components/Home2Services';
 import Home2StickyProcess from './components/Home2StickyProcess';
@@ -215,7 +214,7 @@ const HOME2_CONTENT = {
     eyebrow: "06 / DIAGNOSTIC OFFER",
     headline: "The Free Growth Audit.",
     subtext: "Before you commit a single rupee to a retainer, let us inspect your actual commercial telemetry. We run a comprehensive 48-hour diagnostic across your digital channels.",
-    image: "/images/space/card-marketplace.jpg",
+    image: "/assets/img1/marketplace-ppc-scale.png",
     auditFeatures: [
       {
         title: "Search & Ad Account Forensics",
@@ -297,7 +296,7 @@ const HOME2_CONTENT = {
         category: "D2C HEALTH & NUTRITION",
         title: "Multi-Marketplace Synchronization",
         desc: "Unified catalogue architecture, Amazon Brand Store overhaul, and high-intent keyword capture models.",
-        image: "/images/space/work-1.jpg",
+        image: "/assets/img1/amazon-listing-aplus.png",
         tags: ["AMAZON", "CATALOGUE", "BUY-BOX"]
       },
       {
@@ -305,7 +304,7 @@ const HOME2_CONTENT = {
         category: "HIGH-FASHION & APPAREL",
         title: "Headless Shopify & Checkout CRO",
         desc: "Sub-second mobile loading speed, cart drawer conversion triggers, and Meta Advantage+ catalogue funnels.",
-        image: "/images/space/work-2.jpg",
+        image: "/assets/img1/shopify-flagship-store.png",
         tags: ["SHOPIFY", "META ADS", "CRO"]
       },
       {
@@ -313,7 +312,7 @@ const HOME2_CONTENT = {
         category: "ARCHITECTURAL HOME LIVING",
         title: "Category Market Share Dominance",
         desc: "Sponsored Brands video architecture, competitor Buy-Box monitoring, and organic search ranking.",
-        image: "/images/space/work-3.jpg",
+        image: "/assets/img1/ads-performance.png",
         tags: ["SPONSORED ADS", "VIDEO", "SEO"]
       },
       {
@@ -321,7 +320,7 @@ const HOME2_CONTENT = {
         category: "B2B INDUSTRIAL SUPPLY",
         title: "High-Intent Qualified Pipeline",
         desc: "Google Search bottom-funnel keyword bidding, CRM tracking hooks, and conversion landing page models.",
-        image: "/images/space/work-4.jpg",
+        image: "/assets/img1/creative-brand-identity.png",
         tags: ["GOOGLE ADS", "B2B PIPELINE", "CAPI"]
       },
       {
@@ -329,7 +328,7 @@ const HOME2_CONTENT = {
         category: "CONSUMER HARDWARE & TECH",
         title: "3D CGI Commercial Product Motion",
         desc: "Photorealistic 3D rendering, feature breakdown animations, and short-form launch creative.",
-        image: "/images/space/work-5.jpg",
+        image: "/assets/img1/reels-motion-film.png",
         tags: ["3D CGI", "MOTION", "CINEMA"]
       }
     ]
@@ -445,16 +444,13 @@ export default function Home2Page() {
   }, []);
 
   return (
-    <div className="relative w-full bg-[#040612] text-[#FFFFFF] font-grotesk antialiased selection:bg-cyan-500 selection:text-white">
+    <div className="relative w-full bg-[#02040C] text-[#000000] font-sans antialiased selection:bg-[#000000] selection:text-[#FFFFFF]">
       
-      {/* 0. Editorial Top Navigation Header */}
-      <Home2Header />
+      {/* 3D Celestial Hero & Polar Dive Whiteout from normal Home page */}
+      <CelestialHero />
 
-      {/* Main Sections */}
-      <main className="relative z-10">
-        {/* 1. Hero */}
-        <Home2Hero data={HOME2_CONTENT.hero} />
-
+      {/* Main Content Hand-off starts seamlessly from the white section */}
+      <main id="main-content" className="relative bg-white z-20">
         {/* 2. The Problem */}
         <Home2Problem data={HOME2_CONTENT.problem} />
 

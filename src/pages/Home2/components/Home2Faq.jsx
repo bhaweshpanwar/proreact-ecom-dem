@@ -36,68 +36,62 @@ export default function Home2Faq({ data }) {
   } = data || {};
 
   return (
-    <section id="faq" className="relative py-20 sm:py-32 bg-[#FFFFFF] text-slate-950 border-b border-slate-200 overflow-hidden">
+    <section id="faq" className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5]">
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-slate-200 items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] items-end">
           <div className="lg:col-span-3">
-            <span className="font-sans text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full bg-indigo-50 border border-indigo-200 text-indigo-600 inline-block">
+            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block">
               {eyebrow}
             </span>
           </div>
           <div className="lg:col-span-6 space-y-4">
-            <h2 className="font-grotesk font-black text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-slate-950">
+            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
               {headline}
             </h2>
-            <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed max-w-[50ch]">
+            <p className="font-grotesk text-sm sm:text-base text-[#666666] leading-relaxed max-w-[50ch]">
               {subtext}
             </p>
           </div>
-          <div className="lg:col-span-3 lg:text-right font-sans text-xs font-bold text-indigo-600 uppercase tracking-wider">
+          <div className="lg:col-span-3 lg:text-right font-sans text-xs text-[#8A8A8A] uppercase font-semibold tracking-wider">
             <span>[05 DIRECT POLICIES]</span>
           </div>
         </div>
 
-        {/* Clean Modern Accordion List */}
-        <div className="divide-y divide-slate-200 border-b border-slate-200">
+        {/* Flat Accordion List with 1px Rules and +/- Icons */}
+        <div className="divide-y divide-[#E5E5E5] border-b border-[#E5E5E5]">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
             return (
               <div 
                 key={idx}
-                className={`py-6 sm:py-8 cursor-pointer select-none group transition-colors px-4 rounded-xl ${
-                  isOpen ? 'bg-indigo-50/30' : 'hover:bg-slate-50/60'
-                }`}
+                className="py-6 sm:py-8 cursor-pointer select-none group"
                 onClick={() => toggle(idx)}
               >
                 <div className="flex items-start justify-between gap-6">
-                  <div className="flex items-start gap-4 sm:gap-6">
-                    <span className={`font-sans text-xs sm:text-sm font-bold pt-1 px-2.5 py-0.5 rounded-md ${
-                      isOpen ? 'bg-indigo-600 text-white' : 'bg-slate-100 text-slate-500'
-                    }`}>
+                  <div className="flex items-start gap-4 sm:gap-8">
+                    <span className="font-sans text-xs sm:text-sm text-[#8A8A8A] font-bold pt-1">
                       0{idx + 1}
                     </span>
-                    <div>
-                      <h3 className={`font-grotesk font-bold text-lg sm:text-xl transition-colors ${
-                        isOpen ? 'text-indigo-950' : 'text-slate-900 group-hover:text-indigo-600'
-                      }`}>
-                        {faq.q}
-                      </h3>
-                      {isOpen && (
-                        <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed mt-4 max-w-[70ch]">
-                          {faq.a}
-                        </p>
-                      )}
-                    </div>
+                    <h3 className="font-grotesk font-bold text-lg sm:text-2xl text-[#000000] group-hover:text-[#555555] transition-colors leading-snug">
+                      {faq.q}
+                    </h3>
                   </div>
 
-                  <span className={`flex-shrink-0 w-8 h-8 rounded-full border flex items-center justify-center font-sans text-sm font-bold transition-transform ${
-                    isOpen ? 'bg-indigo-600 text-white border-indigo-600 rotate-45' : 'border-slate-300 text-slate-600'
-                  }`}>
-                    +
+                  {/* +/- Indicator */}
+                  <span className="w-8 h-8 border border-[#CCCCCC] group-hover:border-[#000000] flex items-center justify-center font-sans text-base font-bold text-[#000000] flex-shrink-0 transition-colors">
+                    {isOpen ? '−' : '+'}
                   </span>
                 </div>
+
+                {isOpen && (
+                  <div className="pt-4 pl-8 sm:pl-14 max-w-[65ch]">
+                    <p className="font-grotesk text-sm sm:text-base text-[#555555] leading-relaxed">
+                      {faq.a}
+                    </p>
+                  </div>
+                )}
               </div>
             );
           })}

@@ -11,12 +11,9 @@ import ScrollToTop from './components/ScrollToTop';
 import OrbitChatbot from './components/Chatbot/OrbitChatbot';
 
 function AppContent() {
-  const location = useLocation();
-  const isHome2 = location.pathname === '/home2';
-
   return (
-    <div className={`relative min-h-screen ${isHome2 ? 'bg-[#040612] text-white' : 'bg-white text-slate-900'}`}>
-      {!isHome2 && <Header />}
+    <div className="relative min-h-screen bg-white text-slate-900">
+      <Header />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/home2" element={<Home2Page />} />
@@ -58,7 +55,7 @@ function AppContent() {
         {/* Individual Detailed Service Routes (Amazon, Flipkart, SEO, Meta Ads, etc.) */}
         <Route path="/services/:slug" element={<ServiceDetailPage />} />
       </Routes>
-      {!isHome2 && <OrbitChatbot />}
+      <OrbitChatbot />
     </div>
   );
 }

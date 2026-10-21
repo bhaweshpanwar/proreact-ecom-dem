@@ -52,12 +52,9 @@ export default function MobileDrawer({ isOpen, onClose }) {
             <Link
               to="/home2"
               onClick={onClose}
-              className="py-2.5 px-3 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 transition-colors flex items-center justify-between"
+              className="py-2.5 px-3 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 transition-colors"
             >
-              <span>Home 2</span>
-              <span className="px-2 py-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-[10px] font-bold">
-                NEW
-              </span>
+              Home 2
             </Link>
 
             <Link

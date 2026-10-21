@@ -27,44 +27,39 @@ export default function Home2FinalCta({ data }) {
   };
 
   return (
-    <section id="final-cta" className="relative pt-20 sm:pt-32 pb-0 bg-[#040612] text-[#FFFFFF] border-b border-indigo-950/70 overflow-hidden">
+    <section id="final-cta" className="relative pt-20 sm:pt-32 pb-0 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
       
-      {/* Background Ambience Glow */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-indigo-600/15 blur-[160px] pointer-events-none" />
-
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 mb-16 sm:mb-24 relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto space-y-4 mb-12 sm:mb-16">
-          <span className="font-sans text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 inline-block">
+          <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-semibold block">
             {eyebrow}
           </span>
-          <h2 className="font-grotesk font-black text-[clamp(40px,6vw,90px)] leading-[0.92] tracking-[-0.04em] uppercase text-[#FFFFFF]">
+          <h2 className="font-grotesk font-bold text-[clamp(40px,6vw,90px)] leading-[0.92] tracking-[-0.04em] uppercase text-[#FFFFFF]">
             {headline}
           </h2>
-          <p className="font-sans text-sm sm:text-base text-slate-300 leading-relaxed">
+          <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed">
             {subtext}
           </p>
         </div>
 
-        {/* Mini Contact Form: Sleek Glass Card with Colorful Elements */}
-        <div className="max-w-xl mx-auto bg-[#070A1C]/80 border border-indigo-500/30 rounded-2xl p-6 sm:p-10 backdrop-blur-md shadow-2xl shadow-indigo-950/50">
+        {/* Mini Contact Form: Sharp, Flat, Editorial Black & White */}
+        <div className="max-w-xl mx-auto bg-[#0A0A0A] border border-[#262626] p-6 sm:p-10">
           {submitted ? (
             <div className="text-center py-8 space-y-4 font-sans">
-              <span className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center mx-auto text-2xl font-bold">
-                ✓
-              </span>
-              <h3 className="font-grotesk font-black text-2xl uppercase text-white">
+              <span className="text-2xl text-[#FFFFFF]">✓</span>
+              <h3 className="font-grotesk font-bold text-xl uppercase text-[#FFFFFF]">
                 Transmission Received.
               </h3>
-              <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+              <p className="text-xs text-[#8A8A8A] leading-relaxed">
                 A senior partner will review your digital footprint and WhatsApp you within 24 hours to coordinate audit access.
               </p>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block font-sans text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                <label className="block font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-semibold mb-2">
                   Full Name
                 </label>
                 <input
@@ -73,12 +68,12 @@ export default function Home2FinalCta({ data }) {
                   placeholder="e.g. Arjun Mehta"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-4 py-3.5 rounded-xl bg-[#040612] border border-white/10 text-white font-sans text-sm placeholder:text-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
+                  className="w-full px-4 py-3 bg-[#000000] border border-[#333333] text-[#FFFFFF] font-grotesk text-sm placeholder:text-[#555555] focus:outline-none focus:border-[#FFFFFF]"
                 />
               </div>
 
               <div>
-                <label className="block font-sans text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                <label className="block font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-semibold mb-2">
                   WhatsApp / Phone Number
                 </label>
                 <input
@@ -87,18 +82,18 @@ export default function Home2FinalCta({ data }) {
                   placeholder="+91 98765 43210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                  className="w-full px-4 py-3.5 rounded-xl bg-[#040612] border border-white/10 text-white font-sans text-sm placeholder:text-slate-500 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
+                  className="w-full px-4 py-3 bg-[#000000] border border-[#333333] text-[#FFFFFF] font-grotesk text-sm placeholder:text-[#555555] focus:outline-none focus:border-[#FFFFFF]"
                 />
               </div>
 
               <div>
-                <label className="block font-sans text-xs font-bold uppercase tracking-wider text-slate-300 mb-2">
+                <label className="block font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-semibold mb-2">
                   Primary Growth Focus
                 </label>
                 <select
                   value={formData.service}
                   onChange={(e) => setFormData({ ...formData, service: e.target.value })}
-                  className="w-full px-4 py-3.5 rounded-xl bg-[#040612] border border-white/10 text-white font-sans text-sm focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400 transition-all"
+                  className="w-full px-4 py-3 bg-[#000000] border border-[#333333] text-[#FFFFFF] font-grotesk text-sm focus:outline-none focus:border-[#FFFFFF]"
                 >
                   <option value="marketplaces">Marketplace Management (Amazon / Flipkart)</option>
                   <option value="performance-ads">Performance Marketing (Google &amp; Meta Ads)</option>
@@ -111,27 +106,24 @@ export default function Home2FinalCta({ data }) {
               <button
                 type="submit"
                 disabled={submitting}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-600 to-indigo-600 hover:from-cyan-400 hover:to-indigo-500 text-white font-sans text-xs sm:text-sm font-black uppercase tracking-wider transition-all flex items-center justify-center gap-2 cursor-pointer mt-6 shadow-xl shadow-cyan-500/25"
+                className="w-full py-4 bg-[#FFFFFF] hover:bg-[#E5E5E5] text-[#000000] font-sans text-xs font-bold uppercase tracking-wider transition-colors flex items-center justify-center gap-2 cursor-pointer mt-6"
               >
                 <span>{submitting ? 'Transmitting...' : 'Request 48-Hour Growth Audit'}</span>
                 <span>→</span>
               </button>
 
-              <div className="flex items-center justify-between font-sans text-[11px] text-slate-400 uppercase pt-2">
-                <span className="flex items-center gap-1.5 text-emerald-400">
-                  <span>✓</span> Zero sales pressure
-                </span>
-                <span className="text-slate-500">100% Confidential</span>
-              </div>
+              <span className="block font-sans text-[10px] text-center text-[#666666] uppercase font-semibold tracking-wider pt-2">
+                *Zero sales pressure · 100% confidential
+              </span>
             </form>
           )}
         </div>
 
       </div>
 
-      {/* Giant Oversized E-COMET Wordmark with Cosmic Gradient */}
+      {/* Giant Oversized E-COMET Wordmark (Cropped by Bottom of Viewport, Exact Match to Reference) */}
       <div className="w-full overflow-hidden leading-none select-none pointer-events-none -mb-3 sm:-mb-6">
-        <div className="font-grotesk font-black text-[clamp(90px,21vw,360px)] leading-[0.80] tracking-[-0.05em] bg-gradient-to-b from-white/15 via-cyan-500/10 to-transparent bg-clip-text text-transparent text-center uppercase whitespace-nowrap">
+        <div className="font-grotesk font-black text-[clamp(90px,21vw,360px)] leading-[0.80] tracking-[-0.05em] text-[#141414] text-center uppercase whitespace-nowrap">
           {wordmark}
         </div>
       </div>

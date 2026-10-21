@@ -27,24 +27,24 @@ export default function WhiteoutIntroStage({ progress }) {
         <span className="inline-block font-sans text-xs sm:text-sm font-semibold tracking-widest text-slate-500 uppercase mb-3">
           E-COMET OUTVERSE — digital growth agency
         </span>
-        <h2 className="font-serif text-4xl sm:text-6xl lg:text-7xl font-normal text-slate-900 leading-[1.08] tracking-tight">
+        <h2 className="font-sans text-4xl sm:text-6xl lg:text-7xl font-bold text-slate-900 leading-[1.08] tracking-tight">
           Where ambitious brands meet <br className="hidden sm:inline" />
-          <span className="italic">one growth partner.</span>
+          <span className="text-slate-600 font-medium">one growth partner.</span>
         </h2>
         <p className="max-w-2xl mt-4 text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
           One unified growth architecture scaling organic search visibility, high-performance web engineering, marketplace dominance, and brand prestige.
         </p>
         <div className="flex flex-wrap items-center justify-center gap-3 mt-6">
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-sans font-semibold text-slate-700 tracking-wide">
             Marketplaces
           </span>
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-sans font-semibold text-slate-700 tracking-wide">
             Performance Marketing
           </span>
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-sans font-semibold text-slate-700 tracking-wide">
             Web &amp; App Development
           </span>
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-mono font-medium text-slate-700">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-100 border border-slate-200 text-xs font-sans font-semibold text-slate-700 tracking-wide">
             YouTube &amp; Video
           </span>
         </div>

@@ -7,58 +7,54 @@ export default function Home2Footer() {
   };
 
   return (
-    <footer className="bg-[#03050F] text-[#FFFFFF] border-t border-indigo-950/70 font-sans text-xs select-none">
+    <footer className="bg-[#000000] text-[#FFFFFF] border-t border-[#262626] font-sans text-xs uppercase select-none tracking-wider">
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-12 sm:py-16 space-y-12">
         
         {/* Top Info Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-white/10">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-12 border-b border-[#1A1A1A]">
           <div className="md:col-span-5 space-y-3">
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-cyan-400 shadow-[0_0_8px_#22d3ee] animate-pulse" />
-              <span className="font-grotesk font-black text-xl tracking-tight text-white uppercase block">
-                E-COMET OUTVERSE
-              </span>
-            </div>
-            <p className="font-sans text-xs text-slate-400 max-w-[42ch] leading-relaxed">
-              Enterprise growth architecture for high-velocity commercial brands. Marketplaces, paid acquisition, web storefronts, and brand cinema.
+            <span className="font-grotesk font-black text-xl tracking-tight text-white block">
+              E-COMET OUTVERSE
+            </span>
+            <p className="font-grotesk text-xs text-[#8A8A8A] max-w-[40ch] lowercase">
+              photorealistic growth architecture for high-velocity commercial brands. marketplaces, paid acquisition, web storefronts, and brand cinema.
             </p>
           </div>
 
           <div className="md:col-span-3 space-y-2">
-            <span className="text-cyan-400 block font-bold uppercase tracking-wider text-[11px]">[SECTORS]</span>
-            <ul className="space-y-1.5 text-slate-300 font-medium">
-              <li><Link to="/services/ecommerce-management" className="hover:text-cyan-400 transition-colors">Amazon &amp; Marketplaces</Link></li>
-              <li><Link to="/services/digital-marketing" className="hover:text-cyan-400 transition-colors">Google &amp; Meta Ads</Link></li>
-              <li><Link to="/services/web-development" className="hover:text-cyan-400 transition-colors">D2C Shopify Architecture</Link></li>
-              <li><Link to="/services/video-production-editing" className="hover:text-cyan-400 transition-colors">Commercial Cinema &amp; 3D</Link></li>
+            <span className="text-[#8A8A8A] block font-bold">[SECTORS]</span>
+            <ul className="space-y-1 text-[#CCCCCC]">
+              <li><Link to="/services/ecommerce-management" className="hover:text-white">Amazon &amp; Marketplaces</Link></li>
+              <li><Link to="/services/digital-marketing" className="hover:text-white">Google &amp; Meta Ads</Link></li>
+              <li><Link to="/services/web-development" className="hover:text-white">D2C Shopify Architecture</Link></li>
+              <li><Link to="/services/video-production-editing" className="hover:text-white">Commercial Cinema &amp; 3D</Link></li>
             </ul>
           </div>
 
           <div className="md:col-span-4 space-y-2">
-            <span className="text-indigo-400 block font-bold uppercase tracking-wider text-[11px]">[HEADQUARTERS &amp; CHANNELS]</span>
-            <p className="text-slate-300 font-medium">Mumbai, Maharashtra, India</p>
-            <p className="text-slate-400">Direct: <span className="text-slate-200">hello@ecometoutverse.com</span> // TODO</p>
-            <p className="text-slate-400">WhatsApp: <span className="text-emerald-400 font-semibold">+91 99999 99999</span> // TODO</p>
+            <span className="text-[#8A8A8A] block font-bold">[HEADQUARTERS &amp; CHANNELS]</span>
+            <p className="text-[#CCCCCC]">Mumbai, Maharashtra, India</p>
+            <p className="text-[#8A8A8A]">Direct: hello@ecometoutverse.com // TODO</p>
+            <p className="text-[#8A8A8A]">WhatsApp: +91 99999 99999 // TODO</p>
           </div>
         </div>
 
         {/* Bottom Rules & Copyright */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-slate-400 text-[11px] font-semibold uppercase tracking-wider">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 text-[#8A8A8A] text-[11px]">
           <div>
             <span>© 2026 E-COMET OUTVERSE. ALL RIGHTS RESERVED.</span>
           </div>
 
           <div className="flex items-center gap-6">
-            <Link to="/" className="text-slate-400 hover:text-cyan-400 transition-colors">
+            <Link to="/" className="hover:text-white transition-colors">
               [SWITCH TO HOME 1]
             </Link>
             <button
               type="button"
               onClick={scrollToTop}
-              className="text-slate-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5"
+              className="hover:text-white transition-colors cursor-pointer"
             >
-              <span>[BACK TO TOP</span>
-              <span className="text-cyan-400">↑]</span>
+              [BACK TO TOP ↑]
             </button>
           </div>
         </div>

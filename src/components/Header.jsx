@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
 import MobileDrawer from './MobileDrawer';
 
@@ -7,6 +7,7 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const timeoutRef = useRef(null);
+  const location = useLocation();
 
   const handleMouseEnter = (menuName) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -47,26 +48,29 @@ export default function Header() {
             {/* Home */}
             <Link 
               to="/" 
-              className="px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold text-slate-800 hover:bg-slate-100/80 transition-colors"
+              className={`px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold transition-colors ${
+                location.pathname === '/' ? 'bg-slate-900 text-white shadow-2xs' : 'text-slate-800 hover:bg-slate-100/80'
+              }`}
             >
               Home
             </Link>
 
-            {/* Home 2 (Redesigned Editorial Experience) */}
+            {/* Home 2 */}
             <Link 
               to="/home2" 
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold text-slate-800 hover:bg-slate-100/80 transition-colors"
+              className={`px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold transition-colors ${
+                location.pathname === '/home2' ? 'bg-slate-900 text-white shadow-2xs' : 'text-slate-800 hover:bg-slate-100/80'
+              }`}
             >
-              <span>Home 2</span>
-              <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-[9.5px] font-bold tracking-wide">
-                NEW
-              </span>
+              Home 2
             </Link>
 
             {/* About Us */}
             <Link 
               to="/about-us" 
-              className="px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold text-slate-800 hover:bg-slate-100/80 transition-colors"
+              className={`px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold transition-colors ${
+                location.pathname === '/about-us' ? 'bg-slate-900 text-white shadow-2xs' : 'text-slate-800 hover:bg-slate-100/80'
+              }`}
             >
               About Us
             </Link>
