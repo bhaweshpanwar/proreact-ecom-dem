@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 
 export default function Home2SampleWork({ data }) {
   const scrollRef = useRef(null);
+  const isHoveredRef = useRef(false);
 
   const {
     eyebrow = "09 / CONCEPT PORTFOLIO",
@@ -51,6 +52,28 @@ export default function Home2SampleWork({ data }) {
     ]
   } = data || {};
 
+  // Continuous subtle auto-glide animation
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    let animId;
+    const step = () => {
+      if (!isHoveredRef.current && el) {
+        if (el.scrollLeft + el.clientWidth >= el.scrollWidth - 10) {
+          el.scrollLeft = 0;
+        } else {
+          el.scrollLeft += 0.75;
+        }
+      }
+      animId = requestAnimationFrame(step);
+    };
+
+    animId = requestAnimationFrame(step);
+
+    return () => cancelAnimationFrame(animId);
+  }, []);
+
   const handleScroll = (direction) => {
     if (scrollRef.current) {
       const amount = direction === 'left' ? -380 : 380;
@@ -97,10 +120,14 @@ export default function Home2SampleWork({ data }) {
           </div>
         </div>
 
-        {/* Horizontal Carousel Track */}
+        {/* Horizontal Carousel Track with Auto-Glide Motion */}
         <div 
           ref={scrollRef}
-          className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-6"
+          onMouseEnter={() => { isHoveredRef.current = true; }}
+          onMouseLeave={() => { isHoveredRef.current = false; }}
+          onTouchStart={() => { isHoveredRef.current = true; }}
+          onTouchEnd={() => { isHoveredRef.current = false; }}
+          className="flex gap-6 overflow-x-auto no-scrollbar scroll-smooth snap-x snap-mandatory pb-6 cursor-grab active:cursor-grabbing"
         >
           {projects.map((item, idx) => (
             <div

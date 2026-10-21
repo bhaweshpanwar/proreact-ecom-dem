@@ -1,6 +1,12 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home2Timeline30Days({ data }) {
+  const sectionRef = useRef(null);
+
   const {
     eyebrow = "05 / ONBOARDING ROADMAP",
     headline = "Your first 30 days.",
@@ -49,8 +55,33 @@ export default function Home2Timeline30Days({ data }) {
     ]
   } = data || {};
 
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".timeline-week-card",
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.12,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 78%",
+            toggleActions: "play none none reverse",
+          }
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="timeline" className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5]">
+    <section id="timeline" ref={sectionRef} className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5]">
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
@@ -73,12 +104,12 @@ export default function Home2Timeline30Days({ data }) {
           </div>
         </div>
 
-        {/* 4-Week Horizontal Grid Layout */}
+        {/* 4-Week Horizontal Grid Layout with Staggered Entrance */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#E5E5E5] border-b border-[#E5E5E5]">
           {weeks.map((item, idx) => (
             <div 
               key={idx}
-              className="p-6 sm:p-8 flex flex-col justify-between space-y-8 bg-[#FFFFFF] hover:bg-[#F9F9F9] transition-colors"
+              className="timeline-week-card p-6 sm:p-8 flex flex-col justify-between space-y-8 bg-[#FFFFFF] hover:bg-[#F9F9F9] transition-colors"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between pb-3 border-b border-[#E5E5E5]">

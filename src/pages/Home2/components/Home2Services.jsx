@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home2Services({ data }) {
   const [hoveredIdx, setHoveredIdx] = useState(0);
+  const sectionRef = useRef(null);
 
   const {
     eyebrow = "03 / FIVE ORBITS",
@@ -52,8 +57,32 @@ export default function Home2Services({ data }) {
     ]
   } = data || {};
 
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        ".service-row-anim",
+        { y: 35, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.7,
+          stagger: 0.1,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: "top 78%",
+            toggleActions: "play none none reverse",
+          }
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="services" className="relative py-20 sm:py-32 bg-[#000000] text-[#FFFFFF] border-b border-[#262626]">
+    <section id="services" ref={sectionRef} className="relative py-20 sm:py-32 bg-[#000000] text-[#FFFFFF] border-b border-[#262626]">
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
@@ -84,7 +113,7 @@ export default function Home2Services({ data }) {
               <div
                 key={idx}
                 onMouseEnter={() => setHoveredIdx(idx)}
-                className="group relative py-8 sm:py-12 transition-colors duration-300 cursor-pointer overflow-hidden"
+                className="service-row-anim group relative py-8 sm:py-12 transition-colors duration-300 cursor-pointer overflow-hidden"
               >
                 {/* Active Background Space Image Reveal on Hover (Full Rich Color) */}
                 <div 
