@@ -52,6 +52,17 @@ export default function Header() {
               Home
             </Link>
 
+            {/* Home 2 (Redesigned Editorial Experience) */}
+            <Link 
+              to="/home2" 
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold text-slate-800 hover:bg-slate-100/80 transition-colors"
+            >
+              <span>Home 2</span>
+              <span className="px-1.5 py-0.5 rounded-full bg-gradient-to-r from-cyan-500 to-indigo-600 text-white text-[9.5px] font-bold tracking-wide">
+                NEW
+              </span>
+            </Link>
+
             {/* About Us */}
             <Link 
               to="/about-us" 

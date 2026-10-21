@@ -9,6 +9,7 @@ export default function Home2Timeline30Days({ data }) {
       {
         week: "WEEK 01",
         phase: "RECONNAISSANCE & AUDIT",
+        accent: "cyan",
         deliverables: [
           "Complete ad account & query log forensic export",
           "Marketplace Buy-Box health & SKU variation audit",
@@ -19,6 +20,7 @@ export default function Home2Timeline30Days({ data }) {
       {
         week: "WEEK 02",
         phase: "FOUNDATION & REBUILD",
+        accent: "blue",
         deliverables: [
           "Restructuring underperforming ad campaigns & budgets",
           "Correction of listing errors, titles & back-end search terms",
@@ -29,6 +31,7 @@ export default function Home2Timeline30Days({ data }) {
       {
         week: "WEEK 03",
         phase: "SYNCHRONIZED GO-LIVE",
+        accent: "indigo",
         deliverables: [
           "Live launch of revised Google & Meta ad funnels",
           "Marketplace Sponsored Brand & Sponsored Product deployment",
@@ -39,6 +42,7 @@ export default function Home2Timeline30Days({ data }) {
       {
         week: "WEEK 04",
         phase: "FIRST CALIBRATION REVIEW",
+        accent: "emerald",
         deliverables: [
           "First comprehensive weekly unit economic report",
           "Pruning negative keywords and low-margin ad spend",
@@ -50,65 +54,94 @@ export default function Home2Timeline30Days({ data }) {
   } = data || {};
 
   return (
-    <section id="timeline" className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5]">
+    <section id="timeline" className="relative py-20 sm:py-32 bg-[#FFFFFF] text-slate-950 border-b border-slate-200 overflow-hidden">
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
         {/* Section Header */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] items-end">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-slate-200 items-end">
           <div className="lg:col-span-3">
-            <span className="font-mono text-xs uppercase tracking-widest text-[#8A8A8A] block">
+            <span className="font-sans text-xs font-bold uppercase tracking-wider px-3.5 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-600 inline-block">
               {eyebrow}
             </span>
           </div>
           <div className="lg:col-span-6 space-y-4">
-            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
+            <h2 className="font-grotesk font-black text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-slate-950">
               {headline}
             </h2>
-            <p className="font-grotesk text-sm sm:text-base text-[#666666] leading-relaxed max-w-[50ch]">
+            <p className="font-sans text-sm sm:text-base text-slate-600 leading-relaxed max-w-[50ch]">
               {subtext}
             </p>
           </div>
-          <div className="lg:col-span-3 lg:text-right font-mono text-xs text-[#8A8A8A] uppercase">
+          <div className="lg:col-span-3 lg:text-right font-sans text-xs font-bold text-indigo-600 uppercase tracking-wider">
             <span>[4 WEEKS TO COMPOUNDING]</span>
           </div>
         </div>
 
-        {/* 4-Week Horizontal Grid Layout */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-[#E5E5E5] border-b border-[#E5E5E5]">
-          {weeks.map((item, idx) => (
-            <div 
-              key={idx}
-              className="p-6 sm:p-8 flex flex-col justify-between space-y-8 bg-[#FFFFFF] hover:bg-[#F9F9F9] transition-colors"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between pb-3 border-b border-[#E5E5E5]">
-                  <span className="font-mono text-sm font-bold text-[#000000]">
-                    {item.week}
-                  </span>
-                  <span className="font-mono text-[10px] text-[#8A8A8A] uppercase tracking-wider">
-                    PHASE 0{idx + 1}
-                  </span>
+        {/* 4-Week Horizontal Grid with Progressive Accent Colors */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-10">
+          {weeks.map((item, idx) => {
+            const isCyan = item.accent === 'cyan';
+            const isBlue = item.accent === 'blue';
+            const isIndigo = item.accent === 'indigo';
+            const isEmerald = item.accent === 'emerald';
+
+            return (
+              <div 
+                key={idx}
+                className={`p-6 sm:p-8 rounded-2xl flex flex-col justify-between space-y-8 bg-white border transition-all duration-300 hover:-translate-y-1 ${
+                  isCyan ? 'border-cyan-200 hover:border-cyan-400 hover:shadow-xl hover:shadow-cyan-500/10' :
+                  isBlue ? 'border-blue-200 hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/10' :
+                  isIndigo ? 'border-indigo-200 hover:border-indigo-400 hover:shadow-xl hover:shadow-indigo-500/10' :
+                  'border-emerald-200 hover:border-emerald-400 hover:shadow-xl hover:shadow-emerald-500/10'
+                }`}
+              >
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between pb-3 border-b border-slate-100">
+                    <span className={`font-grotesk font-bold text-lg ${
+                      isCyan ? 'text-cyan-600' :
+                      isBlue ? 'text-blue-600' :
+                      isIndigo ? 'text-indigo-600' :
+                      'text-emerald-600'
+                    }`}>
+                      {item.week}
+                    </span>
+                    <span className={`font-sans text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded ${
+                      isCyan ? 'bg-cyan-50 text-cyan-700' :
+                      isBlue ? 'bg-blue-50 text-blue-700' :
+                      isIndigo ? 'bg-indigo-50 text-indigo-700' :
+                      'bg-emerald-50 text-emerald-700'
+                    }`}>
+                      PHASE 0{idx + 1}
+                    </span>
+                  </div>
+
+                  <h3 className="font-grotesk font-bold text-base text-slate-900 uppercase tracking-tight">
+                    {item.phase}
+                  </h3>
+
+                  {/* Deliverables Checklist */}
+                  <ul className="space-y-3 pt-2">
+                    {item.deliverables.map((deliv, dIdx) => (
+                      <li key={dIdx} className="flex items-start gap-2.5 font-sans text-xs sm:text-sm text-slate-600 leading-snug">
+                        <span className={`flex-shrink-0 font-bold ${
+                          isCyan ? 'text-cyan-500' :
+                          isBlue ? 'text-blue-500' :
+                          isIndigo ? 'text-indigo-500' :
+                          'text-emerald-500'
+                        }`}>✓</span>
+                        <span>{deliv}</span>
+                      </li>
+                    ))}
+                  </ul>
                 </div>
 
-                <h3 className="font-grotesk font-bold text-base sm:text-lg text-[#000000] uppercase tracking-tight">
-                  {item.phase}
-                </h3>
-
-                <ul className="space-y-3 font-grotesk text-xs sm:text-sm text-[#555555]">
-                  {item.deliverables.map((deliv, dIdx) => (
-                    <li key={dIdx} className="flex items-start gap-2">
-                      <span className="font-mono text-[#000000] font-bold select-none mt-0.5">―</span>
-                      <span className="leading-snug">{deliv}</span>
-                    </li>
-                  ))}
-                </ul>
+                <div className="pt-4 border-t border-slate-100 font-sans text-[11px] font-semibold text-slate-400 uppercase tracking-wider flex justify-between">
+                  <span>TIMEFRAME</span>
+                  <span className="text-slate-800 font-bold">DAYS {idx * 7 + 1}–{(idx + 1) * 7}</span>
+                </div>
               </div>
-
-              <div className="pt-4 border-t border-[#E5E5E5] font-mono text-[11px] uppercase text-[#8A8A8A]">
-                <span>Status: Day {idx * 7 + 1}–Day {(idx + 1) * 7}</span>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
       </div>

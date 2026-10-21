@@ -445,7 +445,7 @@ export default function Home2Page() {
   }, []);
 
   return (
-    <div className="relative w-full bg-[#000000] text-[#FFFFFF] font-grotesk antialiased selection:bg-[#FFFFFF] selection:text-[#000000]">
+    <div className="relative w-full bg-[#040612] text-[#FFFFFF] font-grotesk antialiased selection:bg-cyan-500 selection:text-white">
       
       {/* 0. Editorial Top Navigation Header */}
       <Home2Header />

@@ -15,7 +15,7 @@ function AppContent() {
   const isHome2 = location.pathname === '/home2';
 
   return (
-    <div className={`relative min-h-screen ${isHome2 ? 'bg-[#000000] text-white' : 'bg-white text-slate-900'}`}>
+    <div className={`relative min-h-screen ${isHome2 ? 'bg-[#040612] text-white' : 'bg-white text-slate-900'}`}>
       {!isHome2 && <Header />}
       <Routes>
         <Route path="/" element={<HomePage />} />

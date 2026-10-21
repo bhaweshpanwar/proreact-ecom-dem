@@ -6,8 +6,8 @@
   :root {
     --brand-primary: #080B10;
     --brand-hover: #252B36;
-    --font-serif: "Cormorant", "Cormorant Garamond", Georgia, serif;
-    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-serif: "Space Grotesk", "Inter Tight", "Plus Jakarta Sans", "Inter", sans-serif;
+    --font-sans: 'Inter', "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
     --bg-deep-void: #010207;
     --bg-midnight: #0a0418;
     --cosmic-violet: #0d0218;
@@ -46,10 +46,10 @@
     overflow-x: hidden;
   }
 
-  /* Headings & Display Typography in Cormorant */
+  /* Headings & Display Typography in Pure Sans-Serif Grotesk */
   h1, h2, h3, h4, .font-serif, .font-display {
-    font-family: "Cormorant", "Cormorant Garamond", Georgia, serif;
-    letter-spacing: -0.01em;
+    font-family: "Space Grotesk", "Inter Tight", "Plus Jakarta Sans", "Inter", sans-serif;
+    letter-spacing: -0.025em;
   }
 }
 

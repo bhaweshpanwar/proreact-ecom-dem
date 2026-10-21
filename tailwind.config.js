@@ -38,11 +38,11 @@ export default {
         }
       },
       fontFamily: {
-        serif: ['"Cormorant"', '"Cormorant Garamond"', 'Georgia', 'serif'],
-        display: ['"Cormorant"', '"Cormorant Garamond"', 'Georgia', 'serif'],
-        grotesk: ['"Inter Tight"', '"Space Grotesk"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['"JetBrains Mono"', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'Monaco', 'Consolas', 'monospace']
+        sans: ['Inter', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        grotesk: ['"Space Grotesk"', '"Inter Tight"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        serif: ['"Plus Jakarta Sans"', '"Space Grotesk"', 'Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Space Grotesk"', '"Inter Tight"', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        mono: ['"Inter Tight"', 'Inter', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif']
       },
       borderRadius: {
         'container': '28px',
