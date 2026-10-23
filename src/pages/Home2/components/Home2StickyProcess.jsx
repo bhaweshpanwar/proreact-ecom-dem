@@ -54,11 +54,59 @@ export default function Home2StickyProcess({ data }) {
       const cards = cardRefs.current;
       if (!cards[0] || !cards[1] || !cards[2] || !cards[3]) return;
 
-      // Card 0 starts active. Subsequent cards wait below at yPercent: 100 with higher zIndexes
+      // 1. Discover Card 0 Entrance Parallax (animates as section scrolls into viewport from above)
+      const img0 = cards[0].querySelector('img');
+      const content0 = cards[0].querySelector('.card-content-wrap');
+
+      if (img0) {
+        gsap.fromTo(
+          img0,
+          { yPercent: -18, scale: 1.18 },
+          {
+            yPercent: 0,
+            scale: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top bottom',
+              end: 'top top',
+              scrub: true,
+            }
+          }
+        );
+      }
+
+      if (content0) {
+        gsap.fromTo(
+          content0,
+          { y: 80, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: containerRef.current,
+              start: 'top 85%',
+              end: 'top 25%',
+              scrub: 0.6,
+            }
+          }
+        );
+      }
+
+      // 2. Set card stacking orders and initial transforms
       gsap.set(cards[0], { yPercent: 0, scale: 1, zIndex: 10 });
       gsap.set(cards[1], { yPercent: 100, scale: 1, zIndex: 20 });
       gsap.set(cards[2], { yPercent: 100, scale: 1, zIndex: 30 });
       gsap.set(cards[3], { yPercent: 100, scale: 1, zIndex: 40 });
+
+      // Inner image parallax on incoming cards
+      const img1 = cards[1].querySelector('img');
+      const img2 = cards[2].querySelector('img');
+      const img3 = cards[3].querySelector('img');
+      if (img1) gsap.set(img1, { yPercent: -20, scale: 1.1 });
+      if (img2) gsap.set(img2, { yPercent: -20, scale: 1.1 });
+      if (img3) gsap.set(img3, { yPercent: -20, scale: 1.1 });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -71,17 +119,20 @@ export default function Home2StickyProcess({ data }) {
         }
       });
 
-      // --- 1. Card 02 (Build) swipes in from bottom over Card 01 ---
+      // --- 1. Card 02 (Build) swipes in from bottom over Card 01 with multiplane parallax ---
       tl.to(cards[1], { yPercent: 0, ease: 'none', duration: 1 }, 0.2);
-      tl.to(cards[0], { yPercent: -15, scale: 0.96, ease: 'none', duration: 1 }, 0.2);
+      if (img1) tl.to(img1, { yPercent: 0, scale: 1, ease: 'none', duration: 1 }, 0.2);
+      tl.to(cards[0], { yPercent: -15, scale: 0.95, opacity: 0.6, ease: 'none', duration: 1 }, 0.2);
 
       // --- 2. Card 03 (Launch) swipes in from bottom over Card 02 ---
       tl.to(cards[2], { yPercent: 0, ease: 'none', duration: 1 }, 1.5);
-      tl.to(cards[1], { yPercent: -15, scale: 0.96, ease: 'none', duration: 1 }, 1.5);
+      if (img2) tl.to(img2, { yPercent: 0, scale: 1, ease: 'none', duration: 1 }, 1.5);
+      tl.to(cards[1], { yPercent: -15, scale: 0.95, opacity: 0.6, ease: 'none', duration: 1 }, 1.5);
 
       // --- 3. Card 04 (Grow) swipes in from bottom over Card 03 ---
       tl.to(cards[3], { yPercent: 0, ease: 'none', duration: 1 }, 2.8);
-      tl.to(cards[2], { yPercent: -15, scale: 0.96, ease: 'none', duration: 1 }, 2.8);
+      if (img3) tl.to(img3, { yPercent: 0, scale: 1, ease: 'none', duration: 1 }, 2.8);
+      tl.to(cards[2], { yPercent: -15, scale: 0.95, opacity: 0.6, ease: 'none', duration: 1 }, 2.8);
 
     }, containerRef);
 
@@ -120,7 +171,7 @@ export default function Home2StickyProcess({ data }) {
 
           {/* White Typography Content Layer */}
           <div className="relative z-20 w-full max-w-[1440px] mx-auto h-full px-6 sm:px-12 lg:px-16 pt-24 sm:pt-32 lg:pt-36 flex flex-col justify-start">
-            <div className="max-w-3xl space-y-4 sm:space-y-6">
+            <div className="card-content-wrap max-w-3xl space-y-4 sm:space-y-6 will-change-transform">
               
               {/* Step Tag */}
               <div className="flex items-center gap-3">

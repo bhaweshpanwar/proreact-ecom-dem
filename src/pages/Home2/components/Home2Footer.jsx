@@ -46,9 +46,6 @@ export default function Home2Footer() {
           </div>
 
           <div className="flex items-center gap-6">
-            <Link to="/" className="hover:text-white transition-colors">
-              [SWITCH TO HOME 1]
-            </Link>
             <button
               type="button"
               onClick={scrollToTop}

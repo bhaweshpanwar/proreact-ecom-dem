@@ -45,26 +45,6 @@ export default function Header() {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1.5 whitespace-nowrap">
             
-            {/* Home */}
-            <Link 
-              to="/" 
-              className={`px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold transition-colors ${
-                location.pathname === '/' ? 'bg-slate-900 text-white shadow-2xs' : 'text-slate-800 hover:bg-slate-100/80'
-              }`}
-            >
-              Home
-            </Link>
-
-            {/* Home 2 */}
-            <Link 
-              to="/home2" 
-              className={`px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold transition-colors ${
-                location.pathname === '/home2' ? 'bg-slate-900 text-white shadow-2xs' : 'text-slate-800 hover:bg-slate-100/80'
-              }`}
-            >
-              Home 2
-            </Link>
-
             {/* About Us */}
             <Link 
               to="/about-us" 

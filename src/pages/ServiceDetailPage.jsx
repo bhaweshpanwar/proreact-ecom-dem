@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { SERVICES_DATA } from '../data/servicesData';
 import { ECOMMERCE_SERVICES_DATA } from '../data/ecommerceServicesData';
 import { DIGITAL_MARKETING_SERVICES_DATA } from '../data/digitalMarketingServicesData';
+import { WEBSITE_DEVELOPMENT_SERVICES_DATA } from '../data/websiteDevelopmentServicesData';
 import { PACKAGES_BY_PILLAR, USE_CASES_BY_PILLAR } from '../data/packagesData';
 import { getServiceFaqs } from '../data/serviceFaqsData';
 import SingleCometCanvas from '../components/Hero3D/SingleCometCanvas';
@@ -39,12 +40,34 @@ const SLUG_ALIASES = {
   'sms-marketing-services': 'sms-campaigns',
   'whatsapp-marketing-services': 'whatsapp-marketing',
   'email-whatsapp': 'email-marketing',
-  'digital-marketing': 'meta-ads'
+  'digital-marketing': 'meta-ads',
+  'creatives-graphic-design': 'creative-design',
+  'photography-photoshoot': 'photography-photoshoots',
+  'video-production-editing': 'youtube-video-services',
+  'online-store-management': 'shopify-store-management',
+  'indian-marketplace-management': 'amazon-india-management',
+  // Website Development aliases
+  'web-development': 'business-corporate-websites',
+  'website-development': 'business-corporate-websites',
+  'business-corporate-website-development': 'business-corporate-websites',
+  'corporate-website-development': 'business-corporate-websites',
+  'ecommerce-websites': 'ecommerce-website-development',
+  'landing-page-development': 'landing-pages-funnels',
+  'landing-pages': 'landing-pages-funnels',
+  'crm-payment-integrations': 'crm-payment-third-party-integrations',
+  'crm-integrations': 'crm-payment-third-party-integrations',
+  'maintenance-security': 'maintenance-performance-security',
+  'website-maintenance': 'maintenance-performance-security',
+  'website-analytics': 'website-analytics-technical-seo',
+  'technical-seo': 'website-analytics-technical-seo',
+  'custom-web-applications': 'custom-web-applications-portals',
+  'cms-platforms': 'cms-website-platforms'
 };
 
 const ALL_RICH_SERVICES = {
   ...ECOMMERCE_SERVICES_DATA,
-  ...DIGITAL_MARKETING_SERVICES_DATA
+  ...DIGITAL_MARKETING_SERVICES_DATA,
+  ...WEBSITE_DEVELOPMENT_SERVICES_DATA
 };
 
 const DEFAULT_PROCESS = [
@@ -900,12 +923,12 @@ export default function ServiceDetailPage({ slugOverride }) {
           </div>
 
           {/* 3-Column 4-Corner Layout: 2 Left Cards + Center Short Video + 2 Right Cards */}
-          {service.whyChoose && service.whyChoose.length >= 4 && (
+          {(service.whyChoose || service.whyUs) && (service.whyChoose || service.whyUs).length >= 4 && (
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
               
               {/* Left Column: Top-Left Card & Bottom-Left Card */}
               <div className="lg:col-span-4 flex flex-col justify-between gap-6 sm:gap-8">
-                {service.whyChoose.slice(0, 2).map((item, wIdx) => (
+                {(service.whyChoose || service.whyUs).slice(0, 2).map((item, wIdx) => (
                   <div 
                     key={wIdx}
                     className="card-why-left group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[240px]"
@@ -955,7 +978,7 @@ export default function ServiceDetailPage({ slugOverride }) {
 
               {/* Right Column: Top-Right Card & Bottom-Right Card */}
               <div className="lg:col-span-4 flex flex-col justify-between gap-6 sm:gap-8">
-                {service.whyChoose.slice(2, 4).map((item, wIdx) => (
+                {(service.whyChoose || service.whyUs).slice(2, 4).map((item, wIdx) => (
                   <div 
                     key={wIdx}
                     className="card-why-right group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-9 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden flex flex-col justify-between min-h-[240px]"
@@ -979,9 +1002,9 @@ export default function ServiceDetailPage({ slugOverride }) {
           )}
 
           {/* Additional Why Choose Points (5, 6, 7) */}
-          {service.whyChoose && service.whyChoose.length > 4 && (
+          {(service.whyChoose || service.whyUs) && (service.whyChoose || service.whyUs).length > 4 && (
             <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-              {service.whyChoose.slice(4).map((item, extraIdx) => (
+              {(service.whyChoose || service.whyUs).slice(4).map((item, extraIdx) => (
                 <div 
                   key={extraIdx}
                   className="rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 p-6 hover:bg-white hover:border-space-950 transition-all"
@@ -1074,39 +1097,77 @@ export default function ServiceDetailPage({ slugOverride }) {
       {/* ===================================================================== */}
       {/* 7. INTEGRATED CROSS-PILLAR SERVICES (If present in Document)          */}
       {/* ===================================================================== */}
-      {service.integratedServices && service.integratedServices.length > 0 && (
+      {((service.integratedServices && service.integratedServices.length > 0) || (service.integratedSolutions?.services && service.integratedSolutions.services.length > 0)) && (
         <section className="py-20 sm:py-28 bg-[#FAFAFA] hairline-b">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
             <div className="max-w-3xl mb-12">
               <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-                Cross-Pillar Synergy · Integrated Digital Solutions
+                {service.integratedSolutions?.heading || "Cross-Pillar Synergy · Integrated Digital Solutions"}
               </span>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
-                Complementary services for market leadership.
+                {service.integratedSolutions?.headline || "Complementary services for market leadership."}
               </h2>
               <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-                Connect your {service.title} operations with specialized photography, graphic design, commercial video production, and high-conversion web experiences.
+                {service.integratedSolutions?.description || `Connect your ${service.title} operations with specialized photography, graphic design, commercial video production, and high-conversion web experiences.`}
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {service.integratedServices.map((intSrv, intIdx) => (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {(service.integratedServices || service.integratedSolutions?.services).map((intSrv, intIdx) => (
                 <div 
                   key={intIdx}
-                  className="rounded-[28px] bg-white border border-stone-200/90 p-8 hover:border-space-950 hover:shadow-lg transition-all"
+                  className="rounded-[28px] bg-white border border-stone-200/90 p-7 hover:border-space-950 hover:shadow-lg transition-all flex flex-col justify-between"
                 >
-                  <span className="text-[10px] font-mono uppercase tracking-wider text-blue-600 font-semibold block mb-2">
-                    CROSS-PRACTICE SERVICE · 0{intIdx + 1}
-                  </span>
-                  <h3 className="font-serif text-2xl font-normal text-space-950 mb-3">
-                    {intSrv.service}
-                  </h3>
-                  <p className="text-sm text-slate-600 font-sans leading-relaxed">
-                    {intSrv.desc}
-                  </p>
+                  <div>
+                    <span className="text-[10px] font-mono uppercase tracking-wider text-blue-600 font-semibold block mb-2">
+                      CROSS-PRACTICE SERVICE · 0{intIdx + 1}
+                    </span>
+                    <h3 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-3">
+                      {intSrv.service || intSrv.title}
+                    </h3>
+                    <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-4">
+                      {intSrv.desc}
+                    </p>
+                  </div>
+                  {intSrv.links && intSrv.links.length > 0 ? (
+                    <div className="pt-4 border-t border-slate-100 flex flex-wrap gap-2">
+                      {intSrv.links.map((lnk, lIdx) => (
+                        <Link 
+                          key={lIdx}
+                          to={lnk.url || lnk} 
+                          className="text-xs font-sans font-semibold text-space-950 hover:text-blue-600 transition-colors inline-flex items-center gap-1"
+                        >
+                          <span>{lnk.label || lnk}</span>
+                          <span>→</span>
+                        </Link>
+                      ))}
+                    </div>
+                  ) : intSrv.link ? (
+                    <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
+                      <Link 
+                        to={intSrv.link} 
+                        className="text-xs font-sans font-semibold text-space-950 hover:text-blue-600 transition-colors inline-flex items-center gap-1.5"
+                      >
+                        <span>Explore Capability</span>
+                        <span>→</span>
+                      </Link>
+                    </div>
+                  ) : null}
                 </div>
               ))}
             </div>
+
+            {service.integratedSolutions?.cta && (
+              <div className="mt-12 text-center">
+                <a
+                  href="#closing"
+                  className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-sm font-semibold tracking-wide transition-all hover:scale-105 shadow-md cursor-pointer"
+                >
+                  <span>{service.integratedSolutions.cta}</span>
+                  <span>→</span>
+                </a>
+              </div>
+            )}
           </div>
         </section>
       )}

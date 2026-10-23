@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home2WhyNewAgency({ data }) {
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
+
   const {
     eyebrow = "07 / THE CONTRAST",
     pullQuoteBlack = "Legacy agencies sell you headcounts.",
@@ -29,15 +36,61 @@ export default function Home2WhyNewAgency({ data }) {
     ]
   } = data || {};
 
+  const blackWords = (pullQuoteBlack || "").split(/\s+/).filter(Boolean);
+  const greyWords = (pullQuoteGrey || "").split(/\s+/).filter(Boolean);
+
+  useEffect(() => {
+    if (!sectionRef.current || !headingRef.current) return;
+    const words = headingRef.current.querySelectorAll('.quote-word');
+    if (!words.length) return;
+
+    const ctx = gsap.context(() => {
+      gsap.to(words, {
+        color: '#FFFFFF',
+        stagger: 0.1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: headingRef.current,
+          start: 'top 80%',
+          end: 'bottom 40%',
+          scrub: 0.6,
+        }
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [pullQuoteBlack, pullQuoteGrey]);
+
   return (
-    <section className="relative border-b border-[#E5E5E5] overflow-hidden">
+    <section ref={sectionRef} className="relative border-b border-[#E5E5E5] overflow-hidden">
       
-      {/* Top Half: Huge Pull-Quote Statement on Solid Black Band */}
+      {/* Top Half: Huge Pull-Quote Statement with Word-by-Word Color Scrub on Scroll */}
       <div className="bg-[#000000] text-[#FFFFFF] py-20 sm:py-28 px-4 sm:px-8 border-b border-[#262626]">
         <div className="w-full max-w-[1440px] mx-auto">
-          <h2 className="font-grotesk font-bold text-[clamp(36px,6.5vw,110px)] leading-[0.92] tracking-[-0.04em] uppercase">
-            {pullQuoteBlack} <br />
-            <span className="text-[#8A8A8A]">{pullQuoteGrey}</span>
+          <h2 
+            ref={headingRef}
+            className="font-grotesk font-bold text-[clamp(36px,6.5vw,110px)] leading-[0.92] tracking-[-0.04em] uppercase"
+          >
+            <span className="block mb-2 sm:mb-4">
+              {blackWords.map((word, idx) => (
+                <span 
+                  key={`b-${idx}`} 
+                  className="quote-word inline-block mr-[0.24em] text-[#333333] will-change-[color]"
+                >
+                  {word}
+                </span>
+              ))}
+            </span>
+            <span className="block">
+              {greyWords.map((word, idx) => (
+                <span 
+                  key={`g-${idx}`} 
+                  className="quote-word inline-block mr-[0.24em] text-[#333333] will-change-[color]"
+                >
+                  {word}
+                </span>
+              ))}
+            </span>
           </h2>
         </div>
       </div>

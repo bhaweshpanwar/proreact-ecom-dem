@@ -10,7 +10,7 @@ export default function Home2Header() {
         
         {/* Brand Wordmark & Metadata */}
         <div className="flex items-center gap-4 sm:gap-6">
-          <Link to="/home2" className="flex items-center gap-2 group select-none">
+          <Link to="/" className="flex items-center gap-2 group select-none">
             <span className="font-grotesk font-black text-lg sm:text-xl tracking-tight uppercase text-white">
               E-COMET
             </span>

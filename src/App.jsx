@@ -15,8 +15,9 @@ function AppContent() {
     <div className="relative min-h-screen bg-white text-slate-900">
       <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
+        <Route path="/" element={<Home2Page />} />
         <Route path="/home2" element={<Home2Page />} />
+        <Route path="/home1" element={<HomePage />} />
         <Route path="/about-us" element={<AboutPage />} />
         <Route path="/marketplace" element={<MarketplacePage />} />
 

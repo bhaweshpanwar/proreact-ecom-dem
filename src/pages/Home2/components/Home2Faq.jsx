@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Home2Faq({ data }) {
   const [openIndex, setOpenIndex] = useState(0);
+  const sectionRef = useRef(null);
+  const headingRef = useRef(null);
 
   const toggle = (idx) => {
     setOpenIndex(prev => prev === idx ? null : idx);
@@ -35,14 +41,41 @@ export default function Home2Faq({ data }) {
     ]
   } = data || {};
 
+  useEffect(() => {
+    if (!sectionRef.current || !headingRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headingRef.current,
+        { x: -160, opacity: 0 },
+        {
+          x: 0,
+          opacity: 1,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: sectionRef.current,
+            start: 'top 85%',
+            end: 'top 45%',
+            scrub: 0.8,
+          }
+        }
+      );
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="faq" className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5]">
+    <section 
+      id="faq" 
+      ref={sectionRef} 
+      className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5] overflow-hidden"
+    >
       <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
         
-        {/* Section Header */}
+        {/* Section Header with Slide-In Scroll Animation */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] items-end">
           <div className="lg:col-span-3" />
-          <div className="lg:col-span-9 space-y-4">
+          <div ref={headingRef} className="lg:col-span-9 space-y-4 will-change-transform">
             <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
               {headline}
             </h2>

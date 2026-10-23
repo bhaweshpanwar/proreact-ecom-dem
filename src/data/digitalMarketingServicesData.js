@@ -44,16 +44,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Developing a content approach",
           "Establishing a publishing schedule",
           "Planning campaigns around business priorities",
-          "The strategy will depend on your industry, audience, available resources and chosen platforms."
         ],
         "benefit": [
+          "The strategy will depend on your industry, audience, available resources and chosen platforms.",
           "Suitable for: Startups, local businesses, retailers, service providers, manufacturers and established brands."
         ]
       },
       {
         "code": "02",
         "title": "Social Media Account Setup & Profile Optimisation",
-        "desc": "Create or improve your business profile so visitors can understand your brand and find relevant information.",
+        "desc": "Create or improve your business profile so visitors can understand your brand and find relevant information. Provides your business with a clear, reliable execution standard for Social Media Account Setup & Profile Optimisation.",
         "deliverables": [
           "Assistance with business profile setup",
           "Profile name and description refinement",
@@ -63,16 +63,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Website and enquiry link placement",
           "Highlights planning where supported",
           "Profile consistency across selected platforms",
-          "Account verification, platform approval and access to specific features remain subject to the platform's rules and eligibility requirements."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Social Media Account Setup & Profile Optimisation."
+          "Account verification, platform approval and access to specific features remain subject to the platform's rules and eligibility requirements.",
         ]
       },
       {
         "code": "03",
         "title": "Social Media Content Calendar",
-        "desc": "Plan content in advance to maintain a more organised and consistent publishing routine.",
+        "desc": "Plan content in advance to maintain a more organised and consistent publishing routine. Provides your business with a clear, reliable execution standard for Social Media Content Calendar.",
         "deliverables": [
           "Monthly or periodic content calendars",
           "Topic and theme planning",
@@ -83,16 +82,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Brand awareness content",
           "Campaign-based content scheduling",
           "Content approval coordination",
-          "The calendar will be prepared according to the agreed posting frequency and the information provided by your business."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Social Media Content Calendar."
+          "The calendar will be prepared according to the agreed posting frequency and the information provided by your business.",
         ]
       },
       {
         "code": "04",
         "title": "Social Media Post Design & Creative Coordination",
-        "desc": "Present your brand through visually consistent and relevant social media content.",
+        "desc": "Present your brand through visually consistent and relevant social media content. Provides your business with a clear, reliable execution standard for Social Media Post Design & Creative Coordination.",
         "deliverables": [
           "Static social media post designs",
           "Carousel post planning and design",
@@ -103,17 +101,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Announcement graphics",
           "Campaign-related content",
           "Brand colour and typography consistency",
-          "The number of creatives, design complexity, revision rounds and source-file delivery will be defined in the selected package.",
-          "For extensive design requirements, explore our Creatives & Graphic Design service."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Social Media Post Design & Creative Coordination."
+          "The number of creatives, design complexity, revision rounds and source-file delivery will be defined in the selected package.",
+          "For extensive design requirements, explore our Creatives & Graphic Design service.",
         ]
       },
       {
         "code": "05",
         "title": "Captions, Copywriting & Hashtag Planning",
-        "desc": "Communicate your message clearly through relevant and brand-appropriate text.",
+        "desc": "Provides your business with a clear, reliable execution standard for Captions, Copywriting & Hashtag Planning. Communicate your message clearly through relevant and brand-appropriate text.",
         "deliverables": [
           "Social media captions",
           "Promotional copy",
@@ -124,16 +121,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Content proofreading",
           "Caption adaptation for different platforms",
           "Tone-of-voice consistency",
-          "Content will be developed using information supplied or approved by your business. Product claims, prices, offers and factual statements must be accurate and authorised before publishing."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Captions, Copywriting & Hashtag Planning."
+          "Content will be developed using information supplied or approved by your business. Product claims, prices, offers and factual statements must be accurate and authorised before publishing.",
         ]
       },
       {
         "code": "06",
         "title": "Reels & Short-Form Content Planning",
-        "desc": "Use short-form video content to explain products, introduce services and communicate brand messages.",
+        "desc": "Use short-form video content to explain products, introduce services and communicate brand messages. Provides your business with a clear, reliable execution standard for Reels & Short-Form Content Planning.",
         "deliverables": [
           "Reels and short-form content ideas",
           "Video content calendars",
@@ -144,17 +140,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Promotional video concepts",
           "Short-form video editing coordination, if included",
           "Captions and publishing descriptions",
-          "Video recording, professional shoots, advanced editing, voiceovers and paid assets are included only when explicitly specified in the proposal.",
-          "For dedicated video services, explore Video Production & Editing."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Reels & Short-Form Content Planning."
+          "Video recording, professional shoots, advanced editing, voiceovers and paid assets are included only when explicitly specified in the proposal.",
+          "For dedicated video services, explore Video Production & Editing.",
         ]
       },
       {
         "code": "07",
         "title": "Social Media Publishing & Scheduling",
-        "desc": "Keep approved content organised and ready for publication.",
+        "desc": "Keep approved content organised and ready for publication. Provides your business with a clear, reliable execution standard for Social Media Publishing & Scheduling.",
         "deliverables": [
           "Publishing approved posts",
           "Scheduling content using supported tools",
@@ -163,17 +158,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Coordinating platform-specific content adaptations",
           "Maintaining the agreed publishing calendar",
           "Flagging missing approvals or assets",
-          "Publishing frequency depends on the selected package. Platform access, scheduling functionality and content restrictions may vary.",
-          "Content will be published according to the agreed approval process. E-COMET will not publish unapproved offers or material business claims."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Social Media Publishing & Scheduling."
+          "Publishing frequency depends on the selected package. Platform access, scheduling functionality and content restrictions may vary.",
+          "Content will be published according to the agreed approval process. E-COMET will not publish unapproved offers or material business claims.",
         ]
       },
       {
         "code": "08",
         "title": "Community Engagement Coordination",
-        "desc": "Support appropriate interaction with your audience through agreed social media activities.",
+        "desc": "Support appropriate interaction with your audience through agreed social media activities. Provides your business with a clear, reliable execution standard for Community Engagement Coordination.",
         "deliverables": [
           "Monitoring selected comments and messages",
           "Flagging relevant enquiries",
@@ -182,17 +176,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Identifying recurring audience questions",
           "Preparing response templates",
           "Sharing recurring feedback with your business",
-          "Community management hours, response responsibilities, response-time expectations and supported channels must be clearly defined.",
-          "Sales negotiations, refunds, sensitive complaints and commitments involving the business should be handled or approved by the authorised business representative unless otherwise agreed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Community Engagement Coordination."
+          "Community management hours, response responsibilities, response-time expectations and supported channels must be clearly defined.",
+          "Sales negotiations, refunds, sensitive complaints and commitments involving the business should be handled or approved by the authorised business representative unless otherwise agreed.",
         ]
       },
       {
         "code": "09",
         "title": "Brand Awareness & Campaign Content",
-        "desc": "Coordinate content around relevant business activities, launches and promotional periods.",
+        "desc": "Coordinate content around relevant business activities, launches and promotional periods. Provides your business with a clear, reliable execution standard for Brand Awareness & Campaign Content.",
         "deliverables": [
           "Product launch content planning",
           "New service announcements",
@@ -202,16 +195,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Business milestone announcements",
           "Campaign-specific publishing calendars",
           "Content consistency checks across selected platforms",
-          "Paid advertising budgets, influencer fees, contest prizes and external production costs are not included unless expressly listed in the proposal."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Brand Awareness & Campaign Content."
+          "Paid advertising budgets, influencer fees, contest prizes and external production costs are not included unless expressly listed in the proposal.",
         ]
       },
       {
         "code": "10",
         "title": "Social Media Performance Monitoring & Reporting",
-        "desc": "Review available platform insights to understand how published content is performing.",
+        "desc": "Review available platform insights to understand how published content is performing. Provides your business with a clear, reliable execution standard for Social Media Performance Monitoring & Reporting.",
         "deliverables": [
           "Reviewing available reach and engagement metrics",
           "Monitoring content interactions",
@@ -220,17 +212,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Summarising profile activity where data is available",
           "Preparing periodic performance reports",
           "Recommending future content adjustments",
-          "Metrics depend on platform analytics and account access. Reporting frequency and included metrics will be defined in the agreement.",
-          "Social media performance can vary, and specific reach, follower growth, engagement or sales results cannot be guaranteed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Social Media Performance Monitoring & Reporting."
+          "Metrics depend on platform analytics and account access. Reporting frequency and included metrics will be defined in the agreement.",
+          "Social media performance can vary, and specific reach, follower growth, engagement or sales results cannot be guaranteed."
         ]
       },
       {
         "code": "11",
         "title": "Social Media Profile Maintenance",
-        "desc": "Keep key profile information and selected content elements aligned with current business requirements.",
+        "desc": "Keep key profile information and selected content elements aligned with current business requirements. Provides your business with a clear, reliable execution standard for Social Media Profile Maintenance.",
         "deliverables": [
           "Updating approved business information",
           "Coordinating profile and cover image changes",
@@ -239,10 +230,9 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Updating highlights where applicable",
           "Coordinating profile announcements",
           "Reviewing consistency across managed accounts",
-          "Major rebranding, account recovery and platform disputes may require separate work."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Social Media Profile Maintenance."
+          "Major rebranding, account recovery and platform disputes may require separate work."
         ]
       }
     ],
@@ -586,7 +576,7 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
       {
         "code": "02",
         "title": "Meta Advertising Strategy",
-        "desc": "We develop an advertising approach based on your business priorities and available resources.",
+        "desc": "We develop an advertising approach based on your business priorities and available resources.Provides your business with a clear, reliable execution standard for Meta Advertising Strategy.",
         "deliverables": [
           "Campaign objective recommendations",
           "Audience and geographic targeting approach",
@@ -596,16 +586,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Creative and messaging direction",
           "Testing priorities",
           "Performance measurement plan",
-          "The final strategy depends on your business model, objectives, available data, and agreed scope."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Meta Advertising Strategy."
+          "The final strategy depends on your business model, objectives, available data, and agreed scope."
         ]
       },
       {
         "code": "03",
         "title": "Facebook Ads Management",
-        "desc": "We help businesses plan and manage suitable advertising campaigns on Facebook through Meta's advertising tools.",
+        "desc": "We help businesses plan and manage suitable advertising campaigns on Facebook through Meta's advertising tools. Provides your business with a clear, reliable execution standard for Facebook Ads Management.",
         "deliverables": [
           "Campaign setup and configuration",
           "Ad set and audience configuration",
@@ -614,16 +603,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Campaign monitoring",
           "Performance review",
           "Optimisation recommendations",
-          "Available campaign objectives and placements depend on Meta's current advertising options, account eligibility, and applicable policies."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Facebook Ads Management."
+          "Available campaign objectives and placements depend on Meta's current advertising options, account eligibility, and applicable policies."
         ]
       },
       {
         "code": "04",
         "title": "Instagram Ads Management",
-        "desc": "Instagram advertising can help businesses present products, services, and brand messages to relevant audiences through supported Instagram placements.",
+        "desc": "Instagram advertising can help businesses present products, services, and brand messages to relevant audiences through supported Instagram placements. Provides your business with a clear, reliable execution standard for Instagram Ads Management.",
         "deliverables": [
           "Instagram-focused campaign planning",
           "Feed and Stories ad planning",
@@ -632,16 +620,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Caption and call-to-action development",
           "Audience and placement configuration",
           "Campaign monitoring and reporting",
-          "Creative assets must meet Meta's current technical requirements and advertising policies. Video production, photoshoots, or extensive graphic design can be included when agreed separately."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Instagram Ads Management."
+          "Creative assets must meet Meta's current technical requirements and advertising policies. Video production, photoshoots, or extensive graphic design can be included when agreed separately."
         ]
       },
       {
         "code": "05",
         "title": "Audience Research and Targeting",
-        "desc": "Campaign targeting should reflect the people a business intends to reach.",
+        "desc": "Campaign targeting should reflect the people a business intends to reach. Provides your business with a clear, reliable execution standard for Audience Research and Targeting.",
         "deliverables": [
           "Customer profile development",
           "Location-based targeting",
@@ -650,16 +637,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Retargeting strategy where supported and appropriate",
           "Lookalike Audience planning where available and eligible",
           "Audience testing recommendations",
-          "Targeting options are subject to Meta's current tools, restrictions, privacy requirements, and advertising policies. Audience availability and delivery cannot be guaranteed."
         ],
-        "benefit": [
-          "Provides your business with a clear, reliable execution standard for Audience Research and Targeting."
+        "benefit": [ 
+          "Targeting options are subject to Meta's current tools, restrictions, privacy requirements, and advertising policies. Audience availability and delivery cannot be guaranteed."
         ]
       },
       {
         "code": "06",
         "title": "Ad Copywriting and Messaging",
-        "desc": "An advertisement needs a clear message that explains the offer and encourages the intended action.",
+        "desc": "An advertisement needs a clear message that explains the offer and encourages the intended action. Provides your business with a clear, reliable execution standard for Ad Copywriting and Messaging.",
         "deliverables": [
           "Primary ad text",
           "Headlines and descriptions where supported",
@@ -668,16 +654,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Benefit-focused communication",
           "Variations for creative testing",
           "Message alignment with the landing page or enquiry destination",
-          "All product claims, offers, pricing, guarantees, and business information must be accurate and approved by the business before publication."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Ad Copywriting and Messaging."
+          "All product claims, offers, pricing, guarantees, and business information must be accurate and approved by the business before publication."
         ]
       },
       {
         "code": "07",
         "title": "Ad Creative Coordination",
-        "desc": "Creative presentation can influence how people understand and respond to an advertisement.",
+        "desc": "Creative presentation can influence how people understand and respond to an advertisement. Provides your business with a clear, reliable execution standard for Ad Creative Coordination.",
         "deliverables": [
           "Creative direction based on campaign goals",
           "Static image ad planning",
@@ -686,16 +671,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Creative-format recommendations",
           "Coordination with existing brand guidelines",
           "Creative variation planning for testing",
-          "Scope note: Basic ad creative design may be included in the selected package if specified. Advanced graphic design, product photography, photoshoots, animation, and video production should be quoted separately unless expressly included."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Ad Creative Coordination."
+          "Scope note: Basic ad creative design may be included in the selected package if specified. Advanced graphic design, product photography, photoshoots, animation, and video production should be quoted separately unless expressly included."
         ]
       },
       {
         "code": "08",
         "title": "Campaign Setup and Launch",
-        "desc": "We coordinate the preparation and launch of approved campaigns.",
+        "desc": "We coordinate the preparation and launch of approved campaigns. Provides your business with a clear, reliable execution standard for Campaign Setup and Launch.",
         "deliverables": [
           "Campaign structure configuration",
           "Objective selection",
@@ -705,16 +689,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Creative and copy upload",
           "Destination URL or enquiry destination checks",
           "Pre-launch review",
-          "Campaigns remain subject to Meta's review, approval, delivery systems, account status, and advertising policies. Approval or a specific launch time cannot be guaranteed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Campaign Setup and Launch."
+          "Campaigns remain subject to Meta's review, approval, delivery systems, account status, and advertising policies. Approval or a specific launch time cannot be guaranteed."
         ]
       },
       {
         "code": "09",
         "title": "Pixel, Events and Conversion Tracking Coordination",
-        "desc": "Where applicable, tracking helps businesses understand what happens after people interact with their ads.",
+        "desc": "Where applicable, tracking helps businesses understand what happens after people interact with their ads. Provides your business with a clear, reliable execution standard for Pixel, Events and Conversion Tracking Coordination.",
         "deliverables": [
           "Review of existing Meta Pixel or supported tracking setup",
           "Event and conversion measurement planning",
@@ -722,17 +705,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Coordination of supported conversion events",
           "Review of available event and campaign data",
           "Identification of tracking gaps",
-          "Implementation may require website developer access, a compatible website platform, business permissions, consent mechanisms, and technical support. Advanced technical implementation, server-side tracking, integrations, and third-party tools are scoped separately unless included in writing.",
-          "Tracking must comply with applicable privacy laws, consent requirements, and Meta's terms."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Pixel, Events and Conversion Tracking Coordination."
+          "Implementation may require website developer access, a compatible website platform, business permissions, consent mechanisms, and technical support. Advanced technical implementation, server-side tracking, integrations, and third-party tools are scoped separately unless included in writing.",
+          "Tracking must comply with applicable privacy laws, consent requirements, and Meta's terms."
         ]
       },
       {
         "code": "10",
         "title": "Lead Generation Campaigns",
-        "desc": "For businesses seeking enquiries, we can help plan campaigns that encourage prospective customers to submit information or contact the business.",
+        "desc": "For businesses seeking enquiries, we can help plan campaigns that encourage prospective customers to submit information or contact the business. Provides your business with a clear, reliable execution standard for Lead Generation Campaigns.",
         "deliverables": [
           "Lead campaign objective planning",
           "Supported lead form or website enquiry setup",
@@ -742,16 +724,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Lead campaign monitoring",
           "Available lead-data review",
           "Suggestions for improving the enquiry journey",
-          "Lead quality and quantity depend on the offer, audience, campaign setup, follow-up process, market demand, and other factors. CRM integration, telecalling, lead verification, and sales follow-up are not included unless separately agreed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Lead Generation Campaigns."
+          "Lead quality and quantity depend on the offer, audience, campaign setup, follow-up process, market demand, and other factors. CRM integration, telecalling, lead verification, and sales follow-up are not included unless separately agreed."
         ]
       },
       {
         "code": "11",
         "title": "Retargeting and Funnel Campaigns",
-        "desc": "Where suitable audience data and permissions are available, retargeting can help businesses reconnect with eligible audiences who have previously interacted with their brand.",
+        "desc": "Where suitable audience data and permissions are available, retargeting can help businesses reconnect with eligible audiences who have previously interacted with their brand. Provides your business with a clear, reliable execution standard for Retargeting and Funnel Campaigns.",
         "deliverables": [
           "Retargeting opportunity assessment",
           "Website visitor audience planning where supported",
@@ -760,16 +741,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Funnel-stage messaging recommendations",
           "Audience exclusions where appropriate",
           "Campaign performance review",
-          "Audience eligibility, minimum audience requirements, tracking availability, and delivery are subject to Meta's current systems and policies."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Retargeting and Funnel Campaigns."
+          "Audience eligibility, minimum audience requirements, tracking availability, and delivery are subject to Meta's current systems and policies."
         ]
       },
       {
         "code": "12",
         "title": "Campaign Monitoring and Optimisation",
-        "desc": "Advertising management requires ongoing review and informed adjustments.",
+        "desc": "Advertising management requires ongoing review and informed adjustments. Provides your business with a clear, reliable execution standard for Campaign Monitoring and Optimisation.",
         "deliverables": [
           "Monitoring campaign delivery",
           "Reviewing spend and available performance metrics",
@@ -779,16 +759,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Testing suitable variations",
           "Adjusting settings within the agreed strategy",
           "Documenting relevant optimisation decisions",
-          "Changes are based on the data available, the campaign's maturity, and the agreed management frequency. Frequent changes are not automatically beneficial, and performance improvement cannot be guaranteed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Campaign Monitoring and Optimisation."
+          "Changes are based on the data available, the campaign's maturity, and the agreed management frequency. Frequent changes are not automatically beneficial, and performance improvement cannot be guaranteed."
         ]
       },
       {
         "code": "13",
         "title": "Performance Reporting and Recommendations",
-        "desc": "Reports help businesses understand how campaigns are performing and where further investigation may be useful.",
+        "desc": "Reports help businesses understand how campaigns are performing and where further investigation may be useful. Provides your business with a clear, reliable execution standard for Performance Reporting and Recommendations.",
         "deliverables": [
           "Spend and delivery summaries",
           "Reach and impressions where available",
@@ -798,10 +777,9 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Creative and audience observations",
           "Campaign challenges and limitations",
           "Recommendations for the next reporting period",
-          "Reporting frequency and metrics depend on the selected package and available data. Platform-attributed results may differ from website analytics, CRM records, or actual business outcomes."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Performance Reporting and Recommendations."
+          "Reporting frequency and metrics depend on the selected package and available data. Platform-attributed results may differ from website analytics, CRM records, or actual business outcomes."
         ]
       }
     ],
@@ -913,10 +891,11 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Existing client-supplied creatives or agreed basic creative support",
             "Routine campaign monitoring",
             "Basic performance reporting",
-            "Recommendations for the next campaign period",
+            "Recommendations for the next campaign period", 
+          ],
+          "notes": [
             "Scope to confirm in quotation: Number of campaigns and ads, creative quantity, monitoring frequency, reporting frequency, tracking requirements, and support arrangements."
           ],
-          "notes": [],
           "cta": "Request Orbit Details"
         },
         {
@@ -938,9 +917,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Regular performance monitoring and optimisation",
             "Structured performance reporting",
             "Periodic strategy review",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Campaign count, ad variations, creative design limits, audience segments, tracking implementation, optimisation schedule, and reporting frequency."
           ],
-          "notes": [],
           "cta": "Request Nova Details"
         },
         {
@@ -962,14 +942,75 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Expanded reporting and insights",
             "Periodic strategic consultation",
             "Coordination with relevant E-COMET services where required",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Campaign volume, number of brands or locations, creative production, technical tracking, integrations, consultation frequency, and reporting detail."
           ],
-          "notes": [],
           "cta": "Request Cosmic Details"
         }
       ],
       "policy": "Public website rule: Do not display prices, price ranges or payment amounts. Final scope and pricing should be shared through a custom quotation after consultation."
     },
+    "whyChoose": [
+      {
+        "title": "Business-First Approach",
+        "desc": "We begin by understanding your offer, audience, goals, and operational capacity rather than recommending the same advertising structure to every business."
+      },
+      {
+        "title": "Strategy Before Spending",
+        "desc": "We help define the campaign objective, budget approach, destination, and measurement plan before launch."
+      },
+      {
+        "title": "Clear Campaign Scope",
+        "desc": "You receive a defined list of deliverables, responsibilities, and reporting arrangements in your quotation."
+      },
+      {
+        "title": "Data-Informed Optimisation",
+        "desc": "Campaign decisions are guided by available performance data and business context rather than assumptions alone."
+      },
+      {
+        "title": "Creative and Technical Coordination",
+        "desc": "Where needed, Meta Ads can be coordinated with website, design, photography, and video services through one broader digital plan."
+      },
+      {
+        "title": "Transparent Communication",
+        "desc": "We communicate campaign activity, available metrics, limitations, and recommendations without promising guaranteed leads, sales, or returns."
+      },
+      {
+        "title": "Integrated Digital Thinking",
+        "desc": "Advertising works alongside your offer, landing page, brand presentation, customer service, and follow-up process. We consider these connections when planning the agreed scope."
+      }
+    ],
+    "whyUs": [
+      {
+        "title": "Business-First Approach",
+        "desc": "We begin by understanding your offer, audience, goals, and operational capacity rather than recommending the same advertising structure to every business."
+      },
+      {
+        "title": "Strategy Before Spending",
+        "desc": "We help define the campaign objective, budget approach, destination, and measurement plan before launch."
+      },
+      {
+        "title": "Clear Campaign Scope",
+        "desc": "You receive a defined list of deliverables, responsibilities, and reporting arrangements in your quotation."
+      },
+      {
+        "title": "Data-Informed Optimisation",
+        "desc": "Campaign decisions are guided by available performance data and business context rather than assumptions alone."
+      },
+      {
+        "title": "Creative and Technical Coordination",
+        "desc": "Where needed, Meta Ads can be coordinated with website, design, photography, and video services through one broader digital plan."
+      },
+      {
+        "title": "Transparent Communication",
+        "desc": "We communicate campaign activity, available metrics, limitations, and recommendations without promising guaranteed leads, sales, or returns."
+      },
+      {
+        "title": "Integrated Digital Thinking",
+        "desc": "Advertising works alongside your offer, landing page, brand presentation, customer service, and follow-up process. We consider these connections when planning the agreed scope."
+      }
+    ],
     "faqs": [
       {
         "q": "Q1. What is Meta Ads Management?",
@@ -1130,14 +1171,14 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
         "Our service can include campaign planning, keyword research, campaign setup, ad copywriting, audience configuration, budget planning, conversion tracking coordination, ongoing monitoring, optimisation, and reporting according to the agreed scope.",
         "Our goal is to help you make informed advertising decisions through structured execution and measurable campaign data\u2014not unsupported promises or guaranteed results.",
         "What Can Google Ads Help You Promote?",
-        "Local products and services",
-        "Business and professional services",
-        "E-commerce products",
-        "B2B products and solutions",
-        "Educational courses and institutions",
-        "Product launches and promotional offers",
-        "Website visits and qualified enquiries",
-        "Online sales and other measurable customer actions"
+        "A. Local products and services",
+        "B. Business and professional services",
+        "C. E-commerce products",
+        "D. B2B products and solutions",
+        "E. Educational courses and institutions",
+        "F. Product launches and promotional offers",
+        "G. Website visits and qualified enquiries",
+        "H. Online sales and other measurable customer actions"
       ]
     },
     "capabilities": [
@@ -1162,7 +1203,7 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
       {
         "code": "02",
         "title": "Google Ads Strategy and Planning",
-        "desc": "We create an advertising approach based on your business model, audience, competition, and available resources.",
+        "desc": "We create an advertising approach based on your business model, audience, competition, and available resources. Provides your business with a clear, reliable execution standard for Google Ads Strategy and Planning.",
         "deliverables": [
           "Campaign type recommendations",
           "Campaign structure planning",
@@ -1171,17 +1212,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Budget allocation planning",
           "Landing-page and destination recommendations",
           "Conversion measurement planning",
-          "Testing priorities and reporting approach",
-          "The final strategy depends on your business requirements, available data, and agreed scope."
+          "Testing priorities and reporting approach", 
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Google Ads Strategy and Planning."
+          "The final strategy depends on your business requirements, available data, and agreed scope."
         ]
       },
       {
         "code": "03",
         "title": "Google Search Ads Management",
-        "desc": "Search campaigns can help businesses appear in relevant Google search results when people search for products, services, or solutions.",
+        "desc": "Search campaigns can help businesses appear in relevant Google search results when people search for products, services, or solutions. Provides your business with a clear, reliable execution standard for Google Search Ads Management.",
         "deliverables": [
           "Search keyword research",
           "Search campaign structure",
@@ -1193,16 +1233,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Location and schedule settings where appropriate",
           "Search-term review",
           "Campaign monitoring and optimisation",
-          "The actual placement and visibility of ads depend on auction conditions, bids, relevance, competition, eligibility, and Google's advertising systems."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Google Search Ads Management."
+          "The actual placement and visibility of ads depend on auction conditions, bids, relevance, competition, eligibility, and Google's advertising systems."
         ]
       },
       {
         "code": "04",
         "title": "Keyword Research and Search Intent Analysis",
-        "desc": "Choosing suitable keywords helps align advertising with what potential customers are looking for.",
+        "desc": "Choosing suitable keywords helps align advertising with what potential customers are looking for. Provides your business with a clear, reliable execution standard for Keyword Research and Search Intent Analysis.",
         "deliverables": [
           "Business-relevant keyword research",
           "Commercial and service-related search terms",
@@ -1212,16 +1251,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Negative keyword recommendations",
           "Keyword prioritisation based on available data",
           "Ongoing search-term review where included",
-          "Keyword selection should reflect your actual services, service locations, business capacity, and customer intent. Search volume and cost estimates are estimates, not guarantees."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Keyword Research and Search Intent Analysis."
+          "Keyword selection should reflect your actual services, service locations, business capacity, and customer intent. Search volume and cost estimates are estimates, not guarantees."
         ]
       },
       {
         "code": "05",
         "title": "Google Display Ads Management",
-        "desc": "Display campaigns can help businesses present visual advertisements across eligible placements within Google's Display Network.",
+        "desc": "Display campaigns can help businesses present visual advertisements across eligible placements within Google's Display Network. Provides your business with a clear, reliable execution standard for Google Display Ads Management.",
         "deliverables": [
           "Display campaign planning",
           "Audience and placement strategy",
@@ -1231,16 +1269,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Campaign monitoring",
           "Placement and audience performance review",
           "Optimisation recommendations",
-          "Creative production and advanced banner design may require a separate quotation unless explicitly included in the agreed package."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Google Display Ads Management."
+          "Creative production and advanced banner design may require a separate quotation unless explicitly included in the agreed package."
         ]
       },
       {
         "code": "06",
         "title": "YouTube Ads Management",
-        "desc": "YouTube advertising can support video-based brand awareness, product promotion, and other eligible campaign objectives.",
+        "desc": "YouTube advertising can support video-based brand awareness, product promotion, and other eligible campaign objectives. Provides your business with a clear, reliable execution standard for YouTube Ads Management.",
         "deliverables": [
           "YouTube campaign suitability assessment",
           "Campaign objective planning",
@@ -1250,16 +1287,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Budget and campaign configuration",
           "Performance monitoring",
           "Reporting and optimisation recommendations",
-          "Video production, professional filming, voice-over, animation, and advanced editing are separate services unless included in writing. Available video formats and campaign options depend on Google's current advertising tools and account eligibility."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for YouTube Ads Management."
+          "Video production, professional filming, voice-over, animation, and advanced editing are separate services unless included in writing. Available video formats and campaign options depend on Google's current advertising tools and account eligibility."
         ]
       },
       {
         "code": "07",
         "title": "Google Shopping Ads Management",
-        "desc": "For eligible e-commerce businesses, Shopping campaigns can help display product information and images within supported Google placements.",
+        "desc": "For eligible e-commerce businesses, Shopping campaigns can help display product information and images within supported Google placements. Provides your business with a clear, reliable execution standard for Google Shopping Ads Management.",
         "deliverables": [
           "Shopping campaign suitability review",
           "Merchant Center readiness assessment",
@@ -1269,17 +1305,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Product performance monitoring",
           "Feed issue identification and coordination",
           "Optimisation recommendations",
-          "Important: Shopping eligibility depends on the business, products, website, Merchant Center setup, product data, country, and applicable policies. Merchant Center approval and product eligibility are controlled by Google.",
-          "Product feed development, complex integrations, and extensive catalogue corrections may be scoped separately."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Google Shopping Ads Management."
+          "Important: Shopping eligibility depends on the business, products, website, Merchant Center setup, product data, country, and applicable policies. Merchant Center approval and product eligibility are controlled by Google.",
+          "Product feed development, complex integrations, and extensive catalogue corrections may be scoped separately."
         ]
       },
       {
         "code": "08",
         "title": "Performance Max Campaign Management",
-        "desc": "Performance Max is a Google Ads campaign type designed to access multiple eligible Google advertising channels through a unified campaign.",
+        "desc": "Performance Max is a Google Ads campaign type designed to access multiple eligible Google advertising channels through a unified campaign. Provides your business with a clear, reliable execution standard for Performance Max Campaign Management.",
         "deliverables": [
           "Campaign suitability assessment",
           "Conversion goal review",
@@ -1290,16 +1325,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Performance monitoring",
           "Asset and conversion data review",
           "Optimisation recommendations",
-          "Performance Max is not suitable for every business or every advertising goal. Its suitability depends on campaign objectives, conversion measurement, available assets, feed readiness, and the level of control required."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Performance Max Campaign Management."
+          "Performance Max is not suitable for every business or every advertising goal. Its suitability depends on campaign objectives, conversion measurement, available assets, feed readiness, and the level of control required."
         ]
       },
       {
         "code": "09",
         "title": "Google Ads for Lead Generation",
-        "desc": "Lead generation campaigns can help businesses encourage prospective customers to enquire about products or services.",
+        "desc": "Lead generation campaigns can help businesses encourage prospective customers to enquire about products or services. Provides your business with a clear, reliable execution standard for Google Ads for Lead Generation.",
         "deliverables": [
           "Lead generation strategy",
           "Search keyword and audience planning",
@@ -1309,16 +1343,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Conversion measurement planning",
           "Campaign monitoring",
           "Lead-related performance reporting where tracking is available",
-          "Lead quality depends on the offer, targeting, enquiry process, customer intent, and follow-up. CRM integrations, lead verification, telecalling, and sales follow-up are not included unless separately agreed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Google Ads for Lead Generation."
+          "Lead quality depends on the offer, targeting, enquiry process, customer intent, and follow-up. CRM integrations, lead verification, telecalling, and sales follow-up are not included unless separately agreed."
         ]
       },
       {
         "code": "10",
         "title": "Google Ads for E-Commerce Sales",
-        "desc": "For eligible online stores, Google Ads may support product discovery, relevant website visits, and online purchase campaigns.",
+        "desc": "For eligible online stores, Google Ads may support product discovery, relevant website visits, and online purchase campaigns. Provides your business with a clear, reliable execution standard for Google Ads for E-Commerce Sales.",
         "deliverables": [
           "Store and campaign readiness review",
           "Product and category campaign planning",
@@ -1328,16 +1361,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Product feed coordination where required",
           "Campaign performance monitoring",
           "Reporting on available purchase and conversion data",
-          "Actual purchase volume, revenue, profitability, and return on ad spend depend on multiple factors and cannot be guaranteed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Google Ads for E-Commerce Sales."
+          "Actual purchase volume, revenue, profitability, and return on ad spend depend on multiple factors and cannot be guaranteed."
         ]
       },
       {
         "code": "11",
         "title": "Remarketing and Audience Strategy",
-        "desc": "Where suitable audience data and permissions are available, remarketing can help reconnect with eligible people who previously interacted with your website, business, or advertisements.",
+        "desc": "Where suitable audience data and permissions are available, remarketing can help reconnect with eligible people who previously interacted with your website, business, or advertisements. Provides your business with a clear, reliable execution standard for Remarketing and Audience Strategy.",
         "deliverables": [
           "Remarketing suitability assessment",
           "Audience list requirements review",
@@ -1346,10 +1378,9 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Audience exclusions where appropriate",
           "Performance monitoring",
           "Recommendations for audience and creative adjustments",
-          "Audience availability, eligibility, minimum audience requirements, and delivery are subject to Google's current systems, privacy requirements, and advertising policies."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Remarketing and Audience Strategy."
+          "Audience availability, eligibility, minimum audience requirements, and delivery are subject to Google's current systems, privacy requirements, and advertising policies."
         ]
       },
       {
@@ -1365,17 +1396,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Purchase tracking requirements for eligible e-commerce stores",
           "Conversion data review",
           "Identification of measurement gaps",
-          "Technical implementation may require website developer access, Google Tag Manager or other supported tools, suitable permissions, consent mechanisms, and third-party integrations. Advanced implementation and troubleshooting may require separate scoping.",
-          "Tracking must comply with applicable privacy laws, consent requirements, and Google's policies."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Conversion Tracking and Measurement."
+          "Technical implementation may require website developer access, Google Tag Manager or other supported tools, suitable permissions, consent mechanisms, and third-party integrations. Advanced implementation and troubleshooting may require separate scoping.",
+          "Tracking must comply with applicable privacy laws, consent requirements, and Google's policies."
         ]
       },
       {
         "code": "13",
         "title": "Landing Page and Website Review",
-        "desc": "The page visitors reach after clicking an advertisement can affect their experience and willingness to take action.",
+        "desc": "The page visitors reach after clicking an advertisement can affect their experience and willingness to take action. Provides your business with a clear, reliable execution standard for Landing Page and Website Review.",
         "deliverables": [
           "Review of landing-page relevance",
           "Offer and message consistency checks",
@@ -1384,16 +1414,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Form or enquiry journey review",
           "Basic content and usability recommendations",
           "Identification of potential conversion barriers",
-          "Website redesign, landing-page development, technical performance fixes, and extensive copywriting are separate services unless included in the agreed scope."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Landing Page and Website Review."
+          "Website redesign, landing-page development, technical performance fixes, and extensive copywriting are separate services unless included in the agreed scope."
         ]
       },
       {
         "code": "14",
         "title": "Campaign Monitoring and Optimisation",
-        "desc": "We review available campaign data and make agreed adjustments to help keep advertising aligned with the intended objective.",
+        "desc": "We review available campaign data and make agreed adjustments to help keep advertising aligned with the intended objective. Provides your business with a clear, reliable execution standard for Campaign Monitoring and Optimisation.",
         "deliverables": [
           "Monitoring campaign delivery and spend",
           "Reviewing keyword and search-term performance",
@@ -1404,16 +1433,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Testing suitable ad variations",
           "Adjusting targeting or budget within the approved plan",
           "Recording optimisation recommendations",
-          "Changes depend on the amount and quality of available data, campaign maturity, and agreed management frequency. No specific performance improvement is guaranteed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Campaign Monitoring and Optimisation."
+          "Changes depend on the amount and quality of available data, campaign maturity, and agreed management frequency. No specific performance improvement is guaranteed."
         ]
       },
       {
         "code": "15",
         "title": "Reporting and Performance Insights",
-        "desc": "Clear reporting helps businesses understand what their advertising is doing and where further investigation may be useful.",
+        "desc": "Clear reporting helps businesses understand what their advertising is doing and where further investigation may be useful. Provides your business with a clear, reliable execution standard for Reporting and Performance Insights.",
         "deliverables": [
           "Spend and delivery summaries",
           "Impressions, clicks, and click-through rate where relevant",
@@ -1424,10 +1452,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Asset or audience insights where available",
           "Tracking limitations and data-quality notes",
           "Recommendations for the next reporting period",
-          "Reporting frequency and metrics depend on the selected package and available data. Google Ads attribution may differ from analytics platforms, CRM records, and actual business outcomes."
+          
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Reporting and Performance Insights."
+          "Reporting frequency and metrics depend on the selected package and available data. Google Ads attribution may differ from analytics platforms, CRM records, and actual business outcomes."
         ]
       }
     ],
@@ -1547,9 +1575,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Routine campaign monitoring",
             "Performance reporting",
             "Recommendations for the next campaign period",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Campaign count, keyword research limits, ad copy volume, creative requirements, tracking implementation, monitoring frequency, and reporting frequency."
           ],
-          "notes": [],
           "cta": "Request Orbit Details"
         },
         {
@@ -1572,9 +1601,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Regular campaign monitoring and optimisation",
             "Structured performance reporting",
             "Periodic strategy review",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Campaign types and count, ad and asset volume, tracking requirements, landing-page review limits, optimisation frequency, and reporting schedule."
           ],
-          "notes": [],
           "cta": "Request Nova Details"
         },
         {
@@ -1596,9 +1626,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Detailed performance reporting",
             "Periodic strategic consultation",
             "Coordination with relevant E-COMET services",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Account and campaign count, markets or locations, product feed requirements, tracking complexity, creative production, integrations, consultation frequency, and reporting detail."
           ],
-          "notes": [],
           "cta": "Request Cosmic Details"
         }
       ],
@@ -1769,16 +1800,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
         "Our service can include campaign planning, audience strategy, video asset assessment, ad setup, budget configuration, tracking coordination, performance monitoring, optimisation, and reporting according to the agreed scope.",
         "We focus on structured campaign execution and meaningful performance insights\u2014not guaranteed views, leads, sales, subscribers, or returns.",
         "What Can You Promote With YouTube Ads?",
-        "Products and online stores",
-        "Business and professional services",
-        "Local businesses and retail outlets",
-        "New product launches",
-        "Brand introduction campaigns",
-        "Educational courses and training programmes",
-        "Promotional videos and product demonstrations",
-        "Eligible website visits and conversion objectives",
-        "Business events and service announcements",
-        "Existing YouTube videos and eligible channel content"
+        "A. Products and online stores",
+        "B. Business and professional services",
+        "C. Local businesses and retail outlets",
+        "D. New product launches",
+        "E. Brand introduction campaigns",
+        "F. Educational courses and training programmes",
+        "G. Promotional videos and product demonstrations",
+        "H. Eligible website visits and conversion objectives",
+        "I. Business events and service announcements",
+        "J. Existing YouTube videos and eligible channel content"
       ]
     },
     "capabilities": [
@@ -1803,7 +1834,7 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
       {
         "code": "02",
         "title": "YouTube Advertising Strategy",
-        "desc": "We develop a campaign approach based on your business priorities, audience, creative assets, and available budget.",
+        "desc": "We develop a campaign approach based on your business priorities, audience, creative assets, and available budget. Provides your business with a clear, reliable execution standard for YouTube Advertising Strategy.",
         "deliverables": [
           "Campaign objective recommendations",
           "Audience and targeting strategy",
@@ -1813,16 +1844,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Budget allocation recommendations",
           "Destination and landing-page planning",
           "Measurement and reporting strategy",
-          "The final strategy depends on the business requirements, current Google Ads options, available assets, and agreed scope."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for YouTube Advertising Strategy."
+          "The final strategy depends on the business requirements, current Google Ads options, available assets, and agreed scope."
         ]
       },
       {
         "code": "03",
         "title": "YouTube Video Ad Campaign Management",
-        "desc": "We help businesses prepare and manage eligible YouTube advertising campaigns through Google Ads.",
+        "desc": "We help businesses prepare and manage eligible YouTube advertising campaigns through Google Ads. Provides your business with a clear, reliable execution standard for YouTube Video Ad Campaign Management.",
         "deliverables": [
           "Campaign setup and configuration",
           "Campaign objective selection",
@@ -1833,16 +1863,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Budget and schedule settings",
           "Campaign launch coordination",
           "Ongoing performance review",
-          "Campaign availability, ad formats, targeting options, and delivery depend on Google's current advertising tools, account eligibility, and applicable policies."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for YouTube Video Ad Campaign Management."
+          "Campaign availability, ad formats, targeting options, and delivery depend on Google's current advertising tools, account eligibility, and applicable policies."
         ]
       },
       {
         "code": "04",
         "title": "Skippable In-Stream Ads",
-        "desc": "Skippable in-stream ads can appear before, during, or after eligible YouTube videos. Depending on the format and campaign settings, viewers may have the option to skip after a specified period.",
+        "desc": "Skippable in-stream ads can appear before, during, or after eligible YouTube videos. Depending on the format and campaign settings, viewers may have the option to skip after a specified period. Provides your business with a clear, reliable execution standard for Skippable In-Stream Ads.",
         "deliverables": [
           "Suitability assessment for the campaign objective",
           "Video format and duration recommendations",
@@ -1851,16 +1880,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Call-to-action planning",
           "Campaign setup and monitoring",
           "Performance review based on available metrics",
-          "The ad experience and billing conditions depend on the selected format and current Google Ads rules."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Skippable In-Stream Ads."
+          "The ad experience and billing conditions depend on the selected format and current Google Ads rules."
         ]
       },
       {
         "code": "05",
         "title": "Non-Skippable In-Stream Ads",
-        "desc": "Non-skippable in-stream formats can be useful when a business needs a concise message that eligible viewers cannot skip during the ad's designated duration.",
+        "desc": "Non-skippable in-stream formats can be useful when a business needs a concise message that eligible viewers cannot skip during the ad's designated duration. Provides your business with a clear, reliable execution standard for Non-Skippable In-Stream Ads.",
         "deliverables": [
           "Campaign suitability assessment",
           "Message and creative requirements review",
@@ -1868,16 +1896,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Video asset coordination",
           "Campaign setup where available and eligible",
           "Delivery and performance monitoring",
-          "Availability, supported durations, campaign objectives, and billing conditions are controlled by Google's current advertising options and policies."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Non-Skippable In-Stream Ads."
+          "Availability, supported durations, campaign objectives, and billing conditions are controlled by Google's current advertising options and policies."
         ]
       },
       {
         "code": "06",
         "title": "In-Feed Video Ads",
-        "desc": "In-feed video ads can help promote video content in supported YouTube discovery and browsing experiences.",
+        "desc": "In-feed video ads can help promote video content in supported YouTube discovery and browsing experiences. Provides your business with a clear, reliable execution standard for In-Feed Video Ads.",
         "deliverables": [
           "Video discovery campaign planning",
           "Thumbnail and title recommendations",
@@ -1886,16 +1913,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Campaign configuration",
           "Performance monitoring",
           "Recommendations based on available engagement and viewing data",
-          "Thumbnail creation and advanced video editing can be included only when specified in the agreed scope."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for In-Feed Video Ads."
+          "Thumbnail creation and advanced video editing can be included only when specified in the agreed scope."
         ]
       },
       {
         "code": "07",
         "title": "YouTube Shorts Advertising",
-        "desc": "YouTube Shorts advertising can help businesses present short-form video creative in eligible Shorts ad placements.",
+        "desc": "YouTube Shorts advertising can help businesses present short-form video creative in eligible Shorts ad placements. Provides your business with a clear, reliable execution standard for YouTube Shorts Advertising.",
         "deliverables": [
           "Shorts campaign suitability review",
           "Vertical video asset assessment",
@@ -1904,16 +1930,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Campaign configuration where supported",
           "Monitoring of available video and campaign metrics",
           "Creative testing recommendations",
-          "Vertical video production, filming, advanced editing, animation, and voice-over are separate services unless explicitly included."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for YouTube Shorts Advertising."
+          "Vertical video production, filming, advanced editing, animation, and voice-over are separate services unless explicitly included."
         ]
       },
       {
         "code": "08",
         "title": "Audience Research and Targeting",
-        "desc": "Audience planning helps align video advertisements with people who may be relevant to the business.",
+        "desc": "Audience planning helps align video advertisements with people who may be relevant to the business. Provides your business with a clear, reliable execution standard for Audience Research and Targeting.",
         "deliverables": [
           "Target customer profile development",
           "Geographic targeting recommendations",
@@ -1923,16 +1948,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Remarketing strategy where eligible",
           "Audience exclusions where appropriate",
           "Testing recommendations",
-          "Targeting options are subject to Google's current tools, privacy requirements, account eligibility, and advertising policies. Audience availability and campaign delivery cannot be guaranteed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Audience Research and Targeting."
+          "Targeting options are subject to Google's current tools, privacy requirements, account eligibility, and advertising policies. Audience availability and campaign delivery cannot be guaranteed."
         ]
       },
       {
         "code": "09",
         "title": "Video Creative Strategy and Ad Messaging",
-        "desc": "The way a video introduces the problem, presents the offer, and communicates the next step can influence how viewers respond.",
+        "desc": "The way a video introduces the problem, presents the offer, and communicates the next step can influence how viewers respond. Provides your business with a clear, reliable execution standard for Video Creative Strategy and Ad Messaging.",
         "deliverables": [
           "Video concept recommendations based on campaign goals",
           "Opening-hook suggestions",
@@ -1942,17 +1966,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Creative variation planning",
           "Suggestions for different audience stages",
           "Review of available creative performance data",
-          "The business must provide or approve accurate product details, claims, offers, certifications, and other advertising information before publication.",
-          "Scope note: This service covers advertising strategy and creative coordination. Professional filming, product photoshoots, video production, voice-over, animation, and extensive editing require separate scoping unless expressly included."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Video Creative Strategy and Ad Messaging."
+          "The business must provide or approve accurate product details, claims, offers, certifications, and other advertising information before publication.",
+          "Scope note: This service covers advertising strategy and creative coordination. Professional filming, product photoshoots, video production, voice-over, animation, and extensive editing require separate scoping unless expressly included."
         ]
       },
       {
         "code": "10",
         "title": "YouTube Ads for Brand Awareness",
-        "desc": "Brand awareness campaigns can introduce a business or product to relevant audiences through supported YouTube advertising formats.",
+        "desc": "Brand awareness campaigns can introduce a business or product to relevant audiences through supported YouTube advertising formats. Provides your business with a clear, reliable execution standard for YouTube Ads for Brand Awareness.",
         "deliverables": [
           "Brand awareness objective planning",
           "Audience and geographic strategy",
@@ -1962,16 +1985,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Delivery monitoring",
           "Review of available reach, impressions, and viewing metrics",
           "Recommendations for future creative or audience tests",
-          "Reach and view delivery depend on budget, audience availability, competition, creative suitability, and Google's advertising systems."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for YouTube Ads for Brand Awareness."
+          "Reach and view delivery depend on budget, audience availability, competition, creative suitability, and Google's advertising systems."
         ]
       },
       {
         "code": "11",
         "title": "YouTube Ads for Website Traffic and Leads",
-        "desc": "Depending on campaign eligibility and supported objectives, YouTube advertising can encourage viewers to visit a website, explore an offer, or complete an eligible action.",
+        "desc": "Depending on campaign eligibility and supported objectives, YouTube advertising can encourage viewers to visit a website, explore an offer, or complete an eligible action. Provides your business with a clear, reliable execution standard for YouTube Ads for Website Traffic and Leads.",
         "deliverables": [
           "Traffic or conversion objective assessment",
           "Destination page review",
@@ -1981,16 +2003,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Conversion tracking review",
           "Monitoring of available click and conversion data",
           "Performance reporting",
-          "Website visits do not automatically translate into qualified leads or sales. Lead follow-up, CRM integration, call handling, and sales operations are not included unless separately agreed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for YouTube Ads for Website Traffic and Leads."
+          "Website visits do not automatically translate into qualified leads or sales. Lead follow-up, CRM integration, call handling, and sales operations are not included unless separately agreed."
         ]
       },
       {
         "code": "12",
         "title": "YouTube Ads for Products and E-Commerce",
-        "desc": "Businesses with eligible products may use suitable Google Ads campaign types and video assets to support product discovery and online shopping objectives.",
+        "desc": "Businesses with eligible products may use suitable Google Ads campaign types and video assets to support product discovery and online shopping objectives. Provides your business with a clear, reliable execution standard for YouTube Ads for Products and E-Commerce.",
         "deliverables": [
           "Product and store suitability review",
           "Campaign objective assessment",
@@ -2000,16 +2021,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Conversion tracking review",
           "Campaign performance monitoring",
           "Recommendations based on available data",
-          "Product feeds, Merchant Center approval, product eligibility, and advertising availability are subject to Google's requirements. Product feed creation, complex integrations, and extensive catalogue corrections may require a separate quotation."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for YouTube Ads for Products and E-Commerce."
+          "Product feeds, Merchant Center approval, product eligibility, and advertising availability are subject to Google's requirements. Product feed creation, complex integrations, and extensive catalogue corrections may require a separate quotation."
         ]
       },
       {
         "code": "13",
         "title": "YouTube Channel and Video Promotion",
-        "desc": "Where eligible, advertising may be used to promote suitable YouTube videos or channel content as part of a defined campaign.",
+        "desc": "Where eligible, advertising may be used to promote suitable YouTube videos or channel content as part of a defined campaign. Provides your business with a clear, reliable execution standard for YouTube Channel and Video Promotion.",
         "deliverables": [
           "Video or channel promotion suitability assessment",
           "Campaign objective planning",
@@ -2018,16 +2038,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Campaign setup and monitoring",
           "Review of available views and engagement metrics",
           "Recommendations for future promotional activity",
-          "Important: Paid video promotion does not guarantee subscribers, organic recommendations, watch time, monetisation eligibility, or long-term channel growth. Paid and organic performance should be evaluated separately."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for YouTube Channel and Video Promotion."
+          "Important: Paid video promotion does not guarantee subscribers, organic recommendations, watch time, monetisation eligibility, or long-term channel growth. Paid and organic performance should be evaluated separately."
         ]
       },
       {
         "code": "14",
         "title": "Conversion Tracking and Measurement",
-        "desc": "Tracking helps businesses understand whether advertising interactions are associated with relevant actions.",
+        "desc": "Tracking helps businesses understand whether advertising interactions are associated with relevant actions. Provides your business with a clear, reliable execution standard for Conversion Tracking and Measurement.",
         "deliverables": [
           "Review of existing Google Ads conversion actions",
           "Conversion measurement planning",
@@ -2036,17 +2055,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Form, call, or purchase tracking requirements review",
           "Tracking gap identification",
           "Available conversion data review",
-          "Technical implementation may require website developer access, supported tools, account permissions, consent mechanisms, and third-party integrations. Advanced implementation is separately scoped unless included.",
-          "Tracking must comply with applicable privacy laws, consent requirements, and Google's policies."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Conversion Tracking and Measurement."
+          "Technical implementation may require website developer access, supported tools, account permissions, consent mechanisms, and third-party integrations. Advanced implementation is separately scoped unless included.",
+          "Tracking must comply with applicable privacy laws, consent requirements, and Google's policies."
         ]
       },
       {
         "code": "15",
         "title": "Campaign Monitoring and Optimisation",
-        "desc": "We review campaign data and make agreed adjustments to keep campaigns aligned with their intended objectives.",
+        "desc": "We review campaign data and make agreed adjustments to keep campaigns aligned with their intended objectives. Provides your business with a clear, reliable execution standard for Campaign Monitoring and Optimisation.",
         "deliverables": [
           "Monitoring campaign delivery and spend",
           "Reviewing available views and viewing metrics",
@@ -2057,16 +2075,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Adjusting campaign settings within the approved scope",
           "Recording optimisation observations",
           "Recommending next steps based on available data",
-          "Optimisation frequency depends on the selected package, campaign maturity, and available data. Frequent changes do not automatically improve performance."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Campaign Monitoring and Optimisation."
+          "Optimisation frequency depends on the selected package, campaign maturity, and available data. Frequent changes do not automatically improve performance."
         ]
       },
       {
         "code": "16",
         "title": "Performance Reporting and Recommendations",
-        "desc": "We provide reporting to help businesses understand campaign delivery and make informed decisions.",
+        "desc": "We provide reporting to help businesses understand campaign delivery and make informed decisions. Provides your business with a clear, reliable execution standard for Performance Reporting and Recommendations.",
         "deliverables": [
           "Advertising spend summaries",
           "Impressions and reach where available",
@@ -2077,10 +2094,9 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Audience and creative observations",
           "Campaign limitations and tracking notes",
           "Recommendations for the next reporting period",
-          "Reporting frequency and metrics depend on the selected package and available data. Platform-reported results may differ from analytics platforms, CRM records, and actual business outcomes."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Performance Reporting and Recommendations."
+          "Reporting frequency and metrics depend on the selected package and available data. Platform-reported results may differ from analytics platforms, CRM records, and actual business outcomes."
         ]
       }
     ],
@@ -2200,9 +2216,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Routine campaign monitoring",
             "Basic performance reporting",
             "Recommendations for the next campaign period",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Campaign count, video asset quantity, creative support, targeting scope, tracking requirements, monitoring frequency, and reporting schedule."
           ],
-          "notes": [],
           "cta": "Request Orbit Details"
         },
         {
@@ -2223,9 +2240,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Regular campaign monitoring and optimisation",
             "Performance reporting",
             "Periodic strategy review",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Campaign count, video asset and creative limits, audience segments, tracking implementation, optimisation schedule, and reporting frequency."
           ],
-          "notes": [],
           "cta": "Request Nova Details"
         },
         {
@@ -2246,13 +2264,188 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Expanded reporting and insights",
             "Periodic strategic consultation",
             "Coordination with relevant E-COMET services, including video production where separately scoped",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Campaign count, target markets, creative production requirements, technical tracking, integrations, consultation frequency, and reporting detail."
           ],
-          "notes": [],
           "cta": "Request Cosmic Details"
         }
       ],
       "policy": "Public website rule: Do not display prices, price ranges or payment amounts. Final scope and pricing should be shared through a custom quotation after consultation."
+    },
+    "whyChoose": [
+      {
+        "title": "Business-First Strategy",
+        "desc": "We begin by understanding your offer, audience, business goals, and available creative resources."
+      },
+      {
+        "title": "Video With a Purpose",
+        "desc": "We plan advertising around a clear objective rather than focusing on views alone."
+      },
+      {
+        "title": "Audience-Focused Planning",
+        "desc": "We develop targeting recommendations based on the intended audience, campaign suitability, and available platform options."
+      },
+      {
+        "title": "Creative and Campaign Coordination",
+        "desc": "We connect video messaging, campaign settings, destination pages, and measurement requirements within the agreed scope."
+      },
+      {
+        "title": "Data-Informed Optimisation",
+        "desc": "We review available campaign data and recommend changes based on evidence rather than assumptions."
+      },
+      {
+        "title": "Clear Reporting",
+        "desc": "We explain campaign activity, available metrics, limitations, and potential next steps."
+      },
+      {
+        "title": "Integrated Digital Thinking",
+        "desc": "YouTube Ads can be coordinated with video production, graphic design, website development, social media, and other relevant digital services."
+      },
+      {
+        "title": "Transparent Expectations",
+        "desc": "We do not promise guaranteed views, subscribers, leads, sales, or returns. We focus on structured campaign management and clear communication."
+      }
+    ],
+    "whyUs": [
+      {
+        "title": "Business-First Strategy",
+        "desc": "We begin by understanding your offer, audience, business goals, and available creative resources."
+      },
+      {
+        "title": "Video With a Purpose",
+        "desc": "We plan advertising around a clear objective rather than focusing on views alone."
+      },
+      {
+        "title": "Audience-Focused Planning",
+        "desc": "We develop targeting recommendations based on the intended audience, campaign suitability, and available platform options."
+      },
+      {
+        "title": "Creative and Campaign Coordination",
+        "desc": "We connect video messaging, campaign settings, destination pages, and measurement requirements within the agreed scope."
+      },
+      {
+        "title": "Data-Informed Optimisation",
+        "desc": "Campaign decisions are guided by available performance data and business context rather than assumptions alone."
+      },
+      {
+        "title": "Clear Reporting",
+        "desc": "We explain campaign activity, available metrics, limitations, and potential next steps."
+      },
+      {
+        "title": "Integrated Digital Thinking",
+        "desc": "YouTube Ads can be coordinated with video production, graphic design, website development, social media, and other relevant digital services."
+      },
+      {
+        "title": "Transparent Expectations",
+        "desc": "We do not promise guaranteed views, subscribers, leads, sales, or returns. We focus on structured campaign management and clear communication."
+      }
+    ],
+    "integratedServices": [
+      {
+        "service": "Video Production & Editing",
+        "title": "Video Production & Editing",
+        "desc": "Create promotional videos, product demonstrations, short-form videos, and other assets for suitable campaigns.",
+        "link": "/services/video-production-editing"
+      },
+      {
+        "service": "Creatives & Graphic Design",
+        "title": "Creatives & Graphic Design",
+        "desc": "Develop thumbnails, advertising graphics, and supporting visual assets within an agreed scope.",
+        "link": "/services/creatives-graphic-design"
+      },
+      {
+        "service": "Photography & Photoshoot",
+        "title": "Photography & Photoshoot",
+        "desc": "Plan product and business photography to support brand presentation and advertising creative.",
+        "link": "/services/photography-photoshoot"
+      },
+      {
+        "service": "Google Ads Management",
+        "title": "Google Ads Management",
+        "desc": "Coordinate YouTube advertising with suitable Search, Display, or other Google campaigns.",
+        "link": "/services/google-ads-management"
+      },
+      {
+        "service": "Meta Ads Management",
+        "title": "Meta Ads Management",
+        "desc": "Plan Facebook and Instagram advertising alongside video-led campaigns where appropriate.",
+        "link": "/services/meta-ads-management"
+      },
+      {
+        "service": "Social Media Management",
+        "title": "Social Media Management",
+        "desc": "Coordinate organic content planning and brand communication across relevant social platforms.",
+        "link": "/services/social-media-management"
+      },
+      {
+        "service": "Website Development",
+        "title": "Website Development",
+        "desc": "Build or improve landing pages and websites that support the intended customer action.",
+        "link": "/services/website-development"
+      },
+      {
+        "service": "SEO Services",
+        "title": "SEO Services",
+        "desc": "Develop organic search visibility as part of a wider digital marketing strategy.",
+        "link": "/services/seo-services"
+      }
+    ],
+    "integratedSolutions": {
+      "heading": "10. INTEGRATED DIGITAL SOLUTIONS",
+      "headline": "Connect YouTube Advertising With Your Wider Digital Strategy",
+      "description": "Video advertising can be one part of a broader digital customer journey. The message in your video, your website, your visual identity, and your follow-up process can all influence how customers respond. E-COMET OUTVERSE can coordinate related services according to your requirements.",
+      "cta": "Build My Integrated Digital Plan",
+      "services": [
+        {
+          "service": "Video Production & Editing",
+          "title": "Video Production & Editing",
+          "desc": "Create promotional videos, product demonstrations, short-form videos, and other assets for suitable campaigns.",
+          "link": "/services/video-production-editing"
+        },
+        {
+          "service": "Creatives & Graphic Design",
+          "title": "Creatives & Graphic Design",
+          "desc": "Develop thumbnails, advertising graphics, and supporting visual assets within an agreed scope.",
+          "link": "/services/creatives-graphic-design"
+        },
+        {
+          "service": "Photography & Photoshoot",
+          "title": "Photography & Photoshoot",
+          "desc": "Plan product and business photography to support brand presentation and advertising creative.",
+          "link": "/services/photography-photoshoot"
+        },
+        {
+          "service": "Google Ads Management",
+          "title": "Google Ads Management",
+          "desc": "Coordinate YouTube advertising with suitable Search, Display, or other Google campaigns.",
+          "link": "/services/google-ads-management"
+        },
+        {
+          "service": "Meta Ads Management",
+          "title": "Meta Ads Management",
+          "desc": "Plan Facebook and Instagram advertising alongside video-led campaigns where appropriate.",
+          "link": "/services/meta-ads-management"
+        },
+        {
+          "service": "Social Media Management",
+          "title": "Social Media Management",
+          "desc": "Coordinate organic content planning and brand communication across relevant social platforms.",
+          "link": "/services/social-media-management"
+        },
+        {
+          "service": "Website Development",
+          "title": "Website Development",
+          "desc": "Build or improve landing pages and websites that support the intended customer action.",
+          "link": "/services/website-development"
+        },
+        {
+          "service": "SEO Services",
+          "title": "SEO Services",
+          "desc": "Develop organic search visibility as part of a wider digital marketing strategy.",
+          "link": "/services/seo-services"
+        }
+      ]
     },
     "faqs": [
       {
@@ -2427,14 +2620,14 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
         "Our service can include keyword research, on-page optimisation, technical SEO recommendations, content optimisation, internal linking, local SEO, e-commerce SEO, and performance reporting according to the agreed scope.",
         "Our focus is to build a more structured and measurable organic search strategy\u2014not to promise instant rankings, guaranteed traffic, or a specific position on Google.",
         "What Can SEO Help Your Business Work Toward?",
-        "Improving the discoverability of relevant website pages",
-        "Aligning website content with customer search intent",
-        "Strengthening website structure and internal navigation",
-        "Identifying technical issues that may affect crawling or indexing",
-        "Improving local search information and visibility",
-        "Supporting organic product discovery for eligible online stores",
-        "Building useful content around relevant customer questions",
-        "Measuring organic search performance and identifying opportunities"
+        "A. Improving the discoverability of relevant website pages",
+        "B. Aligning website content with customer search intent",
+        "C. Strengthening website structure and internal navigation",
+        "D. Identifying technical issues that may affect crawling or indexing",
+        "E. Improving local search information and visibility",
+        "F. Supporting organic product discovery for eligible online stores",
+        "G. Building useful content around relevant customer questions",
+        "H. Measuring organic search performance and identifying opportunities"
       ]
     },
     "capabilities": [
@@ -2554,7 +2747,6 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Local performance monitoring using available data"
         ],
         "benefit": [
-          "Suitable for:"
         ]
       },
       {
@@ -2574,7 +2766,6 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Organic performance review"
         ],
         "benefit": [
-          "Suitable for:"
         ]
       },
       {
@@ -2599,7 +2790,7 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
       {
         "code": "09",
         "title": "Competitor and Content Gap Analysis",
-        "desc": "Understanding relevant competitors can help identify potential content opportunities and areas where your website may need clearer information.",
+        "desc": "Understanding relevant competitors can help identify potential content opportunities and areas where your website may need clearer information. Provides your business with a clear, reliable execution standard for Competitor and Content Gap Analysis.",
         "deliverables": [
           "Identification of relevant search competitors",
           "Review of competing pages for selected search terms",
@@ -2609,16 +2800,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Search intent comparison",
           "Content gap recommendations",
           "Prioritised opportunities based on business relevance",
-          "Competitor analysis is based on publicly available information and available research tools. It does not provide access to a competitor's private analytics, advertising accounts, or internal business data."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Competitor and Content Gap Analysis."
+          "Competitor analysis is based on publicly available information and available research tools. It does not provide access to a competitor's private analytics, advertising accounts, or internal business data."
         ]
       },
       {
         "code": "10",
         "title": "Off-Page SEO and Authority Development",
-        "desc": "Off-page SEO concerns factors outside your website that can influence how your business and content are discovered and referenced online.",
+        "desc": "Off-page SEO concerns factors outside your website that can influence how your business and content are discovered and referenced online. Provides your business with a clear, reliable execution standard for Off-Page SEO and Authority Development.",
         "deliverables": [
           "Existing backlink profile review where data is available",
           "Relevant website and publication opportunity assessment",
@@ -2627,17 +2817,16 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Link quality and relevance assessment",
           "Risk observations for suspicious or manipulative links",
           "Ethical outreach planning within the agreed scope",
-          "Our approach: We prioritise relevance, quality, editorial integrity, and long-term website health.",
-          "Paid link schemes, automated link spam, private network manipulation, and other tactics designed to manipulate rankings are not recommended. Link acquisition or outreach execution must be explicitly defined in the quotation. No particular number of backlinks or ranking improvement is guaranteed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Off-Page SEO and Authority Development."
+          "Our approach: We prioritise relevance, quality, editorial integrity, and long-term website health.",
+          "Paid link schemes, automated link spam, private network manipulation, and other tactics designed to manipulate rankings are not recommended. Link acquisition or outreach execution must be explicitly defined in the quotation. No particular number of backlinks or ranking improvement is guaranteed."
         ]
       },
       {
         "code": "11",
         "title": "Image and Media SEO",
-        "desc": "Images and other media can contribute to the usability, accessibility, and discoverability of website content.",
+        "desc": "Images and other media can contribute to the usability, accessibility, and discoverability of website content. Provides your business with a clear, reliable execution standard for Image and Media SEO.",
         "deliverables": [
           "Image file naming recommendations",
           "Descriptive alt text guidance",
@@ -2646,16 +2835,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Relevant caption and surrounding-text recommendations",
           "Video embedding and page performance observations where relevant",
           "Media-related indexing checks where applicable",
-          "The goal is to make media useful and accessible while supporting website performance and relevant discovery."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Image and Media SEO."
+          "The goal is to make media useful and accessible while supporting website performance and relevant discovery."
         ]
       },
       {
         "code": "12",
         "title": "Website Speed and Page Experience Recommendations",
-        "desc": "A website that loads and responds well can provide a better user experience. Technical performance is one part of a broader SEO and usability strategy.",
+        "desc": "A website that loads and responds well can provide a better user experience. Technical performance is one part of a broader SEO and usability strategy. Provides your business with a clear, reliable execution standard for Website Speed and Page Experience Recommendations.",
         "deliverables": [
           "Page speed assessment using available tools",
           "Core Web Vitals review where data is available",
@@ -2664,16 +2852,15 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Render-blocking resource observations where relevant",
           "Layout stability and interaction responsiveness checks",
           "Developer-ready recommendations for identified issues",
-          "Scope note: Hosting changes, server configuration, code refactoring, theme development, and extensive performance engineering may require a separate quotation. Performance scores and search rankings cannot be guaranteed."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Website Speed and Page Experience Recommendations."
+          "Scope note: Hosting changes, server configuration, code refactoring, theme development, and extensive performance engineering may require a separate quotation. Performance scores and search rankings cannot be guaranteed."
         ]
       },
       {
         "code": "13",
         "title": "Google Search Console and Analytics Review",
-        "desc": "Search and analytics data can help businesses understand how users discover and interact with their website.",
+        "desc": "Search and analytics data can help businesses understand how users discover and interact with their website. Provides your business with a clear, reliable execution standard for Google Search Console and Analytics Review.",
         "deliverables": [
           "Google Search Console setup or review where required",
           "Search query and landing-page observations",
@@ -2683,10 +2870,9 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Analytics coordination where suitable",
           "Organic landing-page performance review",
           "Conversion measurement requirements assessment",
-          "Access, data availability, consent configuration, and account setup affect the depth of reporting. Historical data may be limited or unavailable for new websites."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Google Search Console and Analytics Review."
+          "Access, data availability, consent configuration, and account setup affect the depth of reporting. Historical data may be limited or unavailable for new websites."
         ]
       },
       {
@@ -2711,7 +2897,7 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
       {
         "code": "15",
         "title": "Monthly SEO Monitoring and Reporting",
-        "desc": "SEO is an ongoing process of assessing performance, identifying issues, and prioritising improvements.",
+        "desc": "SEO is an ongoing process of assessing performance, identifying issues, and prioritising improvements. Provides your business with a clear, reliable execution standard for Monthly SEO Monitoring and Reporting.",
         "deliverables": [
           "Organic search performance review",
           "Keyword visibility observations using available data",
@@ -2721,10 +2907,9 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
           "Completed activity summary",
           "Recommendations for the next period",
           "Progress review against agreed priorities",
-          "Reporting frequency and metrics depend on the selected package and data access. Ranking tools may report estimated positions that differ by location, device, personalisation, and measurement method."
         ],
         "benefit": [
-          "Provides your business with a clear, reliable execution standard for Monthly SEO Monitoring and Reporting."
+          "Reporting frequency and metrics depend on the selected package and data access. Ranking tools may report estimated positions that differ by location, device, personalisation, and measurement method."
         ]
       }
     ],
@@ -2842,9 +3027,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Prioritised optimisation recommendations",
             "Defined implementation scope",
             "Basic performance reporting",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Number of pages, keyword research limits, technical audit depth, implementation responsibilities, and reporting frequency."
           ],
-          "notes": [],
           "cta": "Request Orbit Details"
         },
         {
@@ -2866,9 +3052,10 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Search Console review where access is available",
             "Ongoing performance monitoring",
             "Structured reporting and recommendations",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Website size, page limits, content deliverables, technical implementation, local SEO activities, and reporting schedule."
           ],
-          "notes": [],
           "cta": "Request Nova Details"
         },
         {
@@ -2890,13 +3077,186 @@ export const DIGITAL_MARKETING_SERVICES_DATA = {
             "Search Console and analytics review where available",
             "Ongoing performance monitoring",
             "Expanded reporting and strategic consultation",
+          ],
+          "notes": [
             "Scope to confirm in quotation: Website complexity, number of pages, target markets, technical requirements, content production, outreach activities, implementation responsibilities, and reporting detail."
           ],
-          "notes": [],
           "cta": "Request Cosmic Details"
         }
       ],
       "policy": "Public website rule: Do not display prices, price ranges or payment amounts. Final scope and pricing should be shared through a custom quotation after consultation."
+    },
+    "whyChoose": [
+      {
+        "title": "Business-First Approach",
+        "desc": "We start by understanding your products, services, customers, and business priorities before recommending SEO activities."
+      },
+      {
+        "title": "Relevant Keyword Strategy",
+        "desc": "We focus on search intent and business relevance rather than selecting keywords by volume alone."
+      },
+      {
+        "title": "Technical and Content Perspective",
+        "desc": "We consider both website accessibility and the usefulness of its content when planning improvements."
+      },
+      {
+        "title": "Prioritised Recommendations",
+        "desc": "We organise work according to the website's requirements, potential impact, available resources, and implementation complexity."
+      },
+      {
+        "title": "Clear Reporting",
+        "desc": "We explain completed activities, available performance data, limitations, and recommended next steps."
+      },
+      {
+        "title": "Integrated Digital Thinking",
+        "desc": "SEO can be coordinated with website development, content creation, e-commerce management, social media, and paid advertising where appropriate."
+      },
+      {
+        "title": "Ethical Optimisation",
+        "desc": "We avoid promising guaranteed rankings or recommending manipulative tactics as a shortcut to search visibility."
+      },
+      {
+        "title": "Transparent Scope",
+        "desc": "Your quotation defines the agreed pages, activities, deliverables, implementation responsibilities, and reporting frequency."
+      }
+    ],
+    "whyUs": [
+      {
+        "title": "Business-First Approach",
+        "desc": "We start by understanding your products, services, customers, and business priorities before recommending SEO activities."
+      },
+      {
+        "title": "Relevant Keyword Strategy",
+        "desc": "We focus on search intent and business relevance rather than selecting keywords by volume alone."
+      },
+      {
+        "title": "Technical and Content Perspective",
+        "desc": "We consider both website accessibility and the usefulness of its content when planning improvements."
+      },
+      {
+        "title": "Prioritised Recommendations",
+        "desc": "We organise work according to the website's requirements, potential impact, available resources, and implementation complexity."
+      },
+      {
+        "title": "Clear Reporting",
+        "desc": "We explain completed activities, available performance data, limitations, and recommended next steps."
+      },
+      {
+        "title": "Integrated Digital Thinking",
+        "desc": "SEO can be coordinated with website development, content creation, e-commerce management, social media, and paid advertising where appropriate."
+      },
+      {
+        "title": "Ethical Optimisation",
+        "desc": "We avoid promising guaranteed rankings or recommending manipulative tactics as a shortcut to search visibility."
+      },
+      {
+        "title": "Transparent Scope",
+        "desc": "Your quotation defines the agreed pages, activities, deliverables, implementation responsibilities, and reporting frequency."
+      }
+    ],
+    "integratedServices": [
+      {
+        "service": "Website Development",
+        "title": "Website Development",
+        "desc": "Build or improve a website with a clear structure, useful content, and SEO considerations from the planning stage.",
+        "link": "/services/website-development"
+      },
+      {
+        "service": "Google Ads Management",
+        "title": "Google Ads Management",
+        "desc": "Combine organic search planning with suitable paid search campaigns when appropriate.",
+        "link": "/services/google-ads-management"
+      },
+      {
+        "service": "Meta Ads Management",
+        "title": "Meta Ads Management",
+        "desc": "Coordinate SEO with paid Facebook and Instagram advertising as part of a broader marketing plan.",
+        "link": "/services/meta-ads-management"
+      },
+      {
+        "service": "Social Media Management",
+        "title": "Social Media Management",
+        "desc": "Maintain consistent brand communication and distribute relevant content across suitable social platforms.",
+        "link": "/services/social-media-management"
+      },
+      {
+        "service": "Content and Creative Services",
+        "title": "Content and Creative Services",
+        "desc": "Support relevant website and campaign content through graphic design, photography, and video services.",
+        "link": "/services/creatives-graphic-design",
+        "links": [
+          { "label": "Graphic Design", "url": "/services/creatives-graphic-design" },
+          { "label": "Photography", "url": "/services/photography-photoshoot" },
+          { "label": "Video Production", "url": "/services/video-production-editing" }
+        ]
+      },
+      {
+        "service": "Online Store Management",
+        "title": "Online Store Management",
+        "desc": "Coordinate website SEO requirements with store structure, product pages, and e-commerce operations.",
+        "link": "/services/online-store-management"
+      },
+      {
+        "service": "Marketplace Management",
+        "title": "Marketplace Management",
+        "desc": "Support a broader digital commerce strategy alongside marketplace operations, while keeping marketplace listing optimisation separate from website SEO unless included in the scope.",
+        "link": "/services/indian-marketplace-management"
+      }
+    ],
+    "integratedSolutions": {
+      "heading": "10. INTEGRATED DIGITAL SOLUTIONS",
+      "headline": "Connect SEO With Your Wider Digital Strategy",
+      "description": "SEO is one part of your digital presence. Your website structure, content, brand presentation, paid campaigns, and product experience can all contribute to how customers discover and evaluate your business. E-COMET OUTVERSE can coordinate related services according to your requirements.",
+      "cta": "Build My Integrated Digital Plan",
+      "services": [
+        {
+          "service": "Website Development",
+          "title": "Website Development",
+          "desc": "Build or improve a website with a clear structure, useful content, and SEO considerations from the planning stage.",
+          "link": "/services/website-development"
+        },
+        {
+          "service": "Google Ads Management",
+          "title": "Google Ads Management",
+          "desc": "Combine organic search planning with suitable paid search campaigns when appropriate.",
+          "link": "/services/google-ads-management"
+        },
+        {
+          "service": "Meta Ads Management",
+          "title": "Meta Ads Management",
+          "desc": "Coordinate SEO with paid Facebook and Instagram advertising as part of a broader marketing plan.",
+          "link": "/services/meta-ads-management"
+        },
+        {
+          "service": "Social Media Management",
+          "title": "Social Media Management",
+          "desc": "Maintain consistent brand communication and distribute relevant content across suitable social platforms.",
+          "link": "/services/social-media-management"
+        },
+        {
+          "service": "Content and Creative Services",
+          "title": "Content and Creative Services",
+          "desc": "Support relevant website and campaign content through graphic design, photography, and video services.",
+          "link": "/services/creatives-graphic-design",
+          "links": [
+            { "label": "Graphic Design", "url": "/services/creatives-graphic-design" },
+            { "label": "Photography", "url": "/services/photography-photoshoot" },
+            { "label": "Video Production", "url": "/services/video-production-editing" }
+          ]
+        },
+        {
+          "service": "Online Store Management",
+          "title": "Online Store Management",
+          "desc": "Coordinate website SEO requirements with store structure, product pages, and e-commerce operations.",
+          "link": "/services/online-store-management"
+        },
+        {
+          "service": "Marketplace Management",
+          "title": "Marketplace Management",
+          "desc": "Support a broader digital commerce strategy alongside marketplace operations, while keeping marketplace listing optimisation separate from website SEO unless included in the scope.",
+          "link": "/services/indian-marketplace-management"
+        }
+      ]
     },
     "faqs": [
       {

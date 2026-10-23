@@ -1,273 +1,112 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import ClosingSection from '../components/Sections/ClosingSection';
+import Home2FinalCta from './Home2/components/Home2FinalCta';
 import Footer from '../components/Sections/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// =========================================================================
-// CELESTIAL COMET & ORBIT TILE (Vector Comet & Lines matching index.html)
-// Used in place of all raster images for pure vector rendering & zero latency
-// =========================================================================
-function CelestialCometTile({ tone = 'mono', label = '', code = '01', aspect = 'aspect-[16/10]' }) {
-  const toneConfigs = {
-    mono: {
-      c1: '#1E2430',
-      c2: '#F8FAFC',
-      stroke: '#080B10',
-      dot: '#080B10',
-      rot: -18,
-      cx: 340,
-      cy: 160
-    },
-    dark: {
-      c1: '#252B36',
-      c2: '#080B10',
-      stroke: '#475569',
-      dot: '#FFFFFF',
-      rot: -22,
-      cx: 320,
-      cy: 200,
-      dark: true
-    }
-  };
-
-  const cfg = toneConfigs[tone] || (tone === 'dark' ? toneConfigs.dark : toneConfigs.mono);
-  const gradId = `comet-grad-${code.replace(/[^a-zA-Z0-9]/g, '')}`;
-  const sunId = `comet-sun-${code.replace(/[^a-zA-Z0-9]/g, '')}`;
-
-  return (
-    <div className={`w-full ${aspect} relative overflow-hidden select-none`}>
-      <svg 
-        viewBox="0 0 600 400" 
-        preserveAspectRatio="xMidYMid slice" 
-        className="w-full h-full select-none group-hover:scale-105 transition-transform duration-700" 
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <defs>
-          <linearGradient id={gradId} x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor={cfg.c1} stopOpacity={cfg.dark ? "0.22" : "0.2"} />
-            <stop offset="100%" stopColor={cfg.dark ? "#0A0E1A" : cfg.c2} stopOpacity={cfg.dark ? "0.98" : "0.96"} />
-          </linearGradient>
-          <radialGradient id={sunId} cx="70%" cy="30%" r="60%">
-            <stop offset="0%" stopColor={cfg.c1} stopOpacity={cfg.dark ? "0.35" : "0.25"} />
-            <stop offset="100%" stopColor={cfg.dark ? "#0A0E1A" : "#FFFFFF"} stopOpacity="0" />
-          </radialGradient>
-        </defs>
-
-        {/* Base Gradient Fill */}
-        <rect width="100%" height="100%" fill={`url(#${gradId})`} />
-        
-        {/* Luminous Sun / Nebula Halo */}
-        <circle cx="420" cy="120" r="180" fill={`url(#${sunId})`} />
-
-        {/* Subtle Background Grid Lines */}
-        <line x1="0" y1="100" x2="600" y2="100" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
-        <line x1="0" y1="200" x2="600" y2="200" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
-        <line x1="0" y1="300" x2="600" y2="300" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
-        <line x1="200" y1="0" x2="200" y2="400" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
-        <line x1="400" y1="0" x2="400" y2="400" stroke={cfg.stroke} strokeWidth="0.5" opacity={cfg.dark ? "0.15" : "0.1"} strokeDasharray="3 6" />
-
-        {/* Grand Orbital Ellipse 1 (Dotted) */}
-        <ellipse 
-          cx="300" 
-          cy="200" 
-          rx="260" 
-          ry="120" 
-          fill="none" 
-          stroke={cfg.stroke} 
-          strokeWidth="0.85" 
-          strokeDasharray="4 6" 
-          opacity="0.45" 
-          transform={`rotate(${cfg.rot} 300 200)`} 
-        />
-
-        {/* Inner Solid Orbital Ellipse 2 */}
-        <ellipse 
-          cx="300" 
-          cy="200" 
-          rx="170" 
-          ry="80" 
-          fill="none" 
-          stroke={cfg.stroke} 
-          strokeWidth="0.75" 
-          opacity="0.3" 
-          transform={`rotate(${cfg.rot * -0.6} 300 200)`} 
-        />
-
-        {/* Core Circular Orbital Range */}
-        <circle cx="300" cy="200" r="80" fill="none" stroke={cfg.stroke} strokeWidth="0.75" opacity="0.25" />
-
-        {/* Diagonal Comet Velocity Trajectory Vector */}
-        <line x1="50" y1="350" x2="550" y2="50" stroke={cfg.stroke} strokeWidth="0.75" opacity="0.25" />
-        
-        {/* Orbit Crosshair Center */}
-        <circle cx="300" cy="200" r="2.5" fill={cfg.stroke} opacity="0.4" />
-
-        {/* Orbiting Comet Nucleus with Outer Energy Aura */}
-        <circle cx={cfg.cx} cy={cfg.cy} r="14" fill={cfg.dot} opacity="0.15" />
-        <circle cx={cfg.cx} cy={cfg.cy} r="7" fill={cfg.dot} opacity="0.35" />
-        <circle cx={cfg.cx} cy={cfg.cy} r="3.5" fill={cfg.dark ? "#FFFFFF" : cfg.stroke} />
-        
-        {/* Secondary Micro-Orbiter */}
-        <circle cx={600 - cfg.cx * 0.85} cy={400 - cfg.cy * 0.85} r="2.5" fill={cfg.stroke} opacity="0.6" />
-      </svg>
-
-      {/* Top Left Telemetry Coordinate Pill */}
-      <div className="absolute top-3.5 left-4 z-10 flex items-center gap-2">
-        <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ backgroundColor: cfg.dot }} />
-        <span className={`text-[9.5px] font-mono tracking-widest uppercase font-semibold ${cfg.dark ? 'text-slate-300' : 'text-slate-500'}`}>
-          {code} · {label}
-        </span>
-      </div>
-
-      {/* Bottom Right Live Orbit Metric */}
-      <div className={`absolute bottom-3 right-4 z-10 text-[9px] font-mono tracking-wider uppercase ${cfg.dark ? 'text-slate-400' : 'text-slate-400'}`}>
-        ORBIT // 360° HARMONIC
-      </div>
-    </div>
-  );
-}
-
 export default function AboutPage() {
   const containerRef = useRef(null);
+  const heroRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
     ScrollTrigger.refresh();
 
     const ctx = gsap.context(() => {
-      // 1. Hero text and pill entrance
+      // 1. Hero Entrance Animation
       gsap.fromTo(
-        '.about-hero-anim',
-        { y: 35, opacity: 0 },
+        '.about-hero-title-word',
+        { y: 50, opacity: 0 },
         {
           y: 0,
           opacity: 1,
           duration: 0.85,
-          stagger: 0.12,
+          stagger: 0.04,
           ease: 'power3.out'
         }
       );
 
-      // 2. Hero Floating preview tiles on the right
       gsap.fromTo(
-        '.about-floating-card',
-        { scale: 0.92, opacity: 0, y: 25 },
+        '.about-fade-up',
+        { y: 30, opacity: 0 },
         {
-          scale: 1,
-          opacity: 1,
           y: 0,
-          duration: 0.95,
-          stagger: 0.15,
-          ease: 'power3.out',
+          opacity: 1,
+          duration: 0.75,
+          stagger: 0.1,
+          ease: 'power2.out',
           delay: 0.2
         }
       );
 
-      // 3. Philosophy section reveal
+      // 2. Scroll Scrub for Philosophy Section Headline
+      const philWords = containerRef.current?.querySelectorAll('.phil-scrub-word');
+      if (philWords && philWords.length > 0) {
+        gsap.to(philWords, {
+          color: '#000000',
+          stagger: 0.08,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: '.sec-philosophy-heading',
+            start: 'top 85%',
+            end: 'bottom 40%',
+            scrub: 0.6
+          }
+        });
+      }
+
+      // 3. Stagger for Discipline Cards
       gsap.fromTo(
-        '.about-reveal-text',
+        '.craft-card-anim',
         { y: 40, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.8,
-          stagger: 0.15,
+          duration: 0.7,
+          stagger: 0.1,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: '.sec-philosophy',
+            trigger: '.sec-craft-grid',
             start: 'top 80%',
             toggleActions: 'play none none none'
           }
         }
       );
 
-      // 4. Mission & Vision Bento Cards
+      // 4. Stagger for Values Rows
       gsap.fromTo(
-        '.bento-card-left',
-        { x: -50, opacity: 0 },
+        '.value-row-anim',
+        { x: -30, opacity: 0 },
         {
           x: 0,
           opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
+          duration: 0.65,
+          stagger: 0.08,
+          ease: 'power2.out',
           scrollTrigger: {
-            trigger: '.sec-mission',
-            start: 'top 82%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-      gsap.fromTo(
-        '.bento-card-right',
-        { x: 50, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.sec-mission',
+            trigger: '.sec-values-list',
             start: 'top 82%',
             toggleActions: 'play none none none'
           }
         }
       );
 
-      // 5. Visual Gallery Stagger
+      // 5. Framework Steps Entrance
       gsap.fromTo(
-        '.gallery-img-card',
-        { y: 45, opacity: 0, scale: 0.96 },
+        '.framework-step-card',
+        { y: 35, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          scale: 1,
-          duration: 0.75,
-          stagger: 0.1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.sec-gallery',
-            start: 'top 78%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-
-      // 6. Values Cards Stagger
-      gsap.fromTo(
-        '.value-card',
-        { y: 40, opacity: 0, scale: 0.96 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
           duration: 0.7,
           stagger: 0.09,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: '.sec-values',
+            trigger: '.sec-framework-grid',
             start: 'top 80%',
-            toggleActions: 'play none none none'
-          }
-        }
-      );
-
-      // 7. Operating Framework Steps
-      gsap.fromTo(
-        '.framework-step',
-        { x: -40, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.75,
-          stagger: 0.12,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: '.sec-framework',
-            start: 'top 82%',
             toggleActions: 'play none none none'
           }
         }
@@ -277,51 +116,204 @@ export default function AboutPage() {
     return () => ctx.revert();
   }, []);
 
+  // Split headline for word-by-word animation
+  const headline = "Helping Businesses Build a Stronger Digital Presence.";
+  const headlineWords = headline.split(' ');
+
+  const philQuote = "Digital growth starts with understanding the business — not choosing tools without purpose.";
+  const philWords = philQuote.split(' ');
+
+  // 4 Foundational Disciplines
+  const craftDisciplines = [
+    {
+      num: "01",
+      code: "SPEC // CREATIVE",
+      pillar: "Creative Services",
+      title: "Brand Identity & Logo Systems",
+      desc: "Distinctive typography, color palettes, visual guidelines, packaging concepts, and tactile brand systems engineered to command premium positioning on digital feeds and retail shelves.",
+      subdesc: "Designed with consumer psychology to convert first-time shoppers into repeat brand advocates.",
+      image: "/images/space/dark-card-creative.jpg",
+      tags: ["PACKAGING", "IDENTITY", "3D ASSETS", "TYPOGRAPHY"]
+    },
+    {
+      num: "02",
+      code: "SPEC // STOREFRONT",
+      pillar: "Website Development",
+      title: "Business & E-Commerce Stores",
+      desc: "High-performance Shopify Plus builds, Next.js commerce architectures, sub-second checkout funnels, and responsive corporate portals with 95+ Core Web Vitals score.",
+      subdesc: "Engineered for zero downtime, lightning load speeds, and maximum transaction throughput.",
+      image: "/images/space/dark-card-web.jpg",
+      tags: ["SHOPIFY PLUS", "HEADLESS", "CRO", "CORE WEB VITALS"]
+    },
+    {
+      num: "03",
+      code: "SPEC // MARKETPLACE",
+      pillar: "E-Commerce Management",
+      title: "Marketplace Catalogue & Operations",
+      desc: "End-to-end Amazon 1P/3P and Flipkart seller onboarding, conversion-optimized A+ content, PLA ads management, inventory health monitoring, and buy-box protection.",
+      subdesc: "Maximizing organic keyword ranking while strictly maintaining contribution margin and target TACoS.",
+      image: "/images/space/card-marketplace.jpg",
+      tags: ["AMAZON 1P/3P", "FLIPKART", "BUY-BOX", "A+ CONTENT"]
+    },
+    {
+      num: "04",
+      code: "SPEC // CINEMA",
+      pillar: "YouTube & Video Services",
+      title: "Video Editing & Shorts / Reels",
+      desc: "Dynamic pacing, motion graphics, high-CTR thumbnail packaging, channel SEO, and short-form video repurposing crafted to capture algorithmic watch time.",
+      subdesc: "Turning passive viewers into engaged social audiences and high-intent inbound customers.",
+      image: "/images/space/goals-galaxy.jpg",
+      tags: ["COMMERCIAL VIDEO", "REELS / SHORTS", "HIGH-CTR", "MOTION"]
+    }
+  ];
+
+  // 5 Operating Values
+  const values = [
+    {
+      num: "01",
+      tag: "NO AMBIGUITY",
+      title: "Clarity",
+      desc: "Explain the scope, process, deliverables, and performance expectations in straightforward language with zero technical gatekeeping or buzzwords.",
+      detail: "Every partner knows exactly who is executing what, when milestones arrive, and how progress is objectively verified."
+    },
+    {
+      num: "02",
+      tag: "GOAL-ALIGNED",
+      title: "Purpose",
+      desc: "Recommend services and architectural choices based strictly on real commercial needs rather than unnecessary technological complexity.",
+      detail: "We don't push enterprise stacks when lean headless solves the problem, preserving capital for inventory and acquisition velocity."
+    },
+    {
+      num: "03",
+      tag: "ADAPTIVE SCOPE",
+      title: "Flexibility",
+      desc: "Shape service scope around the project, resources, and agreed requirements instead of forcing rigid pre-packaged retainers.",
+      detail: "As market dynamics pivot or seasonal demand surges, our practice pods scale dynamically to protect your margins."
+    },
+    {
+      num: "04",
+      tag: "UNIFIED VOICE",
+      title: "Consistency",
+      desc: "Support a coherent, elevated brand presentation across all relevant digital channels, packaging touchpoints, and marketplace nodes.",
+      detail: "From Amazon A+ layouts to direct Shopify checkouts, your customer experiences a cohesive brand narrative that commands premium pricing."
+    },
+    {
+      num: "05",
+      tag: "UPFRONT HONESTY",
+      title: "Transparency",
+      desc: "Discuss deliverables, timelines, pricing, revision boundaries, and third-party fees (ad spend, platform hosting) before work begins.",
+      detail: "No hidden costs, no surprise add-ons, and no inflated promises. Honest roadmaps that build genuine, lasting commercial trust."
+    }
+  ];
+
+  // 5-Stage Framework Roadmap
+  const frameworkSteps = [
+    {
+      stage: "STAGE 01",
+      name: "Understand",
+      summary: "Understand your business, target audience, current digital setup, and commercial goals.",
+      execution: "We audit catalog health, conversion leaks, and channel unit economics before proposing architecture.",
+      percent: "20%"
+    },
+    {
+      stage: "STAGE 02",
+      name: "Identify",
+      summary: "Identify the relevant digital opportunities, competitive gaps, and operational challenges.",
+      execution: "Benchmarking buy-box dynamics, search volume, keyword indexation, and creative performance gaps.",
+      percent: "40%"
+    },
+    {
+      stage: "STAGE 03",
+      name: "Define",
+      summary: "Define specific services, deliverables, responsibilities, timelines, and proposal scope.",
+      execution: "Written deliverables, fixed revision guardrails, and senior lead accountability locked in upfront.",
+      percent: "60%"
+    },
+    {
+      stage: "STAGE 04",
+      name: "Execute",
+      summary: "Execute the agreed work with meticulous attention to detail, quality, and brand consistency.",
+      execution: "100% senior in-house squad delivery with zero telephone handoffs to junior trainees.",
+      percent: "80%"
+    },
+    {
+      stage: "STAGE 05",
+      name: "Review",
+      summary: "Review the work against agreed metrics, discuss feedback, and plan appropriate next steps.",
+      execution: "Transparent weekly telemetry dashboards with verified attribution and zero vanity metrics.",
+      percent: "100%"
+    }
+  ];
+
   return (
-    <div ref={containerRef} className="relative min-h-screen bg-[#FBFBFA] text-slate-900 select-none overflow-x-hidden pt-20">
-      
+    <div ref={containerRef} className="relative min-h-screen bg-[#000000] text-[#FFFFFF] select-none overflow-x-hidden pt-20">
+
       {/* ===================================================================== */}
-      {/* 1. HERO SECTION (Clean Canvas Container matching All Pillar Pages)     */}
+      {/* 1. MONOLITHIC HERO: COSMIC MASTHEAD & EDITORIAL TELEMETRY             */}
       {/* ===================================================================== */}
-      <section className="w-full max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 pb-6 sm:pb-12">
-        <div className="relative bg-[#F4F4F1] border border-slate-200/90 rounded-[32px] sm:rounded-[40px] p-8 sm:p-12 md:p-16 lg:p-20 overflow-hidden shadow-sm">
-          
-          {/* Subtle Ambient Radial Highlight */}
-          <div 
-            className="absolute -top-32 -right-32 w-96 h-96 rounded-full pointer-events-none opacity-10 blur-3xl bg-slate-400"
-            aria-hidden="true"
+      <section ref={heroRef} className="relative min-h-[82vh] lg:min-h-[88vh] flex flex-col justify-between border-b border-[#262626] bg-[#000000] overflow-hidden">
+        
+        {/* Cinematic Deep Space Background Underlay */}
+        <div className="absolute inset-0 z-0 pointer-events-none opacity-40">
+          <img 
+            src="/images/space/ring-part-three.jpg" 
+            alt="E-Comet Outverse Orbit" 
+            className="w-full h-full object-cover object-center"
           />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#000000] via-[#000000]/60 to-[#000000]" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#000000] via-transparent to-[#000000]" />
+        </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10">
+        {/* Top Telemetry Header Bar */}
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-8 pt-8 sm:pt-12">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#262626] font-sans text-xs uppercase tracking-widest text-[#8A8A8A]">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2 h-2 rounded-full bg-[#FFFFFF] animate-pulse" />
+              <span className="text-[#FFFFFF] font-bold">AGENCY DOSSIER // 2026</span>
+              <span>·</span>
+              <span>ABOUT E-COMET</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-6">
+              <span>ESTABLISHED OPERATING SYSTEM</span>
+              <span>·</span>
+              <span className="text-[#FFFFFF]">DIRECT COMMERCIAL GOVERNANCE</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero Main Content */}
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-12 sm:py-16 my-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
             
-            {/* Left Column: Display Heading, Sub-copy & Action Buttons */}
-            <div className="lg:col-span-7 flex flex-col items-start text-left">
-              
-              {/* Category Kicker Badge */}
-              <div className="about-hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-slate-200/70 text-[11px] font-mono font-bold tracking-wider text-slate-700 shadow-2xs mb-6">
-                <span>CORE AGENCY IDENTITY · ABOUT E-COMET</span>
-              </div>
+            {/* Left 8 Cols: Monumental Display Headline */}
+            <div className="lg:col-span-8 space-y-6">
+              <span className="about-fade-up inline-block px-3 py-1 bg-[#141414] border border-[#2E2E2E] text-[#A3A3A3] font-sans text-[11px] uppercase tracking-wider font-semibold">
+                CORE AGENCY IDENTITY
+              </span>
 
-              {/* Single Prominent Display Heading */}
-              <h1 className="about-hero-anim font-serif text-4xl sm:text-5xl md:text-6xl lg:text-[62px] font-normal tracking-tight text-space-950 leading-[1.08] mb-6">
-                Helping Businesses Build a Stronger Digital Presence.
+              <h1 className="font-grotesk font-black text-[clamp(40px,6.2vw,96px)] leading-[0.93] tracking-[-0.04em] uppercase text-[#FFFFFF]">
+                {headlineWords.map((word, idx) => (
+                  <span key={idx} className="about-hero-title-word inline-block mr-[0.24em] will-change-transform">
+                    {word}
+                  </span>
+                ))}
               </h1>
 
-              {/* Clean Subtitle */}
-              <p className="about-hero-anim font-sans text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-xl mb-4">
+              <p className="about-fade-up font-grotesk text-base sm:text-xl text-[#A3A3A3] max-w-2xl leading-relaxed">
                 A business-first approach to e-commerce management, digital marketing, website development, and video services.
               </p>
+            </div>
 
-              {/* Rich Narrative Body Paragraph */}
-              <p className="about-hero-anim font-sans text-sm sm:text-base text-slate-500 font-normal leading-relaxed max-w-xl mb-10">
+            {/* Right 4 Cols: Narrative Body & Action Triggers */}
+            <div className="lg:col-span-4 space-y-6 lg:border-l lg:border-[#262626] lg:pl-8">
+              <p className="about-fade-up font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
                 E-Comet brings practical digital capabilities under one coordinated governance model. We eliminate agency silos, vague retainers, and fragmented communication to help ambitious brands build long-term enterprise equity and scalable customer acquisition.
               </p>
 
-              {/* Dual Action Buttons */}
-              <div className="about-hero-anim flex flex-wrap items-center gap-4 w-full sm:w-auto">
+              <div className="about-fade-up flex flex-col sm:flex-row lg:flex-col gap-3 pt-2">
                 <a
                   href="#closing"
-                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-sm font-semibold tracking-wide transition-all hover:scale-105 shadow-md inline-flex items-center justify-center gap-2 cursor-pointer"
+                  className="px-6 py-3.5 bg-[#FFFFFF] hover:bg-[#E5E5E5] text-[#000000] font-sans text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-between cursor-pointer"
                 >
                   <span>Discuss Your Project</span>
                   <span>→</span>
@@ -329,215 +321,133 @@ export default function AboutPage() {
 
                 <a
                   href="#philosophy"
-                  className="w-full sm:w-auto text-center px-8 py-4 rounded-full bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-sans text-sm font-semibold tracking-wide transition-all shadow-2xs inline-flex items-center justify-center gap-2 cursor-pointer"
+                  className="px-6 py-3.5 bg-[#0A0A0A] hover:bg-[#141414] border border-[#333333] hover:border-[#666666] text-[#FFFFFF] font-sans text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-between cursor-pointer"
                 >
                   <span>Our Philosophy</span>
                   <span>↓</span>
                 </a>
               </div>
-
-              {/* Verified Trust Strip */}
-              <div className="about-hero-anim mt-10 pt-6 border-t border-slate-200/70 flex flex-wrap items-center gap-6 text-[12px] font-mono text-slate-500">
-                <div className="flex items-center gap-2">
-                  <span className="text-[#080B10] font-bold">✓</span>
-                  <span>100% In-House Senior Execution</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[#080B10] font-bold">✓</span>
-                  <span>Direct Written SLAs</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[#080B10] font-bold">✓</span>
-                  <span>Zero Junior Trainees</span>
-                </div>
-              </div>
-
-            </div>
-
-            {/* Right Column: Floating Visual Tiles (Maze Screenshot Style) */}
-            <div className="lg:col-span-5 relative flex items-center justify-center min-h-[340px] sm:min-h-[420px]">
-              
-              {/* Blurred Background Card (Depth-of-field effect from Maze) */}
-              <div 
-                className="about-floating-card absolute -top-4 -right-2 w-56 sm:w-64 h-48 sm:h-56 bg-white/70 border border-slate-200/70 rounded-3xl shadow-lg p-5 blur-[2.5px] opacity-75 transform rotate-6 pointer-events-none"
-                aria-hidden="true"
-              >
-                <div className="w-8 h-8 rounded-xl bg-slate-200 mb-3" />
-                <div className="h-3.5 bg-slate-200 rounded-full w-3/4 mb-2" />
-                <div className="h-2.5 bg-slate-100 rounded-full w-1/2" />
-              </div>
-
-              {/* Main Crisp Foreground Card 1 (Top Hero Tile - Services card style) */}
-              <div className="about-floating-card relative z-20 w-full max-w-[340px] sm:max-w-[380px] bg-[#FAFAFA] border border-stone-200/90 rounded-[28px] p-6 sm:p-7 hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
-                
-                {/* Header Tag */}
-                <div className="flex items-center justify-between pb-4 border-b border-stone-200/60 mb-4">
-                  <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-slate-500">
-                    PRACTICE ARCHITECTURE
-                  </span>
-                  <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-semibold bg-stone-100 text-stone-700 border border-stone-200">
-                    ACTIVE
-                  </span>
-                </div>
-
-                {/* Card Title & Core Metrics - Serif font */}
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2">
-                  E-Comet Operating Core
-                </h3>
-                <p className="font-sans text-xs text-slate-500 line-clamp-2 mb-5">
-                  Synchronized execution spanning marketplace management, digital marketing, website development, and video services.
-                </p>
-
-                {/* 3 Live Metric Badges */}
-                <div className="grid grid-cols-3 gap-2 p-3 bg-slate-50 rounded-2xl border border-slate-100 text-center">
-                  <div className="space-y-0.5">
-                    <div className="text-[14px] font-sans font-bold text-slate-900">4 Pillars</div>
-                    <div className="text-[9.5px] font-mono text-slate-500 leading-tight">Capabilities</div>
-                  </div>
-                  <div className="space-y-0.5">
-                    <div className="text-[14px] font-sans font-bold text-slate-900">100%</div>
-                    <div className="text-[9.5px] font-mono text-slate-500 leading-tight">In-House</div>
-                  </div>
-                  <div className="space-y-0.5">
-                    <div className="text-[14px] font-sans font-bold text-slate-900">0 Bloat</div>
-                    <div className="text-[9.5px] font-mono text-slate-500 leading-tight">Governance</div>
-                  </div>
-                </div>
-
-                {/* Platform Tag Pills */}
-                <div className="flex flex-wrap gap-1.5 mt-4">
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-slate-100 text-slate-700">Amazon 1P &amp; 3P</span>
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-slate-100 text-slate-700">Shopify Plus</span>
-                  <span className="px-2.5 py-1 rounded-full text-[10px] font-mono font-medium bg-slate-100 text-slate-700">Video &amp; Motion</span>
-                </div>
-              </div>
-
-              {/* Foreground Card 2 (Bottom Offset Mini Card) */}
-              <div className="about-floating-card absolute -bottom-6 -left-2 sm:-left-6 z-30 bg-[#080B10] text-white rounded-2xl p-4 sm:p-5 shadow-2xl border border-slate-800 flex items-center gap-3.5 max-w-[280px]">
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0 font-mono text-xs font-bold text-white shadow-sm bg-[#252B36]">
-                  ⚡
-                </div>
-                <div>
-                  <div className="text-[12px] font-sans font-bold text-white leading-tight">
-                    Direct Senior Lead
-                  </div>
-                  <div className="text-[10px] font-mono text-slate-400 mt-0.5">
-                    Zero Trainee Delegation
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Right Floating Badge Pill */}
-              <div 
-                className="about-floating-card absolute bottom-2 -right-3 z-30 w-11 h-11 rounded-full bg-white border border-slate-200 shadow-lg flex items-center justify-center font-bold text-slate-800 hover:scale-110 transition-transform cursor-pointer"
-                title="E-Comet Certified Architecture"
-              >
-                <span className="w-2.5 h-2.5 rounded-full bg-[#080B10]" />
-              </div>
-
             </div>
 
           </div>
-
         </div>
+
+        {/* Bottom 4-Quadrant Verified Telemetry Strip */}
+        <div className="relative z-10 w-full border-t border-[#262626] bg-[#0A0A0A]/90 backdrop-blur-md">
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#262626]">
+              <div className="py-4 sm:py-5 pr-4 flex items-center gap-3">
+                <span className="font-sans text-xs font-bold text-[#FFFFFF]">✓</span>
+                <span className="font-sans text-[11px] sm:text-xs text-[#A3A3A3] uppercase tracking-wider">100% In-House Senior Execution</span>
+              </div>
+              <div className="py-4 sm:py-5 px-4 flex items-center gap-3">
+                <span className="font-sans text-xs font-bold text-[#FFFFFF]">✓</span>
+                <span className="font-sans text-[11px] sm:text-xs text-[#A3A3A3] uppercase tracking-wider">Direct Written SLAs</span>
+              </div>
+              <div className="py-4 sm:py-5 px-4 flex items-center gap-3">
+                <span className="font-sans text-xs font-bold text-[#FFFFFF]">✓</span>
+                <span className="font-sans text-[11px] sm:text-xs text-[#A3A3A3] uppercase tracking-wider">Zero Junior Delegation</span>
+              </div>
+              <div className="py-4 sm:py-5 pl-4 flex items-center gap-3">
+                <span className="font-sans text-xs font-bold text-[#FFFFFF]">✓</span>
+                <span className="font-sans text-[11px] sm:text-xs text-[#A3A3A3] uppercase tracking-wider">4 Synchronized Pillars</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </section>
 
       {/* ===================================================================== */}
-      {/* 2. WHO WE ARE & EDITORIAL PHILOSOPHY                                  */}
+      {/* 2. THE CORE PHILOSOPHY & CONTRAST (Stark Editorial White Band)        */}
       {/* ===================================================================== */}
-      <section id="philosophy" className="sec-philosophy relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+      <section id="philosophy" className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
           
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-start pb-16 sm:pb-24 border-b border-[#E5E5E5]">
             
-            {/* Left Manifesto */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block">
-                01 · Brand Genesis &amp; Positioning
+            {/* Left 4 Cols: Telemetry Kicker & Context */}
+            <div className="lg:col-span-4 space-y-4">
+              <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+                01 / BRAND GENESIS &amp; POSITIONING
               </span>
-
-              <h2 className="about-reveal-text text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15]">
-                Digital growth starts with understanding the business — not choosing tools without purpose.
-              </h2>
-
-              <p className="about-reveal-text text-base sm:text-lg text-slate-700 font-sans leading-relaxed">
+              <h3 className="font-grotesk font-bold text-2xl sm:text-3xl uppercase tracking-tight text-[#000000] leading-tight">
+                The Anti-Bloat Agency Mandate.
+              </h3>
+              <p className="font-grotesk text-sm text-[#666666] leading-relaxed">
                 E-Comet is a digital services brand supporting businesses across e-commerce, digital marketing, website development, and YouTube and video services.
               </p>
-
-              <p className="about-reveal-text text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
+              <p className="font-grotesk text-sm text-[#666666] leading-relaxed">
                 Whether a business is starting online, improving its current presence, or bringing multiple channels together, our approach is to understand the requirement, define the scope, and recommend suitable next steps.
               </p>
-
-              <p className="about-reveal-text text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-                Instead of selling bloated agency packages with generic retainers, we build bespoke operational pods around your product margins, inventory cycles, and audience behavior.
-              </p>
-
-              {/* 3 Pillar Value Chips */}
-              <div className="pt-4 grid grid-cols-1 sm:grid-cols-3 gap-4">
-                
-                <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#080B10] font-semibold select-none text-xs">―</span>
-                    <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
-                      Clarity First
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                    Straightforward scope, written deliverable guardrails, and realistic milestones before work begins.
-                  </p>
-                </div>
-
-                <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#080B10] font-semibold select-none text-xs">―</span>
-                    <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
-                      Connected
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                    E-commerce, web engineering, video production, and performance ads synchronised under one roof.
-                  </p>
-                </div>
-
-                <div className="group p-6 rounded-[24px] bg-[#FAFAFA] border border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-[0_15px_35px_rgba(0,0,0,0.05)] transition-all duration-300">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-[#080B10] font-semibold select-none text-xs">―</span>
-                    <span className="text-xs font-mono font-bold text-space-950 uppercase tracking-wider block">
-                      No Bloat
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-600 font-sans leading-relaxed">
-                    Pragmatic solutions shaped around real business resources, unit economics, and cash flow reality.
-                  </p>
-                </div>
-
-              </div>
-
             </div>
 
-            {/* Right Editorial Architectural Card with Comet & Lines (No Real Images) */}
-            <div className="lg:col-span-5 relative">
-              <div className="relative rounded-[32px] overflow-hidden border border-stone-200/90 shadow-xl group bg-[#080B10]">
-                <CelestialCometTile 
-                  tone="dark" 
-                  label="PRACTICE GOVERNANCE" 
-                  code="SYS // 01" 
-                  aspect="aspect-[4/5]" 
-                />
-                
-                {/* Floating Micro-Badge */}
-                <div className="absolute bottom-5 left-5 right-5 p-5 rounded-2xl bg-white/95 backdrop-blur-md border border-white/60 shadow-lg">
-                  <div className="flex items-center justify-between mb-1.5">
-                    <span className="text-xs font-mono font-bold uppercase tracking-wider text-space-950">
-                      Coordinated Brand Execution
-                    </span>
-                  </div>
-                  <p className="text-xs font-sans text-slate-600 leading-relaxed">
-                    Consistent brand presentation across digital touchpoints, uniting packaging, storefront design, and marketplace operations.
-                  </p>
-                </div>
+            {/* Right 8 Cols: Giant Editorial Contrast Headline with Scroll Scrub */}
+            <div className="lg:col-span-8">
+              <h2 className="sec-philosophy-heading font-grotesk font-bold text-[clamp(32px,5vw,76px)] leading-[0.98] tracking-[-0.035em] uppercase mb-8">
+                {philWords.map((word, idx) => (
+                  <span key={idx} className="phil-scrub-word inline-block mr-[0.24em] text-[#CCCCCC] will-change-[color]">
+                    {word}
+                  </span>
+                ))}
+              </h2>
+
+              <p className="font-grotesk text-base sm:text-lg text-[#444444] leading-relaxed max-w-3xl">
+                Instead of selling bloated agency packages with generic retainers, we build bespoke operational pods around your product margins, inventory cycles, and audience behavior.
+              </p>
+            </div>
+
+          </div>
+
+          {/* 3 Foundational Pillars Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 divide-y md:divide-y-0 md:divide-x divide-[#E5E5E5] pt-12">
+            
+            {/* Pillar 01 */}
+            <div className="py-8 md:py-0 md:pr-8 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-bold">
+                  TENET [01]
+                </span>
+                <span className="font-sans text-xs font-bold text-[#000000]">✓</span>
               </div>
+              <h4 className="font-grotesk font-bold text-xl uppercase text-[#000000]">
+                Clarity First
+              </h4>
+              <p className="font-grotesk text-xs sm:text-sm text-[#666666] leading-relaxed">
+                Straightforward scope, written deliverable guardrails, and realistic milestones before work begins. Zero technical gatekeeping or vanity jargon.
+              </p>
+            </div>
+
+            {/* Pillar 02 */}
+            <div className="py-8 md:py-0 md:px-8 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-bold">
+                  TENET [02]
+                </span>
+                <span className="font-sans text-xs font-bold text-[#000000]">✓</span>
+              </div>
+              <h4 className="font-grotesk font-bold text-xl uppercase text-[#000000]">
+                Connected
+              </h4>
+              <p className="font-grotesk text-xs sm:text-sm text-[#666666] leading-relaxed">
+                E-commerce, web engineering, video production, and performance ads synchronised under one roof. When ad spend scales, inventory is synchronized.
+              </p>
+            </div>
+
+            {/* Pillar 03 */}
+            <div className="py-8 md:py-0 md:pl-8 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-bold">
+                  TENET [03]
+                </span>
+                <span className="font-sans text-xs font-bold text-[#000000]">✓</span>
+              </div>
+              <h4 className="font-grotesk font-bold text-xl uppercase text-[#000000]">
+                No Bloat
+              </h4>
+              <p className="font-grotesk text-xs sm:text-sm text-[#666666] leading-relaxed">
+                Pragmatic solutions shaped around real business resources, unit economics, and cash flow reality. Preserving capital for commercial growth.
+              </p>
             </div>
 
           </div>
@@ -546,69 +456,111 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 3. MISSION & VISION (Twin Bento Panels - Headers & Footers Removed)   */}
+      {/* 3. PURPOSE & HORIZON: MISSION & VISION SPLIT MONOLITH                 */}
       {/* ===================================================================== */}
-      <section className="sec-mission relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+      <section className="relative py-20 sm:py-32 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
           
-          <div className="max-w-2xl mb-12 sm:mb-16">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-              02 · Purpose &amp; Horizon
+          {/* Header */}
+          <div className="max-w-3xl mb-12 sm:mb-16 space-y-3">
+            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+              02 / PURPOSE &amp; HORIZON
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15]">
+            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
               Guided by purpose, measured by reliability.
             </h2>
           </div>
 
+          {/* Twin Bento Monolith Panels */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
             
-            {/* Left: Our Mission (Clean, Substantive Paragraphs, Header & Footer Removed) */}
-            <div className="bento-card-left group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
-              <div>
-                <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.5rem] font-normal text-space-950 mb-5 group-hover:text-black transition-colors leading-tight">
+            {/* Left Panel: Our Mission */}
+            <div className="relative group bg-[#0A0A0A] border border-[#262626] hover:border-[#666666] transition-colors p-8 sm:p-12 flex flex-col justify-between overflow-hidden">
+              {/* Subtle Atmospheric Space Image Overlay on Hover */}
+              <div className="absolute inset-0 opacity-15 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none">
+                <img 
+                  src="/images/space/process-build.jpg" 
+                  alt="Mission Execution Space" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-[#0A0A0A]/85" />
+              </div>
+
+              <div className="relative z-10 space-y-6">
+                <div className="flex items-center justify-between pb-4 border-b border-[#262626]">
+                  <span className="font-sans text-xs uppercase tracking-wider text-[#FFFFFF] font-bold">
+                    [01] THE EXECUTION MANDATE
+                  </span>
+                  <span className="font-sans text-[11px] font-semibold text-[#8A8A8A]">
+                    OPERATIONAL SLA
+                  </span>
+                </div>
+
+                <h3 className="font-grotesk font-black text-3xl sm:text-5xl uppercase tracking-tight text-[#FFFFFF]">
                   Our Mission
                 </h3>
 
-                <p className="text-base sm:text-lg text-slate-700 font-sans leading-relaxed mb-4">
+                <blockquote className="font-grotesk text-base sm:text-lg text-[#FFFFFF] font-medium leading-relaxed border-l-2 border-[#FFFFFF] pl-4">
                   "To help businesses navigate the modern digital landscape through practical services, clear communication, and commercial solutions aligned directly with their goals and resources."
-                </p>
+                </blockquote>
 
-                <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
+                <p className="font-grotesk text-xs sm:text-sm text-[#A3A3A3] leading-relaxed">
                   We eliminate arbitrary retainer waste, technical gatekeeping, and fragmented agency handoffs. Whether deploying bespoke e-commerce infrastructure, executing algorithmic paid campaigns, or engineering high-converting retail storefronts, our mandate is measurable business value and transparent operational integrity.
                 </p>
 
-                <p className="text-xs sm:text-sm text-slate-500 font-sans leading-relaxed">
+                <p className="font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
                   Every engagement is guided by senior practice leads who take direct accountability for unit economics, turnaround speed, and long-term brand equity.
                 </p>
               </div>
 
-              <div className="mt-8 pt-4">
-                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
+              <div className="relative z-10 pt-8 mt-8 border-t border-[#262626] flex items-center justify-between text-xs font-sans uppercase tracking-wider text-[#8A8A8A]">
+                <span>100% IN-HOUSE SQUAD</span>
+                <span>DIRECT FOUNDER TRUST</span>
               </div>
             </div>
 
-            {/* Right: Our Vision (Clean, Substantive Paragraphs, Header & Footer Removed) */}
-            <div className="bento-card-right group relative rounded-[28px] sm:rounded-[36px] bg-[#FAFAFA] border border-stone-200/90 p-8 sm:p-12 min-h-[340px] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
-              <div>
-                <h3 className="font-serif text-3xl sm:text-4xl lg:text-[2.5rem] font-normal text-space-950 mb-5 group-hover:text-black transition-colors leading-tight">
+            {/* Right Panel: Our Vision */}
+            <div className="relative group bg-[#0A0A0A] border border-[#262626] hover:border-[#666666] transition-colors p-8 sm:p-12 flex flex-col justify-between overflow-hidden">
+              {/* Subtle Atmospheric Space Image Overlay on Hover */}
+              <div className="absolute inset-0 opacity-15 group-hover:opacity-30 transition-opacity duration-700 pointer-events-none">
+                <img 
+                  src="/images/space/process-scale.jpg" 
+                  alt="Vision Long Horizon Space" 
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-[#0A0A0A]/85" />
+              </div>
+
+              <div className="relative z-10 space-y-6">
+                <div className="flex items-center justify-between pb-4 border-b border-[#262626]">
+                  <span className="font-sans text-xs uppercase tracking-wider text-[#FFFFFF] font-bold">
+                    [02] THE LONG HORIZON
+                  </span>
+                  <span className="font-sans text-[11px] font-semibold text-[#8A8A8A]">
+                    ENTERPRISE EQUITY
+                  </span>
+                </div>
+
+                <h3 className="font-grotesk font-black text-3xl sm:text-5xl uppercase tracking-tight text-[#FFFFFF]">
                   Our Vision
                 </h3>
 
-                <p className="text-base sm:text-lg text-slate-700 font-sans leading-relaxed mb-4">
+                <blockquote className="font-grotesk text-base sm:text-lg text-[#FFFFFF] font-medium leading-relaxed border-l-2 border-[#FFFFFF] pl-4">
                   "To build E-Comet into a globally recognised digital services brand known for unmistakable strategic clarity, reliable execution, and a business-first approach."
-                </p>
+                </blockquote>
 
-                <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed mb-4">
+                <p className="font-grotesk text-xs sm:text-sm text-[#A3A3A3] leading-relaxed">
                   As the intersection of commerce, search, and algorithmic video accelerates, digital brands need infrastructure that compounds over years rather than chasing short-lived vanity metrics.
                 </p>
 
-                <p className="text-xs sm:text-sm text-slate-500 font-sans leading-relaxed">
+                <p className="font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
                   Our horizon is to be the benchmark operating partner for founders and category leaders seeking resilient, multi-channel growth without compromising brand substance or margin control.
                 </p>
               </div>
 
-              <div className="mt-8 pt-4">
-                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
+              <div className="relative z-10 pt-8 mt-8 border-t border-[#262626] flex items-center justify-between text-xs font-sans uppercase tracking-wider text-[#8A8A8A]">
+                <span>GLOBAL RECOGNITION</span>
+                <span>COMPOUNDING RESILIENCE</span>
               </div>
             </div>
 
@@ -618,150 +570,142 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 4. VISUAL SHOWCASE GALLERY (With Real Images & Rich Descriptive Text) */}
+      {/* 4. FOUR FOUNDATIONAL DISCIPLINES: ARCHITECTURAL GALLERY                */}
       {/* ===================================================================== */}
-      <section className="sec-gallery relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+      <section className="sec-craft-grid relative py-20 sm:py-32 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
           
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 sm:mb-16 gap-6">
-            <div className="max-w-2xl">
-              <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-                03 · Capabilities in Action
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#262626] mb-12">
+            <div>
+              <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block mb-2">
+                03 / CRAFT DISCIPLINES
               </span>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15]">
-                Crafted across 4 foundational craft disciplines.
+              <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
+                Crafted across 4 foundational disciplines.
               </h2>
             </div>
-
-            <p className="text-sm sm:text-base text-slate-600 font-sans max-w-sm leading-relaxed">
-              Each discipline is engineered to operate standalone or synchronize seamlessly as an integrated multi-channel growth engine.
+            <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] max-w-[45ch] leading-relaxed">
+              Each discipline operates standalone or synchronizes seamlessly as an integrated multi-channel growth engine.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {/* 4 Architectural Cards with Full Rich Color Space Photography */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {craftDisciplines.map((item, idx) => (
+              <div
+                key={idx}
+                className="craft-card-anim group bg-[#0A0A0A] border border-[#262626] hover:border-[#FFFFFF] transition-all duration-300 flex flex-col justify-between p-4 sm:p-5 cursor-pointer"
+              >
+                {/* Space Image Frame */}
+                <div className="relative aspect-[16/11] w-full overflow-hidden bg-[#111111] mb-5">
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 left-3 bg-[#000000] text-[#FFFFFF] font-sans font-semibold text-[10px] px-2.5 py-0.5 uppercase tracking-wider border border-[#333333]">
+                    {item.code}
+                  </div>
+                </div>
+
+                {/* Pillar Content */}
+                <div className="space-y-3 flex-1 flex flex-col justify-between">
+                  <div className="space-y-2">
+                    <span className="font-sans text-[10.5px] uppercase tracking-wider text-[#8A8A8A] font-semibold block">
+                      PILLAR · {item.pillar}
+                    </span>
+                    <h3 className="font-grotesk font-bold text-lg sm:text-xl text-[#FFFFFF] leading-snug group-hover:text-[#FFFFFF] transition-colors">
+                      {item.title}
+                    </h3>
+                    <p className="font-grotesk text-xs text-[#A3A3A3] leading-relaxed">
+                      {item.desc}
+                    </p>
+                    <p className="font-grotesk text-[11px] text-[#666666] leading-relaxed">
+                      {item.subdesc}
+                    </p>
+                  </div>
+
+                  {/* Tags */}
+                  <div className="pt-4 border-t border-[#262626] flex flex-wrap gap-1">
+                    {item.tags.map((tag, tIdx) => (
+                      <span key={tIdx} className="font-sans font-medium text-[9px] px-2 py-0.5 border border-[#262626] text-[#8A8A8A] uppercase tracking-wider">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
+            ))}
+          </div>
+
+        </div>
+      </section>
+
+      {/* ===================================================================== */}
+      {/* 5. THE 5 OPERATING VALUES: INTERACTIVE SLATE                           */}
+      {/* ===================================================================== */}
+      <section className="relative py-20 sm:py-32 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
-            {/* Gallery Item 1: Brand & Creative with Comet & Lines Artwork */}
-            <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
-              <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
-                <CelestialCometTile 
-                  tone="mono" 
-                  label="CREATIVE // TOKEN SYSTEM" 
-                  code="01" 
-                  aspect="h-full w-full" 
-                />
-              </div>
-              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#080B10] block mb-1.5">
-                    Pillar · Creative Services
-                  </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-black transition-colors">
-                    Brand Identity &amp; Logo Systems
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                    Distinctive typography, color palettes, visual guidelines, packaging concepts, and tactile brand systems engineered to stand out on retail shelves and digital feeds.
-                  </p>
-                  <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                    Designed with consumer psychology to convert first-time shoppers into repeat brand advocates.
-                  </p>
-                </div>
-                <div className="mt-5 pt-3">
-                  <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-                </div>
+            {/* Sticky Left Editorial Column */}
+            <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
+              <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+                04 / OUR OPERATING PRINCIPLES
+              </span>
+              <h2 className="font-grotesk font-bold text-[clamp(36px,5vw,70px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
+                Five values that define how we work.
+              </h2>
+              <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-md">
+                We hold ourselves to straightforward standards that prioritize client clarity, scope integrity, and genuine business value over unnecessary complexity.
+              </p>
+
+              {/* Decorative Live Telemetry Box */}
+              <div className="p-5 bg-[#0A0A0A] border border-[#262626] space-y-2">
+                <span className="font-sans text-[10px] uppercase tracking-widest text-[#FFFFFF] font-bold block">
+                  GOVERNANCE STATUS
+                </span>
+                <p className="font-grotesk text-xs text-[#8A8A8A]">
+                  Zero arbitrary retainers. 100% written accountability on all five pillars.
+                </p>
               </div>
             </div>
 
-            {/* Gallery Item 2: Web Engineering with Comet & Lines Artwork */}
-            <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
-              <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
-                <CelestialCometTile 
-                  tone="mono" 
-                  label="WEB // HEADLESS REACT" 
-                  code="02" 
-                  aspect="h-full w-full" 
-                />
-              </div>
-              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#080B10] block mb-1.5">
-                    Pillar · Website Development
-                  </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-black transition-colors">
-                    Business &amp; E-Commerce Stores
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                    High-performance Shopify Plus builds, Next.js commerce architectures, sub-second checkout funnels, and responsive corporate portals with 95+ Core Web Vitals score.
-                  </p>
-                  <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                    Engineered for zero downtime, lightning load speeds, and maximum transaction throughput.
-                  </p>
-                </div>
-                <div className="mt-5 pt-3">
-                  <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-                </div>
-              </div>
-            </div>
+            {/* Right Column: 5 Stacked Value Rows */}
+            <div className="sec-values-list lg:col-span-7 divide-y divide-[#262626] border-y border-[#262626]">
+              {values.map((val, idx) => (
+                <div
+                  key={idx}
+                  className="value-row-anim group py-8 sm:py-10 transition-colors duration-300 hover:bg-[#0A0A0A] px-4 -mx-4 cursor-pointer"
+                >
+                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-baseline">
+                    
+                    {/* Number */}
+                    <div className="sm:col-span-3 flex items-center justify-between sm:block">
+                      <span className="font-sans text-xs sm:text-sm uppercase tracking-wider text-[#8A8A8A] font-bold block mb-1">
+                        [{val.num}] // {val.tag}
+                      </span>
+                      <h3 className="font-grotesk font-bold text-2xl sm:text-3xl uppercase text-[#FFFFFF] group-hover:translate-x-1 transition-transform">
+                        {val.title}
+                      </h3>
+                    </div>
 
-            {/* Gallery Item 3: Marketplace Operations with Comet & Lines Artwork */}
-            <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
-              <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
-                <CelestialCometTile 
-                  tone="mono" 
-                  label="MARKETPLACES // GLOBAL ASIN" 
-                  code="03" 
-                  aspect="h-full w-full" 
-                />
-              </div>
-              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#080B10] block mb-1.5">
-                    Pillar · E-Commerce Management
-                  </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-black transition-colors">
-                    Marketplace Catalogue &amp; Operations
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                    End-to-end Amazon 1P/3P and Flipkart seller onboarding, conversion-optimized A+ content, PLA ads management, inventory health monitoring, and buy-box protection.
-                  </p>
-                  <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                    Maximizing organic keyword ranking while strictly maintaining profitability and target TACoS.
-                  </p>
-                </div>
-                <div className="mt-5 pt-3">
-                  <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-                </div>
-              </div>
-            </div>
+                    {/* Description & Detail */}
+                    <div className="sm:col-span-9 space-y-2">
+                      <p className="font-grotesk text-sm sm:text-base text-[#FFFFFF] leading-relaxed">
+                        {val.desc}
+                      </p>
+                      <p className="font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
+                        {val.detail}
+                      </p>
+                    </div>
 
-            {/* Gallery Item 4: Media & Motion with Comet & Lines Artwork */}
-            <div className="gallery-img-card group relative rounded-[28px] overflow-hidden border border-stone-200/90 bg-[#FAFAFA] flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500">
-              <div className="aspect-[16/10] overflow-hidden bg-slate-100 border-b border-stone-200/60 relative">
-                <CelestialCometTile 
-                  tone="mono" 
-                  label="VIDEO // MOTION & REELS" 
-                  code="04" 
-                  aspect="h-full w-full" 
-                />
-              </div>
-              <div className="p-6 sm:p-7 flex flex-col justify-between flex-1">
-                <div>
-                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#080B10] block mb-1.5">
-                    Pillar · YouTube &amp; Video
-                  </span>
-                  <h4 className="font-serif text-xl sm:text-2xl font-normal text-space-950 mb-2.5 group-hover:text-black transition-colors">
-                    Video Editing &amp; Shorts / Reels
-                  </h4>
-                  <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                    Dynamic pacing, motion graphics, high-CTR thumbnail packaging, channel SEO, and short-form video repurposing crafted to capture algorithmic watch time.
-                  </p>
-                  <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                    Turning passive viewers into engaged social audiences and high-intent inbound customers.
-                  </p>
+                  </div>
                 </div>
-                <div className="mt-5 pt-3">
-                  <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-                </div>
-              </div>
+              ))}
             </div>
 
           </div>
@@ -770,295 +714,122 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 5. THE 5 CORE BRAND VALUES (Zero Colored Dots, Monochromatic)          */}
+      {/* 6. THE 5-STAGE EXECUTION ROADMAP: HORIZONTAL FRAMEWORK                */}
       {/* ===================================================================== */}
-      <section className="sec-values relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+      <section className="sec-framework-grid relative py-20 sm:py-32 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
           
-          <div className="max-w-3xl mb-12 sm:mb-16">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-              04 · Our Operating Principles
+          <div className="max-w-3xl mb-12 sm:mb-16 space-y-3">
+            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+              05 / THE EXECUTION ROADMAP
             </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15] mb-4">
-              Five values that define how we work.
-            </h2>
-            <p className="text-sm sm:text-base text-slate-600 font-sans leading-relaxed">
-              We hold ourselves to straightforward standards that prioritize client clarity, scope integrity, and genuine business value over unnecessary complexity.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 sm:gap-5">
-            
-            {/* Value 1: Clarity */}
-            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
-              <div>
-                <div className="pb-3 border-b border-stone-200/60 mb-5">
-                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
-                    NO AMBIGUITY
-                  </span>
-                </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
-                  Clarity
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                  Explain the scope, process, deliverables, and performance expectations in straightforward language with zero technical gatekeeping or buzzwords.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  Every partner knows exactly who is executing what, when milestones arrive, and how progress is objectively verified.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-stone-200 mt-6">
-                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-              </div>
-            </div>
-
-            {/* Value 2: Purpose */}
-            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
-              <div>
-                <div className="pb-3 border-b border-stone-200/60 mb-5">
-                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
-                    GOAL-ALIGNED
-                  </span>
-                </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
-                  Purpose
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                  Recommend services and architectural choices based strictly on real commercial needs rather than unnecessary technological complexity.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  We don't push enterprise stacks when lean headless solves the problem, preserving your capital for inventory and acquisition velocity.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-stone-200 mt-6">
-                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-              </div>
-            </div>
-
-            {/* Value 3: Flexibility */}
-            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
-              <div>
-                <div className="pb-3 border-b border-stone-200/60 mb-5">
-                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
-                    ADAPTIVE SCOPE
-                  </span>
-                </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
-                  Flexibility
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                  Shape service scope around the project, resources, and agreed requirements instead of forcing rigid pre-packaged retainers.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  As market dynamics pivot or seasonal demand surges, our practice pods scale dynamically to protect your margins.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-stone-200 mt-6">
-                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-              </div>
-            </div>
-
-            {/* Value 4: Consistency */}
-            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
-              <div>
-                <div className="pb-3 border-b border-stone-200/60 mb-5">
-                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
-                    UNIFIED VOICE
-                  </span>
-                </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
-                  Consistency
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                  Support a coherent, elevated brand presentation across all relevant digital channels, packaging touchpoints, and marketplace nodes.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  From Amazon A+ layouts to direct Shopify checkouts, your customer experiences a cohesive brand narrative that commands premium pricing.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-stone-200 mt-6">
-                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-              </div>
-            </div>
-
-            {/* Value 5: Transparency */}
-            <div className="value-card group relative rounded-[28px] sm:rounded-[32px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden min-h-[320px]">
-              <div>
-                <div className="pb-3 border-b border-stone-200/60 mb-5">
-                  <span className="text-[10.5px] font-mono uppercase text-slate-500 font-bold tracking-wider">
-                    UPFRONT HONESTY
-                  </span>
-                </div>
-                <h3 className="font-serif text-2xl sm:text-3xl font-normal text-space-950 mb-3 group-hover:text-black transition-colors">
-                  Transparency
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-3">
-                  Discuss deliverables, timelines, pricing, revision boundaries, and third-party fees (ad spend, platform hosting) before work begins.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  No hidden costs, no surprise add-ons, and no inflated promises. Honest roadmaps that build genuine, lasting commercial trust.
-                </p>
-              </div>
-              <div className="pt-4 border-t border-stone-200 mt-6">
-                <div className="h-px bg-stone-200 w-full group-hover:bg-space-950/40 transition-colors duration-500" />
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </section>
-
-      {/* ===================================================================== */}
-      {/* 6. OUR 5-STEP OPERATING FRAMEWORK ("Our Approach")                    */}
-      {/* ===================================================================== */}
-      <section className="sec-framework relative py-20 sm:py-32 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
-          
-          <div className="max-w-2xl mb-12 sm:mb-16">
-            <span className="text-xs font-mono uppercase tracking-widest text-slate-400 font-semibold block mb-3">
-              05 · The Execution Roadmap
-            </span>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-serif text-space-950 font-normal tracking-tight leading-[1.15]">
+            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
               A structured roadmap from discovery to delivery.
             </h2>
+            <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-xl">
+              Systematic phases designed to eliminate guesswork, establish clear accountability, and compound margin.
+            </p>
           </div>
 
+          {/* 5 Sequential Framework Cards */}
           <div className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-5">
-            
-            {/* Step 1 */}
-            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
-              <div>
-                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 01</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
-                  Understand
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
-                  Understand your business, target audience, current digital setup, and commercial goals.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  We audit catalog health, conversion leaks, and channel unit economics before proposing architecture.
-                </p>
-              </div>
-              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-1/5 h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
-              </div>
-            </div>
+            {frameworkSteps.map((step, idx) => (
+              <div
+                key={idx}
+                className="framework-step-card group bg-[#0A0A0A] border border-[#262626] hover:border-[#666666] p-6 sm:p-7 flex flex-col justify-between space-y-6 transition-colors"
+              >
+                <div>
+                  <div className="flex items-center justify-between pb-3 border-b border-[#262626] mb-4">
+                    <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-[#8A8A8A]">
+                      {step.stage}
+                    </span>
+                    <span className="font-sans text-[10px] font-bold text-[#FFFFFF]">
+                      0{idx + 1}
+                    </span>
+                  </div>
 
-            {/* Step 2 */}
-            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
-              <div>
-                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 02</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
-                  Identify
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
-                  Identify the relevant digital opportunities, competitive gaps, and operational challenges.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  Benchmarking buy-box dynamics, search volume, keyword indexation, and creative performance gaps.
-                </p>
-              </div>
-              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-2/5 h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
-              </div>
-            </div>
+                  <h3 className="font-grotesk font-bold text-xl sm:text-2xl uppercase text-[#FFFFFF] mb-2 group-hover:text-[#FFFFFF]">
+                    {step.name}
+                  </h3>
 
-            {/* Step 3 */}
-            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
-              <div>
-                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 03</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
-                  Define
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
-                  Define specific services, deliverables, responsibilities, timelines, and proposal scope.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  Written deliverables, fixed revision guardrails, and senior lead accountability locked in upfront.
-                </p>
-              </div>
-              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-3/5 h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
-              </div>
-            </div>
+                  <p className="font-grotesk text-xs sm:text-sm text-[#A3A3A3] leading-relaxed mb-3">
+                    {step.summary}
+                  </p>
 
-            {/* Step 4 */}
-            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
-              <div>
-                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 04</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
-                  Execute
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
-                  Execute the agreed work with meticulous attention to detail, quality, and brand consistency.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  100% senior in-house squad delivery with zero telephone handoffs to junior trainees.
-                </p>
-              </div>
-              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-4/5 h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
-              </div>
-            </div>
+                  <p className="font-grotesk text-[11px] text-[#666666] leading-relaxed">
+                    {step.execution}
+                  </p>
+                </div>
 
-            {/* Step 5 */}
-            <div className="framework-step group relative rounded-[28px] bg-[#FAFAFA] border border-stone-200/90 p-7 sm:p-8 flex flex-col justify-between hover:bg-white hover:border-space-950 hover:shadow-[0_20px_50px_rgba(0,0,0,0.06)] transition-all duration-500 overflow-hidden">
-              <div>
-                <span className="text-[10px] font-mono font-bold text-slate-500 uppercase tracking-wider block mb-3">STAGE 05</span>
-                <h3 className="font-serif text-2xl font-normal text-space-950 mb-2 group-hover:text-black transition-colors">
-                  Review
-                </h3>
-                <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed mb-2">
-                  Review the work against agreed metrics, discuss feedback, and plan appropriate next steps.
-                </p>
-                <p className="text-xs text-slate-500 font-sans leading-relaxed">
-                  Transparent weekly telemetry dashboards with verified attribution and zero vanity metrics.
-                </p>
-              </div>
-              <div className="w-full h-1 bg-stone-200 rounded-full mt-6 overflow-hidden">
-                <div className="w-full h-full bg-[#080B10] group-hover:bg-[#252B36] transition-colors rounded-full" />
-              </div>
-            </div>
+                {/* Progress Metric Bar */}
+                <div className="w-full pt-4 border-t border-[#262626]">
+                  <div className="flex items-center justify-between text-[10px] font-sans text-[#8A8A8A] mb-1.5 uppercase font-semibold">
+                    <span>PROGRESS</span>
+                    <span className="text-[#FFFFFF]">{step.percent}</span>
+                  </div>
+                  <div className="w-full h-1 bg-[#1A1A1A] overflow-hidden">
+                    <div 
+                      className="h-full bg-[#FFFFFF] transition-all duration-700"
+                      style={{ width: step.percent }}
+                    />
+                  </div>
+                </div>
 
+              </div>
+            ))}
           </div>
 
         </div>
       </section>
 
       {/* ===================================================================== */}
-      {/* 7. BRAND INTEGRITY & COMMERCIAL TRANSPARENCY CARD                     */}
+      {/* 7. BRAND INTEGRITY & COMMERCIAL TRANSPARENCY GUARANTEE                 */}
       {/* ===================================================================== */}
-      <section className="relative py-16 sm:py-24 bg-white overflow-hidden hairline-b">
-        <div className="max-w-[1400px] mx-auto px-4 sm:px-8">
+      <section className="relative py-20 sm:py-28 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
           
-          <div className="rounded-[32px] sm:rounded-[40px] bg-[#030712] text-white p-8 sm:p-14 border border-slate-800 shadow-2xl relative overflow-hidden flex flex-col md:flex-row items-center justify-between gap-8">
-            
-            <div className="max-w-2xl space-y-3">
-              <span className="px-3.5 py-1 rounded-full bg-white/10 text-slate-300 font-mono text-[11px] font-semibold uppercase tracking-wider inline-block">
-                Brand Integrity &amp; Transparency Guarantee
-              </span>
-              <h3 className="font-serif text-2xl sm:text-3xl font-normal text-white leading-tight">
-                Clear expectations. Zero false claims.
-              </h3>
-              <p className="text-xs sm:text-sm text-slate-300 font-sans leading-relaxed">
-                We believe in genuine accountability. We do not make exaggerated claims or guarantee arbitrary sales, rankings, or ROAS figures. All project scopes, timelines, revision limits, and third-party fees (ad spend, platform hosting, licenses) are confirmed in writing before work begins.
-              </p>
+          <div className="relative bg-[#0A0A0A] border border-[#262626] p-8 sm:p-14 lg:p-16 overflow-hidden">
+            {/* Space Photography Ambient Underlay */}
+            <div className="absolute inset-0 opacity-20 pointer-events-none">
+              <img 
+                src="/images/space/ring-part-2.jpg" 
+                alt="Brand Integrity Guarantee Space" 
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/80 to-[#0A0A0A]" />
             </div>
 
-            <div className="flex-shrink-0 flex flex-col sm:flex-row items-center gap-3 w-full md:w-auto">
-              <a 
-                href="#closing" 
-                className="w-full sm:w-auto px-6 py-3.5 rounded-full bg-white text-space-950 font-sans text-xs font-semibold hover:bg-slate-100 transition-all text-center shadow-md hover:scale-105 cursor-pointer"
-              >
-                Request a Custom Quote
-              </a>
-              <Link 
-                to="/explore-pillars" 
-                className="w-full sm:w-auto px-5 py-3.5 rounded-full bg-white/10 hover:bg-white/15 border border-white/20 text-slate-200 font-sans text-xs font-semibold transition-colors text-center"
-              >
-                View 6 Pillars
-              </Link>
+            <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              <div className="lg:col-span-8 space-y-4">
+                <span className="px-3 py-1 bg-[#1A1A1A] border border-[#333333] text-[#A3A3A3] font-sans text-[11px] font-bold uppercase tracking-wider inline-block">
+                  Brand Integrity &amp; Transparency Guarantee
+                </span>
+
+                <h3 className="font-grotesk font-bold text-3xl sm:text-5xl uppercase text-[#FFFFFF] leading-tight tracking-tight">
+                  Clear expectations. Zero false claims.
+                </h3>
+
+                <p className="font-grotesk text-xs sm:text-base text-[#A3A3A3] leading-relaxed max-w-2xl">
+                  We believe in genuine accountability. We do not make exaggerated claims or guarantee arbitrary sales, rankings, or ROAS figures. All project scopes, timelines, revision limits, and third-party fees (ad spend, platform hosting, licenses) are confirmed in writing before work begins.
+                </p>
+              </div>
+
+              <div className="lg:col-span-4 flex flex-col sm:flex-row lg:flex-col gap-3 lg:text-right">
+                <a 
+                  href="#closing" 
+                  className="px-6 py-4 bg-[#FFFFFF] hover:bg-[#E5E5E5] text-[#000000] font-sans text-xs font-bold uppercase tracking-wider transition-colors text-center cursor-pointer"
+                >
+                  Request a Custom Quote →
+                </a>
+                <Link 
+                  to="/explore-pillars" 
+                  className="px-6 py-4 bg-[#000000] hover:bg-[#141414] border border-[#333333] hover:border-[#FFFFFF] text-[#FFFFFF] font-sans text-xs font-semibold uppercase tracking-wider transition-colors text-center"
+                >
+                  Explore 6 Pillars
+                </Link>
+              </div>
+
             </div>
 
           </div>
@@ -1067,9 +838,17 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 8. CLOSING SECTION (Aesthetic Asteroid Video CTA) & FOOTER             */}
+      {/* 8. FINAL CTA FORM (Home2 Full Form Architecture) & FOOTER             */}
       {/* ===================================================================== */}
-      <ClosingSection />
+      <Home2FinalCta 
+        data={{
+          eyebrow: "06 / INITIATE BRIEFING",
+          headline: "Enter the next orbit.",
+          subtext: "Connect directly with our senior partners. We analyze your commercial footprint and craft an actionable execution blueprint.",
+          wordmark: "E-COMET"
+        }}
+      />
+
       <Footer />
 
     </div>

@@ -42,22 +42,6 @@ export default function MobileDrawer({ isOpen, onClose }) {
           {/* Navigation Links */}
           <nav className="mt-5 flex flex-col space-y-2">
             <Link
-              to="/"
-              onClick={onClose}
-              className="py-2.5 px-3 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 transition-colors"
-            >
-              Home
-            </Link>
-
-            <Link
-              to="/home2"
-              onClick={onClose}
-              className="py-2.5 px-3 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 transition-colors"
-            >
-              Home 2
-            </Link>
-
-            <Link
               to="/about-us"
               onClick={onClose}
               className="py-2.5 px-3 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 transition-colors"

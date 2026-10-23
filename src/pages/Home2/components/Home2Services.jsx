@@ -108,18 +108,18 @@ export default function Home2Services({ data }) {
                 onMouseEnter={() => setHoveredIdx(idx)}
                 className="service-row-anim group relative py-8 sm:py-12 transition-colors duration-300 cursor-pointer overflow-hidden"
               >
-                {/* Active Background Space Image Reveal on Hover (Full Rich Color) */}
+                {/* Active Background Space Image Reveal on Hover (Full Rich Color & High Opacity) */}
                 <div 
                   className={`absolute inset-0 z-0 transition-opacity duration-500 pointer-events-none ${
-                    isHovered ? 'opacity-45' : 'opacity-0'
+                    isHovered ? 'opacity-85' : 'opacity-0'
                   }`}
                 >
                   <img
                     src={item.image}
                     alt={item.title}
-                    className="w-full h-full object-cover scale-105"
+                    className="w-full h-full object-cover scale-105 transition-transform duration-700 ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/90 via-black/50 to-[#000000]/90" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#000000]/70 via-black/35 to-[#000000]/70" />
                 </div>
 
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline">
