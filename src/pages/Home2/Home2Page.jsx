@@ -1,7 +1,8 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CelestialHero from '../../components/Hero3D/CelestialHero';
+import Home2MobileHero from './components/Home2MobileHero';
 import Home2Problem from './components/Home2Problem';
 import Home2Services from './components/Home2Services';
 import Home2StickyProcess from './components/Home2StickyProcess';
@@ -12,7 +13,7 @@ import Home2ToolsMarquee from './components/Home2ToolsMarquee';
 import Home2SampleWork from './components/Home2SampleWork';
 import Home2Faq from './components/Home2Faq';
 import Home2FinalCta from './components/Home2FinalCta';
-import Home2Footer from './components/Home2Footer';
+import Footer from '../../components/Sections/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -376,6 +377,21 @@ const HOME2_CONTENT = {
 };
 
 export default function Home2Page() {
+  const [isMobile, setIsMobile] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return window.innerWidth < 1024;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     // Scroll progress line for Home2
     const progressLine = document.getElementById('scroll-progress-line');
@@ -390,107 +406,113 @@ export default function Home2Page() {
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll();
 
-    // High-impact GSAP scroll parallax: as user scrolls down from hero to section 2
-    const heroWrapper = document.getElementById('hero-parallax-wrapper');
-    const heroCanvas = document.getElementById('webgl-canvas');
-    const heroLabels = document.getElementById('labels-container');
-    const heroOverlay = document.querySelector('.viewport-atmospheric-overlay');
-    const heroCue = document.getElementById('hero-scroll-cue');
-    const mainContent = document.getElementById('main-content');
-
+    // High-impact GSAP scroll parallax: ONLY ON DESKTOP (when 3D Hero is active)
     let heroParallaxST;
-    if (heroWrapper && mainContent) {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: mainContent,
-          start: 'top bottom',
-          end: 'top top',
-          scrub: true,
-          onUpdate: (self) => {
-            // Performance guard: pause visibility when completely covered by mainContent
-            if (self.progress >= 1) {
-              heroWrapper.style.visibility = 'hidden';
-              heroWrapper.style.pointerEvents = 'none';
-            } else {
-              heroWrapper.style.visibility = 'visible';
-              heroWrapper.style.pointerEvents = 'auto';
+    if (!isMobile) {
+      const heroWrapper = document.getElementById('hero-parallax-wrapper');
+      const heroCanvas = document.getElementById('webgl-canvas');
+      const heroLabels = document.getElementById('labels-container');
+      const heroOverlay = document.querySelector('.viewport-atmospheric-overlay');
+      const heroCue = document.getElementById('hero-scroll-cue');
+      const mainContent = document.getElementById('main-content');
+
+      if (heroWrapper && mainContent) {
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: mainContent,
+            start: 'top bottom',
+            end: 'top top',
+            scrub: true,
+            onUpdate: (self) => {
+              // Performance guard: pause visibility when completely covered by mainContent
+              if (self.progress >= 1) {
+                heroWrapper.style.visibility = 'hidden';
+                heroWrapper.style.pointerEvents = 'none';
+              } else {
+                heroWrapper.style.visibility = 'visible';
+                heroWrapper.style.pointerEvents = 'auto';
+              }
             }
           }
+        });
+
+        // 1. 3D WebGL Canvas Parallax: drifts down at slower speed and recedes into deep space
+        if (heroCanvas) {
+          tl.to(heroCanvas, {
+            yPercent: 32,
+            scale: 0.90,
+            opacity: 0.35,
+            filter: 'blur(6px)',
+            ease: 'none',
+          }, 0);
         }
-      });
 
-      // 1. 3D WebGL Canvas Parallax: drifts down at slower speed and recedes into deep space
-      if (heroCanvas) {
-        tl.to(heroCanvas, {
-          yPercent: 32,
-          scale: 0.90,
-          opacity: 0.35,
-          filter: 'blur(6px)',
-          ease: 'none',
-        }, 0);
+        // 2. Projected 2D Comet Labels: floats upwards into space with negative parallax
+        if (heroLabels) {
+          tl.to(heroLabels, {
+            yPercent: -40,
+            opacity: 0,
+            ease: 'none',
+          }, 0);
+        }
+
+        // 3. Cosmic Atmosphere Vignette Darkens
+        if (heroOverlay) {
+          tl.to(heroOverlay, {
+            opacity: 0.95,
+            ease: 'none',
+          }, 0);
+        }
+
+        // 4. Hero Scroll Cue Fades & Drifts Away
+        if (heroCue) {
+          tl.to(heroCue, {
+            y: -30,
+            opacity: 0,
+            ease: 'none',
+          }, 0);
+        }
+
+        heroParallaxST = tl.scrollTrigger;
       }
-
-      // 2. Projected 2D Comet Labels: floats upwards into space with negative parallax
-      if (heroLabels) {
-        tl.to(heroLabels, {
-          yPercent: -40,
-          opacity: 0,
-          ease: 'none',
-        }, 0);
-      }
-
-      // 3. Cosmic Atmosphere Vignette Darkens
-      if (heroOverlay) {
-        tl.to(heroOverlay, {
-          opacity: 0.95,
-          ease: 'none',
-        }, 0);
-      }
-
-      // 4. Hero Scroll Cue Fades & Drifts Away
-      if (heroCue) {
-        tl.to(heroCue, {
-          y: -30,
-          opacity: 0,
-          ease: 'none',
-        }, 0);
-      }
-
-      heroParallaxST = tl.scrollTrigger;
     }
 
     return () => {
       window.removeEventListener('scroll', onScroll);
       if (heroParallaxST) heroParallaxST.kill();
     };
-  }, []);
+  }, [isMobile]);
 
   return (
     <div className="relative w-full bg-[#02040C] text-[#000000] font-sans antialiased selection:bg-[#000000] selection:text-[#FFFFFF]">
       
-      {/* 1. 3D Celestial Hero with Sticky Parallax Curtain Hand-Off */}
-      <div 
-        id="hero-parallax-wrapper" 
-        className="sticky top-0 left-0 w-full h-screen z-10 overflow-hidden"
-      >
-        <CelestialHero 
-          trackHeightClass="h-screen" 
-          sticky={false} 
-          disableScrollZoom={true} 
-          renderOverlay={false} 
-        />
-        
-        {/* Parallax Cosmic Scroll Cue */}
+      {/* 1. Hero: Pure-CSS Mobile Hero on < 1024px; Full 3D Celestial Engine on Desktop */}
+      {isMobile ? (
+        <Home2MobileHero data={HOME2_CONTENT.hero} />
+      ) : (
         <div 
-          id="hero-scroll-cue"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none select-none transition-opacity duration-300"
+          id="hero-parallax-wrapper" 
+          className="sticky top-0 left-0 w-full h-screen z-10 overflow-hidden"
         >
-          <span className="font-sans text-[11px] uppercase tracking-[0.25em] text-[#A0A5B5] font-semibold bg-[#000000]/75 backdrop-blur-md px-4 py-1.5 border border-white/10 rounded-full shadow-lg">
-            SCROLL TO EXPLORE
-          </span>
-          <div className="w-[1.5px] h-6 bg-gradient-to-b from-white/70 via-white/20 to-transparent animate-pulse" />
+          <CelestialHero 
+            trackHeightClass="h-screen" 
+            sticky={false} 
+            disableScrollZoom={true} 
+            renderOverlay={false} 
+          />
+          
+          {/* Parallax Cosmic Scroll Cue */}
+          <div 
+            id="hero-scroll-cue"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none select-none transition-opacity duration-300"
+          >
+            <span className="font-sans text-[11px] uppercase tracking-[0.25em] text-[#A0A5B5] font-semibold bg-[#000000]/75 backdrop-blur-md px-4 py-1.5 border border-white/10 rounded-full shadow-lg">
+              SCROLL TO EXPLORE
+            </span>
+            <div className="w-[1.5px] h-6 bg-gradient-to-b from-white/70 via-white/20 to-transparent animate-pulse" />
+          </div>
         </div>
-      </div>
+      )}
 
       {/* 2. Main Content Curtain: relative z-20 with heavy top shadow — rolls over the sticky hero like a physical architectural slab */}
       <main 
@@ -528,8 +550,8 @@ export default function Home2Page() {
         <Home2FinalCta data={HOME2_CONTENT.cta} />
       </main>
 
-      {/* 13. Minimalist Black Footer */}
-      <Home2Footer />
+      {/* 13. Comprehensive Footer with Real 3D Comet & 5 Practice Pillars */}
+      <Footer />
 
     </div>
   );

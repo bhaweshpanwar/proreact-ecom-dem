@@ -33,12 +33,12 @@ export default function SingleCometCanvas({
 
     // 2. High-performance renderer with bright, crisp exposure
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: window.innerWidth >= 768,
       alpha: true,
       powerPreference: 'high-performance'
     });
     renderer.setSize(width, height);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, window.innerWidth < 768 ? 1 : 1.75));
     renderer.toneMapping = THREE.ACESFilmicToneMapping;
     renderer.toneMappingExposure = 1.25; // Bright, clear, crisp visibility
     container.appendChild(renderer.domElement);
@@ -147,11 +147,17 @@ export default function SingleCometCanvas({
 
     window.addEventListener('mousemove', onMouseMove);
 
-    // 9. Animation Loop
+    // 9. Animation Loop with IntersectionObserver (0 CPU/GPU wasted off-screen)
     const clock = new THREE.Clock();
+    let isVisible = false;
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    }, { threshold: 0.02 });
+    observer.observe(container);
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      if (!isVisible) return; // Completely pause rendering when not in viewport
       const elapsed = clock.getElapsedTime();
 
       // Subtle Parallax easing
@@ -186,6 +192,7 @@ export default function SingleCometCanvas({
     return () => {
       disposed = true;
       cancelAnimationFrame(animId);
+      observer.disconnect();
       window.removeEventListener('resize', handleResize);
       window.removeEventListener('mousemove', onMouseMove);
 

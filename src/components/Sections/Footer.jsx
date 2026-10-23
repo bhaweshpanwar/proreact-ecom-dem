@@ -60,18 +60,22 @@ export default function Footer() {
     <>
       {/* ─────────────────────────────────────────────────────────────
           1. "BEYOND DIGITAL. INTO THE NEXT ORBIT."
-          LIGHT MODE SECTION (#F8F9FA)
+          LIGHT ARCHITECTURAL PRE-FOOTER SECTION (#FFFFFF)
           Clean architectural transition between dark form and dark footer.
-          Header pill and footer telemetry strip removed per user request.
+          Pure modern sans-serif typography.
          ───────────────────────────────────────────────────────────── */}
       <section className="relative bg-white text-[#080B10] border-t border-stone-200/90 py-20 sm:py-28 select-none">
         <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
           
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="max-w-3xl space-y-4">
-              <h2 className="text-4xl sm:text-5xl lg:text-6xl font-serif text-[#080B10] tracking-tight leading-[1.1]">
+              <span className="font-sans text-xs uppercase tracking-widest text-[#647285] font-semibold block">
+                07 / NEXT ORBIT BLUEPRINT
+              </span>
+              
+              <h2 className="text-3xl sm:text-5xl lg:text-6xl font-grotesk font-black text-[#080B10] tracking-tight uppercase leading-[1.05]">
                 Beyond Digital.<br />
-                <span className="italic font-normal">Into the Next Orbit.</span>
+                <span className="text-[#647285] font-bold">Into the Next Orbit.</span>
               </h2>
               
               <p className="text-sm sm:text-base text-stone-600 font-sans leading-relaxed pt-2 max-w-2xl">
@@ -82,7 +86,7 @@ export default function Footer() {
             <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3 flex-shrink-0">
               <a 
                 href="/#closing" 
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white text-xs font-semibold tracking-wide transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white text-xs font-sans font-semibold uppercase tracking-wider transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
               >
                 <span>Request Custom Growth Blueprint</span>
                 <span>→</span>
@@ -91,7 +95,7 @@ export default function Footer() {
                 href="https://wa.me/91XXXXXXXXXX" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-stone-50 text-[#080B10] text-xs font-semibold border border-stone-300 transition-all hover:border-stone-500 shadow-xs cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-stone-50 text-[#080B10] text-xs font-sans font-semibold uppercase tracking-wider border border-stone-300 transition-all hover:border-stone-500 shadow-xs cursor-pointer"
               >
                 <span>Direct WhatsApp Consultation</span>
                 <span>↗</span>
