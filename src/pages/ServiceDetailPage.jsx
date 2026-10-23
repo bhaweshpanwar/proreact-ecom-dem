@@ -94,6 +94,14 @@ const DEFAULT_PROCESS = [
 ];
 
 export default function ServiceDetailPage({ slugOverride }) {
+  const [isMobile, setIsMobile] = useState(() => typeof window !== 'undefined' ? window.innerWidth < 1024 : false);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 1024);
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   const { slug: routeSlug } = useParams();
   const rawSlug = slugOverride || routeSlug;
   const slug = SLUG_ALIASES[rawSlug] || rawSlug;
@@ -446,7 +454,7 @@ export default function ServiceDetailPage({ slugOverride }) {
           
           {/* Breadcrumb & Live Operational Telemetry Pill */}
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8 sm:mb-12">
-            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-slate-400">
+            <nav aria-label="Breadcrumb" className="hidden md:flex items-center gap-2 text-xs font-mono text-slate-400">
               <Link to="/" className="hover:text-white transition-colors">Orbit</Link>
               <span>/</span>
               <span className="text-slate-500 uppercase tracking-wider">{service.category}</span>
@@ -565,10 +573,12 @@ export default function ServiceDetailPage({ slugOverride }) {
 
             </div>
 
-            {/* Right Celestial Arena: 3D Asteroid Canvas */}
-            <div className="lg:col-span-5 flex items-center justify-center relative w-full">
-              <SingleCometCanvas colorHex={service.colorHex} title={service.title} />
-            </div>
+            {/* Right Celestial Arena: 3D Asteroid Canvas (Desktop Only — completely skipped on mobile for 60 FPS performance) */}
+            {!isMobile && (
+              <div className="hidden lg:flex lg:col-span-5 items-center justify-center relative w-full">
+                <SingleCometCanvas colorHex={service.colorHex} title={service.title} />
+              </div>
+            )}
 
           </div>
 

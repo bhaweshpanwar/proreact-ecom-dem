@@ -29,7 +29,7 @@ const HOME2_CONTENT = {
   hero: {
     eyebrow: "VOLUME 01 / 2026 · DIGITAL GROWTH ARCHITECTURE",
     headline: "Beyond digital. Into the next orbit.",
-    description: "One senior team for ambitious brands scaling online. Marketplaces, performance marketing, high-conversion web engineering, and brand creative aligned directly to unit economics.",
+    description: "Stop managing five disconnected vendors who blame each other. We engineer full-funnel digital revenue—scaling Amazon marketplaces, high-margin paid acquisition, and custom web architecture governed strictly by your bottom line.",
     auditBtn: "Get a free audit",
     whatsappBtn: "WhatsApp us",
     heroImage: "/images/space/ring-part-2.jpg"
