@@ -175,34 +175,72 @@ export default function ServiceDetailPage({ slugOverride }) {
     ScrollTrigger.refresh();
   }, [slug, service]);
 
-  // Handle why video slowmo playback
+  // Handle why video slowmo playback with viewport observer (saves mobile battery/GPU)
   useEffect(() => {
-    if (whyVideoRef.current) {
-      whyVideoRef.current.playbackRate = 0.65;
+    const video = whyVideoRef.current;
+    if (!video) return;
+
+    video.playbackRate = 0.65;
+
+    let observer;
+    if (typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver(([entry]) => {
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      }, { threshold: 0.05 });
+      observer.observe(video);
     }
+
+    return () => {
+      if (observer) observer.disconnect();
+    };
   }, [slug]);
 
   // Bespoke scroll swipe-in and stagger animations
   useEffect(() => {
     let mm;
     const ctx = gsap.context(() => {
-      // 1. Architecture Main Heading float tied to scroll
-      gsap.fromTo(
-        '.architecture-heading-float',
-        { x: '40vw', opacity: 0.2 },
-        {
-          x: 0,
-          opacity: 1,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.sec-capabilities',
-            start: 'top bottom',
-            end: 'top 20%',
-            scrub: true,
-            invalidateOnRefresh: true,
+      mm = gsap.matchMedia();
+
+      // 1. Architecture Main Heading float (Desktop scrubs; Mobile uses lightweight fade to prevent touch lag)
+      mm.add("(min-width: 1024px)", () => {
+        gsap.fromTo(
+          '.architecture-heading-float',
+          { x: '35vw', opacity: 0.2 },
+          {
+            x: 0,
+            opacity: 1,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.sec-capabilities',
+              start: 'top bottom',
+              end: 'top 20%',
+              scrub: true,
+            }
           }
-        }
-      );
+        );
+      });
+
+      mm.add("(max-width: 1023px)", () => {
+        gsap.fromTo(
+          '.architecture-heading-float',
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.5,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: '.sec-capabilities',
+              start: 'top 88%',
+              toggleActions: 'play none none none'
+            }
+          }
+        );
+      });
 
       // 2. Capabilities Cards Matrix
       gsap.utils.toArray('.capability-matrix-card').forEach((card) => {
@@ -322,18 +360,16 @@ export default function ServiceDetailPage({ slugOverride }) {
         cards.forEach((card) => {
           gsap.fromTo(
             card,
-            { y: 80, opacity: 0 },
+            { y: 35, opacity: 0 },
             {
               y: 0,
               opacity: 1,
-              duration: 1.0,
-              ease: 'none',
+              duration: 0.6,
+              ease: 'power2.out',
               scrollTrigger: {
                 trigger: card,
-                start: 'top 85%',
-                end: 'top 55%',
-                scrub: 0.25,
-                invalidateOnRefresh: true,
+                start: 'top 88%',
+                toggleActions: 'play none none none'
               }
             }
           );
