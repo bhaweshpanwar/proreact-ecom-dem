@@ -3,8 +3,12 @@ import * as THREE from 'three';
 
 export default function ThreeAstronautFace({ className = "w-full h-full" }) {
   const mountRef = useRef(null);
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
 
   useEffect(() => {
+    // On mobile devices, skip WebGL context completely to save GPU resources
+    if (isMobile) return;
+
     const container = mountRef.current;
     if (!container) return;
 
@@ -189,7 +193,20 @@ export default function ThreeAstronautFace({ className = "w-full h-full" }) {
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [isMobile]);
+
+  if (isMobile) {
+    return (
+      <div className={`relative flex items-center justify-center select-none pointer-events-none ${className}`}>
+        <svg className="w-7 h-7 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+          <circle cx="12" cy="12" r="9" />
+          <path d="M12 7c-2.5 0-4.5 1.5-4.5 3.5s2 3.5 4.5 3.5 4.5-1.5 4.5-3.5S14.5 7 12 7z" fill="rgba(56,189,248,0.25)" stroke="#38BDF8" />
+          <path d="M7 17v1a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-1" />
+          <path d="M12 3v1" />
+        </svg>
+      </div>
+    );
+  }
 
   return (
     <div 

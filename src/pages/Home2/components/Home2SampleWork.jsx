@@ -56,14 +56,25 @@ export default function Home2SampleWork({ data }) {
   // Triple set for seamless infinite looping
   const repeatedProjects = [...projects, ...projects, ...projects];
 
-  // Continuous smooth auto-glide animation
+  // Auto-glide animation: Only on Desktop (>= 768px) and ONLY when section is visible in viewport
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
 
+    // On mobile screens (< 768px), disable the JS RAF scroll loop completely to prevent touch fighting
+    const isMobile = window.innerWidth < 768;
+    if (isMobile) return;
+
     let animId;
+    let isVisible = false;
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isVisible = entry.isIntersecting;
+    }, { threshold: 0.05 });
+    observer.observe(el);
+
     const step = () => {
-      if (!isPausedRef.current && el) {
+      if (isVisible && !isPausedRef.current && el) {
         const oneThird = el.scrollWidth / 3;
         el.scrollLeft += 0.65;
         if (oneThird > 0 && el.scrollLeft >= oneThird * 2) {
@@ -76,7 +87,10 @@ export default function Home2SampleWork({ data }) {
     };
 
     animId = requestAnimationFrame(step);
-    return () => cancelAnimationFrame(animId);
+    return () => {
+      cancelAnimationFrame(animId);
+      observer.disconnect();
+    };
   }, [projects]);
 
   const handleScroll = (direction) => {

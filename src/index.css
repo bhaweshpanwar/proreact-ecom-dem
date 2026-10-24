@@ -116,18 +116,29 @@
   overflow: hidden;
 }
 
-/* On mobile: strictly hide all comet names and labels */
+/* Mobile Comet Labels: Clean, compact, visible, and touch-optimized */
 @media (max-width: 767px) {
-  #labels-container,
-  .comet-label-wrap,
-  .comet-label-inner,
-  .comet-label-text,
-  .comet-label-dot,
+  .comet-label-wrap {
+    pointer-events: auto !important;
+  }
+  .comet-label-inner {
+    padding: 2px 7px 2px 5px !important;
+    gap: 3.5px !important;
+    background: rgba(5, 9, 20, 0.92) !important;
+    border: 1px solid rgba(255, 255, 255, 0.22) !important;
+  }
+  .comet-label-dot {
+    width: 3.5px !important;
+    height: 3.5px !important;
+  }
+  .comet-label-text {
+    font-size: 8.5px !important;
+    letter-spacing: 0.04em !important;
+    color: #F1F5F9 !important;
+    font-weight: 600 !important;
+  }
   .comet-label-info-badge {
     display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
   }
 }
 

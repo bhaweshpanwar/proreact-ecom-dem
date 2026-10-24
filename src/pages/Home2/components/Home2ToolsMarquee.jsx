@@ -48,8 +48,11 @@ export default function Home2ToolsMarquee({ data }) {
   useEffect(() => {
     if (!sectionRef.current) return;
 
+    // On mobile devices (< 768px): skip dynamic velocity-skew to prevent font re-rasterization lag
+    if (window.innerWidth < 768) return;
+
     const ctx = gsap.context(() => {
-      // Velocity-reactive skew and speedup when user scrolls
+      // Velocity-reactive skew and speedup when user scrolls (Desktop only)
       const clamp = gsap.utils.clamp(-8, 8);
       const skewSetter1 = gsap.quickSetter(track1Ref.current, "skewX", "deg");
       const skewSetter2 = gsap.quickSetter(track2Ref.current, "skewX", "deg");

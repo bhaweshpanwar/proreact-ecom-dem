@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -7,6 +7,17 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Home2StickyProcess({ data }) {
   const containerRef = useRef(null);
   const cardRefs = useRef([]);
+  const [isMobile, setIsMobile] = useState(() => {
+    return typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    window.addEventListener('resize', handleResize, { passive: true });
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const {
     steps = [
@@ -50,6 +61,9 @@ export default function Home2StickyProcess({ data }) {
   } = data || {};
 
   useEffect(() => {
+    // On mobile devices (< 768px): skip pinning & scrub to eliminate address-bar fighting and scroll-jank
+    if (isMobile) return;
+
     const ctx = gsap.context(() => {
       const cards = cardRefs.current;
       if (!cards[0] || !cards[1] || !cards[2] || !cards[3]) return;
@@ -137,20 +151,24 @@ export default function Home2StickyProcess({ data }) {
     }, containerRef);
 
     return () => ctx.revert();
-  }, []);
+  }, [isMobile]);
 
   return (
     <section 
       id="process" 
       ref={containerRef} 
-      className="relative w-full h-screen bg-[#02040C] overflow-hidden select-none"
+      className={`relative w-full bg-[#02040C] select-none ${isMobile ? 'py-8' : 'h-screen overflow-hidden'}`}
     >
       {/* 4 Immersive Full-Bleed Space Cards */}
       {steps.map((step, idx) => (
         <div
           key={idx}
           ref={(el) => (cardRefs.current[idx] = el)}
-          className="absolute inset-0 w-full h-full bg-[#02040C] overflow-hidden will-change-transform shadow-[0_-30px_80px_rgba(0,0,0,0.95)]"
+          className={`${
+            isMobile 
+              ? 'relative w-full min-h-[85vh] flex flex-col justify-center py-16 px-4 mb-4 border-b border-white/10 overflow-hidden shadow-2xl'
+              : 'absolute inset-0 w-full h-full bg-[#02040C] overflow-hidden will-change-transform shadow-[0_-30px_80px_rgba(0,0,0,0.95)]'
+          }`}
         >
           {/* Full Screen Width Space Image */}
           <img

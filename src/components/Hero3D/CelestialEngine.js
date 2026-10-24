@@ -92,12 +92,16 @@ export class CelestialEngine {
 
     // High-performance visibility observer (0% CPU & 0% GPU when hero is scrolled out of view)
     this.isHeroVisible = true;
-    if (typeof IntersectionObserver !== 'undefined' && this.canvas) {
-      this.visibilityObserver = new IntersectionObserver(([entry]) => {
-        this.isHeroVisible = entry.isIntersecting;
-      }, { threshold: 0.01 });
-      this.visibilityObserver.observe(this.canvas);
-    }
+    this.handleScrollVisibility = () => {
+      // If user has scrolled down past the hero height, freeze 3D rendering immediately
+      const isPastHero = (window.scrollY || document.documentElement.scrollTop) > (this.height * 1.05);
+      if (isPastHero && this.isHeroVisible) {
+        this.isHeroVisible = false;
+      } else if (!isPastHero && !this.isHeroVisible) {
+        this.isHeroVisible = true;
+      }
+    };
+    window.addEventListener('scroll', this.handleScrollVisibility, { passive: true });
 
     this.animate = this.animate.bind(this);
     this.animationFrameId = requestAnimationFrame(this.animate);
@@ -864,32 +868,28 @@ export class CelestialEngine {
 
       if (comet.nucleusMesh.material) comet.nucleusMesh.material.opacity = visibilityFactor;
 
-      // Update 2D Label Screen Projection (Desktop & Tablet only — eliminates 12 DOM reflows per frame on mobile)
-      if (comet.labelEl) {
-        if (this.isMobile && this.width < 768) {
-          comet.labelEl.style.display = 'none';
-        } else if (this.camera) {
-          comet.labelEl.style.display = 'block';
-          const tempV = pos.clone().project(this.camera);
-          const isBehindCamera = tempV.z > 1.0;
-          if (isBehindCamera || this.heroScrollProgress > 0.1) {
-            comet.labelEl.style.opacity = '0';
-            comet.labelEl.style.pointerEvents = 'none';
+      // Update 2D Label Screen Projection (Seamless across Desktop, Tablet & Mobile)
+      if (comet.labelEl && this.camera) {
+        comet.labelEl.style.display = 'block';
+        const tempV = pos.clone().project(this.camera);
+        const isBehindCamera = tempV.z > 1.0;
+        if (isBehindCamera || this.heroScrollProgress > 0.1) {
+          comet.labelEl.style.opacity = '0';
+          comet.labelEl.style.pointerEvents = 'none';
+        } else {
+          const x = (tempV.x * 0.5 + 0.5) * this.width;
+          const y = (-(tempV.y * 0.5) + 0.5) * this.height;
+          comet.labelEl.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0)`;
+          
+          const isSelected = this.selectedCometIndex === comet.index;
+          if (isSelected) {
+            comet.labelEl.classList.add('is-focused');
           } else {
-            const x = (tempV.x * 0.5 + 0.5) * this.width;
-            const y = (-(tempV.y * 0.5) + 0.5) * this.height;
-            comet.labelEl.style.transform = `translate(-50%, -50%) translate3d(${x}px, ${y}px, 0)`;
-            
-            const isSelected = this.selectedCometIndex === comet.index;
-            if (isSelected) {
-              comet.labelEl.classList.add('is-focused');
-            } else {
-              comet.labelEl.classList.remove('is-focused');
-            }
-            
-            comet.labelEl.style.opacity = String(visibilityFactor);
-            comet.labelEl.style.pointerEvents = visibilityFactor > 0.4 ? 'auto' : 'none';
+            comet.labelEl.classList.remove('is-focused');
           }
+          
+          comet.labelEl.style.opacity = String(visibilityFactor);
+          comet.labelEl.style.pointerEvents = visibilityFactor > 0.4 ? 'auto' : 'none';
         }
       }
     });
@@ -954,8 +954,8 @@ export class CelestialEngine {
       }
     });
 
-    if (this.visibilityObserver) {
-      this.visibilityObserver.disconnect();
+    if (this.handleScrollVisibility) {
+      window.removeEventListener('scroll', this.handleScrollVisibility);
     }
     if (this.renderer) {
       this.renderer.dispose();
