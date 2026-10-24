@@ -133,13 +133,13 @@ export default function MobileDrawer({ isOpen, onClose }) {
               Marketplace
             </Link>
 
-            <a
-              href="#closing"
+            <Link
+              to="/contact"
               onClick={onClose}
               className="py-2.5 px-3 rounded-lg text-sm font-semibold text-slate-800 hover:bg-slate-100 transition-colors"
             >
               Contact Us
-            </a>
+            </Link>
           </nav>
         </div>
 

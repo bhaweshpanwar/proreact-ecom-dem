@@ -116,6 +116,21 @@
   overflow: hidden;
 }
 
+/* On mobile: strictly hide all comet names and labels */
+@media (max-width: 767px) {
+  #labels-container,
+  .comet-label-wrap,
+  .comet-label-inner,
+  .comet-label-text,
+  .comet-label-dot,
+  .comet-label-info-badge {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+}
+
 .comet-label-wrap {
   position: absolute;
   top: 0;

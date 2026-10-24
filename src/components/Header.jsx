@@ -90,12 +90,14 @@ export default function Header() {
             </Link>
 
             {/* Contact Us */}
-            <a 
-              href="/#closing" 
-              className="px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold text-slate-800 hover:bg-slate-100/80 transition-colors"
+            <Link 
+              to="/contact" 
+              className={`px-3.5 py-2 rounded-full font-sans text-[13.5px] font-semibold transition-colors ${
+                location.pathname === '/contact' || location.pathname === '/contact-us' ? 'bg-slate-900 text-white shadow-2xs' : 'text-slate-800 hover:bg-slate-100/80'
+              }`}
             >
               Contact Us
-            </a>
+            </Link>
 
           </nav>
 

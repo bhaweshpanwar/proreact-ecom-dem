@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import Home2Page from './pages/Home2/Home2Page';
 import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import PillarExplorePage from './pages/PillarExplorePage';
 import MarketplacePage from './pages/MarketplacePage';
@@ -19,6 +20,8 @@ function AppContent() {
         <Route path="/home2" element={<Home2Page />} />
         <Route path="/home1" element={<HomePage />} />
         <Route path="/about-us" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/contact-us" element={<ContactPage />} />
         <Route path="/marketplace" element={<MarketplacePage />} />
 
         {/* Explore Pillar Pages (From MegaMenu "Explore Full Pillar" & Direct Links) */}

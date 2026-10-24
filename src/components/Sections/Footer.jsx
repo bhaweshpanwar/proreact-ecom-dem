@@ -264,7 +264,7 @@ export default function Footer() {
               <div className="flex items-center gap-6">
                 <Link to="/about-us" className="hover:text-white transition-colors">About Us</Link>
                 <Link to="/services/ecommerce-management" className="hover:text-white transition-colors">Services</Link>
-                <a href="/#closing" className="hover:text-white transition-colors">Contact / Audit</a>
+                <Link to="/contact" className="hover:text-white transition-colors">Contact / Audit</Link>
                 <a href="https://wa.me/91XXXXXXXXXX" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">WhatsApp</a>
               </div>
             </div>

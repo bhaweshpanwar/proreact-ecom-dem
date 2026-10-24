@@ -377,6 +377,8 @@ export class CelestialEngine {
     );
 
     this.earthSurfaceMesh = new THREE.Mesh(surfaceGeo, this.earthSurfaceMat);
+    const baseScale = this.isMobile ? 0.50 : 1.0;
+    this.earthSurfaceMesh.scale.set(baseScale, baseScale, baseScale);
     this.earthGroup.add(this.earthSurfaceMesh);
 
     // Clouds Sphere (Rotating independently)
@@ -412,6 +414,7 @@ export class CelestialEngine {
     );
 
     this.earthCloudsMesh = new THREE.Mesh(cloudGeo, this.earthCloudsMat);
+    this.earthCloudsMesh.scale.set(baseScale, baseScale, baseScale);
     this.earthGroup.add(this.earthCloudsMesh);
 
     this.scene.add(this.earthGroup);
@@ -645,8 +648,11 @@ export class CelestialEngine {
     this.height = window.innerHeight;
     this.isMobile = this.width < 768;
 
+    const baseScale = this.isMobile ? 0.50 : 1.0;
     if (this.selectedCometIndex === -1 && this.heroScrollProgress === 0) {
       this.targetCameraPos.copy(CAMERA_CONFIG.defaultPos);
+      if (this.earthSurfaceMesh) this.earthSurfaceMesh.scale.set(baseScale, baseScale, baseScale);
+      if (this.earthCloudsMesh) this.earthCloudsMesh.scale.set(baseScale, baseScale, baseScale);
     }
 
     this.camera.aspect = this.width / this.height;
@@ -731,6 +737,7 @@ export class CelestialEngine {
     );
 
     // Polar Dive Zoom on Scroll
+    const baseScale = this.isMobile ? 0.50 : 1.0;
     if (this.heroScrollProgress > 0) {
       const p = this.heroScrollProgress;
       const t = Math.min(Math.pow(p / 0.50, 1.8), 1.0);
@@ -741,12 +748,12 @@ export class CelestialEngine {
       this.currentLookAt.set(0, -1.2 + (4.8 - (-1.2)) * t, 0);
       this.camera.lookAt(this.currentLookAt);
 
-      const earthScale = 1.0 + t * 1.8;
+      const earthScale = baseScale * (1.0 + t * 1.8);
       if (this.earthSurfaceMesh) this.earthSurfaceMesh.scale.setScalar(earthScale);
       if (this.earthCloudsMesh) this.earthCloudsMesh.scale.setScalar(earthScale);
     } else {
-      if (this.earthSurfaceMesh) this.earthSurfaceMesh.scale.set(1, 1, 1);
-      if (this.earthCloudsMesh) this.earthCloudsMesh.scale.set(1, 1, 1);
+      if (this.earthSurfaceMesh) this.earthSurfaceMesh.scale.set(baseScale, baseScale, baseScale);
+      if (this.earthCloudsMesh) this.earthCloudsMesh.scale.set(baseScale, baseScale, baseScale);
 
       if (this.selectedCometIndex !== -1) {
         // Classic smooth camera tracking of selected comet
