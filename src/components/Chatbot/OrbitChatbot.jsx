@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import ThreeAstronautFace from './ThreeAstronautFace';
 
 export default function OrbitChatbot() {
   const [isOpen, setIsOpen] = useState(false);
@@ -112,17 +111,20 @@ export default function OrbitChatbot() {
           {/* Top Header Bar */}
           <div className="p-4 sm:p-5 bg-[#0D121B] border-b border-white/10 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              {/* 3D Astronaut Avatar */}
-              <div className="relative w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white shadow-inner overflow-hidden">
-                <ThreeAstronautFace className="w-full h-full" />
-                <span className="absolute bottom-0 right-0 w-2.5 h-2.5 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399] border-2 border-[#080B10] z-10" />
+              {/* Professional Chatbot Avatar */}
+              <div className="relative w-10 h-10 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white shadow-inner">
+                <svg className="w-5 h-5 text-white fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2m-5 4h10a3 3 0 013 3v5a3 3 0 01-3 3h-1.5l-3.5 3-3.5-3H7a3 3 0 01-3-3v-5a3 3 0 013-3z" />
+                  <circle cx="9.5" cy="12.5" r="1.2" fill="currentColor" stroke="none" />
+                  <circle cx="14.5" cy="12.5" r="1.2" fill="currentColor" stroke="none" />
+                </svg>
               </div>
               
               <div>
                 <div className="flex items-center gap-2">
                   <h4 className="font-sans text-base font-semibold text-white tracking-tight">E-Comet Assistant</h4>
-                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono text-[9px] uppercase tracking-wider font-semibold border border-emerald-500/30">
-                    ONLINE
+                  <span className="px-2 py-0.5 rounded-full bg-white/10 text-white/90 font-mono text-[9px] uppercase tracking-wider font-semibold border border-white/20">
+                    ACTIVE
                   </span>
                 </div>
                 <p className="text-[11px] text-slate-400 font-mono">Strategic Practice Navigator</p>
@@ -246,7 +248,7 @@ export default function OrbitChatbot() {
       )}
 
       {/* =================================================================== */}
-      {/* FLOATING TRIGGER BUTTON: SLEEK COSMIC BLACK BRAND PILL              */}
+      {/* FLOATING TRIGGER BUTTON: SLEEK PROFESSIONAL WHITE CHATBOT ICON      */}
       {/* =================================================================== */}
       <button
         type="button"
@@ -258,15 +260,18 @@ export default function OrbitChatbot() {
         <div className="absolute -inset-1 rounded-full bg-white/10 blur-md group-hover:scale-110 transition-all duration-300" />
 
         {/* Main Circular Button Shell */}
-        <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#080B10] border border-white/20 group-hover:border-white/40 shadow-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-105 active:scale-95 overflow-hidden">
-          
-          {/* 3D Astronaut Face Micro Canvas */}
-          <div className="w-full h-full pointer-events-none">
-            <ThreeAstronautFace className="w-full h-full" />
-          </div>
-
-          {/* Active Online Indicator Dot */}
-          <span className="absolute top-1 right-1 w-3 h-3 rounded-full bg-emerald-400 shadow-[0_0_8px_#34D399] border-2 border-[#080B10] z-20" />
+        <div className="relative w-13 h-13 sm:w-15 sm:h-15 rounded-full bg-[#080B10] border border-white/20 group-hover:border-white/50 shadow-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-105 active:scale-95">
+          {isOpen ? (
+            <svg className="w-5 h-5 sm:w-6 sm:h-6 text-white stroke-current stroke-2 transition-transform duration-300 rotate-90" viewBox="0 0 24 24" fill="none">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          ) : (
+            <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white fill-none stroke-current stroke-[1.75]" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 2v2m-5 4h10a3 3 0 013 3v5a3 3 0 01-3 3h-1.5l-3.5 3-3.5-3H7a3 3 0 01-3-3v-5a3 3 0 013-3z" />
+              <circle cx="9.5" cy="12.5" r="1.2" fill="currentColor" stroke="none" />
+              <circle cx="14.5" cy="12.5" r="1.2" fill="currentColor" stroke="none" />
+            </svg>
+          )}
         </div>
 
         {/* Floating Tooltip Pill */}

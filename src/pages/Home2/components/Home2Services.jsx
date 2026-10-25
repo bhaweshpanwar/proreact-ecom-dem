@@ -138,6 +138,19 @@ export default function Home2Services({ data }) {
                     <h3 className="font-grotesk font-bold text-2xl sm:text-4xl text-[#FFFFFF] group-hover:translate-x-2 transition-transform duration-300">
                       {item.title}
                     </h3>
+
+                    {/* Mobile High Quality Image Display */}
+                    <div className="block lg:hidden pt-2 pb-1">
+                      <div className="relative aspect-[16/9] w-full overflow-hidden border border-[#262626] bg-[#0A0A0A]">
+                        <img
+                          src={item.image}
+                          alt={item.title}
+                          className="w-full h-full object-cover"
+                          loading="lazy"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
+                      </div>
+                    </div>
                   </div>
 
                   {/* Description */}

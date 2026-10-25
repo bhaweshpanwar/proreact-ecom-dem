@@ -82,8 +82,8 @@ export default function Home2Hero({ data }) {
       </div>
 
       {/* Hero Bottom Bar: Scroll Indicator & Section Index */}
-      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-4 border-t border-[#1A1A1A] flex items-center justify-between font-mono text-[11px] uppercase tracking-wider text-[#8A8A8A]">
-        <div className="flex items-center gap-2">
+      <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-3 sm:py-4 border-t border-[#1A1A1A] flex items-center justify-between font-mono text-[9px] sm:text-[11px] uppercase tracking-wider text-[#8A8A8A]">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <span className="animate-pulse">↓</span>
           <span>Scroll to explore</span>
         </div>

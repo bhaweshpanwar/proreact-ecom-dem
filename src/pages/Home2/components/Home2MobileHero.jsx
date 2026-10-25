@@ -67,20 +67,20 @@ export default function Home2MobileHero({ data }) {
             decoding="async"
             className="w-full aspect-[16/10] object-cover transition-transform duration-700 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#000000] via-transparent to-transparent pointer-events-none opacity-90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#000000]/60 via-transparent to-transparent pointer-events-none opacity-60" />
         </div>
 
       </div>
 
       {/* Subtle Bottom Scroll Cue */}
-      <div className="relative z-10 pt-6 pb-2 flex flex-col items-center justify-center">
+      <div className="relative z-10 pt-4 pb-2 flex flex-col items-center justify-center">
         <a
           href="#problem"
-          className="flex items-center gap-2 text-[#737373] hover:text-white transition-colors cursor-pointer py-1 font-mono text-[10px] uppercase tracking-[0.25em]"
+          className="flex items-center gap-1.5 text-[#8A8A8A] hover:text-white transition-colors cursor-pointer py-1 font-mono text-[8px] uppercase tracking-[0.18em]"
           aria-label="Scroll to Problem section"
         >
           <span>Scroll to Explore</span>
-          <span className="text-xs animate-bounce">↓</span>
+          <span className="text-[9px] animate-bounce">↓</span>
         </a>
       </div>
 

@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { MARKETPLACE_CATEGORIES, MARKETPLACE_INDUSTRIES } from '../data/marketplaceData';
 import CosmicGalaxyCanvas from '../components/Hero3D/CosmicGalaxyCanvas';
+import Home2FinalCta from './Home2/components/Home2FinalCta';
 import Footer from '../components/Sections/Footer';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -11,38 +12,71 @@ gsap.registerPlugin(ScrollTrigger);
 export default function MarketplacePage() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All Sectors');
-  const cardsContainerRef = useRef(null);
+  const [cardDisplayMode, setCardDisplayMode] = useState('full'); // 'full' (all paras visible) | 'accordion'
+  const [expandedPhases, setExpandedPhases] = useState({});
+  const containerRef = useRef(null);
 
   // Scroll to top on mount
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+    ScrollTrigger.refresh();
   }, []);
+
+  // Filtered industry items
+  const filteredIndustries = useMemo(() => {
+    return MARKETPLACE_INDUSTRIES.filter((ind) => {
+      const matchesCategory =
+        selectedCategory === 'All Sectors' || ind.category === selectedCategory;
+
+      const q = searchQuery.toLowerCase().trim();
+      const matchesSearch =
+        !q ||
+        ind.title.toLowerCase().includes(q) ||
+        ind.category.toLowerCase().includes(q) ||
+        ind.tagline.toLowerCase().includes(q) ||
+        ind.targetPersona.toLowerCase().includes(q) ||
+        ind.overview.toLowerCase().includes(q) ||
+        ind.paragraphs.some((p) => p.toLowerCase().includes(q)) ||
+        ind.searchKeywords.some((kw) => kw.toLowerCase().includes(q)) ||
+        ind.keyCapabilities.some((cap) => cap.toLowerCase().includes(q));
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchQuery]);
+
+  // Toggle expanded state for accordion view
+  const toggleCardPhases = (id) => {
+    setExpandedPhases((prev) => ({
+      ...prev,
+      [id]: !prev[id]
+    }));
+  };
 
   // GSAP Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // 1. Hero text entrance
+      // 1. Hero Entrance
       gsap.fromTo(
-        '.market-hero-anim',
-        { y: 30, opacity: 0 },
+        '.market-hero-stagger',
+        { y: 35, opacity: 0 },
         {
           y: 0,
           opacity: 1,
-          duration: 0.85,
-          stagger: 0.12,
+          duration: 0.8,
+          stagger: 0.08,
           ease: 'power3.out'
         }
       );
 
-      // 2. Card scroll animations
-      gsap.utils.toArray('.marketplace-industry-card').forEach((card) => {
+      // 2. Cards Scroll Fade-in
+      gsap.utils.toArray('.sector-dossier-card').forEach((card) => {
         gsap.fromTo(
           card,
-          { y: 40, opacity: 0 },
+          { y: 35, opacity: 0 },
           {
             y: 0,
             opacity: 1,
-            duration: 0.7,
+            duration: 0.65,
             ease: 'power3.out',
             scrollTrigger: {
               trigger: card,
@@ -52,440 +86,589 @@ export default function MarketplacePage() {
           }
         );
       });
-    }, cardsContainerRef);
+    }, containerRef);
 
     return () => ctx.revert();
-  }, [selectedCategory, searchQuery]);
+  }, [filteredIndustries, cardDisplayMode]);
 
-  // Filtered industries based on active category and live search query
-  const filteredIndustries = useMemo(() => {
-    return MARKETPLACE_INDUSTRIES.filter((ind) => {
-      // Category filter
-      const matchesCategory =
-        selectedCategory === 'All Sectors' || ind.category === selectedCategory;
-
-      if (!matchesCategory) return false;
-
-      // Query filter
-      if (!searchQuery.trim()) return true;
-
-      const q = searchQuery.toLowerCase().trim();
-      const inTitle = ind.title.toLowerCase().includes(q);
-      const inPersona = ind.targetPersona.toLowerCase().includes(q);
-      const inTagline = ind.tagline.toLowerCase().includes(q);
-      const inOverview = ind.overview.toLowerCase().includes(q);
-      const inCategory = ind.category.toLowerCase().includes(q);
-      const inSector = ind.sectorBadge.toLowerCase().includes(q);
-      const inKeywords = ind.searchKeywords.some((kw) => kw.toLowerCase().includes(q));
-      const inParagraphs = ind.paragraphs.some((p) => p.toLowerCase().includes(q));
-      const inCapabilities = ind.keyCapabilities.some((c) => c.toLowerCase().includes(q));
-
-      return (
-        inTitle ||
-        inPersona ||
-        inTagline ||
-        inOverview ||
-        inCategory ||
-        inSector ||
-        inKeywords ||
-        inParagraphs ||
-        inCapabilities
-      );
-    });
-  }, [selectedCategory, searchQuery]);
+  // Jump to specific card
+  const scrollToSector = (id) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
 
   return (
-    <div className="min-h-screen bg-[#FDFDFD] text-slate-900 font-sans selection:bg-slate-900 selection:text-white">
+    <div ref={containerRef} className="relative min-h-screen bg-[#000000] text-[#FFFFFF] select-none overflow-x-hidden pt-20">
       
       {/* ========================================================================= */}
-      {/* 1. HERO SECTION (Cosmic Obsidian Aesthetic matching Service Detail)      */}
+      {/* 1. BESPOKE COMMERCE HERO: THE SECTOR ATLAS                                */}
       {/* ========================================================================= */}
-      <section className="relative min-h-[640px] sm:min-h-[700px] bg-[#000000] text-white pt-32 pb-20 px-4 sm:px-8 overflow-hidden flex flex-col justify-center">
-        {/* Interactive Cosmic Galaxy Three.js Starfield Canvas */}
-        <div className="absolute inset-0 z-0 pointer-events-none opacity-85">
-          <CosmicGalaxyCanvas accentColorHex="#38BDF8" />
+      <section className="relative min-h-[75vh] flex flex-col justify-between border-b border-[#262626] bg-[#000000] overflow-hidden">
+        
+        {/* Subtle Canvas Galaxy Particle Layer */}
+        <div className="absolute inset-0 pointer-events-none opacity-25 z-0">
+          <CosmicGalaxyCanvas />
         </div>
 
-        {/* Ambient Gradient Overlays */}
-        <div 
-          className="absolute inset-0 z-0 bg-radial-[at_top_center] from-transparent via-[#000000]/60 to-[#000000] pointer-events-none" 
-          aria-hidden="true" 
-        />
-        <div 
-          className="absolute -top-40 -right-40 w-96 h-96 rounded-full pointer-events-none opacity-20 blur-3xl bg-blue-500/20" 
-          aria-hidden="true" 
-        />
-        <div 
-          className="absolute -bottom-40 -left-40 w-96 h-96 rounded-full pointer-events-none opacity-15 blur-3xl bg-amber-500/15" 
-          aria-hidden="true" 
-        />
+        {/* Ambient Radial Mesh Glow */}
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[400px] bg-gradient-to-b from-[#E4572E]/12 via-[#38BDF8]/08 to-transparent blur-3xl pointer-events-none rounded-full" />
 
-        <div className="relative z-10 max-w-6xl mx-auto w-full text-center flex flex-col items-center">
-          
-          {/* Telemetry Monospace Badge */}
-          <div className="market-hero-anim inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/15 text-slate-200 text-xs font-mono font-medium tracking-wider mb-6">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-[11px] uppercase tracking-widest text-slate-200">
-              MASTERMIND INDUSTRY DIRECTORY · LIVE SEARCH INDEX
+        {/* Top Intelligence Masthead */}
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-8 pt-8 sm:pt-12">
+          <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#262626] font-sans text-xs uppercase tracking-widest text-[#8A8A8A]">
+            <div className="flex items-center gap-2.5">
+              <span className="w-2 h-2 rounded-full bg-[#E4572E] animate-pulse" />
+              <span className="text-[#FFFFFF] font-bold">COMMERCE DIRECTORY // 2026</span>
+              <span>·</span>
+              <span>16 INDUSTRY PLAYBOOKS</span>
+            </div>
+            <div className="hidden sm:flex items-center gap-6">
+              <span>ALGORITHMIC MARGIN PHYSICS</span>
+              <span>·</span>
+              <span className="text-[#FFFFFF]">ZERO GENERIC TEMPLATES</span>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero Headline & Narrative */}
+        <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 sm:px-8 py-12 sm:py-16 my-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-end">
+            
+            <div className="lg:col-span-8 space-y-6">
+              <div className="market-hero-stagger inline-flex items-center gap-2 px-3 py-1 bg-[#141414] border border-[#2E2E2E] text-[#A3A3A3] font-sans text-[11px] uppercase tracking-wider font-semibold">
+                <span className="text-[#E4572E] font-bold">●</span>
+                <span>VERTICAL OPERATING DOSSIERS</span>
+              </div>
+
+              <h1 className="market-hero-stagger font-grotesk font-black text-[clamp(38px,6vw,92px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
+                The Sector Atlas. <br />
+                <span className="text-[#8A8A8A]">Every Trade Has Its Own Physics.</span>
+              </h1>
+
+              <p className="market-hero-stagger font-grotesk text-base sm:text-xl text-[#A3A3A3] max-w-2xl leading-relaxed">
+                Amazon Buy-Boxes. Zomato margin thresholds. Google Local 3-Packs. High-ticket B2B pipeline search. We document the precise operational strategy, customer journey, and unit economics across 16 commercial trades.
+              </p>
+            </div>
+
+            <div className="lg:col-span-4 space-y-4 lg:border-l lg:border-[#262626] lg:pl-8">
+              <p className="market-hero-stagger font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
+                Explore the complete technical breakdown for your sector. Each dossier details local discovery, channel margin defense, paid media acquisition, and long-term retention architecture.
+              </p>
+
+              <div className="market-hero-stagger flex flex-col sm:flex-row lg:flex-col gap-2.5 pt-2">
+                <a
+                  href="#directory-console"
+                  className="px-6 py-3.5 bg-[#FFFFFF] hover:bg-[#E5E5E5] text-[#000000] font-sans text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-between cursor-pointer"
+                >
+                  <span>Explore Sector Directory</span>
+                  <span>↓</span>
+                </a>
+                <a
+                  href="#contact-briefing"
+                  className="px-6 py-3.5 bg-[#0A0A0A] hover:bg-[#141414] border border-[#333333] hover:border-[#666666] text-[#FFFFFF] font-sans text-xs font-semibold uppercase tracking-wider transition-all flex items-center justify-between cursor-pointer"
+                >
+                  <span>Request Custom Trade Audit</span>
+                  <span>→</span>
+                </a>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Quick-Jump Sector Navigator Bar */}
+          <div className="market-hero-stagger mt-12 pt-8 border-t border-[#262626]">
+            <span className="font-sans text-[10.5px] uppercase tracking-wider text-[#737373] font-semibold block mb-3">
+              FAST JUMP TO SECTOR DOSSIER:
             </span>
-          </div>
-
-          {/* Primary Serif Headline */}
-          <h1 className="market-hero-anim font-serif text-4xl sm:text-6xl md:text-7xl lg:text-[76px] font-normal leading-[1.05] tracking-tight text-white max-w-5xl mb-6">
-            Specialized Growth Systems for Every Industry & Trade
-          </h1>
-
-          {/* Dynamic Cyan Accent Line */}
-          <div className="market-hero-anim flex items-center justify-center gap-2 mb-8" aria-hidden="true">
-            <span className="h-1 sm:h-1.5 rounded-full w-24 sm:w-36 bg-[#38BDF8] shadow-[0_0_16px_rgba(56,189,248,0.8)]" />
-            <span className="h-1 sm:h-1.5 rounded-full w-4 sm:w-6 bg-[#38BDF8] opacity-80" />
-            <span className="h-1 sm:h-1.5 rounded-full w-1.5 sm:w-2 bg-[#38BDF8] opacity-40" />
-          </div>
-
-          {/* Descriptive Subtitle */}
-          <p className="market-hero-anim font-sans text-base sm:text-xl text-slate-300 font-normal leading-relaxed max-w-3xl mb-10">
-            From local cafes and multi-speciality hospitals to motorcycle repair garages, spice millers, and clothing boutiques—purpose-built digital marketing, marketplace operations, and customer acquisition playbooks engineered for your specific business reality.
-          </p>
-
-          {/* Telemetry Stats Strip */}
-          <div className="market-hero-anim grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-8 py-5 px-6 rounded-2xl bg-white/5 backdrop-blur-md border border-white/10 max-w-3xl w-full text-left">
-            <div>
-              <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block mb-0.5">
-                Target Sectors
-              </span>
-              <span className="text-base sm:text-lg font-sans font-bold text-white">
-                16 Major Trades
-              </span>
-            </div>
-            <div>
-              <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block mb-0.5">
-                Intent Queries
-              </span>
-              <span className="text-base sm:text-lg font-sans font-bold text-white">
-                120+ Search Clusters
-              </span>
-            </div>
-            <div>
-              <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block mb-0.5">
-                Playbook Architecture
-              </span>
-              <span className="text-base sm:text-lg font-sans font-bold text-white">
-                Deep Custom Execution
-              </span>
-            </div>
-            <div>
-              <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-400 block mb-0.5">
-                Boilerplate Guarantee
-              </span>
-              <span className="text-base sm:text-lg font-sans font-bold text-emerald-400">
-                0% Fluff · 100% Real
-              </span>
+            <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
+              {MARKETPLACE_INDUSTRIES.map((ind) => (
+                <button
+                  key={ind.id}
+                  onClick={() => scrollToSector(ind.id)}
+                  className="whitespace-nowrap px-3 py-1.5 bg-[#0D0D0D] hover:bg-[#1A1A1A] border border-[#262626] hover:border-[#FFFFFF] text-xs font-grotesk text-[#A3A3A3] hover:text-[#FFFFFF] transition-all flex items-center gap-1.5 flex-shrink-0"
+                >
+                  <span className="font-mono text-[10px] text-[#FFFFFF]">[{ind.code}]</span>
+                  <span>{ind.category}</span>
+                </button>
+              ))}
             </div>
           </div>
 
-          {/* Quick Jump Anchor Button */}
-          <div className="market-hero-anim mt-10">
-            <a
-              href="#directory-cards"
-              className="px-8 py-3.5 rounded-full bg-white text-space-950 font-sans text-xs font-semibold hover:bg-slate-100 transition-all shadow-lg hover:scale-105 inline-flex items-center gap-2"
+        </div>
+
+        {/* Telemetry Metrics Strip */}
+        <div className="relative z-10 w-full border-t border-[#262626] bg-[#0A0A0A]/95">
+          <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
+            <div className="grid grid-cols-2 lg:grid-cols-4 divide-x divide-[#262626]">
+              <div className="py-4 pr-4 flex items-center gap-3">
+                <span className="font-mono text-sm font-bold text-[#FFFFFF]">[16]</span>
+                <span className="font-sans text-[11px] text-[#A3A3A3] uppercase tracking-wider">
+                  Specialized Verticals Documented
+                </span>
+              </div>
+              <div className="py-4 px-4 flex items-center gap-3">
+                <span className="font-mono text-sm font-bold text-[#FFFFFF]">[64]</span>
+                <span className="font-sans text-[11px] text-[#A3A3A3] uppercase tracking-wider">
+                  In-Depth Operational Chapters
+                </span>
+              </div>
+              <div className="py-4 px-4 flex items-center gap-3">
+                <span className="font-mono text-sm font-bold text-[#FFFFFF]">[112+]</span>
+                <span className="font-sans text-[11px] text-[#A3A3A3] uppercase tracking-wider">
+                  Target SEO Query Clusters
+                </span>
+              </div>
+              <div className="py-4 pl-4 flex items-center gap-3">
+                <span className="font-mono text-sm font-bold text-[#E4572E]">0%</span>
+                <span className="font-sans text-[11px] text-[#A3A3A3] uppercase tracking-wider">
+                  Recycled Agency Retainers
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 2. THE 4 PILLARS OF SECTOR PHYSICS (Completely New Section)              */}
+      {/* ========================================================================= */}
+      <section className="relative py-20 sm:py-28 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
+          
+          <div className="max-w-3xl mb-12 sm:mb-16 space-y-4">
+            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+              THE COMMERCIAL CALCULUS // 4 GOVERNING LAWS
+            </span>
+            <h2 className="font-grotesk font-black text-[clamp(32px,5vw,72px)] leading-[0.95] tracking-[-0.035em] uppercase text-[#FFFFFF]">
+              How We Evaluate Any Vertical.
+            </h2>
+            <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-2xl">
+              Before running an ad, writing a line of code, or editing a video reel, our senior practice leads audit your sector across four non-negotiable commercial dimensions.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            {/* Law 01 */}
+            <div className="p-6 bg-[#0A0A0A] border border-[#262626] hover:border-[#666666] transition-colors space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-[#262626]">
+                <span className="font-mono text-xs text-[#E4572E] font-bold">LAW 01</span>
+                <span className="font-sans text-[10px] text-[#737373] uppercase tracking-wider">ACQUISITION</span>
+              </div>
+              <h3 className="font-grotesk font-bold text-lg uppercase text-white">
+                Search Intent &amp; Discovery
+              </h3>
+              <p className="font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
+                Does your buyer search on Google Maps (hyperlocal radius), Amazon search bar (product comparison), or Meta feeds (impulse sensory)? We capture the primary discovery node.
+              </p>
+            </div>
+
+            {/* Law 02 */}
+            <div className="p-6 bg-[#0A0A0A] border border-[#262626] hover:border-[#666666] transition-colors space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-[#262626]">
+                <span className="font-mono text-xs text-[#38BDF8] font-bold">LAW 02</span>
+                <span className="font-sans text-[10px] text-[#737373] uppercase tracking-wider">UNIT MARGIN</span>
+              </div>
+              <h3 className="font-grotesk font-bold text-lg uppercase text-white">
+                Aggregator Commission Shield
+              </h3>
+              <p className="font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
+                Protecting net gross margins against 25-35% platform cuts (Zomato, Swiggy, Amazon fees) by pairing discovery channels with direct WhatsApp &amp; D2C ordering funnels.
+              </p>
+            </div>
+
+            {/* Law 03 */}
+            <div className="p-6 bg-[#0A0A0A] border border-[#262626] hover:border-[#666666] transition-colors space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-[#262626]">
+                <span className="font-mono text-xs text-[#FFFFFF] font-bold">LAW 03</span>
+                <span className="font-sans text-[10px] text-[#737373] uppercase tracking-wider">ALGORITHMS</span>
+              </div>
+              <h3 className="font-grotesk font-bold text-lg uppercase text-white">
+                Catalogue &amp; Buy-Box Physics
+              </h3>
+              <p className="font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
+                Algorithmic pricing rules, listing variations, structured schema, backend keyword density, and daily Buy-Box suppression governance to maximize transaction velocity.
+              </p>
+            </div>
+
+            {/* Law 04 */}
+            <div className="p-6 bg-[#0A0A0A] border border-[#262626] hover:border-[#666666] transition-colors space-y-4">
+              <div className="flex items-center justify-between pb-3 border-b border-[#262626]">
+                <span className="font-mono text-xs text-[#E4572E] font-bold">LAW 04</span>
+                <span className="font-sans text-[10px] text-[#737373] uppercase tracking-wider">LTV VELOCITY</span>
+              </div>
+              <h3 className="font-grotesk font-bold text-lg uppercase text-white">
+                Retention &amp; Re-Ordering CRM
+              </h3>
+              <p className="font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
+                Converting first-time transactions into compounding repeat business. QR feedback systems, WhatsApp broadcast triggers, and automated re-stock notifications.
+              </p>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      {/* ========================================================================= */}
+      {/* 3. STICKY DIRECTORY CONSOLE & CATEGORY FILTER BAR                         */}
+      {/* ========================================================================= */}
+      <div id="directory-console" className="sticky top-20 z-30 bg-[#0A0A0A]/95 backdrop-blur-md border-y border-[#262626]">
+        <div className="max-w-[1440px] mx-auto px-4 sm:px-8 py-4 space-y-3.5">
+          
+          <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3">
+            
+            {/* Search Input */}
+            <div className="relative flex-1 max-w-2xl">
+              <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#737373]">
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search by trade, keyword, or platform (e.g. Cafe, Amazon, Hospital, Fashion, B2B)..."
+                className="w-full pl-10 pr-24 py-2.5 bg-[#141414] hover:bg-[#1A1A1A] focus:bg-[#141414] text-xs sm:text-sm text-[#FFFFFF] placeholder-[#737373] border border-[#2E2E2E] focus:border-[#FFFFFF] transition-all outline-none font-grotesk"
+              />
+
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-xs font-mono font-semibold text-[#8A8A8A] hover:text-[#FFFFFF] transition-colors"
+                >
+                  CLEAR [✕]
+                </button>
+              )}
+            </div>
+
+            {/* Reading View Switcher */}
+            <div className="flex items-center justify-between sm:justify-end gap-2 text-xs font-sans">
+              <span className="font-mono text-[11px] text-[#737373] uppercase hidden sm:inline">
+                DOSSIER DENSITY:
+              </span>
+
+              <div className="inline-flex items-center p-1 bg-[#141414] border border-[#262626]">
+                <button
+                  onClick={() => setCardDisplayMode('full')}
+                  className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider transition-all ${
+                    cardDisplayMode === 'full'
+                      ? 'bg-[#FFFFFF] text-[#000000] font-bold'
+                      : 'text-[#8A8A8A] hover:text-[#FFFFFF]'
+                  }`}
+                >
+                  All Paras Open
+                </button>
+
+                <button
+                  onClick={() => setCardDisplayMode('accordion')}
+                  className={`px-3 py-1.5 text-xs font-medium uppercase tracking-wider transition-all ${
+                    cardDisplayMode === 'accordion'
+                      ? 'bg-[#FFFFFF] text-[#000000] font-bold'
+                      : 'text-[#8A8A8A] hover:text-[#FFFFFF]'
+                  }`}
+                >
+                  Interactive Drawer
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          {/* Horizontal Category Pills */}
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 pt-1 -mx-4 px-4 sm:mx-0 sm:px-0">
+            {MARKETPLACE_CATEGORIES.map((cat) => {
+              const isSelected = selectedCategory === cat;
+              const count =
+                cat === 'All Sectors'
+                  ? MARKETPLACE_INDUSTRIES.length
+                  : MARKETPLACE_INDUSTRIES.filter((i) => i.category === cat).length;
+
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`whitespace-nowrap px-3.5 py-1.5 text-xs font-grotesk tracking-wide transition-all flex items-center gap-1.5 flex-shrink-0 ${
+                    isSelected
+                      ? 'bg-[#FFFFFF] text-[#000000] font-bold shadow-sm'
+                      : 'bg-[#111111] text-[#8A8A8A] hover:bg-[#1A1A1A] hover:text-[#FFFFFF] border border-[#262626]'
+                  }`}
+                >
+                  <span>{cat}</span>
+                  <span
+                    className={`text-[10px] px-1.5 py-0.2 font-mono ${
+                      isSelected
+                        ? 'bg-[#000000]/15 text-[#000000]'
+                        : 'bg-white/10 text-[#8A8A8A]'
+                    }`}
+                  >
+                    {count}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+        </div>
+      </div>
+
+      {/* Active Results Status Strip */}
+      <div className="bg-[#050505] border-b border-[#262626] py-2.5 px-4 sm:px-8">
+        <div className="max-w-[1440px] mx-auto flex items-center justify-between text-xs font-sans text-[#8A8A8A]">
+          <div className="flex items-center gap-2">
+            <span>INDEXING</span>
+            <strong className="text-[#FFFFFF] font-mono">[{filteredIndustries.length}]</strong>
+            <span>OF {MARKETPLACE_INDUSTRIES.length} SECTOR OPERATIONAL DOSSIERS</span>
+            {selectedCategory !== 'All Sectors' && (
+              <span className="hidden sm:inline-block px-2 py-0.5 bg-[#141414] border border-[#262626] text-[#FFFFFF] text-[11px] font-mono">
+                FILTER: {selectedCategory.toUpperCase()}
+              </span>
+            )}
+          </div>
+
+          {(selectedCategory !== 'All Sectors' || searchQuery) && (
+            <button
+              onClick={() => {
+                setSelectedCategory('All Sectors');
+                setSearchQuery('');
+              }}
+              className="text-[#FFFFFF] hover:underline font-mono text-[11px] font-semibold"
             >
-              <span>Explore Industry Blueprints</span>
-              <span>↓</span>
-            </a>
-          </div>
-
+              RESET ALL FILTERS ↺
+            </button>
+          )}
         </div>
-      </section>
+      </div>
 
       {/* ========================================================================= */}
-      {/* 2. INTERACTIVE SEARCH & CATEGORY FILTER CONTROL BAR                       */}
+      {/* 4. SECTOR DOSSIER CARDS (NO IMAGES, TYPOGRAPHY & RICH PARAS)              */}
       {/* ========================================================================= */}
-      <section id="directory-cards" className="sticky top-20 z-30 bg-white/95 backdrop-blur-md border-b border-stone-200/90 shadow-2xs py-4 px-4 sm:px-8 transition-all">
-        <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4">
-          
-          {/* Real-Time Search Bar */}
-          <div className="relative flex-1 max-w-lg">
-            <span className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
-              <svg className="w-4 h-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24">
-                <circle cx="11" cy="11" r="8" />
-                <path d="M21 21l-4.35-4.35" />
-              </svg>
-            </span>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder='Search by trade or query (e.g. "cafe", "hospital", "bike repair", "spices", "clothes")...'
-              className="w-full pl-10 pr-9 py-2.5 rounded-full bg-stone-100 border border-stone-200 text-xs sm:text-sm text-slate-900 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-space-950 focus:bg-white transition-all"
-            />
-            {searchQuery && (
-              <button
-                type="button"
-                onClick={() => setSearchQuery('')}
-                className="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-slate-700"
-                aria-label="Clear search"
-              >
-                ✕
-              </button>
-            )}
-          </div>
-
-          {/* Results Count & Quick Reset */}
-          <div className="flex items-center justify-between md:justify-end gap-3 flex-shrink-0">
-            <span className="text-xs font-mono text-slate-600">
-              Showing <span className="font-bold text-space-950">{filteredIndustries.length}</span> of {MARKETPLACE_INDUSTRIES.length} Sectors
-            </span>
-            {(selectedCategory !== 'All Sectors' || searchQuery) && (
-              <button
-                type="button"
-                onClick={() => {
-                  setSelectedCategory('All Sectors');
-                  setSearchQuery('');
-                }}
-                className="text-xs font-mono text-blue-600 hover:underline cursor-pointer"
-              >
-                Reset Filters
-              </button>
-            )}
-          </div>
-
-        </div>
-
-        {/* Scrollable Category Filter Pills */}
-        <div className="max-w-7xl mx-auto mt-3 pt-3 border-t border-stone-200/60 overflow-x-auto scrollbar-none flex items-center gap-2 pb-1">
-          {MARKETPLACE_CATEGORIES.map((cat) => {
-            const isActive = selectedCategory === cat;
-            return (
-              <button
-                key={cat}
-                type="button"
-                onClick={() => setSelectedCategory(cat)}
-                className={`px-3 py-1.5 rounded-full text-xs font-sans font-medium whitespace-nowrap transition-all cursor-pointer ${
-                  isActive
-                    ? 'bg-[#080B10] text-white shadow-xs'
-                    : 'bg-stone-100 hover:bg-stone-200 text-slate-700'
-                }`}
-              >
-                {cat}
-              </button>
-            );
-          })}
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 3. QUICK JUMP SECTOR TILES (Compact Overview Bar)                         */}
-      {/* ========================================================================= */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-8 pt-8 pb-4">
-        <div className="p-4 sm:p-5 rounded-2xl bg-stone-50 border border-stone-200/80">
-          <div className="flex items-center gap-2 mb-3">
-            <span className="w-2 h-2 rounded-full bg-space-950" />
-            <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-600">
-              Fast Jump Index // Click any industry to jump directly to its strategic blueprint
-            </span>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            {MARKETPLACE_INDUSTRIES.map((ind) => (
-              <a
-                key={ind.id}
-                href={`#${ind.id}`}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white border border-stone-200 hover:border-space-950 text-slate-700 hover:text-slate-900 text-xs font-sans transition-all hover:shadow-2xs"
-              >
-                <span className="font-mono text-[10px] text-slate-400 font-bold">{ind.code}</span>
-                <span>{ind.sectorBadge}</span>
-              </a>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================= */}
-      {/* 4. FULL-WIDTH INDUSTRY STRATEGY CARDS CONTAINER                           */}
-      {/* ========================================================================= */}
-      <main ref={cardsContainerRef} className="max-w-7xl mx-auto px-4 sm:px-8 py-10 sm:py-16 space-y-16 sm:space-y-20">
+      <main className="max-w-[1440px] mx-auto px-4 sm:px-8 py-16 sm:py-24 space-y-16">
         
         {filteredIndustries.length === 0 ? (
-          <div className="text-center py-24 bg-white rounded-3xl border border-stone-200 p-8">
-            <p className="font-serif text-2xl text-slate-800 mb-2">No matching industry blueprints found</p>
-            <p className="text-sm text-slate-500 mb-6 max-w-md mx-auto">
-              We did not find any sector matching "{searchQuery}". Clear your search query or reset the sector filter.
+          <div className="text-center py-24 border border-dashed border-[#262626] bg-[#0A0A0A] p-8 max-w-xl mx-auto space-y-4">
+            <div className="w-12 h-12 bg-[#141414] text-[#FFFFFF] flex items-center justify-center mx-auto text-lg font-mono border border-[#333333]">
+              ∅
+            </div>
+            <h3 className="font-grotesk font-bold text-xl text-[#FFFFFF]">No Sector Matched Your Query</h3>
+            <p className="font-grotesk text-sm text-[#8A8A8A]">
+              Try searching for common terms like "Amazon", "Shopify", "Hospital", "Fashion", "B2B", or reset your filters.
             </p>
             <button
-              type="button"
               onClick={() => {
-                setSearchQuery('');
                 setSelectedCategory('All Sectors');
+                setSearchQuery('');
               }}
-              className="px-6 py-2.5 rounded-full bg-space-950 text-white text-xs font-semibold hover:bg-slate-800 transition-colors"
+              className="inline-flex items-center px-5 py-2.5 bg-[#FFFFFF] text-[#000000] text-xs font-bold uppercase tracking-wider hover:bg-[#E5E5E5] transition-all"
             >
-              Reset Search & Filters
+              Reset Filters
             </button>
           </div>
         ) : (
           filteredIndustries.map((ind) => {
+            const isAccordionOpen = cardDisplayMode === 'full' || !!expandedPhases[ind.id];
+
+            const phaseLabels = [
+              {
+                num: "PHASE 01",
+                topic: "Hyperlocal Intent & Organic Search Authority",
+                desc: ind.paragraphs[0]
+              },
+              {
+                num: "PHASE 02",
+                topic: "Channel Mechanics & Margin Defense",
+                desc: ind.paragraphs[1]
+              },
+              {
+                num: "PHASE 03",
+                topic: "High-Impact Paid Media Funnels",
+                desc: ind.paragraphs[2]
+              },
+              {
+                num: "PHASE 04",
+                topic: "Retention, LTV & Compounding CRM",
+                desc: ind.paragraphs[3]
+              }
+            ];
+
             return (
               <article
                 key={ind.id}
                 id={ind.id}
-                className="marketplace-industry-card w-full rounded-[28px] sm:rounded-[36px] bg-white border border-stone-200/90 shadow-sm hover:border-space-950 hover:shadow-md transition-all duration-300 overflow-hidden scroll-mt-36"
+                className="sector-dossier-card group bg-[#0A0A0A] border border-[#262626] hover:border-[#444444] transition-all duration-300 p-6 sm:p-10 space-y-8"
               >
-                {/* ---------------- Card Header Ribbon ---------------- */}
-                <div className="p-6 sm:p-10 md:p-12 border-b border-stone-100 bg-gradient-to-b from-stone-50/70 to-white">
-                  
-                  {/* Top Metadata Line */}
-                  <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-                    <div className="flex items-center gap-2.5">
-                      <span className="px-2.5 py-1 rounded-md bg-stone-900 text-white text-[10px] font-mono font-bold tracking-wider">
-                        SECTOR INDEX // {ind.code}
-                      </span>
-                      <span 
-                        className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono font-bold tracking-wide"
-                        style={{
-                          backgroundColor: `${ind.accentColor}15`,
-                          color: ind.accentColor
-                        }}
-                      >
-                        <span 
-                          className="w-2 h-2 rounded-full" 
-                          style={{ backgroundColor: ind.accentColor }} 
-                        />
-                        {ind.sectorBadge.toUpperCase()}
-                      </span>
-                    </div>
-
-                    <span className="text-[11px] font-mono text-slate-500">
-                      Category: {ind.category}
+                
+                {/* 1. Card Top Telemetry Bar */}
+                <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-[#262626]">
+                  <div className="flex items-center gap-3">
+                    <span className="font-mono text-sm font-bold text-[#FFFFFF] bg-[#141414] px-3 py-1 border border-[#333333]">
+                      SPEC // {ind.code}
+                    </span>
+                    <span className="font-sans text-xs font-semibold text-[#CCCCCC] px-3 py-1 bg-[#141414] border border-[#262626] uppercase tracking-wider">
+                      {ind.category}
+                    </span>
+                    <span className="font-sans text-xs text-[#8A8A8A] uppercase tracking-wider hidden sm:inline">
+                      {ind.sectorBadge}
                     </span>
                   </div>
 
-                  {/* Main Display Title */}
-                  <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-[40px] font-normal text-slate-900 tracking-tight leading-tight mb-4">
+                  <div className="flex items-center gap-4">
+                    <span className="font-mono text-[11px] text-[#737373] uppercase tracking-wider">
+                      4 OPERATIONAL PHASES DOCUMENTED
+                    </span>
+                  </div>
+                </div>
+
+                {/* 2. Monumental Headline & Tagline */}
+                <div className="space-y-4">
+                  <h2 className="font-grotesk font-black text-2xl sm:text-4xl lg:text-5xl uppercase text-[#FFFFFF] leading-[1.02] tracking-tight">
                     {ind.title}
                   </h2>
 
-                  {/* Target Persona Badge */}
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg bg-stone-100/90 border border-stone-200/80 text-xs font-sans font-medium text-slate-700 mb-5">
-                    <span className="font-mono text-[10px] uppercase font-bold text-slate-500">Target Persona:</span>
-                    <span>{ind.targetPersona}</span>
-                  </div>
-
-                  {/* Stylized Tagline Callout */}
-                  <div 
-                    className="pl-4 py-1.5 border-l-4 my-2 text-base sm:text-lg font-sans font-medium text-slate-800 italic leading-snug"
-                    style={{ borderColor: ind.accentColor }}
-                  >
+                  <blockquote className="font-grotesk text-sm sm:text-base text-[#CCCCCC] italic border-l-2 border-[#FFFFFF] pl-4 py-1 leading-relaxed">
                     "{ind.tagline}"
-                  </div>
-
-                  {/* Executive Overview Box */}
-                  <div className="mt-6 p-4 sm:p-5 rounded-2xl bg-stone-100/60 border border-stone-200/60 text-xs sm:text-sm text-slate-700 font-sans leading-relaxed">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-slate-500 block mb-1">
-                      Strategic Landscape & Executive Thesis:
-                    </span>
-                    {ind.overview}
-                  </div>
-
+                  </blockquote>
                 </div>
 
-                {/* ---------------- Deep Multi-Paragraph Content ---------------- */}
-                <div className="p-6 sm:p-10 md:p-12 space-y-6">
-                  
-                  <div className="flex items-center gap-2 pb-2 border-b border-stone-100">
-                    <span className="w-2 h-2 rounded-full bg-space-950" />
-                    <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-500">
-                      In-Depth Operational & Growth Analysis (The Playbook)
-                    </h3>
-                  </div>
+                {/* 3. Target Stakeholders Monolith */}
+                <div className="p-4 bg-[#141414] border border-[#262626] space-y-1">
+                  <span className="font-mono text-[10px] uppercase tracking-widest text-[#8A8A8A] font-bold block">
+                    BUILT SPECIFICALLY FOR:
+                  </span>
+                  <p className="font-grotesk text-xs sm:text-sm text-[#FFFFFF] font-semibold leading-relaxed">
+                    {ind.targetPersona}
+                  </p>
+                </div>
 
-                  {/* Rich Paragraphs */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 pt-2">
-                    {ind.paragraphs.map((para, pIdx) => (
-                      <div 
-                        key={pIdx} 
-                        className="rounded-2xl p-5 sm:p-6 bg-stone-50/50 border border-stone-200/60 hover:bg-stone-50 transition-colors"
-                      >
-                        <div className="flex items-center gap-2 mb-2.5">
-                          <span 
-                            className="w-5 h-5 rounded-full text-white text-[10px] font-mono font-bold flex items-center justify-center flex-shrink-0"
-                            style={{ backgroundColor: ind.accentColor }}
-                          >
-                            {pIdx + 1}
-                          </span>
-                          <span className="text-[11px] font-mono font-bold uppercase tracking-wider text-slate-500">
-                            Execution Pillar 0{pIdx + 1}
-                          </span>
+                {/* 4. Master Executive Overview Paragraph */}
+                <div className="space-y-3">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[#8A8A8A] font-bold block">
+                    EXECUTIVE COMMERCIAL THESIS:
+                  </span>
+                  <p className="font-grotesk text-sm sm:text-base text-[#D4D4D4] leading-relaxed">
+                    {ind.overview}
+                  </p>
+                </div>
+
+                {/* 5. The 4 Rich Operational Paragraphs (The Strategic Phases) */}
+                {isAccordionOpen ? (
+                  <div className="space-y-6 pt-4 border-t border-[#262626]">
+                    <div className="flex items-center justify-between">
+                      <span className="font-mono text-xs uppercase tracking-wider text-[#FFFFFF] font-bold">
+                        TACTICAL PLAYBOOK // 4 DEPLOYMENT PHASES:
+                      </span>
+                      {cardDisplayMode === 'accordion' && (
+                        <button
+                          onClick={() => toggleCardPhases(ind.id)}
+                          className="font-mono text-xs text-[#8A8A8A] hover:text-[#FFFFFF] uppercase"
+                        >
+                          [ Collapse Phases ↑ ]
+                        </button>
+                      )}
+                    </div>
+
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                      {phaseLabels.map((phase, pIdx) => (
+                        <div
+                          key={pIdx}
+                          className="p-5 sm:p-6 bg-[#0F0F0F] border border-[#222222] hover:border-[#333333] transition-colors space-y-3"
+                        >
+                          <div className="flex items-center justify-between pb-2 border-b border-[#222222]">
+                            <span className="font-mono text-xs font-bold text-[#E4572E]">
+                              {phase.num}
+                            </span>
+                            <span className="font-sans text-[10px] text-[#737373] uppercase tracking-wider">
+                              OPERATIONAL BLUEPRINT
+                            </span>
+                          </div>
+
+                          <h4 className="font-grotesk font-bold text-base text-[#FFFFFF] leading-snug">
+                            {phase.topic}
+                          </h4>
+
+                          <p className="font-grotesk text-xs sm:text-sm text-[#A3A3A3] leading-relaxed">
+                            {phase.desc}
+                          </p>
                         </div>
-                        <p className="text-xs sm:text-sm text-slate-600 font-sans leading-relaxed">
-                          {para}
-                        </p>
+                      ))}
+                    </div>
+                  </div>
+                ) : (
+                  <div className="pt-2">
+                    <button
+                      onClick={() => toggleCardPhases(ind.id)}
+                      className="w-full py-3.5 bg-[#141414] hover:bg-[#1A1A1A] border border-[#2E2E2E] hover:border-[#FFFFFF] text-xs font-mono font-bold uppercase tracking-wider text-[#FFFFFF] transition-all flex items-center justify-center gap-2"
+                    >
+                      <span>Read 4 Operational Deployment Phases &amp; Deep Strategy</span>
+                      <span>↓</span>
+                    </button>
+                  </div>
+                )}
+
+                {/* 6. Core Deliverables & Capabilities Checklist */}
+                <div className="pt-6 border-t border-[#262626] space-y-4">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[#8A8A8A] font-bold block">
+                    ENGINEERED SYSTEM CAPABILITIES &amp; SLAS:
+                  </span>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {ind.keyCapabilities.map((cap, cIdx) => (
+                      <div key={cIdx} className="flex items-start gap-3 text-xs sm:text-sm font-grotesk text-[#CCCCCC]">
+                        <span className="font-sans font-bold text-[#FFFFFF] mt-0.5">✓</span>
+                        <span>{cap}</span>
                       </div>
                     ))}
                   </div>
+                </div>
 
-                  {/* ---------------- Key Capabilities Deliverables ---------------- */}
-                  <div className="mt-8 pt-6 border-t border-stone-100">
-                    <div className="flex items-center gap-2 mb-4">
-                      <span className="w-2 h-2 rounded-full" style={{ backgroundColor: ind.accentColor }} />
-                      <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-slate-600">
-                        Concrete Capabilities & Deliverables for this Sector
-                      </h4>
-                    </div>
+                {/* 7. Organic High-Intent SEO Query Matrix */}
+                <div className="pt-6 border-t border-[#262626] space-y-3">
+                  <span className="font-mono text-xs uppercase tracking-wider text-[#8A8A8A] font-bold block">
+                    HIGH-INTENT SEARCH QUERIES TARGET MATRIX (GOOGLE &amp; AMAZON CLUSTERS):
+                  </span>
+                  <div className="flex flex-wrap gap-2">
+                    {ind.searchKeywords.map((kw, kIdx) => (
+                      <span
+                        key={kIdx}
+                        className="font-mono text-[11px] px-2.5 py-1 bg-[#141414] border border-[#262626] text-[#A3A3A3] uppercase"
+                      >
+                        #{kw}
+                      </span>
+                    ))}
+                  </div>
+                </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                      {ind.keyCapabilities.map((cap, cIdx) => (
-                        <div 
-                          key={cIdx}
-                          className="flex items-start gap-2.5 p-3.5 rounded-xl bg-white border border-stone-200/80 shadow-2xs hover:border-slate-400 transition-colors"
-                        >
-                          <span className="text-emerald-600 font-bold text-sm leading-none mt-0.5">✓</span>
-                          <span className="text-xs font-medium text-slate-800 leading-snug">{cap}</span>
-                        </div>
-                      ))}
-                    </div>
+                {/* 8. Bottom Action Links */}
+                <div className="pt-6 border-t border-[#262626] flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4">
+                  <div className="text-xs font-sans text-[#737373]">
+                    <span>PRACTICE SPECIALIZATION · </span>
+                    <span className="text-[#FFFFFF]">{ind.category.toUpperCase()}</span>
                   </div>
 
-                  {/* ---------------- Search Intent SEO Query Matrix ---------------- */}
-                  <div className="mt-6 pt-6 border-t border-stone-100">
-                    <div className="flex items-center gap-2 mb-3">
-                      <span className="w-1.5 h-1.5 rounded-full bg-slate-400" />
-                      <span className="text-[10.5px] font-mono font-bold uppercase tracking-wider text-slate-500">
-                        High-Intent Search Queries Target Matrix (Organic Google SEO Clusters):
-                      </span>
-                    </div>
-
-                    <div className="flex flex-wrap gap-2">
-                      {ind.searchKeywords.map((kw, kIdx) => (
-                        <span
-                          key={kIdx}
-                          className="inline-flex items-center px-2.5 py-1 rounded-md bg-stone-100 hover:bg-stone-200 text-slate-600 text-[11px] font-mono transition-colors"
-                        >
-                          <span className="text-slate-400 mr-1.5">#</span>
-                          {kw}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* ---------------- Primary Service Link (NO CTA FORM) ---------------- */}
-                  <div className="mt-8 pt-6 border-t border-stone-200/80 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 bg-stone-50/70 p-5 rounded-2xl">
-                    <div className="space-y-0.5">
-                      <span className="text-[10.5px] font-mono uppercase tracking-wider text-slate-500 block">
-                        Associated Practice Core Service
-                      </span>
-                      <p className="text-xs font-sans text-slate-700">
-                        View our end-to-end operational deliverables, SLAs, and technical specifications for this practice.
-                      </p>
-                    </div>
+                  <div className="flex items-center gap-3">
+                    <button
+                      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+                      className="px-4 py-2.5 bg-[#141414] hover:bg-[#1A1A1A] border border-[#262626] text-xs font-mono text-[#A3A3A3] hover:text-[#FFFFFF] transition-colors"
+                      title="Back to Top"
+                    >
+                      ↑ Top
+                    </button>
 
                     <Link
                       to={ind.primaryServiceLink}
-                      className="px-5 py-2.5 rounded-full bg-space-950 hover:bg-slate-800 text-white font-sans text-xs font-semibold tracking-wide transition-all hover:scale-105 shadow-sm inline-flex items-center gap-2 flex-shrink-0"
+                      className="px-6 py-2.5 bg-[#FFFFFF] hover:bg-[#E5E5E5] text-[#000000] font-sans text-xs font-bold uppercase tracking-wider transition-all flex items-center justify-center gap-2"
                     >
-                      <span>{ind.primaryServiceLabel}</span>
+                      <span>{ind.primaryServiceLabel.replace(' →', '')}</span>
+                      <span>→</span>
                     </Link>
                   </div>
-
                 </div>
+
               </article>
             );
           })
@@ -494,23 +677,74 @@ export default function MarketplacePage() {
       </main>
 
       {/* ========================================================================= */}
-      {/* 5. FOOTER REASSURANCE STRIP (No CTA Form as requested)                    */}
+      {/* 5. BESPOKE AUDIT INVITATION SECTION                                       */}
       {/* ========================================================================= */}
-      <section className="bg-stone-100 border-t border-stone-200 py-12 px-4 sm:px-8 text-center">
-        <div className="max-w-4xl mx-auto space-y-3">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-stone-300 text-[11px] font-mono font-bold text-slate-700">
-            <span>E-COMET OUTVERSE MASTERMIND ARCHITECTURE</span>
+      <section id="contact-briefing" className="relative py-20 sm:py-28 bg-[#000000] text-[#FFFFFF] border-t border-[#262626] overflow-hidden">
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
+          
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+            
+            <div className="lg:col-span-8 space-y-6">
+              <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+                BESPOKE SECTOR ARCHITECTURE // 48-HOUR DIAGNOSTIC
+              </span>
+
+              <h2 className="font-grotesk font-black text-[clamp(32px,5vw,78px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
+                Don't See Your Exact Trade? <br />
+                <span className="text-[#8A8A8A]">We Engineer Custom Funnels.</span>
+              </h2>
+
+              <p className="font-grotesk text-base sm:text-xl text-[#A3A3A3] max-w-2xl leading-relaxed">
+                Whether you operate an export-oriented industrial manufacturing facility, a multi-city diagnostic chain, or a high-velocity D2C consumer brand, our practice leads inspect your actual unit economics and build custom growth architecture.
+              </p>
+            </div>
+
+            <div className="lg:col-span-4 space-y-4 lg:border-l lg:border-[#262626] lg:pl-8">
+              <div className="p-5 bg-[#0A0A0A] border border-[#262626] space-y-2">
+                <span className="font-sans text-[10px] uppercase tracking-widest text-[#FFFFFF] font-bold block">
+                  PRACTICE GUARANTEE
+                </span>
+                <p className="font-grotesk text-xs text-[#8A8A8A]">
+                  Direct partner access. Zero tiered ticketing queues. 100% written accountability on all deliverables and SLAs.
+                </p>
+              </div>
+
+              <div className="flex flex-col gap-3 pt-2">
+                <a
+                  href="#inquiry-form"
+                  className="px-6 py-4 bg-[#FFFFFF] hover:bg-[#E5E5E5] text-[#000000] font-sans text-xs font-bold uppercase tracking-wider transition-colors text-center cursor-pointer"
+                >
+                  Request a Trade Audit →
+                </a>
+                <Link
+                  to="/contact"
+                  className="px-6 py-4 bg-[#000000] hover:bg-[#141414] border border-[#333333] hover:border-[#FFFFFF] text-[#FFFFFF] font-sans text-xs font-semibold uppercase tracking-wider transition-colors text-center"
+                >
+                  Schedule Partner Briefing
+                </Link>
+              </div>
+            </div>
+
           </div>
-          <h3 className="font-serif text-2xl sm:text-3xl text-slate-900 font-normal">
-            Real industry execution. Zero recycled templates.
-          </h3>
-          <p className="text-xs sm:text-sm text-slate-600 max-w-2xl mx-auto leading-relaxed">
-            Every trade demands its own physics. Whether managing margin thresholds on Zomato, slashing RTO on Myntra, or capturing urgent emergency call queries on Google Maps, our practice leads engineer custom systems designed for bottom-line unit economics.
-          </p>
+
         </div>
       </section>
 
-      {/* Primary Global Site Footer */}
+      {/* ========================================================================= */}
+      {/* 6. FULL MULTI-SERVICE INQUIRY FORM                                        */}
+      {/* ========================================================================= */}
+      <div id="inquiry-form">
+        <Home2FinalCta
+          data={{
+            eyebrow: "INITIATE TRANSMISSION // SECTOR BRIEFING",
+            headline: "Enter your industry orbit.",
+            subtext: "Connect directly with our senior practice partners. We audit your search footprint, catalogue health, and customer acquisition funnels within 48 hours.",
+            wordmark: "E-COMET"
+          }}
+        />
+      </div>
+
+      {/* Global Comprehensive Site Footer */}
       <Footer />
 
     </div>

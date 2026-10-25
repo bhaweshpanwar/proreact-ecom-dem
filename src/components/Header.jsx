@@ -32,12 +32,12 @@ export default function Header() {
 
   return (
     <>
-      <header id="main-header" className="fixed top-0 left-0 right-0 h-20 bg-white border-b border-slate-200 shadow-sm z-50 flex items-center transition-all duration-300">
+      <header id="main-header" className="fixed top-0 left-0 right-0 h-14 sm:h-16 lg:h-20 bg-white border-b border-slate-200 shadow-sm z-50 flex items-center transition-all duration-300">
         <div className="w-full max-w-[1360px] h-full mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-4">
           
           {/* Brand Logo: Clean bold sans-serif typography */}
           <Link to="/" className="flex items-center flex-shrink-0 text-decoration-none group py-1 select-none">
-            <span className="font-sans font-black text-base sm:text-lg md:text-xl tracking-tight text-[#080B10] uppercase transition-colors">
+            <span className="font-sans font-black text-sm sm:text-base md:text-xl tracking-tight text-[#080B10] uppercase transition-colors">
               E-COMET OUTVERSE
             </span>
           </Link>
@@ -126,18 +126,29 @@ export default function Header() {
               <span>→</span>
             </a>
 
-            {/* Mobile Hamburger Toggle: GUARANTEED VISIBLE on < lg */}
+            {/* Cool High-Tech Mobile Menu Toggle: Minimalist, Staggered Geometric Lines with Smooth Morph */}
             <button 
               type="button" 
               onClick={() => setMobileOpen(!mobileOpen)}
-              className="lg:hidden p-2.5 rounded-xl text-slate-800 hover:text-black hover:bg-slate-100 active:bg-slate-200 border border-slate-200 flex items-center justify-center flex-shrink-0 cursor-pointer"
-              aria-label="Toggle navigation"
+              className="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#080B10] hover:bg-[#1A1F2C] text-white flex items-center justify-center flex-shrink-0 cursor-pointer shadow-md transition-all active:scale-90 relative"
+              aria-label={mobileOpen ? "Close navigation" : "Open navigation"}
             >
-              <svg className="w-6 h-6 stroke-current fill-none stroke-[2.2]" viewBox="0 0 24 24">
-                <line x1="4" y1="12" x2="20" y2="12"></line>
-                <line x1="4" y1="6" x2="20" y2="6"></line>
-                <line x1="4" y1="18" x2="20" y2="18"></line>
-              </svg>
+              <div className="w-4 h-4 flex flex-col justify-center items-center gap-[4.5px] relative">
+                <span 
+                  className={`block h-[1.75px] bg-white rounded-full transition-all duration-300 ease-out ${
+                    mobileOpen 
+                      ? 'w-4 rotate-45 translate-y-[3px]' 
+                      : 'w-4'
+                  }`}
+                />
+                <span 
+                  className={`block h-[1.75px] bg-white rounded-full transition-all duration-300 ease-out ${
+                    mobileOpen 
+                      ? 'w-4 -rotate-45 -translate-y-[3px]' 
+                      : 'w-2.5 self-end'
+                  }`}
+                />
+              </div>
             </button>
 
           </div>

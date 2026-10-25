@@ -113,9 +113,20 @@ export default function CosmicGalaxyCanvas({ accentColorHex = '#38BDF8' }) {
 
     // 6. Animation Loop
     const clock = new THREE.Clock();
+    let isVisible = true;
+
+    // Pause WebGL rendering loop when scrolled out of view to save 100% GPU/CPU
+    let observer;
+    if (typeof IntersectionObserver !== 'undefined') {
+      observer = new IntersectionObserver(([entry]) => {
+        isVisible = entry.isIntersecting;
+      }, { threshold: 0.01 });
+      observer.observe(container);
+    }
 
     const animate = () => {
       animId = requestAnimationFrame(animate);
+      if (!isVisible) return; // Freeze off-screen
       const elapsed = clock.getElapsedTime();
 
       // Subtle, slow cosmic drift
@@ -141,6 +152,7 @@ export default function CosmicGalaxyCanvas({ accentColorHex = '#38BDF8' }) {
 
     return () => {
       cancelAnimationFrame(animId);
+      if (observer) observer.disconnect();
       window.removeEventListener('resize', handleResize);
       renderer.dispose();
       if (renderer.domElement && container.contains(renderer.domElement)) {

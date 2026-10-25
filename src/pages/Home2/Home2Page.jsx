@@ -502,12 +502,12 @@ export default function Home2Page() {
         {/* Parallax Cosmic Scroll Cue */}
         <div 
           id="hero-scroll-cue"
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 pointer-events-none select-none transition-opacity duration-300"
+          className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 sm:gap-2 pointer-events-none select-none transition-opacity duration-300"
         >
-          <span className="font-sans text-[11px] uppercase tracking-[0.25em] text-[#A0A5B5] font-semibold bg-[#000000]/75 backdrop-blur-md px-4 py-1.5 border border-white/10 rounded-full shadow-lg">
+          <span className="font-sans text-[8.5px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.25em] text-[#A0A5B5] font-semibold bg-[#000000]/75 backdrop-blur-md px-2.5 py-1 sm:px-4 sm:py-1.5 border border-white/10 rounded-full shadow-lg">
             SCROLL TO EXPLORE
           </span>
-          <div className="w-[1.5px] h-6 bg-gradient-to-b from-white/70 via-white/20 to-transparent animate-pulse" />
+          <div className="w-[1.5px] h-4 sm:h-6 bg-gradient-to-b from-white/70 via-white/20 to-transparent animate-pulse" />
         </div>
       </div>
 
