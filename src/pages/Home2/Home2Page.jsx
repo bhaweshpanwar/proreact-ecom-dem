@@ -63,7 +63,7 @@ const HOME2_CONTENT = {
       }
     ],
     statBlock: {
-      image: "/images/space/ring-part-three.jpg",
+      image: "/images/space/dualvoidanima-art.gif",
       statPrimary: "8+",
       statLabelPrimary: "Services Unified",
       statSub: "One integrated partner managing marketplaces, ad campaigns, storefronts, and brand creative under a single connected strategy.",

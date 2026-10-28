@@ -13,7 +13,7 @@ export default function Home2UnifiedShowcase({ data }) {
   const secondaryCountRef = useRef(null);
 
   const {
-    image = "/images/space/ring-part-three.jpg",
+    image = "/images/space/dualvoidanima-art.gif",
     statPrimary = "8+",
     statLabelPrimary = "Services Unified",
     statSub = "One integrated partner managing marketplaces, ad campaigns, storefronts, and brand creative under a single connected strategy.",
@@ -190,7 +190,7 @@ export default function Home2UnifiedShowcase({ data }) {
       {/* 1. LEFT IMAGE WRAPPER (Starts Full Width z-20, Contracts to 56% to Unmask Cards on Desktop; Hidden on Mobile so both cards are fully accessible) */}
       <div
         ref={imgWrapperRef}
-        className="hidden lg:block absolute left-0 top-0 bottom-0 h-full z-20 overflow-hidden shadow-2xl will-change-[width,height]"
+        className="hidden lg:block absolute left-0 top-0 bottom-0 h-full z-20 overflow-hidden shadow-2xl will-change-[width,height] bg-[#000000]"
       >
         <img
           ref={imgRef}
