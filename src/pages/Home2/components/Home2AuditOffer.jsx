@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Home2AuditOffer({ data }) {
   const {
-    eyebrow = "06 / DIAGNOSTIC OFFER",
+    eyebrow = "Growth Diagnostic",
     headline = "The Free Growth Audit.",
     subtext = "Before you commit a single rupee to a retainer, let us inspect your actual commercial telemetry. We run a comprehensive 48-hour diagnostic across your digital channels.",
     image = "/images/space/card-marketplace.jpg",

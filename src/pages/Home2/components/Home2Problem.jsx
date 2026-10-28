@@ -13,7 +13,7 @@ export default function Home2Problem({ data }) {
   const statPrimaryRef = useRef(null);
 
   const {
-    eyebrow = "02 / THE BOTTLENECK",
+    eyebrow = "Connected Digital Strategy",
     headline = "Different Agencies for Every Service. Still Waiting for Growth?",
     subtext = "Most expanding businesses end up managing multiple disconnected vendors: an ad agency that ignores catalogues, a web developer who blames the designer, and marketplace account managers operating in a dark room. Nobody owns the bottom-line revenue number.",
     secondaryText = "Your website, digital marketing, branding and marketplace operations shouldn't work in isolation. Bring your digital services together with one integrated growth partner.",

@@ -26,7 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
 const HOME2_CONTENT = {
   // 1. Hero
   hero: {
-    eyebrow: "VOLUME 01 / 2026 · DIGITAL GROWTH ARCHITECTURE",
+    eyebrow: "Digital Growth Architecture",
     headline: "Beyond digital. Into the next orbit.",
     description: "Stop managing five disconnected vendors who blame each other. We engineer full-funnel digital revenue—scaling Amazon marketplaces, high-margin paid acquisition, and custom web architecture governed strictly by your bottom line.",
     auditBtn: "Get a free audit",
@@ -36,7 +36,7 @@ const HOME2_CONTENT = {
 
   // 2. The Problem
   problem: {
-    eyebrow: "02 / CONNECTED COMMERCE",
+    eyebrow: "Connected Digital Strategy",
     headline: "Different Agencies for Every Service. Still Waiting for Growth?",
     subtext: "Most expanding businesses end up managing multiple disconnected vendors: an ad agency that ignores catalogues, a web developer who blames the designer, and marketplace account managers operating in a dark room. Nobody owns the bottom-line revenue number.",
     secondaryText: "Your website, digital marketing, branding and marketplace operations shouldn't work in isolation. Bring your digital services together with one integrated growth partner.",
@@ -74,7 +74,7 @@ const HOME2_CONTENT = {
 
   // 3. One Team, Eight Orbits (Services)
   services: {
-    eyebrow: "03 / EIGHT ORBITS",
+    eyebrow: "Our Core Services",
     headline: "One team, eight orbits.",
     subtext: "Every capability required to scale commercial revenue online, aligned under one sovereign technical standard.",
     services: [
@@ -155,7 +155,7 @@ const HOME2_CONTENT = {
 
   // 4. How We Work (4 Steps)
   process: {
-    eyebrow: "04 / HOW WE WORK",
+    eyebrow: "How We Work",
     headline: "Four steps from audit to orbit.",
     steps: [
       {
@@ -199,7 +199,7 @@ const HOME2_CONTENT = {
 
   // 5. Your First 30 Days
   timeline: {
-    eyebrow: "05 / ONBOARDING ROADMAP",
+    eyebrow: "Onboarding Roadmap",
     headline: "YOUR FIRST 30 DAYS.",
     subtext: "Clear deliverables from day one. Here's what happens when you partner with E-Comet Outverse.",
     footerStrip: "FLEXIBLE EXECUTION · SERVICE-SPECIFIC DELIVERABLES · INTEGRATED DIGITAL SOLUTIONS",
@@ -257,28 +257,28 @@ const HOME2_CONTENT = {
 
   // 6. Free Growth Audit (Main Offer)
   audit: {
-    eyebrow: "06 / DIAGNOSTIC OFFER",
+    eyebrow: "Growth Diagnostic",
     headline: "The Free Growth Audit.",
     subtext: "Before you commit a single rupee to a retainer, let us inspect your actual commercial telemetry. We run a comprehensive 48-hour diagnostic across your digital channels.",
     image: "/images/space/new-second-section-web.jpg",
     auditFeatures: [
       {
-        tag: "01 // GROWTH & MARKETING",
+        tag: "GROWTH & MARKETING",
         title: "Digital Marketing Performance",
         desc: "We review your digital presence, marketing campaigns, audience targeting, engagement, and opportunities to improve reach and conversions."
       },
       {
-        tag: "02 // E-COMMERCE & WEB",
+        tag: "E-COMMERCE & WEB",
         title: "Marketplace & Website Health",
         desc: "We assess your marketplace listings, product visibility, store performance, website experience, and conversion barriers."
       },
       {
-        tag: "03 // CONTENT & CREATIVE",
+        tag: "CONTENT & CREATIVE",
         title: "Content & Creative Impact",
         desc: "We evaluate your brand creatives, product photography, video content, editing style, and YouTube strategy to identify opportunities for stronger brand communication."
       },
       {
-        tag: "04 // STRATEGY & EXECUTION",
+        tag: "STRATEGY & EXECUTION",
         title: "Customized Growth Roadmap",
         desc: "You receive a prioritized action plan tailored to your business goals, service requirements, and opportunities for an integrated digital solution."
       }
@@ -287,7 +287,7 @@ const HOME2_CONTENT = {
 
   // 7. Why a New Agency Can Be Better
   whyNew: {
-    eyebrow: "07 / THE CONTRAST",
+    eyebrow: "Why Partner With Us",
     pullQuoteBlack: "Legacy agencies sell you headcounts.",
     pullQuoteGrey: "We deliver direct velocity.",
     fourPoints: [
@@ -316,7 +316,7 @@ const HOME2_CONTENT = {
 
   // 8. Tools We Work With
   tools: {
-    eyebrow: "08 / TECH STACK & PLATFORMS",
+    eyebrow: "Platforms & Technology",
     headline: "Tools we operate with daily.",
     subtext: "Text-only verification. We work natively inside standard enterprise growth and commerce software.",
     tools: [
@@ -337,7 +337,7 @@ const HOME2_CONTENT = {
 
   // 9. Sample Work (Concept Projects with Orbital Space Visuals)
   work: {
-    eyebrow: "09 / CONCEPT PORTFOLIO",
+    eyebrow: "Featured Work",
     headline: "Sample Work (Concept Projects).",
     subtext: "Explicitly labelled as conceptual frameworks. Demonstrating our technical methodology and aesthetic standards across key sectors.",
     projects: [
@@ -386,7 +386,7 @@ const HOME2_CONTENT = {
 
   // 11. FAQ
   faq: {
-    eyebrow: "11 / FREQUENTLY ASKED QUESTIONS",
+    eyebrow: "Frequently Asked Questions",
     headline: "Clear answers. Direct terms.",
     subtext: "Everything you need to know about our scope, coordination, contract lengths, and team structure.",
     faqs: [
@@ -415,10 +415,9 @@ const HOME2_CONTENT = {
 
   // 12. Final CTA
   cta: {
-    eyebrow: "12 / INITIATE TRANSMISSION",
+    eyebrow: "Contact Us",
     headline: "Enter the next orbit.",
-    subtext: "Request your 48-Hour Diagnostic Growth Audit or schedule a confidential briefing with our senior team.",
-    wordmark: "E-COMET"
+    subtext: "Request your growth diagnostic or schedule a direct consultation with our senior team."
   }
 };
 

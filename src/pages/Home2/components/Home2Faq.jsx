@@ -14,7 +14,7 @@ export default function Home2Faq({ data }) {
   };
 
   const {
-    eyebrow = "11 / FREQUENTLY ASKED QUESTIONS",
+    eyebrow = "Frequently Asked Questions",
     headline = "Clear answers. Direct terms.",
     subtext = "Everything you need to know about our scope, coordination, contract lengths, and team structure.",
     faqs = [

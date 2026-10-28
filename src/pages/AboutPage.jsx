@@ -369,7 +369,7 @@ export default function AboutPage() {
             {/* Left 4 Cols: Telemetry Kicker & Context */}
             <div className="lg:col-span-4 space-y-4">
               <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
-                01 / BRAND GENESIS &amp; POSITIONING
+                BRAND GENESIS &amp; POSITIONING
               </span>
               <h3 className="font-grotesk font-bold text-2xl sm:text-3xl uppercase tracking-tight text-[#000000] leading-tight">
                 The Anti-Bloat Agency Mandate.
@@ -464,7 +464,7 @@ export default function AboutPage() {
           {/* Header */}
           <div className="max-w-3xl mb-12 sm:mb-16 space-y-3">
             <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
-              02 / PURPOSE &amp; HORIZON
+              PURPOSE &amp; HORIZON
             </span>
             <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
               Guided by purpose, measured by reliability.
@@ -578,7 +578,7 @@ export default function AboutPage() {
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#262626] mb-12">
             <div>
               <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block mb-2">
-                03 / CRAFT DISCIPLINES
+                CRAFT DISCIPLINES
               </span>
               <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
                 Crafted across 4 foundational disciplines.
@@ -654,7 +654,7 @@ export default function AboutPage() {
             {/* Sticky Left Editorial Column */}
             <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
               <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
-                04 / OUR OPERATING PRINCIPLES
+                OUR OPERATING PRINCIPLES
               </span>
               <h2 className="font-grotesk font-bold text-[clamp(36px,5vw,70px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
                 Five values that define how we work.
@@ -721,7 +721,7 @@ export default function AboutPage() {
           
           <div className="max-w-3xl mb-12 sm:mb-16 space-y-3">
             <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
-              05 / THE EXECUTION ROADMAP
+              THE EXECUTION ROADMAP
             </span>
             <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
               A structured roadmap from discovery to delivery.
@@ -842,7 +842,7 @@ export default function AboutPage() {
       {/* ===================================================================== */}
       <Home2FinalCta 
         data={{
-          eyebrow: "06 / INITIATE BRIEFING",
+          eyebrow: "Initiate Briefing",
           headline: "Enter the next orbit.",
           subtext: "Connect directly with our senior partners. We analyze your commercial footprint and craft an actionable execution blueprint.",
           wordmark: "E-COMET"

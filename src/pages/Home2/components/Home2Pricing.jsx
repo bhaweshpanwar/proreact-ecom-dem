@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Home2Pricing({ data }) {
   const {
-    eyebrow = "10 / COMMERCIAL MODELS",
+    eyebrow = "Commercial Models",
     headline = "Pricing clarity.",
     subtext = "Transparent partnership structures. No hidden markup fees, no percentage-of-ad-spend traps that incentivize wasteful spending.",
     tiers = [

@@ -6,7 +6,7 @@ export default function Home2SampleWork({ data }) {
   const [hoveredIdx, setHoveredIdx] = useState(null);
 
   const {
-    eyebrow = "09 / CONCEPT PORTFOLIO",
+    eyebrow = "Featured Work",
     headline = "Sample Work (Concept Projects).",
     subtext = "Explicitly labelled as conceptual frameworks. Demonstrating our technical methodology and aesthetic standards across key sectors.",
     projects = [

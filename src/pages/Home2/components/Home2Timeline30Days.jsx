@@ -8,7 +8,7 @@ export default function Home2Timeline30Days({ data }) {
   const sectionRef = useRef(null);
 
   const {
-    eyebrow = "05 / ONBOARDING ROADMAP",
+    eyebrow = "Onboarding Roadmap",
     headline = "YOUR FIRST 30 DAYS.",
     subtext = "Clear deliverables from day one. Here's what happens when you partner with E-Comet Outverse.",
     footerStrip = "FLEXIBLE EXECUTION · SERVICE-SPECIFIC DELIVERABLES · INTEGRATED DIGITAL SOLUTIONS",

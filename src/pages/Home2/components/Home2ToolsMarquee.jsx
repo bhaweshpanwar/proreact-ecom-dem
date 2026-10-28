@@ -10,7 +10,7 @@ export default function Home2ToolsMarquee({ data }) {
   const sectionRef = useRef(null);
 
   const {
-    eyebrow = "08 / TECH STACK & PLATFORMS",
+    eyebrow = "Platforms & Technology",
     headline = "Tools we operate with daily.",
     subtext = "Text-only verification. We work natively inside standard enterprise growth and commerce software.",
     tools = [

@@ -70,7 +70,7 @@ export default function Footer() {
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-8">
             <div className="max-w-3xl space-y-4">
               <span className="font-sans text-xs uppercase tracking-widest text-[#647285] font-semibold block">
-                07 / NEXT ORBIT BLUEPRINT
+                Growth Strategy &amp; Next Steps
               </span>
               
               <h2 className="text-3xl sm:text-5xl lg:text-6xl font-grotesk font-black text-[#080B10] tracking-tight uppercase leading-[1.05]">

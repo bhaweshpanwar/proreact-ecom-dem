@@ -2,7 +2,7 @@ import React from 'react';
 
 export default function Home2Hero({ data }) {
   const {
-    eyebrow = "VOLUME 01 / 2026 · DIGITAL GROWTH ARCHITECTURE",
+    eyebrow = "Digital Growth Architecture",
     headline = "Beyond digital. Into the next orbit.",
     description = "One senior team for ambitious brands scaling online. Marketplaces, performance marketing, high-conversion web engineering, and brand creative aligned directly to unit economics.",
     auditBtn = "Get a free audit",
@@ -72,7 +72,7 @@ export default function Home2Hero({ data }) {
                 className="w-full h-full object-cover object-center hover:scale-105 transition-all duration-700"
               />
               <div className="absolute bottom-2 left-2 right-2 bg-[#000000]/80 p-2 font-mono text-[10px] text-[#8A8A8A] flex justify-between uppercase">
-                <span>ORBIT 01 // TRAJECTORY</span>
+                <span>ORBITAL TRAJECTORY</span>
                 <span>48H RAPID AUDIT</span>
               </div>
             </div>
@@ -88,7 +88,7 @@ export default function Home2Hero({ data }) {
           <span>Scroll to explore</span>
         </div>
         <div className="flex items-center gap-6">
-          <span>01 / 13 SECTIONS</span>
+          <span>GROWTH BLUEPRINT</span>
           <span className="hidden sm:inline">REPORT CODE: ECO-2026</span>
         </div>
       </div>

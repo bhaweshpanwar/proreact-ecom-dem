@@ -26,23 +26,23 @@ export default function Home2Header() {
         {/* Desktop Quick Chapter Links (Inspired by Reference Report Bar) */}
         <nav className="hidden lg:flex items-center gap-1 font-mono text-xs uppercase tracking-wider text-[#A3A3A3]">
           <a href="#problem" className="px-3 py-1.5 hover:text-white transition-colors">
-            01 / Problem
+            Problem
           </a>
           <span className="text-[#333333]">|</span>
           <a href="#services" className="px-3 py-1.5 hover:text-white transition-colors">
-            02 / Five Orbits
+            Services
           </a>
           <span className="text-[#333333]">|</span>
           <a href="#process" className="px-3 py-1.5 hover:text-white transition-colors">
-            03 / Process
+            Process
           </a>
           <span className="text-[#333333]">|</span>
           <a href="#timeline" className="px-3 py-1.5 hover:text-white transition-colors">
-            04 / 30 Days
+            Roadmap
           </a>
           <span className="text-[#333333]">|</span>
           <a href="#audit" className="px-3 py-1.5 hover:text-white transition-colors">
-            05 / Free Audit
+            Free Audit
           </a>
         </nav>
 
@@ -84,35 +84,35 @@ export default function Home2Header() {
             onClick={() => setMobileMenuOpen(false)} 
             className="block py-2 border-b border-[#1F1F1F] hover:text-white"
           >
-            01 / The Problem
+            The Problem
           </a>
           <a 
             href="#services" 
             onClick={() => setMobileMenuOpen(false)} 
             className="block py-2 border-b border-[#1F1F1F] hover:text-white"
           >
-            02 / Five Orbits (Services)
+            Our Core Services
           </a>
           <a 
             href="#process" 
             onClick={() => setMobileMenuOpen(false)} 
             className="block py-2 border-b border-[#1F1F1F] hover:text-white"
           >
-            03 / How We Work (4 Steps)
+            How We Work
           </a>
           <a 
             href="#timeline" 
             onClick={() => setMobileMenuOpen(false)} 
             className="block py-2 border-b border-[#1F1F1F] hover:text-white"
           >
-            04 / Your First 30 Days
+            Onboarding Roadmap
           </a>
           <a 
             href="#audit" 
             onClick={() => setMobileMenuOpen(false)} 
             className="block py-2 border-b border-[#1F1F1F] hover:text-white"
           >
-            05 / Free Growth Audit
+            Free Growth Audit
           </a>
           <Link
             to="/"

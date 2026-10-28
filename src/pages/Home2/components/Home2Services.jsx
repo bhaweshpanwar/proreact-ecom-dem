@@ -10,7 +10,7 @@ export default function Home2Services({ data }) {
   const sectionRef = useRef(null);
 
   const {
-    eyebrow = "03 / FIVE ORBITS",
+    eyebrow = "Our Core Services",
     headline = "One team, five orbits.",
     subtext = "Every capability required to scale commercial revenue online, aligned under one sovereign technical standard.",
     services = [

@@ -10,7 +10,7 @@ export default function Home2WhyNewAgency({ data }) {
   const headingRef = useRef(null);
 
   const {
-    eyebrow = "07 / THE CONTRAST",
+    eyebrow = "Why Partner With Us",
     pullQuoteBlack = "Legacy agencies sell you headcounts.",
     pullQuoteGrey = "We deliver direct velocity.",
     fourPoints = [
