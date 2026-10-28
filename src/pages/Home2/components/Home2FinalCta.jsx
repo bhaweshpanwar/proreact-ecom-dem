@@ -211,14 +211,14 @@ export default function Home2FinalCta({ data }) {
                         key={srv.id}
                         type="button"
                         onClick={() => toggleService(srv.id)}
-                        className={`text-left text-xs font-grotesk px-3.5 py-2.5 rounded-xl border transition-all duration-200 cursor-pointer flex items-center justify-between w-full ${
+                        className={`text-left text-xs font-grotesk px-3.5 py-2.5 rounded-none border transition-all duration-200 cursor-pointer flex items-center justify-between w-full ${
                           isSelected
                             ? 'bg-slate-900 text-white border-slate-900 font-semibold shadow-xs scale-[1.01]'
                             : 'bg-slate-50 text-slate-700 border-slate-200 hover:border-slate-400 hover:text-slate-900 hover:bg-slate-100'
                         }`}
                       >
                         <span className="pr-2 leading-snug">{srv.label}</span>
-                        <span className={`inline-flex items-center justify-center w-3.5 h-3.5 shrink-0 rounded-full text-[10px] font-bold transition-colors ${
+                        <span className={`inline-flex items-center justify-center w-3.5 h-3.5 shrink-0 rounded-none text-[10px] font-bold transition-colors ${
                           isSelected ? 'bg-white text-slate-900 font-black' : 'border border-slate-300 text-transparent'
                         }`}>
                           ✓
@@ -229,7 +229,7 @@ export default function Home2FinalCta({ data }) {
                 </div>
               </div>
 
-              {/* Right Column (7 of 12 cols): Rounded Inputs, Textarea, Button */}
+              {/* Right Column (7 of 12 cols): Square Inputs, Textarea, Button */}
               <div className="lg:col-span-7 space-y-4">
                 
                 {/* Name & Brand */}
@@ -243,7 +243,7 @@ export default function Home2FinalCta({ data }) {
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900/10 transition-all"
+                      className="w-full px-4 py-3 rounded-none bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-1 focus:ring-slate-900 transition-all"
                     />
                     {errors.name && <span className="text-[11px] text-red-500 mt-1 block">{errors.name}</span>}
                   </div>
@@ -256,7 +256,7 @@ export default function Home2FinalCta({ data }) {
                       type="text"
                       value={formData.brand}
                       onChange={(e) => setFormData({ ...formData, brand: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900/10 transition-all"
+                      className="w-full px-4 py-3 rounded-none bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-1 focus:ring-slate-900 transition-all"
                     />
                   </div>
                 </div>
@@ -272,7 +272,7 @@ export default function Home2FinalCta({ data }) {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900/10 transition-all"
+                      className="w-full px-4 py-3 rounded-none bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-1 focus:ring-slate-900 transition-all"
                     />
                     {errors.email && <span className="text-[11px] text-red-500 mt-1 block">{errors.email}</span>}
                   </div>
@@ -286,7 +286,7 @@ export default function Home2FinalCta({ data }) {
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900/10 transition-all"
+                      className="w-full px-4 py-3 rounded-none bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-1 focus:ring-slate-900 transition-all"
                     />
                     {errors.phone && <span className="text-[11px] text-red-500 mt-1 block">{errors.phone}</span>}
                   </div>
@@ -301,16 +301,16 @@ export default function Home2FinalCta({ data }) {
                     rows="3"
                     value={formData.message}
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-2 focus:ring-slate-900/10 transition-all resize-none"
+                    className="w-full px-4 py-3 rounded-none bg-slate-50 border border-slate-200 text-slate-900 font-grotesk text-sm focus:outline-none focus:border-slate-900 focus:bg-white focus:ring-1 focus:ring-slate-900 transition-all resize-none"
                   />
                 </div>
 
-                {/* Rounded Submit Button + Badges */}
+                {/* Square Submit Button + Badges */}
                 <div className="pt-2">
                   <button
                     type="submit"
                     disabled={submitting}
-                    className="w-full h-14 sm:h-16 rounded-xl bg-slate-900 hover:bg-black text-white font-sans text-xs sm:text-sm font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer shadow-lg hover:shadow-xl active:scale-[0.99] disabled:opacity-50"
+                    className="w-full h-14 sm:h-16 rounded-none bg-slate-900 hover:bg-black text-white font-sans text-xs sm:text-sm font-bold uppercase tracking-widest transition-all duration-300 flex items-center justify-center gap-3 cursor-pointer shadow-lg hover:shadow-xl active:scale-[0.99] disabled:opacity-50"
                   >
                     <span>{submitting ? 'Sending Request...' : 'Send Message'}</span>
                     <span className="transition-transform duration-300 group-hover:translate-x-1.5 font-bold">→</span>

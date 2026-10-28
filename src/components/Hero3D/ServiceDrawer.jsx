@@ -38,7 +38,7 @@ export default function ServiceDrawer({ service, onClose }) {
               onClick={onClose} 
               aria-label="Close service panel"
               title="Close panel (Esc)"
-              className="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 active:scale-95 text-white flex items-center justify-center border border-white/30 transition-all shadow-xl cursor-pointer group"
+              className="w-10 h-10 rounded-none bg-white/20 hover:bg-white/30 active:scale-95 text-white flex items-center justify-center border border-white/30 transition-all shadow-xl cursor-pointer group"
             >
               <svg 
                 className="w-5 h-5 stroke-current stroke-2 transition-transform duration-200 group-hover:rotate-90" 
@@ -83,14 +83,14 @@ export default function ServiceDrawer({ service, onClose }) {
         <div className="pt-8 mt-8 border-t border-white/10 flex flex-col gap-3">
           <a 
             href={`/services/${service.id}`}
-            className="w-full py-3.5 rounded-xl bg-white/10 hover:bg-white/20 border border-white/20 text-white font-sans text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer text-center"
+            className="w-full py-3.5 rounded-none bg-white/10 hover:bg-white/20 border border-white/20 text-white font-sans text-xs font-semibold flex items-center justify-center gap-2 transition-colors cursor-pointer text-center"
           >
             Explore Full Service Architecture →
           </a>
           <a 
             href="#closing" 
             onClick={onClose}
-            className="w-full py-3.5 rounded-xl bg-white text-[#080B10] hover:bg-slate-100 font-sans text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-lg cursor-pointer text-center"
+            className="w-full py-3.5 rounded-none bg-white text-[#080B10] hover:bg-slate-100 font-sans text-xs font-semibold flex items-center justify-center gap-2 transition-colors shadow-lg cursor-pointer text-center"
           >
             Book Priority Growth Audit
           </a>

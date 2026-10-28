@@ -86,7 +86,7 @@ export default function Footer() {
             <div className="flex flex-col sm:flex-row lg:flex-col items-start lg:items-end gap-3 flex-shrink-0">
               <a 
                 href="/#closing" 
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white text-xs font-sans font-semibold uppercase tracking-wider transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-none bg-[#080B10] hover:bg-[#252B36] text-white text-xs font-sans font-semibold uppercase tracking-wider transition-all shadow-md hover:scale-105 active:scale-95 cursor-pointer"
               >
                 <span>Request Custom Growth Blueprint</span>
                 <span>→</span>
@@ -95,7 +95,7 @@ export default function Footer() {
                 href="https://wa.me/91XXXXXXXXXX" 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-stone-50 text-[#080B10] text-xs font-sans font-semibold uppercase tracking-wider border border-stone-300 transition-all hover:border-stone-500 shadow-xs cursor-pointer"
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-none bg-white hover:bg-stone-50 text-[#080B10] text-xs font-sans font-semibold uppercase tracking-wider border border-stone-300 transition-all hover:border-stone-500 shadow-xs cursor-pointer"
               >
                 <span>Direct WhatsApp Consultation</span>
                 <span>↗</span>

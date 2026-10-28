@@ -3,6 +3,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import CelestialHero from '../../components/Hero3D/CelestialHero';
 import Home2Problem from './components/Home2Problem';
+import Home2UnifiedShowcase from './components/Home2UnifiedShowcase';
 import Home2Services from './components/Home2Services';
 import Home2StickyProcess from './components/Home2StickyProcess';
 import Home2Timeline30Days from './components/Home2Timeline30Days';
@@ -165,6 +166,14 @@ const HOME2_CONTENT = {
         heading: "Full Account Telemetry & Gap Analysis",
         desc: "We dive straight into your Google Ads query logs, Amazon Buy-Box share, catalogue health, and checkout drop-off rates. No generic playbooks. We uncover the exact leak points costing you margin.",
         deliverable: "Comprehensive 48-Hour Growth Diagnostic & Unit Economic Model",
+        deliverablesList: [
+          "Google & Meta Ad Account Forensics",
+          "Amazon & Marketplace Buy-Box Audit",
+          "Storefront Checkout Drop-off & Conversion Barriers",
+          "Unit Economic & Contribution Margin Model"
+        ],
+        buttonText: "Read the Discover Chapter",
+        bgColor: "#FF5226", // Vibrant Orange / Coral
         image: "/images/space/process-discover-new.jpg"
       },
       {
@@ -174,6 +183,14 @@ const HOME2_CONTENT = {
         heading: "Architecture, Catalogue & Campaign Construction",
         desc: "We rebuild your ad account structures, correct SKU variations and categorization on marketplaces, and optimize your web checkout for sub-second page performance.",
         deliverable: "Approved Ad Creative Modules, Restructured SKUs & Tested Checkout Funnels",
+        deliverablesList: [
+          "Clean Campaign Structure & Negative Keyword Lists",
+          "Catalogue SKU Variations & Category Alignment",
+          "Custom Web Speed Optimization & Checkout CRO",
+          "Conversion API (CAPI) & GA4 Tracking Setup"
+        ],
+        buttonText: "Read the Build Chapter",
+        bgColor: "#9B72FF", // Vibrant Violet / Lavender
         image: "/images/space/process-build-new.jpg"
       },
       {
@@ -183,6 +200,14 @@ const HOME2_CONTENT = {
         heading: "Omni-Channel Coordinated Go-Live",
         desc: "New campaigns, revised marketplace listings, and conversion-optimized storefronts go live simultaneously so your brand captures traffic and converts at peak efficiency.",
         deliverable: "Live Sponsored Ads, Active Amazon Brand Store & Verified CAPI Tracking",
+        deliverablesList: [
+          "Synchronized Multi-Platform Campaign Ignition",
+          "Active Amazon Brand Store & A+ Content Live",
+          "Direct Tracking & Attribution Verification",
+          "Live Margin & Blended ROAS Monitoring"
+        ],
+        buttonText: "Read the Launch Chapter",
+        bgColor: "#E9F835", // Vibrant Electric Acid Yellow
         image: "/images/space/process-launch-new.jpg"
       },
       {
@@ -192,6 +217,14 @@ const HOME2_CONTENT = {
         heading: "Continuous Algorithmic Calibration",
         desc: "Every Monday we review search query logs, buy-box dynamics, and ad margins, trimming underperforming spend and doubling down on profitable winners.",
         deliverable: "Weekly Net Contribution Reports & Iterative Scale Experiments",
+        deliverablesList: [
+          "Weekly Net Contribution & Margin Governance",
+          "Search Query Harvesting & Algorithmic Bidding",
+          "Competitor Buy-Box Anomaly Detection",
+          "High-Velocity Creative Testing & Iteration"
+        ],
+        buttonText: "Read the Grow Chapter",
+        bgColor: "#00D2FF", // Vibrant Electric Cyan / Azure
         image: "/images/space/quan-you-zhang-8jW6xCtmYsw-unsplash.jpg"
       }
     ]
@@ -536,7 +569,7 @@ export default function Home2Page() {
           id="hero-scroll-cue"
           className="absolute bottom-6 sm:bottom-8 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 sm:gap-2 pointer-events-none select-none transition-opacity duration-300"
         >
-          <span className="font-sans text-[8.5px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.25em] text-[#A0A5B5] font-semibold bg-[#000000]/75 backdrop-blur-md px-2.5 py-1 sm:px-4 sm:py-1.5 border border-white/10 rounded-full shadow-lg">
+          <span className="font-sans text-[8.5px] sm:text-[11px] uppercase tracking-[0.18em] sm:tracking-[0.25em] text-[#A0A5B5] font-semibold bg-[#000000]/75 backdrop-blur-md px-2.5 py-1 sm:px-4 sm:py-1.5 border border-white/10 rounded-none shadow-lg">
             SCROLL TO EXPLORE
           </span>
           <div className="w-[1.5px] h-4 sm:h-6 bg-gradient-to-b from-white/70 via-white/20 to-transparent animate-pulse" />
@@ -550,6 +583,9 @@ export default function Home2Page() {
       >
         {/* 2. The Problem */}
         <Home2Problem data={HOME2_CONTENT.problem} />
+
+        {/* 2.5 8+ Services Unified & Direct Support (Interactive Pinned Visual Reveal) */}
+        <Home2UnifiedShowcase data={HOME2_CONTENT.problem.statBlock} />
 
         {/* 3. One Team, Five Orbits (Services) */}
         <Home2Services data={HOME2_CONTENT.services} />

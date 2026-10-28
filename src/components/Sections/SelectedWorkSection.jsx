@@ -69,7 +69,7 @@ export default function SelectedWorkSection() {
           <button 
             type="button" 
             onClick={() => scroll('left')}
-            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#080B10] hover:text-white hover:border-[#080B10] transition-all text-space-950 cursor-pointer shadow-xs" 
+            className="w-10 h-10 rounded-none border border-slate-200 flex items-center justify-center hover:bg-[#080B10] hover:text-white hover:border-[#080B10] transition-all text-space-950 cursor-pointer shadow-xs" 
             aria-label="Previous work slide"
           >
             ←
@@ -77,7 +77,7 @@ export default function SelectedWorkSection() {
           <button 
             type="button" 
             onClick={() => scroll('right')}
-            className="w-10 h-10 rounded-full border border-slate-200 flex items-center justify-center hover:bg-[#080B10] hover:text-white hover:border-[#080B10] transition-all text-space-950 cursor-pointer shadow-xs" 
+            className="w-10 h-10 rounded-none border border-slate-200 flex items-center justify-center hover:bg-[#080B10] hover:text-white hover:border-[#080B10] transition-all text-space-950 cursor-pointer shadow-xs" 
             aria-label="Next work slide"
           >
             →

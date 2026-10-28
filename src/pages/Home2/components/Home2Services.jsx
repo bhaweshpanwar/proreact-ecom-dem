@@ -137,7 +137,7 @@ export default function Home2Services({ data }) {
                         {item.tag}
                       </span>
                       {item.planet && (
-                        <span className="px-2 py-0.5 rounded-full bg-white/10 text-[9px] font-mono tracking-wider text-white/90 uppercase border border-white/15">
+                        <span className="px-2 py-0.5 rounded-none bg-white/10 text-[9px] font-mono tracking-wider text-white/90 uppercase border border-white/15">
                           {item.planet}
                         </span>
                       )}
