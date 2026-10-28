@@ -92,13 +92,13 @@ export default function Home2Services({ data }) {
             <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
               {headline}
             </h2>
-            <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-[55ch]">
+            <p className="font-sans text-sm sm:text-base text-neutral-400 leading-relaxed max-w-[55ch] font-normal">
               {subtext}
             </p>
           </div>
         </div>
 
-        {/* 5 Big Numbered Rows (Hover fills with Space Image) */}
+        {/* 5 Big Numbered Rows (Desktop hover reveals Space Image; Clean Black on Mobile) */}
         <div className="divide-y divide-[#262626] border-b border-[#262626]">
           {services.map((item, idx) => {
             const isHovered = hoveredIdx === idx;
@@ -108,9 +108,9 @@ export default function Home2Services({ data }) {
                 onMouseEnter={() => setHoveredIdx(idx)}
                 className="service-row-anim group relative py-8 sm:py-12 transition-colors duration-300 cursor-pointer overflow-hidden"
               >
-                {/* Active Background Space Image Reveal on Hover (Full Rich Color & High Opacity) */}
+                {/* Active Background Space Image Reveal on Hover (Desktop Only; Hidden on Mobile to keep sleek solid black) */}
                 <div 
-                  className={`absolute inset-0 z-0 transition-opacity duration-500 pointer-events-none ${
+                  className={`hidden lg:block absolute inset-0 z-0 transition-opacity duration-500 pointer-events-none ${
                     isHovered ? 'opacity-85' : 'opacity-0'
                   }`}
                 >
@@ -125,7 +125,7 @@ export default function Home2Services({ data }) {
                 <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-6 items-baseline">
                   {/* Number */}
                   <div className="lg:col-span-2">
-                    <span className="font-sans text-2xl sm:text-4xl text-[#8A8A8A] group-hover:text-[#FFFFFF] transition-colors font-bold tracking-tight">
+                    <span className="font-sans text-xl sm:text-4xl text-[#8A8A8A] group-hover:text-[#FFFFFF] transition-colors font-medium sm:font-bold tracking-tight">
                       [{item.num}]
                     </span>
                   </div>
@@ -133,7 +133,7 @@ export default function Home2Services({ data }) {
                   {/* Title & Tag */}
                   <div className="lg:col-span-5 space-y-2">
                     <div className="flex flex-wrap items-center gap-2">
-                      <span className="font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-semibold block">
+                      <span className="font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-medium block">
                         {item.tag}
                       </span>
                       {item.planet && (
@@ -142,27 +142,14 @@ export default function Home2Services({ data }) {
                         </span>
                       )}
                     </div>
-                    <h3 className="font-grotesk font-bold text-2xl sm:text-4xl text-[#FFFFFF] group-hover:translate-x-2 transition-transform duration-300">
+                    <h3 className="font-grotesk font-semibold sm:font-bold text-xl sm:text-4xl text-[#FFFFFF] group-hover:translate-x-2 transition-transform duration-300">
                       {item.title}
                     </h3>
-
-                    {/* Mobile High Quality Image Display */}
-                    <div className="block lg:hidden pt-2 pb-1">
-                      <div className="relative aspect-[16/9] w-full overflow-hidden border border-[#262626] bg-[#0A0A0A]">
-                        <img
-                          src={item.image}
-                          alt={item.title}
-                          className="w-full h-full object-cover"
-                          loading="lazy"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent pointer-events-none" />
-                      </div>
-                    </div>
                   </div>
 
                   {/* Description */}
                   <div className="lg:col-span-4">
-                    <p className="font-grotesk text-xs sm:text-sm text-[#A3A3A3] group-hover:text-[#FFFFFF] transition-colors leading-relaxed">
+                    <p className="font-sans text-xs sm:text-sm text-neutral-400 group-hover:text-[#FFFFFF] transition-colors leading-relaxed font-normal">
                       {item.desc}
                     </p>
                   </div>

@@ -119,48 +119,33 @@ export default function Home2UnifiedShowcase({ data }) {
       });
     });
 
-    // 2. Mobile & Tablet Screens (< 1024px)
+    // 2. Mobile & Tablet Screens (< 1024px): Image is hidden to keep 8+ Services & 1 Team fully visible
     mm.add("(max-width: 1023px)", () => {
-      gsap.set(imgWrapperRef.current, { width: "100%", height: "100%", top: 0, left: 0 });
-      gsap.set(cardsRef.current, { opacity: 0, y: 30 });
+      gsap.set(cardsRef.current, { opacity: 0, y: 24 });
       if (primaryCountRef.current) primaryCountRef.current.innerText = "0+";
       if (secondaryCountRef.current) secondaryCountRef.current.innerText = "0";
 
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: sectionRef.current,
-          start: "top 65%",
+          start: "top 78%",
           toggleActions: "play none none reverse",
         }
       });
 
-      tl.to(
-        imgWrapperRef.current,
-        {
-          height: "42%",
-          ease: "power3.inOut",
-          duration: 1.0,
-        },
-        "unmaskMobile"
-      );
-
-      tl.to(
-        cardsRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          ease: "power3.out",
-          duration: 0.9,
-        },
-        "unmaskMobile+=0.2"
-      );
+      tl.to(cardsRef.current, {
+        opacity: 1,
+        y: 0,
+        ease: "power2.out",
+        duration: 0.8,
+      });
 
       const counter1 = { val: 0 };
       tl.to(
         counter1,
         {
           val: 8,
-          duration: 1.1,
+          duration: 1.0,
           ease: "power2.out",
           onUpdate: () => {
             if (primaryCountRef.current) {
@@ -168,7 +153,7 @@ export default function Home2UnifiedShowcase({ data }) {
             }
           }
         },
-        "unmaskMobile+=0.2"
+        0.1
       );
 
       const counter2 = { val: 0 };
@@ -184,7 +169,7 @@ export default function Home2UnifiedShowcase({ data }) {
             }
           }
         },
-        "unmaskMobile+=0.2"
+        0.1
       );
 
       tl.eventCallback("onReverseComplete", () => {
@@ -200,12 +185,12 @@ export default function Home2UnifiedShowcase({ data }) {
     <section
       id="unified-showcase"
       ref={sectionRef}
-      className="relative w-full min-h-[600px] h-screen overflow-hidden select-none bg-[#F2F2F2] border-b border-[#E5E5E5] z-20"
+      className="relative w-full h-auto lg:h-screen lg:min-h-[600px] overflow-hidden select-none bg-[#F2F2F2] border-b border-[#E5E5E5] z-20"
     >
-      {/* 1. LEFT IMAGE WRAPPER (Starts Full Width z-20, Contracts to 56% to Unmask Cards) */}
+      {/* 1. LEFT IMAGE WRAPPER (Starts Full Width z-20, Contracts to 56% to Unmask Cards on Desktop; Hidden on Mobile so both cards are fully accessible) */}
       <div
         ref={imgWrapperRef}
-        className="absolute left-0 top-0 bottom-0 h-full z-20 overflow-hidden shadow-2xl will-change-[width,height]"
+        className="hidden lg:block absolute left-0 top-0 bottom-0 h-full z-20 overflow-hidden shadow-2xl will-change-[width,height]"
       >
         <img
           ref={imgRef}
@@ -218,13 +203,13 @@ export default function Home2UnifiedShowcase({ data }) {
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-black/25 pointer-events-none" />
       </div>
 
-      {/* 2. RIGHT CARDS CONTAINER (Positioned in Right 44%, Unmasked as Image Contracts) */}
+      {/* 2. RIGHT CARDS CONTAINER (Positioned in Right 44% on Desktop, Full Width Stacked on Mobile) */}
       <div
         ref={cardsRef}
-        className="absolute right-0 top-0 bottom-0 w-full lg:w-[44%] h-full z-10 flex flex-col bg-[#F2F2F2] border-l border-[#E5E5E5]"
+        className="relative lg:absolute lg:right-0 lg:top-0 lg:bottom-0 w-full lg:w-[44%] h-auto lg:h-full z-10 flex flex-col bg-[#F2F2F2] lg:border-l border-[#E5E5E5]"
       >
         {/* CARD 1: 8+ Services Unified (Airy, Refined Editorial Design, Non-Bulky Fonts) */}
-        <div className="flex-1 bg-[#FFFFFF] p-8 sm:p-12 lg:p-14 flex flex-col justify-between text-[#000000] border-b border-[#E5E5E5] select-none">
+        <div className="flex-1 bg-[#FFFFFF] p-6 sm:p-10 lg:p-14 flex flex-col justify-between text-[#000000] border-b border-[#E5E5E5] select-none gap-6">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[11px] uppercase tracking-widest text-[#777777] font-normal">
               ORBITS 01–08 · UNIFIED REVENUE
@@ -258,7 +243,7 @@ export default function Home2UnifiedShowcase({ data }) {
         </div>
 
         {/* CARD 2: Direct Team Communication (Airy, Refined Editorial Design, Non-Bulky Fonts) */}
-        <div className="flex-1 bg-[#F2F2F2] p-8 sm:p-12 lg:p-14 flex flex-col justify-between text-[#000000] select-none">
+        <div className="flex-1 bg-[#F2F2F2] p-6 sm:p-10 lg:p-14 flex flex-col justify-between text-[#000000] select-none gap-6">
           <div className="flex items-center justify-between">
             <span className="font-mono text-[11px] uppercase tracking-widest text-[#777777] font-normal">
               DIRECT SYNC · ZERO BOT BARRIERS

@@ -98,7 +98,7 @@ export default function Home2Problem({ data }) {
           className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] will-change-transform"
         >
           <div className="lg:col-span-3">
-            <span className="font-sans text-xs uppercase tracking-widest text-[#000000] font-black block">
+            <span className="font-sans text-[11px] sm:text-xs uppercase tracking-widest text-neutral-500 font-semibold block">
               {eyebrow}
             </span>
           </div>
@@ -107,16 +107,16 @@ export default function Home2Problem({ data }) {
               {headline}
             </h2>
             <div className="space-y-4 max-w-[65ch]">
-              <p className="font-grotesk text-base sm:text-lg text-[#111111] font-medium leading-relaxed">
+              <p className="font-sans text-[15px] sm:text-lg text-neutral-600 sm:text-neutral-700 font-normal leading-relaxed">
                 {subtext}
               </p>
               {secondaryText && (
-                <p className="font-grotesk text-base sm:text-lg text-[#111111] font-medium leading-relaxed">
+                <p className="font-sans text-[15px] sm:text-lg text-neutral-600 sm:text-neutral-700 font-normal leading-relaxed">
                   {secondaryText}
                 </p>
               )}
               {highlightText && (
-                <p className="font-grotesk font-black text-xs sm:text-sm text-[#000000] tracking-wider uppercase pt-1">
+                <p className="font-sans font-semibold text-xs sm:text-sm text-neutral-900 tracking-wider uppercase pt-1">
                   {highlightText}
                 </p>
               )}
@@ -133,17 +133,17 @@ export default function Home2Problem({ data }) {
               className="py-8 sm:py-12 md:px-8 first:pl-0 last:pr-0 space-y-4 will-change-transform"
             >
               <div className="flex items-center justify-between">
-                <span className="font-sans text-xs text-[#000000] uppercase tracking-wider font-extrabold">
+                <span className="font-mono text-[11px] sm:text-xs text-neutral-400 uppercase tracking-wider font-normal">
                   {point.label}
                 </span>
-                <span className="font-sans text-sm font-black text-[#000000]">
+                <span className="font-mono text-xs sm:text-sm font-normal text-neutral-400">
                   [{point.num}]
                 </span>
               </div>
-              <h3 className="font-grotesk font-bold text-xl sm:text-2xl text-[#000000] leading-snug">
+              <h3 className="font-grotesk font-semibold sm:font-bold text-lg sm:text-2xl text-neutral-950 leading-snug">
                 {point.title}
               </h3>
-              <p className="font-grotesk text-sm sm:text-base text-[#1A1A1A] font-normal leading-relaxed">
+              <p className="font-sans text-sm sm:text-base text-neutral-500 sm:text-neutral-600 font-normal leading-relaxed">
                 {point.desc}
               </p>
             </div>
