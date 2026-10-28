@@ -14,36 +14,38 @@ export default function Home2Problem({ data }) {
 
   const {
     eyebrow = "02 / THE BOTTLENECK",
-    headline = "Too many freelancers. Too little growth.",
-    subtext = "Most expanding businesses end up managing 5 disconnected vendors: an ad agency that ignores catalogues, a web developer who blames the designer, and marketplace account managers operating in a dark room. Nobody owns the bottom-line revenue number.",
+    headline = "Different Agencies for Every Service. Still Waiting for Growth?",
+    subtext = "Most expanding businesses end up managing multiple disconnected vendors: an ad agency that ignores catalogues, a web developer who blames the designer, and marketplace account managers operating in a dark room. Nobody owns the bottom-line revenue number.",
+    secondaryText = "Your website, digital marketing, branding and marketplace operations shouldn't work in isolation. Bring your digital services together with one integrated growth partner.",
+    highlightText = "One Business. One Connected Strategy. E-COMET OUTVERSE.",
     painPoints = [
       {
         num: "01",
-        label: "VENDOR FRAGMENTATION",
-        title: "Disconnected Execution",
-        desc: "Designers don't know Amazon catalog formatting. Ad buyers don't know technical SEO. You spend your weeks relaying feedback across 5 Slack channels."
+        label: "DISCONNECTED DIGITAL EFFORTS",
+        title: "When Digital Activities Lack Coordination",
+        desc: "Marketplace listings, websites, advertising and social content can operate independently. A clearer plan can help align these activities around your business priorities."
       },
       {
         num: "02",
-        label: "VANITY METRIC TRAP",
-        title: "Impressions Over Margin",
-        desc: "Agencies celebrate clicks, followers, and ad impressions while your net contribution margin and Buy-Box win rate stay completely flat."
+        label: "ACTIVITY WITHOUT A CLEAR DIRECTION",
+        title: "Beyond Clicks, Posts and Impressions",
+        desc: "Digital activity should serve a purpose. Define what matters to your business visibility, enquiries, product presentation, customer engagement or online sales and choose services accordingly."
       },
       {
         num: "03",
-        label: "THE JUNIOR PASS-OFF",
-        title: "Pitch Team vs Real Team",
-        desc: "Pitched by senior agency founders, then handed off to junior interns who learn on your company ad budget. Zero commercial skin in the game."
+        label: "SOLUTIONS THAT FIT YOUR BUSINESS",
+        title: "Not Every Business Needs Everything",
+        desc: "Startup, retailer and established brand have different requirements. We start by understanding your needs before discussing relevant services."
       }
     ],
     statBlock = {
       image: "/images/space/ring-part-three.jpg",
-      statPrimary: "5+",
-      statLabelPrimary: "Vendors Replaced",
-      statSub: "One sovereign team handling marketplaces, ad budgets, storefronts and creative.",
-      statSecondary: "24h",
-      statLabelSecondary: "Direct Slack & WhatsApp Response",
-      statSecondarySub: "Direct partner access. No tiered ticketing queues."
+      statPrimary: "8+",
+      statLabelPrimary: "Services Unified",
+      statSub: "One integrated partner managing marketplaces, ad campaigns, storefronts, and brand creative under a single connected strategy.",
+      statSecondary: "Direct Team Communication",
+      statLabelSecondary: "Clear updates. Structured support.",
+      statSecondarySub: "Work directly with our team for project discussions, progress updates and coordinated digital solutions."
     }
   } = data || {};
 
@@ -143,14 +145,30 @@ export default function Home2Problem({ data }) {
           ref={headerRef}
           className="grid grid-cols-1 lg:grid-cols-12 gap-8 pb-12 sm:pb-16 border-b border-[#E5E5E5] will-change-transform"
         >
-          <div className="lg:col-span-3" />
+          <div className="lg:col-span-3">
+            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+              {eyebrow}
+            </span>
+          </div>
           <div className="lg:col-span-9 space-y-6">
-            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,90px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
+            <h2 className="font-grotesk font-bold text-[clamp(32px,5vw,78px)] leading-[0.96] tracking-[-0.035em] uppercase text-[#000000]">
               {headline}
             </h2>
-            <p className="font-grotesk text-base sm:text-lg text-[#555555] leading-relaxed max-w-[60ch]">
-              {subtext}
-            </p>
+            <div className="space-y-4 max-w-[65ch]">
+              <p className="font-grotesk text-base sm:text-lg text-[#555555] leading-relaxed">
+                {subtext}
+              </p>
+              {secondaryText && (
+                <p className="font-grotesk text-base sm:text-lg text-[#555555] leading-relaxed">
+                  {secondaryText}
+                </p>
+              )}
+              {highlightText && (
+                <p className="font-grotesk font-bold text-xs sm:text-sm text-[#000000] tracking-wider uppercase pt-1">
+                  {highlightText}
+                </p>
+              )}
+            </div>
           </div>
         </div>
 
@@ -214,14 +232,14 @@ export default function Home2Problem({ data }) {
               </p>
             </div>
 
-            <div className="pt-6 border-t border-[#D9D9D9] space-y-1">
-              <div className="font-grotesk font-bold text-4xl sm:text-5xl text-[#000000] tracking-tight">
+            <div className="pt-6 border-t border-[#D9D9D9] space-y-2">
+              <div className="font-grotesk font-bold text-xl sm:text-2xl text-[#000000] tracking-tight leading-snug">
                 {statBlock.statSecondary}
               </div>
               <span className="font-sans text-xs uppercase text-[#8A8A8A] block font-semibold">
                 {statBlock.statLabelSecondary}
               </span>
-              <p className="font-grotesk text-xs text-[#666666]">
+              <p className="font-grotesk text-xs sm:text-sm text-[#666666] leading-relaxed">
                 {statBlock.statSecondarySub}
               </p>
             </div>

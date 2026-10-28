@@ -115,18 +115,19 @@ export default function Footer() {
         
         {/* Real 3D Comet Showcase & Social Links */}
         <div className="pt-12 sm:pt-16 pb-12 border-b border-white/10 relative">
-          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
-            
-            {/* Comet Stage with Big Stretched E-COMET OUTVERSE Typography Behind */}
-            <div className="relative w-full min-h-[340px] sm:min-h-[420px] flex items-center justify-center my-6 overflow-hidden">
+          
+          {/* Edge-to-Edge Expanded Stage for Scaled E-COMET OUTVERSE Typography & 3D Comet */}
+          <div className="w-full max-w-[1680px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="relative w-full min-h-[340px] sm:min-h-[420px] lg:min-h-[480px] flex items-center justify-center my-4 overflow-hidden">
               
-              {/* Massive Dark Gray Sans-Serif Stretched Typography Behind Comet */}
+              {/* Massive Space Grotesk Stretched Typography Behind Comet - Shortened to Balanced Scale */}
               <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden z-0" aria-hidden="true">
                 <span 
-                  className="inline-block font-sans font-black tracking-tighter text-[#222C3A] uppercase whitespace-nowrap leading-none select-none"
+                  className="inline-block font-black tracking-[-0.03em] text-[#222C3A] uppercase whitespace-nowrap leading-none select-none"
                   style={{
-                    fontSize: 'clamp(2.5rem, 7.5vw, 10rem)',
-                    transform: 'scaleY(1.55)',
+                    fontFamily: '"Space Grotesk", "Inter Tight", sans-serif',
+                    fontSize: 'clamp(2.5rem, 8.5vw, 11.5rem)',
+                    transform: 'scaleY(1.2)',
                     transformOrigin: 'center center'
                   }}
                 >
@@ -136,12 +137,14 @@ export default function Footer() {
 
               {/* That Real 3D Comet sitting on top */}
               <div className="relative z-10 w-full flex items-center justify-center pointer-events-auto">
-                <SingleCometCanvas height="h-[340px] sm:h-[400px]" title="E-Comet Core" />
+                <SingleCometCanvas height="h-[320px] sm:h-[400px] lg:h-[460px]" title="E-Comet Core" />
               </div>
 
             </div>
+          </div>
 
-            {/* Social Media Brand Ecosystem Pills */}
+          {/* Social Media Brand Ecosystem Pills */}
+          <div className="max-w-[1360px] mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap items-center justify-center gap-3 pt-6">
               {socialChannels.map((channel, cIdx) => (
                 <a
@@ -162,8 +165,8 @@ export default function Footer() {
                 </a>
               ))}
             </div>
-
           </div>
+
         </div>
 
         {/* ─────────────────────────────────────────────────────────────
@@ -254,13 +257,13 @@ export default function Footer() {
             {/* Mandatory Commercial Policy Disclaimer */}
             <div className="py-6 border-t border-white/10 text-[11px] font-sans text-slate-500 leading-relaxed">
               <p>
-                <strong className="text-slate-400">Disclosure:</strong> Service scope, availability, pricing, third-party costs, and timelines are confirmed individually. Business outcomes depend on multiple factors and are not guaranteed. E-Comet Growth Agency is an independent consultancy. All platform trademarks belong to their respective owners.
+                <strong className="text-slate-400">Disclosure:</strong> Service scope, availability, pricing, third-party costs, and timelines are confirmed individually. Business outcomes depend on multiple factors and are not guaranteed. E-Comet Outverse Growth Agency is an independent consultancy. All platform trademarks belong to their respective owners.
               </p>
             </div>
 
             {/* Legal & Copyright Row */}
             <div className="pt-6 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-[11px] font-sans text-slate-500">
-              <p>© {new Date().getFullYear()} E-Comet Growth Agency. All rights reserved.</p>
+              <p>© {new Date().getFullYear()} E-Comet Outverse. All rights reserved.</p>
               <div className="flex items-center gap-6">
                 <Link to="/about-us" className="hover:text-white transition-colors">About Us</Link>
                 <Link to="/services/ecommerce-management" className="hover:text-white transition-colors">Services</Link>

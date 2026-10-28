@@ -36,84 +36,118 @@ const HOME2_CONTENT = {
 
   // 2. The Problem
   problem: {
-    eyebrow: "02 / THE BOTTLENECK",
-    headline: "Too many freelancers. Too little growth.",
-    subtext: "Most expanding businesses end up managing 5 disconnected vendors: an ad agency that ignores catalogues, a web developer who blames the designer, and marketplace account managers operating in a dark room. Nobody owns the bottom-line revenue number.",
+    eyebrow: "02 / CONNECTED COMMERCE",
+    headline: "Different Agencies for Every Service. Still Waiting for Growth?",
+    subtext: "Most expanding businesses end up managing multiple disconnected vendors: an ad agency that ignores catalogues, a web developer who blames the designer, and marketplace account managers operating in a dark room. Nobody owns the bottom-line revenue number.",
+    secondaryText: "Your website, digital marketing, branding and marketplace operations shouldn't work in isolation. Bring your digital services together with one integrated growth partner.",
+    highlightText: "One Business. One Connected Strategy. E-COMET OUTVERSE.",
     painPoints: [
       {
         num: "01",
-        label: "VENDOR FRAGMENTATION",
-        title: "Disconnected Execution",
-        desc: "Designers don't know Amazon catalog formatting. Ad buyers don't know technical SEO. You spend your weeks relaying feedback across 5 Slack channels."
+        label: "DISCONNECTED DIGITAL EFFORTS",
+        title: "When Digital Activities Lack Coordination",
+        desc: "Marketplace listings, websites, advertising and social content can operate independently. A clearer plan can help align these activities around your business priorities."
       },
       {
         num: "02",
-        label: "VANITY METRIC TRAP",
-        title: "Impressions Over Margin",
-        desc: "Agencies celebrate clicks, followers, and ad impressions while your net contribution margin and Buy-Box win rate stay completely flat."
+        label: "ACTIVITY WITHOUT A CLEAR DIRECTION",
+        title: "Beyond Clicks, Posts and Impressions",
+        desc: "Digital activity should serve a purpose. Define what matters to your business visibility, enquiries, product presentation, customer engagement or online sales and choose services accordingly."
       },
       {
         num: "03",
-        label: "THE JUNIOR PASS-OFF",
-        title: "Pitch Team vs Real Team",
-        desc: "Pitched by senior agency founders, then handed off to junior interns who learn on your company ad budget. Zero commercial skin in the game."
+        label: "SOLUTIONS THAT FIT YOUR BUSINESS",
+        title: "Not Every Business Needs Everything",
+        desc: "Startup, retailer and established brand have different requirements. We start by understanding your needs before discussing relevant services."
       }
     ],
     statBlock: {
       image: "/images/space/ring-part-three.jpg",
-      statPrimary: "5+",
-      statLabelPrimary: "Vendors Replaced",
-      statSub: "One sovereign team handling marketplaces, ad budgets, storefronts and creative.",
-      statSecondary: "24h",
-      statLabelSecondary: "Direct Slack & WhatsApp Response",
-      statSecondarySub: "Direct partner access. No tiered ticketing queues."
+      statPrimary: "8+",
+      statLabelPrimary: "Services Unified",
+      statSub: "One integrated partner managing marketplaces, ad campaigns, storefronts, and brand creative under a single connected strategy.",
+      statSecondary: "Direct Team Communication",
+      statLabelSecondary: "Clear updates. Structured support.",
+      statSecondarySub: "Work directly with our team for project discussions, progress updates and coordinated digital solutions."
     }
   },
 
-  // 3. One Team, Five Orbits (Services)
+  // 3. One Team, Eight Orbits (Services)
   services: {
-    eyebrow: "03 / FIVE ORBITS",
-    headline: "One team, five orbits.",
+    eyebrow: "03 / EIGHT ORBITS",
+    headline: "One team, eight orbits.",
     subtext: "Every capability required to scale commercial revenue online, aligned under one sovereign technical standard.",
     services: [
       {
         num: "01",
         title: "Marketplace Management",
         tag: "AMAZON · FLIPKART · QUICK COMMERCE",
-        desc: "Catalogue onboarding, daily Buy-Box governance, Sponsored Ads, and algorithmic pricing compliance across major Indian and global marketplaces.",
-        image: "/images/space/card-marketplace.jpg",
+        planet: "ORBIT 01 · MERCURY",
+        desc: "Catalogue onboarding, listing optimization, marketplace operations, Sponsored Ads, inventory coordination, and pricing management across major Indian and global marketplaces.",
+        image: "/images/space/planet-mercury.jpg",
         link: "/services/ecommerce-management"
       },
       {
         num: "02",
-        title: "Performance Marketing & SEO",
-        tag: "GOOGLE ADS · META · TECHNICAL SEO",
-        desc: "High-intent Google Search, Meta Advantage+ conversion funnels, and organic search architecture focused strictly on contribution margin and CAC efficiency.",
-        image: "/images/space/dark-card-ads.jpg",
+        title: "Digital Marketing",
+        tag: "META · GOOGLE · SEO · AI SEARCH",
+        planet: "ORBIT 02 · VENUS",
+        desc: "Social media management, paid advertising, search engine optimization, lead generation, content marketing, and performance tracking to strengthen digital visibility and support business growth.",
+        image: "/images/space/planet-venus.jpg",
         link: "/services/digital-marketing"
       },
       {
         num: "03",
-        title: "Web & App Development",
-        tag: "SHOPIFY LIQUID · HEADLESS · CRO",
-        desc: "Sub-second storefront architecture, custom Shopify theme engineering, checkout drop-off elimination, and automated ERP integrations.",
-        image: "/images/space/dark-card-web.jpg",
+        title: "Website Development",
+        tag: "WORDPRESS · SHOPIFY · WOOCOMMERCE",
+        planet: "ORBIT 03 · EARTH",
+        desc: "Business websites, e-commerce storefronts, landing pages, UI/UX design, third-party integrations, and website performance optimization tailored to business requirements.",
+        image: "/images/space/planet-earth.jpg",
         link: "/services/web-development"
       },
       {
         num: "04",
-        title: "Creative & Brand Cinema",
-        tag: "STUDIO SHOOTS · 3D CGI · VIDEO",
-        desc: "Commercial e-commerce photography, 3D CGI photorealistic product models, and high-velocity short-form motion that elevate perceived market value.",
-        image: "/images/space/dark-card-creative.jpg",
+        title: "Creatives & Graphic Design",
+        tag: "BRANDING · GRAPHIC DESIGN · AD CREATIVES",
+        planet: "ORBIT 04 · MARS",
+        desc: "Brand identity, logo design, social media creatives, advertising visuals, marketplace graphics, product packaging, brochures, and visual assets built around your brand identity.",
+        image: "/images/space/planet-mars.jpg",
         link: "/services/creative-design"
       },
       {
         num: "05",
-        title: "Growth & Analytics",
-        tag: "FIRST-PARTY DATA · CAPI · GA4",
-        desc: "Clean telemetry dashboards, conversion API tracking, customer LTV models, and weekly unit economic audits to scale without burning margin.",
-        image: "/images/space/goals-galaxy.jpg",
+        title: "Photography & Photoshoots",
+        tag: "PRODUCT · FASHION · FOOD · CORPORATE",
+        planet: "ORBIT 05 · JUPITER",
+        desc: "Product photography, lifestyle shoots, catalogue images, model photography, food and menu photography, corporate portraits, and professional image post-production for digital and commercial use.",
+        image: "/images/space/planet-jupiter.jpg",
+        link: "/services/photography-photoshoots"
+      },
+      {
+        num: "06",
+        title: "Video Production & Editing",
+        tag: "REELS · ADS · BRAND FILMS · YOUTUBE",
+        planet: "ORBIT 06 · SATURN",
+        desc: "Short-form videos, promotional films, product videos, corporate presentations, reels, YouTube content, motion graphics, subtitles, color grading, and multi-platform video editing.",
+        image: "/images/space/planet-saturn.jpg",
+        link: "/services/video-production-editing"
+      },
+      {
+        num: "07",
+        title: "YouTube Strategy, Channel Management & Content Growth",
+        tag: "YOUTUBE SEO · CONTENT STRATEGY · ANALYTICS",
+        planet: "ORBIT 07 · URANUS",
+        desc: "Channel setup and branding, niche and keyword research, content planning, scripting, thumbnail optimization, publishing workflows, audience retention analysis, and channel performance tracking.",
+        image: "/images/space/planet-uranus.jpg",
+        link: "/services/youtube-strategy-management"
+      },
+      {
+        num: "08",
+        title: "Integrated Digital Solutions",
+        tag: "INTEGRATED STRATEGY · CONNECTED SERVICES · BUSINESS GROWTH",
+        planet: "ORBIT 08 · NEPTUNE",
+        desc: "Customized digital growth frameworks combining marketplaces, websites, marketing, branding, content, and lead generation into a coordinated approach based on your business goals and requirements.",
+        image: "/images/space/planet-neptune.jpg",
         link: "/services/integrated-solutions"
       }
     ]
@@ -131,7 +165,7 @@ const HOME2_CONTENT = {
         heading: "Full Account Telemetry & Gap Analysis",
         desc: "We dive straight into your Google Ads query logs, Amazon Buy-Box share, catalogue health, and checkout drop-off rates. No generic playbooks. We uncover the exact leak points costing you margin.",
         deliverable: "Comprehensive 48-Hour Growth Diagnostic & Unit Economic Model",
-        image: "/images/space/process-discover.jpg"
+        image: "/images/space/process-discover-new.jpg"
       },
       {
         num: "02",
@@ -140,7 +174,7 @@ const HOME2_CONTENT = {
         heading: "Architecture, Catalogue & Campaign Construction",
         desc: "We rebuild your ad account structures, correct SKU variations and categorization on marketplaces, and optimize your web checkout for sub-second page performance.",
         deliverable: "Approved Ad Creative Modules, Restructured SKUs & Tested Checkout Funnels",
-        image: "/images/space/process-build.jpg"
+        image: "/images/space/process-build-new.jpg"
       },
       {
         num: "03",
@@ -149,7 +183,7 @@ const HOME2_CONTENT = {
         heading: "Omni-Channel Coordinated Go-Live",
         desc: "New campaigns, revised marketplace listings, and conversion-optimized storefronts go live simultaneously so your brand captures traffic and converts at peak efficiency.",
         deliverable: "Live Sponsored Ads, Active Amazon Brand Store & Verified CAPI Tracking",
-        image: "/images/space/process-audit.jpg"
+        image: "/images/space/process-launch-new.jpg"
       },
       {
         num: "04",
@@ -158,7 +192,7 @@ const HOME2_CONTENT = {
         heading: "Continuous Algorithmic Calibration",
         desc: "Every Monday we review search query logs, buy-box dynamics, and ad margins, trimming underperforming spend and doubling down on profitable winners.",
         deliverable: "Weekly Net Contribution Reports & Iterative Scale Experiments",
-        image: "/images/space/process-scale.jpg"
+        image: "/images/space/quan-you-zhang-8jW6xCtmYsw-unsplash.jpg"
       }
     ]
   },
@@ -166,48 +200,57 @@ const HOME2_CONTENT = {
   // 5. Your First 30 Days
   timeline: {
     eyebrow: "05 / ONBOARDING ROADMAP",
-    headline: "Your first 30 days.",
-    subtext: "Plain, concrete deliverables from day one. Exactly what happens when you partner with E-Comet.",
+    headline: "YOUR FIRST 30 DAYS.",
+    subtext: "Clear deliverables from day one. Here's what happens when you partner with E-Comet Outverse.",
+    footerStrip: "FLEXIBLE EXECUTION · SERVICE-SPECIFIC DELIVERABLES · INTEGRATED DIGITAL SOLUTIONS",
     weeks: [
       {
         week: "WEEK 01",
-        phase: "RECONNAISSANCE & AUDIT",
+        phaseNumber: "PHASE 01",
+        phase: "DISCOVERY & AUDIT",
         deliverables: [
-          "Complete ad account & query log forensic export",
-          "Marketplace Buy-Box health & SKU variation audit",
-          "Setup of unified WhatsApp / Slack communication channel",
-          "Delivery of prioritized 90-day growth roadmap"
-        ]
+          "Business goals, brand positioning & service requirements review",
+          "Digital presence, website & marketplace audit",
+          "Social media, YouTube & existing content assessment",
+          "Customized 30-day action plan & priorities"
+        ],
+        status: "STATUS: DAY 01–DAY 07"
       },
       {
         week: "WEEK 02",
-        phase: "FOUNDATION & REBUILD",
+        phaseNumber: "PHASE 02",
+        phase: "STRATEGY & FOUNDATION",
         deliverables: [
-          "Restructuring underperforming ad campaigns & budgets",
-          "Correction of listing errors, titles & back-end search terms",
-          "Storefront speed check & mobile checkout CRO fixes",
-          "Creative brief approval for new photo & video modules"
-        ]
+          "Digital marketing, campaign & channel strategy setup",
+          "Website improvements & marketplace listing optimization planning",
+          "Creative direction, graphic design & content calendar approval",
+          "YouTube strategy and photography/video production planning"
+        ],
+        status: "STATUS: DAY 08–DAY 14"
       },
       {
         week: "WEEK 03",
-        phase: "SYNCHRONIZED GO-LIVE",
+        phaseNumber: "PHASE 03",
+        phase: "EXECUTION & GO-LIVE",
         deliverables: [
-          "Live launch of revised Google & Meta ad funnels",
-          "Marketplace Sponsored Brand & Sponsored Product deployment",
-          "Activation of verified first-party CAPI / GA4 tracking",
-          "Daily Buy-Box monitoring & ad bid calibration"
-        ]
+          "Launch or optimize approved digital marketing campaigns",
+          "Implement agreed website & marketplace improvements",
+          "Produce approved creatives, graphics, photos & video content",
+          "Begin YouTube publishing and channel management activities"
+        ],
+        status: "STATUS: DAY 15–DAY 21"
       },
       {
         week: "WEEK 04",
-        phase: "FIRST CALIBRATION REVIEW",
+        phaseNumber: "PHASE 04",
+        phase: "REVIEW & OPTIMIZATION",
         deliverables: [
-          "First comprehensive weekly unit economic report",
-          "Pruning negative keywords and low-margin ad spend",
-          "Initial baseline comparison vs pre-launch metrics",
-          "Approval of month two scaling targets"
-        ]
+          "First performance report across active services",
+          "Review campaign results, website activity & marketplace performance",
+          "Evaluate creative, video & content performance",
+          "Prioritized next-month roadmap and scaling recommendations"
+        ],
+        status: "STATUS: DAY 22–DAY 30"
       }
     ]
   },
@@ -220,20 +263,24 @@ const HOME2_CONTENT = {
     image: "/images/space/new-second-section-web.jpg",
     auditFeatures: [
       {
-        title: "Search & Ad Account Forensics",
-        desc: "We analyze your Google & Meta search query logs, wasted negative keyword spend, and bid efficiency across bottom-funnel queries."
+        tag: "01 // GROWTH & MARKETING",
+        title: "Digital Marketing Performance",
+        desc: "We review your digital presence, marketing campaigns, audience targeting, engagement, and opportunities to improve reach and conversions."
       },
       {
-        title: "Marketplace Listing & Buy-Box Health",
-        desc: "We evaluate SKU variations, backend search terms, Amazon Brand Store architecture, and daily Buy-Box suppression risks."
+        tag: "02 // E-COMMERCE & WEB",
+        title: "Marketplace & Website Health",
+        desc: "We assess your marketplace listings, product visibility, store performance, website experience, and conversion barriers."
       },
       {
-        title: "Storefront Latency & Checkout CRO",
-        desc: "We audit mobile LCP load times, cart drawer friction, and drop-off barriers causing qualified visitors to leave without buying."
+        tag: "03 // CONTENT & CREATIVE",
+        title: "Content & Creative Impact",
+        desc: "We evaluate your brand creatives, product photography, video content, editing style, and YouTube strategy to identify opportunities for stronger brand communication."
       },
       {
-        title: "90-Day Prioritized Action Blueprint",
-        desc: "You receive a clear, actionable roadmap detailing the exact levers that will generate 80% of your initial compound momentum."
+        tag: "04 // STRATEGY & EXECUTION",
+        title: "Customized Growth Roadmap",
+        desc: "You receive a prioritized action plan tailored to your business goals, service requirements, and opportunities for an integrated digital solution."
       }
     ]
   },
@@ -344,7 +391,7 @@ const HOME2_CONTENT = {
     subtext: "Everything you need to know about our scope, coordination, contract lengths, and team structure.",
     faqs: [
       {
-        q: "How fast can we get started with E-Comet?",
+        q: "How fast can we get started with E-Comet Outverse?",
         a: "We initiate with the 48-Hour Growth Diagnostic Audit upon receiving read-only access. Once the roadmap and scope are approved, onboarding takes less than 5 business days to launch the first phase."
       },
       {
@@ -392,19 +439,6 @@ export default function Home2Page() {
   }, []);
 
   useEffect(() => {
-    // Scroll progress line for Home2
-    const progressLine = document.getElementById('scroll-progress-line');
-    const onScroll = () => {
-      const scrollTop = window.scrollY || document.documentElement.scrollTop;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      if (progressLine && docHeight > 0) {
-        const progress = Math.min(1, Math.max(0, scrollTop / docHeight));
-        progressLine.style.transform = `scaleX(${progress})`;
-      }
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
-
     // High-impact GSAP scroll parallax: as user scrolls down from 3D hero to section 2
     let heroParallaxST;
     const heroWrapper = document.getElementById('hero-parallax-wrapper');
@@ -479,7 +513,6 @@ export default function Home2Page() {
     }
 
     return () => {
-      window.removeEventListener('scroll', onScroll);
       if (heroParallaxST) heroParallaxST.kill();
     };
   }, [isMobile]);

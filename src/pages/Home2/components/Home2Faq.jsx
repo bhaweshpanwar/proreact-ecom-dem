@@ -19,7 +19,7 @@ export default function Home2Faq({ data }) {
     subtext = "Everything you need to know about our scope, coordination, contract lengths, and team structure.",
     faqs = [
       {
-        q: "How fast can we get started with E-Comet?",
+        q: "How fast can we get started with E-Comet Outverse?",
         a: "We initiate with the 48-Hour Growth Diagnostic Audit upon receiving read-only access. Once the roadmap and scope are approved, onboarding takes less than 5 business days to launch the first phase."
       },
       {

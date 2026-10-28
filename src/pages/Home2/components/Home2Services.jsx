@@ -132,9 +132,16 @@ export default function Home2Services({ data }) {
 
                   {/* Title & Tag */}
                   <div className="lg:col-span-5 space-y-2">
-                    <span className="font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-semibold block">
-                      {item.tag}
-                    </span>
+                    <div className="flex flex-wrap items-center gap-2">
+                      <span className="font-sans text-[11px] uppercase tracking-wider text-[#8A8A8A] font-semibold block">
+                        {item.tag}
+                      </span>
+                      {item.planet && (
+                        <span className="px-2 py-0.5 rounded-full bg-white/10 text-[9px] font-mono tracking-wider text-white/90 uppercase border border-white/15">
+                          {item.planet}
+                        </span>
+                      )}
+                    </div>
                     <h3 className="font-grotesk font-bold text-2xl sm:text-4xl text-[#FFFFFF] group-hover:translate-x-2 transition-transform duration-300">
                       {item.title}
                     </h3>

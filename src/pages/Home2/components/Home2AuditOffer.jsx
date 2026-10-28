@@ -75,7 +75,7 @@ export default function Home2AuditOffer({ data }) {
                   {auditFeatures.map((feat, idx) => (
                     <div key={idx} className="space-y-2 border-l border-[#333333] pl-4">
                       <span className="font-sans text-[11px] text-[#8A8A8A] block font-semibold">
-                        0{idx + 1} // CRITICAL AREA
+                        {feat.tag || `0${idx + 1} // CRITICAL AREA`}
                       </span>
                       <h3 className="font-grotesk font-bold text-base sm:text-lg text-[#FFFFFF]">
                         {feat.title}

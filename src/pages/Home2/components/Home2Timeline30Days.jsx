@@ -9,8 +9,9 @@ export default function Home2Timeline30Days({ data }) {
 
   const {
     eyebrow = "05 / ONBOARDING ROADMAP",
-    headline = "Your first 30 days.",
-    subtext = "Plain, concrete deliverables from day one. Exactly what happens when you partner with E-Comet.",
+    headline = "YOUR FIRST 30 DAYS.",
+    subtext = "Clear deliverables from day one. Here's what happens when you partner with E-Comet Outverse.",
+    footerStrip = "FLEXIBLE EXECUTION · SERVICE-SPECIFIC DELIVERABLES · INTEGRATED DIGITAL SOLUTIONS",
     weeks = [
       {
         week: "WEEK 01",
@@ -110,7 +111,7 @@ export default function Home2Timeline30Days({ data }) {
                     {item.week}
                   </span>
                   <span className="font-sans text-[10px] text-[#8A8A8A] uppercase tracking-wider font-semibold">
-                    PHASE 0{idx + 1}
+                    {item.phaseNumber || `PHASE 0${idx + 1}`}
                   </span>
                 </div>
 
@@ -129,11 +130,20 @@ export default function Home2Timeline30Days({ data }) {
               </div>
 
               <div className="pt-4 border-t border-[#E5E5E5] font-sans text-[11px] uppercase text-[#8A8A8A] font-semibold tracking-wider">
-                <span>Status: Day {idx * 7 + 1}–Day {(idx + 1) * 7}</span>
+                <span>{item.status || `STATUS: DAY ${String(idx * 7 + 1).padStart(2, '0')}–DAY ${String((idx + 1) * 7).padStart(2, '0')}`}</span>
               </div>
             </div>
           ))}
         </div>
+
+        {/* Bottom Verification Strip */}
+        {footerStrip && (
+          <div className="py-6 border-b border-[#E5E5E5] text-center">
+            <p className="font-mono text-xs sm:text-[12px] uppercase tracking-widest text-[#666666] font-semibold">
+              {footerStrip}
+            </p>
+          </div>
+        )}
 
       </div>
     </section>

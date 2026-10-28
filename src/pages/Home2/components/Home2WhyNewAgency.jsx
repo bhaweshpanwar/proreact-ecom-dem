@@ -6,6 +6,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home2WhyNewAgency({ data }) {
   const sectionRef = useRef(null);
+  const pinWrapperRef = useRef(null);
   const headingRef = useRef(null);
 
   const {
@@ -40,42 +41,72 @@ export default function Home2WhyNewAgency({ data }) {
   const greyWords = (pullQuoteGrey || "").split(/\s+/).filter(Boolean);
 
   useEffect(() => {
-    if (!sectionRef.current || !headingRef.current) return;
+    if (!pinWrapperRef.current || !headingRef.current) return;
     const words = headingRef.current.querySelectorAll('.quote-word');
     if (!words.length) return;
 
     const ctx = gsap.context(() => {
-      gsap.to(words, {
-        color: '#FFFFFF',
-        stagger: 0.1,
-        ease: 'none',
+      const isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
+      const scrollDistance = isMobile ? 1400 : 2200;
+
+      // Ensure initial color is visible muted gray
+      gsap.set(words, { color: '#555555' });
+
+      const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: headingRef.current,
-          start: 'top 80%',
-          end: 'bottom 40%',
-          scrub: 0.6,
+          trigger: pinWrapperRef.current,
+          start: 'top top',
+          end: `+=${scrollDistance}`,
+          pin: true,
+          pinSpacing: true,
+          scrub: 1.2,
+          anticipatePin: 1,
         }
       });
+
+      // Word-by-word gradual transition to pure white
+      tl.to(words, {
+        color: '#FFFFFF',
+        duration: 1,
+        stagger: 0.28,
+        ease: 'power1.inOut',
+      });
+
+      // Hold on all-white statement before releasing pin to next section
+      tl.to({}, { duration: 0.9 });
+
     }, sectionRef);
 
     return () => ctx.revert();
   }, [pullQuoteBlack, pullQuoteGrey]);
 
   return (
-    <section ref={sectionRef} className="relative border-b border-[#E5E5E5] overflow-hidden">
+    <section ref={sectionRef} className="relative border-b border-[#E5E5E5]">
       
-      {/* Top Half: Huge Pull-Quote Statement with Word-by-Word Color Scrub on Scroll */}
-      <div className="bg-[#000000] text-[#FFFFFF] py-20 sm:py-28 px-4 sm:px-8 border-b border-[#262626]">
+      {/* Top Half: Huge Pull-Quote Statement Pinned with Slow Scrub to Pure White */}
+      <div 
+        ref={pinWrapperRef}
+        className="relative w-full min-h-screen bg-[#000000] text-[#FFFFFF] flex flex-col justify-center py-20 sm:py-28 px-4 sm:px-8 lg:px-16 border-b border-[#262626]"
+      >
         <div className="w-full max-w-[1440px] mx-auto">
+          {eyebrow && (
+            <div className="mb-6 sm:mb-10 flex items-center gap-3">
+              <span className="font-mono text-xs sm:text-sm font-semibold tracking-widest text-[#8A8A8A] uppercase">
+                {eyebrow}
+              </span>
+              <span className="h-px w-8 bg-[#333333]" />
+            </div>
+          )}
+
           <h2 
             ref={headingRef}
             className="font-grotesk font-bold text-[clamp(36px,6.5vw,110px)] leading-[0.92] tracking-[-0.04em] uppercase"
           >
-            <span className="block mb-2 sm:mb-4">
+            <span className="block mb-3 sm:mb-6">
               {blackWords.map((word, idx) => (
                 <span 
                   key={`b-${idx}`} 
-                  className="quote-word inline-block mr-[0.24em] text-[#333333] will-change-[color]"
+                  className="quote-word inline-block mr-[0.24em] text-[#555555] will-change-[color]"
                 >
                   {word}
                 </span>
@@ -85,7 +116,7 @@ export default function Home2WhyNewAgency({ data }) {
               {greyWords.map((word, idx) => (
                 <span 
                   key={`g-${idx}`} 
-                  className="quote-word inline-block mr-[0.24em] text-[#333333] will-change-[color]"
+                  className="quote-word inline-block mr-[0.24em] text-[#555555] will-change-[color]"
                 >
                   {word}
                 </span>

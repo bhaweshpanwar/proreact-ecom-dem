@@ -7,7 +7,7 @@ export default function OrbitChatbot() {
     {
       id: 1,
       sender: 'bot',
-      text: "Welcome to E-Comet. I am your strategic practice navigator. How can we accelerate your brand's trajectory today?",
+      text: "Welcome to E-Comet Outverse. I am your strategic practice navigator. How can we accelerate your brand's trajectory today?",
       quickReplies: [
         'Audit my Amazon & Marketplace operations',
         'Explore Performance SEO & Ads',
