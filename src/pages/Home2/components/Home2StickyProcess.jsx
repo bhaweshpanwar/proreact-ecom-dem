@@ -34,7 +34,7 @@ export default function Home2StickyProcess({ data }) {
         "Unit Economic & Contribution Margin Model"
       ],
       buttonText: "Read the Discover Chapter",
-      bgColor: "#FF5226", // Vibrant Orange / Coral
+      bgColor: "#FFFFFF",
       image: "/images/space/process-discover-new.jpg"
     },
     {
@@ -51,7 +51,7 @@ export default function Home2StickyProcess({ data }) {
         "Conversion API (CAPI) & GA4 Tracking Setup"
       ],
       buttonText: "Read the Build Chapter",
-      bgColor: "#A485FF", // Vibrant Violet / Lavender
+      bgColor: "#FFFFFF",
       image: "/images/space/process-build-new.jpg"
     },
     {
@@ -68,7 +68,7 @@ export default function Home2StickyProcess({ data }) {
         "Live Margin & Blended ROAS Monitoring"
       ],
       buttonText: "Read the Launch Chapter",
-      bgColor: "#E9F835", // Vibrant Electric Acid Yellow
+      bgColor: "#FFFFFF",
       image: "/images/space/process-launch-new.jpg"
     },
     {
@@ -85,7 +85,7 @@ export default function Home2StickyProcess({ data }) {
         "High-Velocity Creative Testing & Iteration"
       ],
       buttonText: "Read the Grow Chapter",
-      bgColor: "#00D2FF", // Vibrant Electric Cyan / Azure
+      bgColor: "#FFFFFF",
       image: "/images/space/quan-you-zhang-8jW6xCtmYsw-unsplash.jpg"
     }
   ];
@@ -149,7 +149,7 @@ export default function Home2StickyProcess({ data }) {
             key={idx}
             ref={(el) => (cardRefs.current[idx] = el)}
             style={{ backgroundColor: step.bgColor || defaultSteps[idx]?.bgColor }}
-            className="absolute inset-0 w-full h-full text-[#0A0A0A] overflow-hidden flex flex-col justify-between px-6 sm:px-12 lg:px-20 py-8 sm:py-12 lg:py-14 will-change-transform"
+            className="absolute inset-0 w-full h-full text-[#0A0A0A] overflow-hidden flex flex-col justify-between px-6 sm:px-12 lg:px-20 pt-20 sm:pt-24 lg:pt-28 pb-8 sm:pb-10 lg:pb-12 border-b border-[#E5E5E5] will-change-transform"
           >
             <div className="w-full max-w-[1440px] mx-auto h-full flex flex-col justify-between">
               

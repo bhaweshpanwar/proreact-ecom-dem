@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import MegaMenu from './MegaMenu';
 import MobileDrawer from './MobileDrawer';
@@ -6,8 +6,45 @@ import MobileDrawer from './MobileDrawer';
 export default function Header() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(true);
+  const lastScrollY = useRef(0);
   const timeoutRef = useRef(null);
   const location = useLocation();
+
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const currentScrollY = window.scrollY;
+
+          // Always show header at the very top of the page
+          if (currentScrollY <= 60) {
+            setIsVisible(true);
+          } else {
+            const diff = currentScrollY - lastScrollY.current;
+            // Scrolling down by more than 8px -> hide header
+            if (diff > 8) {
+              setIsVisible(false);
+              setActiveMenu(null);
+            } 
+            // Scrolling up by more than 6px -> show header
+            else if (diff < -6) {
+              setIsVisible(true);
+            }
+          }
+
+          lastScrollY.current = currentScrollY;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleMouseEnter = (menuName) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -32,7 +69,12 @@ export default function Header() {
 
   return (
     <>
-      <header id="main-header" className="fixed top-0 left-0 right-0 h-14 sm:h-16 lg:h-20 bg-white border-b border-slate-200 shadow-sm z-50 flex items-center transition-all duration-300">
+      <header 
+        id="main-header" 
+        className={`fixed top-0 left-0 right-0 h-14 sm:h-16 lg:h-20 bg-white border-b border-slate-200 shadow-sm z-50 flex items-center transition-transform duration-300 ease-in-out ${
+          isVisible || mobileOpen || activeMenu ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
         <div className="w-full max-w-[1360px] h-full mx-auto px-3 sm:px-6 lg:px-8 flex items-center justify-between gap-3 sm:gap-4">
           
           {/* Brand Logo: Clean bold sans-serif typography */}

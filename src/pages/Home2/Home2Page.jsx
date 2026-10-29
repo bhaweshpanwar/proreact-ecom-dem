@@ -173,7 +173,7 @@ const HOME2_CONTENT = {
           "Unit Economic & Contribution Margin Model"
         ],
         buttonText: "Read the Discover Chapter",
-        bgColor: "#FF5226", // Vibrant Orange / Coral
+        bgColor: "#FFFFFF",
         image: "/images/space/process-discover-new.jpg"
       },
       {
@@ -190,7 +190,7 @@ const HOME2_CONTENT = {
           "Conversion API (CAPI) & GA4 Tracking Setup"
         ],
         buttonText: "Read the Build Chapter",
-        bgColor: "#9B72FF", // Vibrant Violet / Lavender
+        bgColor: "#FFFFFF",
         image: "/images/space/process-build-new.jpg"
       },
       {
@@ -207,7 +207,7 @@ const HOME2_CONTENT = {
           "Live Margin & Blended ROAS Monitoring"
         ],
         buttonText: "Read the Launch Chapter",
-        bgColor: "#E9F835", // Vibrant Electric Acid Yellow
+        bgColor: "#FFFFFF",
         image: "/images/space/process-launch-new.jpg"
       },
       {
@@ -224,7 +224,7 @@ const HOME2_CONTENT = {
           "High-Velocity Creative Testing & Iteration"
         ],
         buttonText: "Read the Grow Chapter",
-        bgColor: "#00D2FF", // Vibrant Electric Cyan / Azure
+        bgColor: "#FFFFFF",
         image: "/images/space/quan-you-zhang-8jW6xCtmYsw-unsplash.jpg"
       }
     ]
