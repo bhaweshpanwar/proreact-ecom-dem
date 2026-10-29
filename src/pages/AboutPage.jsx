@@ -10,6 +10,9 @@ gsap.registerPlugin(ScrollTrigger);
 export default function AboutPage() {
   const containerRef = useRef(null);
   const heroRef = useRef(null);
+  const roadmapSectionRef = useRef(null);
+  const roadmapTrackRef = useRef(null);
+  const roadmapProgressBarRef = useRef(null);
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -42,20 +45,37 @@ export default function AboutPage() {
         }
       );
 
-      // 2. Scroll Scrub for Philosophy Section Headline
+      // Hero Parallax Background Drift
+      gsap.to('.about-hero-bg-img', {
+        yPercent: 18,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: heroRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.6,
+        }
+      });
+
+      // 2. Scroll Scrub for Philosophy Section Headline (lights up from dark gray to pure white)
       const philWords = containerRef.current?.querySelectorAll('.phil-scrub-word');
       if (philWords && philWords.length > 0) {
-        gsap.to(philWords, {
-          color: '#000000',
-          stagger: 0.08,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: '.sec-philosophy-heading',
-            start: 'top 85%',
-            end: 'bottom 40%',
-            scrub: 0.6
+        gsap.fromTo(
+          philWords,
+          { color: '#333333', opacity: 0.25 },
+          {
+            color: '#FFFFFF',
+            opacity: 1,
+            stagger: 0.08,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.sec-philosophy-heading',
+              start: 'top 85%',
+              end: 'bottom 45%',
+              scrub: 0.6
+            }
           }
-        });
+        );
       }
 
       // 3. Stagger for Discipline Cards
@@ -94,23 +114,44 @@ export default function AboutPage() {
         }
       );
 
-      // 5. Framework Steps Entrance
-      gsap.fromTo(
-        '.framework-step-card',
-        { y: 35, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.7,
-          stagger: 0.09,
-          ease: 'power3.out',
+      // 5. Pinned Horizontal Scroll for the 5-Stage Execution Roadmap (Desktop lg: 1024px+)
+      const mm = gsap.matchMedia();
+
+      mm.add("(min-width: 1024px)", () => {
+        const track = roadmapTrackRef.current;
+        const section = roadmapSectionRef.current;
+        if (!track || !section) return;
+
+        const getScrollDistance = () => track.scrollWidth - window.innerWidth + 120;
+
+        const hScrollTl = gsap.timeline({
           scrollTrigger: {
-            trigger: '.sec-framework-grid',
-            start: 'top 80%',
-            toggleActions: 'play none none none'
+            trigger: section,
+            start: "top top",
+            end: () => `+=${getScrollDistance() + 350}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
           }
+        });
+
+        // Horizontal translation of the cards track
+        hScrollTl.to(track, {
+          x: () => -getScrollDistance(),
+          ease: "none",
+        }, 0);
+
+        // Global progress bar animation from 20% to 100%
+        if (roadmapProgressBarRef.current) {
+          hScrollTl.fromTo(
+            roadmapProgressBarRef.current,
+            { scaleX: 0.2 },
+            { scaleX: 1.0, ease: "none" },
+            0
+          );
         }
-      );
+      });
     }, containerRef);
 
     return () => ctx.revert();
@@ -681,20 +722,20 @@ export default function AboutPage() {
                   key={idx}
                   className="value-row-anim group py-8 sm:py-10 transition-colors duration-300 hover:bg-[#F9F9F9] px-4 -mx-4 cursor-pointer"
                 >
-                  <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-baseline">
+                  <div className="grid grid-cols-1 lg:grid-cols-12 gap-3 lg:gap-8 items-start">
                     
-                    {/* Number */}
-                    <div className="sm:col-span-3 flex items-center justify-between sm:block">
-                      <span className="font-sans text-xs sm:text-sm uppercase tracking-wider text-neutral-400 font-semibold block mb-1">
-                        [{val.num}] // {val.tag}
+                    {/* Title & Clean Tag (Zero [03] // clutter) */}
+                    <div className="lg:col-span-5 space-y-1">
+                      <span className="font-mono text-[11px] sm:text-xs uppercase tracking-widest text-neutral-400 font-medium block">
+                        {val.tag}
                       </span>
-                      <h3 className="font-grotesk font-bold text-2xl sm:text-3xl uppercase text-[#000000] group-hover:translate-x-1 transition-transform">
+                      <h3 className="font-grotesk font-bold text-xl sm:text-2xl lg:text-3xl uppercase text-[#000000] group-hover:translate-x-1 transition-transform tracking-tight">
                         {val.title}
                       </h3>
                     </div>
 
                     {/* Description & Detail */}
-                    <div className="sm:col-span-9 space-y-2">
+                    <div className="lg:col-span-7 space-y-2 pt-0.5">
                       <p className="font-sans text-sm sm:text-base text-neutral-900 font-medium leading-relaxed">
                         {val.desc}
                       </p>
@@ -714,62 +755,86 @@ export default function AboutPage() {
       </section>
 
       {/* ===================================================================== */}
-      {/* 6. THE 5-STAGE EXECUTION ROADMAP: HORIZONTAL FRAMEWORK                */}
+      {/* 6. THE 5-STAGE EXECUTION ROADMAP: PINNED HORIZONTAL SCROLL            */}
       {/* ===================================================================== */}
-      <section className="sec-framework-grid relative py-20 sm:py-32 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
-        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
-          
-          <div className="max-w-3xl mb-12 sm:mb-16 space-y-3">
-            <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
-              THE EXECUTION ROADMAP
-            </span>
-            <h2 className="font-grotesk font-bold text-[clamp(36px,5.5vw,80px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
+      <section 
+        ref={roadmapSectionRef}
+        className="sec-roadmap-pin relative py-20 lg:py-28 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden"
+      >
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 mb-8 sm:mb-12 flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <div className="space-y-3 max-w-2xl">
+            <div className="flex items-center gap-3">
+              <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+                THE EXECUTION ROADMAP
+              </span>
+              <span className="hidden lg:inline-flex items-center gap-1.5 px-2.5 py-0.5 bg-white/10 text-[10px] font-mono text-white/90 border border-white/15">
+                <span>SCROLL HORIZONTALLY</span>
+                <span>→</span>
+              </span>
+            </div>
+            <h2 className="font-grotesk font-bold text-[clamp(32px,5vw,72px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
               A structured roadmap from discovery to delivery.
             </h2>
-            <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-xl">
-              Systematic phases designed to eliminate guesswork, establish clear accountability, and compound margin.
-            </p>
           </div>
+          <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-md">
+            Systematic phases designed to eliminate guesswork, establish clear accountability, and compound margin.
+          </p>
+        </div>
 
-          {/* 5 Sequential Framework Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-4 sm:gap-5">
+        {/* Live Scrubbed Global Horizontal Progress Line */}
+        <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8 mb-8">
+          <div className="w-full h-[2px] bg-white/10 relative overflow-hidden">
+            <div 
+              ref={roadmapProgressBarRef}
+              className="h-full bg-white will-change-transform origin-left"
+              style={{ transform: "scaleX(0.2)" }}
+            />
+          </div>
+        </div>
+
+        {/* Pinned Horizontal Track of 5 Cards */}
+        <div className="w-full overflow-hidden px-4 sm:px-8">
+          <div 
+            ref={roadmapTrackRef} 
+            className="flex flex-nowrap gap-5 lg:gap-6 will-change-transform overflow-x-auto lg:overflow-visible pb-4 lg:pb-0 snap-x snap-mandatory no-scrollbar"
+          >
             {frameworkSteps.map((step, idx) => (
               <div
                 key={idx}
-                className="framework-step-card group bg-[#0A0A0A] border border-[#262626] hover:border-[#666666] p-6 sm:p-7 flex flex-col justify-between space-y-6 transition-colors"
+                className="roadmap-card w-[320px] sm:w-[380px] lg:w-[440px] flex-shrink-0 snap-start bg-[#0A0A0A] border border-[#262626] hover:border-white p-7 sm:p-8 flex flex-col justify-between space-y-8 transition-colors duration-300 select-none group"
               >
                 <div>
-                  <div className="flex items-center justify-between pb-3 border-b border-[#262626] mb-4">
-                    <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-[#8A8A8A]">
+                  <div className="flex items-center justify-between pb-4 border-b border-[#262626] mb-5">
+                    <span className="font-mono text-xs font-semibold uppercase tracking-widest text-[#8A8A8A]">
                       {step.stage}
                     </span>
-                    <span className="font-sans text-[10px] font-bold text-[#FFFFFF]">
+                    <span className="font-mono text-sm font-bold text-white px-2 py-0.5 bg-white/10 border border-white/15">
                       0{idx + 1}
                     </span>
                   </div>
 
-                  <h3 className="font-grotesk font-bold text-xl sm:text-2xl uppercase text-[#FFFFFF] mb-2 group-hover:text-[#FFFFFF]">
+                  <h3 className="font-grotesk font-bold text-2xl sm:text-3xl uppercase text-white mb-3 group-hover:text-white transition-colors">
                     {step.name}
                   </h3>
 
-                  <p className="font-grotesk text-xs sm:text-sm text-[#A3A3A3] leading-relaxed mb-3">
+                  <p className="font-sans text-sm text-[#A3A3A3] leading-relaxed mb-4 font-normal">
                     {step.summary}
                   </p>
 
-                  <p className="font-grotesk text-[11px] text-[#666666] leading-relaxed">
+                  <p className="font-sans text-xs text-[#666666] leading-relaxed">
                     {step.execution}
                   </p>
                 </div>
 
                 {/* Progress Metric Bar */}
                 <div className="w-full pt-4 border-t border-[#262626]">
-                  <div className="flex items-center justify-between text-[10px] font-sans text-[#8A8A8A] mb-1.5 uppercase font-semibold">
-                    <span>PROGRESS</span>
-                    <span className="text-[#FFFFFF]">{step.percent}</span>
+                  <div className="flex items-center justify-between text-[11px] font-mono text-[#8A8A8A] mb-2 uppercase font-semibold">
+                    <span>STAGE COMPLETION</span>
+                    <span className="text-white font-bold">{step.percent}</span>
                   </div>
                   <div className="w-full h-1 bg-[#1A1A1A] overflow-hidden">
                     <div 
-                      className="h-full bg-[#FFFFFF] transition-all duration-700"
+                      className="h-full bg-white transition-all duration-700"
                       style={{ width: step.percent }}
                     />
                   </div>
@@ -778,7 +843,6 @@ export default function AboutPage() {
               </div>
             ))}
           </div>
-
         </div>
       </section>
 

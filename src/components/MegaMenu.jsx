@@ -49,7 +49,7 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
             <button 
               type="button" 
               onClick={onClose}
-              className="w-8 h-8 rounded-full bg-slate-100 hover:bg-[#080B10] hover:text-white text-slate-600 flex items-center justify-center text-xs font-bold transition-colors cursor-pointer"
+              className="w-8 h-8 rounded-none border border-slate-200 bg-slate-50 hover:bg-[#080B10] hover:text-white text-slate-700 flex items-center justify-center text-xs font-bold transition-colors cursor-pointer"
               aria-label="Close menu"
             >
               ✕
@@ -75,10 +75,10 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
                       key={pillar.id}
                       onMouseEnter={() => setSelectedPillarId(pillar.id)}
                       onClick={() => setSelectedPillarId(pillar.id)}
-                      className={`group p-3.5 rounded-2xl border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 ${
+                      className={`group p-3.5 rounded-none border transition-all duration-200 cursor-pointer flex items-center justify-between gap-3 ${
                         isActive
-                          ? 'bg-[#080B10] text-white border-[#080B10] shadow-md'
-                          : 'bg-[#FAFAFA] text-space-950 border-stone-200/90 hover:bg-white hover:border-space-950 hover:shadow-xs'
+                          ? 'bg-[#080B10] text-white border-[#080B10] shadow-sm'
+                          : 'bg-[#FAFAFA] text-space-950 border-stone-200/90 hover:bg-white hover:border-[#080B10]'
                       }`}
                     >
                       <div className="flex items-center gap-3 min-w-0">
@@ -116,13 +116,13 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
             {/* ─────────────────────────────────────────────────────────────
                 2. RIGHT DETAIL STAGE: ACTIVE PILLAR DIVISIONS & SERVICES
                ───────────────────────────────────────────────────────────── */}
-            <div className="flex-1 bg-white rounded-[28px] border border-stone-200/90 p-6 sm:p-8 flex flex-col justify-between overflow-hidden shadow-xs">
+            <div className="flex-1 bg-white rounded-none border border-stone-200/90 p-6 sm:p-8 flex flex-col justify-between overflow-hidden shadow-xs">
               
               {/* Pillar Title Banner */}
               <div className="pb-5 border-b border-stone-200/80 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                 <div className="max-w-2xl">
                   <div className="flex items-center gap-2 mb-1.5">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider bg-[#080B10] text-white">
+                    <span className="px-2.5 py-0.5 rounded-none text-[10px] font-mono font-bold uppercase tracking-wider bg-[#080B10] text-white">
                       PILLAR {activePillar.number}
                     </span>
                     <span className="text-[11px] font-mono text-slate-500 uppercase tracking-wider">
@@ -143,7 +143,7 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
                 <Link
                   to={activePillar.primarySlug}
                   onClick={onClose}
-                  className="self-start sm:self-center px-5 py-2.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-xs font-semibold tracking-wide transition-all shadow-sm inline-flex items-center gap-2 whitespace-nowrap cursor-pointer hover:scale-105 active:scale-95"
+                  className="self-start sm:self-center px-5 py-2.5 rounded-none bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-xs font-bold uppercase tracking-wider transition-all shadow-sm inline-flex items-center gap-2 whitespace-nowrap cursor-pointer hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <span>Explore {activePillar.shortTitle} Overview</span>
                   <span>→</span>
@@ -159,7 +159,7 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
                     : 'grid-cols-1 sm:grid-cols-2 xl:grid-cols-3'
               }`}>
                 {activePillar.divisions.map((division, dIdx) => (
-                  <div key={dIdx} className="space-y-3 bg-[#FAFAFA] rounded-2xl p-4 sm:p-5 border border-stone-200/80 hover:bg-white hover:border-space-950 hover:shadow-sm transition-all duration-300 flex flex-col justify-between">
+                  <div key={dIdx} className="space-y-3 bg-[#FAFAFA] rounded-none p-4 sm:p-5 border border-stone-200/80 hover:bg-white hover:border-[#080B10] transition-all duration-200 flex flex-col justify-between">
                     <div>
                       {/* Category Heading */}
                       <div className="pb-2.5 border-b border-stone-200/70 mb-3">
@@ -200,7 +200,7 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
           </div>
 
           {/* Bottom Bar: Multi-Pillar Commercial Scope Consultation */}
-          <div className="mt-6 pt-5 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#FAFAFA] p-4 sm:p-5 rounded-2xl border border-stone-200/90">
+          <div className="mt-6 pt-5 border-t border-stone-200 flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#FAFAFA] p-4 sm:p-5 rounded-none border border-stone-200/90">
             <div className="flex items-center gap-3">
               <span className="text-xs font-sans text-slate-700 leading-relaxed">
                 <strong>Need a custom cross-pillar scope?</strong> E-Comet unifies marketplace growth, web engineering, performance advertising, creative design, and video production under one unified operational governance.
@@ -210,7 +210,7 @@ export default function MegaMenu({ activeMenu, onClose, onMouseEnter, onMouseLea
             <a 
               href="/#closing"
               onClick={onClose}
-              className="px-6 py-2.5 rounded-full bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-xs font-semibold whitespace-nowrap transition-all shadow-sm cursor-pointer hover:scale-105 active:scale-95 flex-shrink-0"
+              className="px-6 py-2.5 rounded-none bg-[#080B10] hover:bg-[#252B36] text-white font-sans text-xs font-bold uppercase tracking-wider whitespace-nowrap transition-all shadow-sm cursor-pointer hover:scale-[1.02] active:scale-[0.98] flex-shrink-0"
             >
               Request Custom Blueprint →
             </a>
