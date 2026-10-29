@@ -646,59 +646,59 @@ export default function AboutPage() {
       {/* ===================================================================== */}
       {/* 5. THE 5 OPERATING VALUES: INTERACTIVE SLATE                           */}
       {/* ===================================================================== */}
-      <section className="relative py-20 sm:py-32 bg-[#000000] text-[#FFFFFF] border-b border-[#262626] overflow-hidden">
+      <section className="relative py-20 sm:py-32 bg-[#FFFFFF] text-[#000000] border-b border-[#E5E5E5] overflow-hidden">
         <div className="w-full max-w-[1440px] mx-auto px-4 sm:px-8">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
             
             {/* Sticky Left Editorial Column */}
             <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-6">
-              <span className="font-sans text-xs uppercase tracking-widest text-[#8A8A8A] font-bold block">
+              <span className="font-sans text-xs uppercase tracking-widest text-neutral-500 font-semibold block">
                 OUR OPERATING PRINCIPLES
               </span>
-              <h2 className="font-grotesk font-bold text-[clamp(36px,5vw,70px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#FFFFFF]">
+              <h2 className="font-grotesk font-bold text-[clamp(36px,5vw,70px)] leading-[0.94] tracking-[-0.035em] uppercase text-[#000000]">
                 Five values that define how we work.
               </h2>
-              <p className="font-grotesk text-sm sm:text-base text-[#A3A3A3] leading-relaxed max-w-md">
+              <p className="font-sans text-sm sm:text-base text-neutral-600 leading-relaxed max-w-md font-normal">
                 We hold ourselves to straightforward standards that prioritize client clarity, scope integrity, and genuine business value over unnecessary complexity.
               </p>
 
               {/* Decorative Live Telemetry Box */}
-              <div className="p-5 bg-[#0A0A0A] border border-[#262626] space-y-2">
-                <span className="font-sans text-[10px] uppercase tracking-widest text-[#FFFFFF] font-bold block">
+              <div className="p-5 bg-[#F9F9F9] border border-[#E5E5E5] space-y-2">
+                <span className="font-sans text-[10px] uppercase tracking-widest text-[#000000] font-bold block">
                   GOVERNANCE STATUS
                 </span>
-                <p className="font-grotesk text-xs text-[#8A8A8A]">
+                <p className="font-sans text-xs text-neutral-500 font-normal">
                   Zero arbitrary retainers. 100% written accountability on all five pillars.
                 </p>
               </div>
             </div>
 
             {/* Right Column: 5 Stacked Value Rows */}
-            <div className="sec-values-list lg:col-span-7 divide-y divide-[#262626] border-y border-[#262626]">
+            <div className="sec-values-list lg:col-span-7 divide-y divide-[#E5E5E5] border-y border-[#E5E5E5]">
               {values.map((val, idx) => (
                 <div
                   key={idx}
-                  className="value-row-anim group py-8 sm:py-10 transition-colors duration-300 hover:bg-[#0A0A0A] px-4 -mx-4 cursor-pointer"
+                  className="value-row-anim group py-8 sm:py-10 transition-colors duration-300 hover:bg-[#F9F9F9] px-4 -mx-4 cursor-pointer"
                 >
                   <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 sm:gap-6 items-baseline">
                     
                     {/* Number */}
                     <div className="sm:col-span-3 flex items-center justify-between sm:block">
-                      <span className="font-sans text-xs sm:text-sm uppercase tracking-wider text-[#8A8A8A] font-bold block mb-1">
+                      <span className="font-sans text-xs sm:text-sm uppercase tracking-wider text-neutral-400 font-semibold block mb-1">
                         [{val.num}] // {val.tag}
                       </span>
-                      <h3 className="font-grotesk font-bold text-2xl sm:text-3xl uppercase text-[#FFFFFF] group-hover:translate-x-1 transition-transform">
+                      <h3 className="font-grotesk font-bold text-2xl sm:text-3xl uppercase text-[#000000] group-hover:translate-x-1 transition-transform">
                         {val.title}
                       </h3>
                     </div>
 
                     {/* Description & Detail */}
                     <div className="sm:col-span-9 space-y-2">
-                      <p className="font-grotesk text-sm sm:text-base text-[#FFFFFF] leading-relaxed">
+                      <p className="font-sans text-sm sm:text-base text-neutral-900 font-medium leading-relaxed">
                         {val.desc}
                       </p>
-                      <p className="font-grotesk text-xs sm:text-sm text-[#8A8A8A] leading-relaxed">
+                      <p className="font-sans text-xs sm:text-sm text-neutral-500 font-normal leading-relaxed">
                         {val.detail}
                       </p>
                     </div>
