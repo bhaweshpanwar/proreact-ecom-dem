@@ -57,14 +57,14 @@ export default function AboutPage() {
         }
       });
 
-      // 2. Scroll Scrub for Philosophy Section Headline (lights up from dark gray to pure white)
+      // 2. Scroll Scrub for Philosophy Section Headline (scrubs from muted light gray to bold pitch black on white bg)
       const philWords = containerRef.current?.querySelectorAll('.phil-scrub-word');
       if (philWords && philWords.length > 0) {
         gsap.fromTo(
           philWords,
-          { color: '#333333', opacity: 0.25 },
+          { color: '#D4D4D8', opacity: 0.3 },
           {
-            color: '#FFFFFF',
+            color: '#000000',
             opacity: 1,
             stagger: 0.08,
             ease: 'none',
@@ -427,7 +427,7 @@ export default function AboutPage() {
             <div className="lg:col-span-8">
               <h2 className="sec-philosophy-heading font-grotesk font-bold text-[clamp(32px,5vw,76px)] leading-[0.98] tracking-[-0.035em] uppercase mb-8">
                 {philWords.map((word, idx) => (
-                  <span key={idx} className="phil-scrub-word inline-block mr-[0.24em] text-[#CCCCCC] will-change-[color]">
+                  <span key={idx} className="phil-scrub-word inline-block mr-[0.24em] text-[#D4D4D8] will-change-[color,opacity]">
                     {word}
                   </span>
                 ))}
